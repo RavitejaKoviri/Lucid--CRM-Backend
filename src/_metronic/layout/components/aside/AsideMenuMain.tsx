@@ -202,6 +202,13 @@ export function AsideMenuMain() {
           fontIcon='bi-card-text fs-3'
         />
       </AsideMenuItemWithSubMain>
+      <AsideMenuItem
+        to='/targets'
+        title="Targets"
+        fontIcon='bi-card-text fs-3'
+        bsTitle={"Targets"}
+        className='py-2'
+      />
     </>
   )
 }

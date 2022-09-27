@@ -153,6 +153,7 @@ export function MenuInner() {
       >
         <MegaMenu />
       </MenuInnerWithSub>
+      <MenuItem title='Targets' to='/targets' />
     </>
   )
 }
