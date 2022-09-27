@@ -14,7 +14,10 @@ const PrivateRoutes = () => {
   const AccountPage = lazy(() => import('../modules/accounts/AccountPage'))
   const WidgetsPage = lazy(() => import('../modules/widgets/WidgetsPage'))
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
+  const InboxPage = lazy(() => import('../modules/apps/chat/InboxPage'))
   const UsersPage = lazy(() => import('../modules/apps/user-management/UsersPage'))
+  const LeadsPage = lazy(() => import('../modules/apps/leads/LeadsPage'))
+  const UserContactsPage = lazy(() => import('../modules/apps/user-contacts/UserContactsPage'))
 
   return (
     <Routes>
@@ -67,10 +70,34 @@ const PrivateRoutes = () => {
           }
         />
         <Route
+          path='apps/inbox/*'
+          element={
+            <SuspensedView>
+              <InboxPage />
+            </SuspensedView>
+          }
+        />
+        <Route
           path='apps/user-management/*'
           element={
             <SuspensedView>
               <UsersPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='apps/leads/*'
+          element={
+            <SuspensedView>
+              <LeadsPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='apps/user-contacts/*'
+          element={
+            <SuspensedView>
+              <UserContactsPage />
             </SuspensedView>
           }
         />

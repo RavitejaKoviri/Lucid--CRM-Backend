@@ -143,6 +143,27 @@ export function AsideMenuMain() {
             hasBullet={true}
           />
         </AsideMenuItemWithSub>
+
+        <AsideMenuItemWithSub to='/apps/inbox' title='Inbox' hasBullet={true}>
+          <AsideMenuItem
+            to='/apps/inbox/messages'
+            title='Messages'
+            bsTitle='Messages'
+            hasBullet={true}
+          />
+          <AsideMenuItem
+            to='/apps/inbox/compose'
+            title='Compose'
+            bsTitle='Compose'
+            hasBullet={true}
+          />
+          <AsideMenuItem
+            to='/apps/inbox/view-reply'
+            title='View & Reply'
+            bsTitle='View & Reply'
+            hasBullet={true}
+          />
+        </AsideMenuItemWithSub>
         <AsideMenuItemWithSub to='/error' title='Errors' hasBullet={true}>
           <AsideMenuItem to='/error/404' title='Error 404' hasBullet={true} />
           <AsideMenuItem to='/error/500' title='Error 500' hasBullet={true} />
@@ -152,6 +173,18 @@ export function AsideMenuMain() {
           title='User management'
           hasBullet={true}
           bsTitle='User management'
+        />
+        <AsideMenuItem
+          to='/apps/user-contacts/users'
+          title='User Contacts'
+          hasBullet={true}
+          bsTitle='User Contacts'
+        />
+        <AsideMenuItem
+          to='/apps/leads/list'
+          title='Leads'
+          hasBullet={true}
+          bsTitle='Leads'
         />
       </AsideMenuItemWithSubMain>
 

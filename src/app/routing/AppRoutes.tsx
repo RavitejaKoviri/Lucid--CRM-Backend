@@ -20,7 +20,8 @@ import {App} from '../newApp'
 const {PUBLIC_URL} = process.env
 
 const AppRoutes: FC = () => {
-  const {currentUser} = useAuth()
+  // const {currentUser} = useAuth()
+  const currentUser = true
   return (
     <BrowserRouter basename={PUBLIC_URL}>
       <Routes>
