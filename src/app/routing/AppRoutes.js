@@ -20,14 +20,14 @@ import { shallowEqual, useSelector } from "react-redux";
  */
 const {PUBLIC_URL} = process.env
 
-const AppRoutes: FC = () => {
+const AppRoutes = () => {
   // const {currentUser} = useAuth()
   const { isAuthorized } = useSelector(
     ( {auth} ) => ({
         isAuthorized: auth.user != null,
     }),
     shallowEqual
-);
+  );
   // const currentUser = true
   return (
     <BrowserRouter basename={PUBLIC_URL}>
