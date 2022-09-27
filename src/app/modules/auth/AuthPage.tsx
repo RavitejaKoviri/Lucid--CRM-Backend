@@ -4,6 +4,11 @@ import {Outlet, Route, Routes} from 'react-router-dom'
 import {Registration} from './components/Registration'
 import {ForgotPassword} from './components/ForgotPassword'
 import {Login} from './components/Login'
+import {Signin} from './components/SignIn'
+import {Signup} from './components/SignUp'
+import {ResetPassword} from './components/ResetPassword'
+import {NewPassword} from './components/NewPassword'
+import {TwoSteps} from './components/TwoSteps'
 import {toAbsoluteUrl} from '../../../_metronic/helpers'
 
 const AuthLayout = () => {
@@ -58,11 +63,13 @@ const AuthLayout = () => {
 
 const AuthPage = () => (
   <Routes>
-    <Route element={<AuthLayout />}>
-      <Route path='login' element={<Login />} />
-      <Route path='registration' element={<Registration />} />
-      <Route path='forgot-password' element={<ForgotPassword />} />
-      <Route index element={<Login />} />
+    <Route>
+      <Route path='login' element={<Signin />} />
+      <Route path='registration' element={<Signup />} />
+      <Route path='forgot-password' element={<ResetPassword />} />
+      <Route path='new-password' element={<NewPassword />} />
+      <Route path='two-steps' element={<TwoSteps />} />
+      <Route index element={<Signin />} />
     </Route>
   </Routes>
 )
