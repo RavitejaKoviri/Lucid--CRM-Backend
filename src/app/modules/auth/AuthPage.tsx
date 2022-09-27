@@ -35,7 +35,7 @@ const AuthLayout = () => {
         {/* end::Logo */}
         {/* begin::Wrapper */}
         <div className='w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto'>
-          <Outlet />
+          {/* <Outlet /> */}
         </div>
         {/* end::Wrapper */}
       </div>
@@ -44,7 +44,7 @@ const AuthLayout = () => {
       <div className='d-flex flex-center flex-column-auto p-10'>
         <div className='d-flex align-items-center fw-bold fs-6'>
           <a href='#' className='text-muted text-hover-primary px-2'>
-            About
+            Aboueeet
           </a>
 
           <a href='#' className='text-muted text-hover-primary px-2'>
