@@ -81,6 +81,13 @@ export function AsideMenuMain() {
         bsTitle={"Targets"}
         className='py-2'
       />
+      <AsideMenuItem
+        to='/editer'
+        title="Editer"
+        fontIcon='bi-card-text fs-3'
+        bsTitle={"Editer"}
+        className='py-2'
+      />
 
       <AsideMenuItemWithSubMain
         to='/crafted/pages'

@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {useIntl} from 'react-intl'
 import {PageTitle} from '../../../_metronic/layout/core'
 import {
@@ -13,7 +13,7 @@ import {
   TablesWidget11,
   MixedWidget6,
 } from '../../../_metronic/partials/widgets'
-import {TargetIndex} from '../targets/targetsUi/TargetIndex'
+import {TargetIndex} from './targetsUi/TargetIndex'
 
 const TargetsPage = () => {
   useEffect(() => {
