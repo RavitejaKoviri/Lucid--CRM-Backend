@@ -80,7 +80,8 @@ export const actions = {
   //   type: actionTypes.UserRolesRequested,
   //   payload: { user },
   // }),
-  fulfillUser: (user) => ({ type: actionTypes.UserLoaded, payload: { user } }),
+  fulfillUser: (user) => (
+    console.log("hey buddy im in authredux"), { type: actionTypes.UserLoaded, payload: { user } }),
   //  fulfillUserRoles: (userRoles,user) => ({ type: actionTypes.UserRolesLoaded, payload: { userRoles,user } }),
 
   setUser: (user) => ({ type: actionTypes.SetUser, payload: { user } }),

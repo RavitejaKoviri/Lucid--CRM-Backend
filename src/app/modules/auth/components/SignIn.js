@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 // import {getUserByToken, login} from '../core/_requests'
 import { toAbsoluteUrl } from '../../../../_metronic/helpers'
-// import {useAuth} from '../core/Auth'
-// import * as auth from "../_redux/authRedux";
+// import {useAuth} from '../core/Auth';
+import { FormattedMessage, injectIntl } from "react-intl";
+import { connect } from "react-redux";
 import { login } from "../_redux/authCrud";
+import * as auth from "../_redux/authRedux";
 const loginSchema = Yup.object().shape({
   identifier: Yup.string()
     // .email('Wrong email format')
@@ -32,7 +34,7 @@ const initialValues = {
   https://medium.com/@maurice.de.beijer/yup-validation-and-typescript-and-formik-6c342578a20e
 */
 
-export function Signin(props) {
+function Signin(props) {
   const [loading, setLoading] = useState(false)
   // const {saveAuth, setCurrentUser} = useAuth()
 
@@ -73,7 +75,7 @@ export function Signin(props) {
             return response.data;
           })
           .then(data => {
-            console.log(data)
+            console.log("eee",data)
             disableLoading();
 
             props.login(data.jwt);
@@ -283,3 +285,6 @@ export function Signin(props) {
     </div>
   )
 }
+
+export default injectIntl(connect(null, auth.actions)(Signin));
+

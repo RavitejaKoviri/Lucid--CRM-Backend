@@ -42,13 +42,15 @@ if (container) {
   createRoot(container).render(
     <QueryClientProvider client={queryClient}>
       <MetronicI18nProvider>
-        <AuthProvider>
+        
         <Provider store={store}>
-    <PersistGate persistor={persistor}>
+          <PersistGate persistor={persistor}>
+          <AuthProvider>
           <AppRoutes />
+          </AuthProvider>
           </PersistGate>
           </Provider>
-        </AuthProvider>
+        
       </MetronicI18nProvider>
       {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
