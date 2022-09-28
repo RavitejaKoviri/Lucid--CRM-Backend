@@ -119,29 +119,12 @@ export function MenuInner() {
           to='/apps/user-management/users'
           title='User management'
         />
-        <MenuItem
+        {/* <MenuItem
           icon='/media/icons/duotune/general/gen051.svg'
           to='/apps/leads/list'
           title='Leads'
-        />
-        <MenuItem
-          icon='/media/icons/duotune/general/gen051.svg'
-          to='/apps/user-contacts/users'
-          title='User Contacts'
-        />
-        {/* PAGES */}
-        <MenuInnerWithSub
-          title='Inbox'
-          to='/apps/inbox'
-          icon='/media/icons/duotune/communication/com012.svg'
-          hasArrow={true}
-          menuPlacement='right-start'
-          menuTrigger={`{default:'click', lg: 'hover'}`}
-        >
-          <MenuItem to='/apps/inbox/messages' title='Messages' hasBullet={true} />
-          <MenuItem to='/apps/inbox/compose' title='Compose' hasBullet={true} />
-          <MenuItem to='/apps/inbox/view-reply' title='View & Reply' hasBullet={true} />
-        </MenuInnerWithSub>
+        /> */}
+
       </MenuInnerWithSub>
 
       <MenuInnerWithSub

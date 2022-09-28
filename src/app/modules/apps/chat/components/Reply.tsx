@@ -470,7 +470,7 @@ const Reply: FC = () => {
                       {/*begin::Avatar*/}
                       <div className="symbol symbol-50 me-4">
                         <span className="symbol-label" 
-                        // style="background-image:url(assets/media/avatars/300-6.jpg);"
+                        style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-6.jpg')})`}}
                         ></span>
                       </div>
                       {/*end::Avatar*/}
@@ -626,7 +626,7 @@ const Reply: FC = () => {
                       {/*begin::Avatar*/}
                       <div className="symbol symbol-50 me-4">
                         <span className="symbol-label" 
-                        // style="background-image:url(assets/media/avatars/300-1.jpg);"
+                        style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-1.jpg')})`}}
                         ></span>
                       </div>
                       {/*end::Avatar*/}
@@ -782,7 +782,7 @@ const Reply: FC = () => {
                       {/*begin::Avatar*/}
                       <div className="symbol symbol-50 me-4">
                         <span className="symbol-label" 
-                        // style="background-image:url(assets/media/avatars/300-5.jpg);"
+                        style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-5.jpg')})`}}
                         ></span>
                       </div>
                       {/*end::Avatar*/}

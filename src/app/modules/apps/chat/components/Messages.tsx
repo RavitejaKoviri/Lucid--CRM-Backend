@@ -755,7 +755,7 @@ const Messages: FC = () => {
                         
                           <div className="symbol symbol-35px me-3">
                             <span className="symbol-label" 
-                            // style="background-image:url(assets/media/avatars/300-1.jpg)"
+                          style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-1.jpg')})`}}
                             ></span>
                           </div>
                          
@@ -818,7 +818,7 @@ const Messages: FC = () => {
                          
                           <div className="symbol symbol-35px me-3">
                             <span className="symbol-label" 
-                            // style="background-image:url(assets/media/avatars/300-5.jpg)"
+                            style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-5.jpg')})`}}
                             ></span>
                           </div>
                           
@@ -881,7 +881,7 @@ const Messages: FC = () => {
                          
                           <div className="symbol symbol-35px me-3">
                             <span className="symbol-label" 
-                            // style="background-image:url(assets/media/avatars/300-25.jpg)"
+                            style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-25.jpg')})`}}
                             ></span>
                           </div>
                           
@@ -1010,7 +1010,7 @@ const Messages: FC = () => {
                          
                           <div className="symbol symbol-35px me-3">
                             <span className="symbol-label" 
-                            // style="background-image:url(assets/media/avatars/300-9.jpg)"
+                            style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-9.jpg')})`}}
                             ></span>
                           </div>
                           
@@ -1203,7 +1203,7 @@ const Messages: FC = () => {
                          
                           <div className="symbol symbol-35px me-3">
                             <span className="symbol-label" 
-                            // style="background-image:url(assets/media/avatars/300-23.jpg)"
+                            style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-23.jpg')})`}}
                             ></span>
                           </div>
                         
@@ -1332,7 +1332,7 @@ const Messages: FC = () => {
                           
                           <div className="symbol symbol-35px me-3">
                             <span className="symbol-label" 
-                            // style="background-image:url(assets/media/avatars/300-12.jpg)"
+                            style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-12.jpg')})`}}
                             ></span>
                           </div>
                           
@@ -1458,7 +1458,7 @@ const Messages: FC = () => {
                         
                           <div className="symbol symbol-35px me-3">
                             <span className="symbol-label" 
-                            // style="background-image:url(assets/media/avatars/300-13.jpg)"
+                            style={{backgroundImage:`url(${toAbsoluteUrl('media/avatars/300-13.jpg')})`}}
                             ></span>
                           </div>
                          

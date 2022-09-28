@@ -1,11 +1,12 @@
 import {Route, Routes, Outlet, Navigate} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../../_metronic/layout/core'
 import {LeadsListWrapper} from './leads-list/LeadsList'
+import {UsersList} from './users-list/UsersList'
 
 const leadsBreadcrumbs: Array<PageLink> = [
   {
     title: 'Leads',
-    path: '/apps/leads/list',
+    path: 'list',
     isSeparator: false,
     isActive: false,
   },
@@ -19,8 +20,11 @@ const leadsBreadcrumbs: Array<PageLink> = [
 
 const LeadsPage = () => {
   return (
+   
+    <>
     <Routes>
       <Route element={<Outlet />}>
+      
         <Route
           path='list'
           element={
@@ -30,9 +34,20 @@ const LeadsPage = () => {
             </>
           }
         />
+        <Route
+          path='contacts'
+          element={
+            <>
+              <PageTitle breadcrumbs={leadsBreadcrumbs}>Contacts</PageTitle>
+              <UsersList />
+            </>
+          }
+        />
+        <Route index element={<Navigate to='list' />} />
       </Route>
-      <Route index element={<Navigate to='/apps/leads/list' />} />
     </Routes>
+    </>
+  
   )
 }
 

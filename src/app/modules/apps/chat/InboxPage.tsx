@@ -7,7 +7,7 @@ import {Reply} from './components/Reply'
 const chatBreadCrumbs: Array<PageLink> = [
   {
     title: 'Chat',
-    path: '/apps/inbox/messages',
+    path: '/inbox/messages',
     isSeparator: false,
     isActive: false,
   },
@@ -50,7 +50,7 @@ const InboxPage = () => {
             </>
           }
         />
-        <Route index element={<Navigate to='/apps/inbox/messages' />} />
+        <Route index element={<Navigate to='/inbox/messages' />} />
       </Route>
     </Routes>
   )

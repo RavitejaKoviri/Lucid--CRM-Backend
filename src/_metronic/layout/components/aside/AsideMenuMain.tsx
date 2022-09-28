@@ -16,6 +16,73 @@ export function AsideMenuMain() {
         className='py-2'
       />
       <AsideMenuItemWithSubMain
+        to='/inbox'
+        title='E-Mail'
+        fontIcon='bi-file-text'
+        bsTitle={"E-Mail"}
+      >
+       
+        <AsideMenuItem
+          to='/inbox/messages'
+          title='Messages'
+          bsTitle='Messages'
+          fontIcon='bi-card-text fs-3'
+        />
+        <AsideMenuItem
+          to='/inbox/compose'
+          title='Compose'
+          bsTitle='Compose'
+          fontIcon='bi-card-text fs-3'
+        />
+        <AsideMenuItem
+          to='/inbox/view-reply'
+          title='View & Reply'
+          bsTitle='View & Reply'
+          fontIcon='bi-card-text fs-3'
+        />
+       
+      </AsideMenuItemWithSubMain>
+
+      <AsideMenuItemWithSubMain
+        to='/leads'
+        title='Leads'
+        bsTitle='Leads'
+        fontIcon='bi-gear'
+      >
+        <AsideMenuItem to='/leads/list' title='List' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/contacts' title='Contacts' fontIcon='bi-layers fs-3' />
+        {/* <AsideMenuItem
+          to={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
+          outside={true}
+          title={`Changelog ${process.env.REACT_APP_VERSION}`}
+          fontIcon='bi-card-text fs-3'
+        /> */}
+      </AsideMenuItemWithSubMain>
+
+      <AsideMenuItemWithSubMain
+        to='/builder'
+        title='Resources'
+        bsTitle='Resources'
+        fontIcon='bi-gear'
+      >
+        <AsideMenuItem to='/builder' title='Layout builder' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem
+          to={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
+          outside={true}
+          title={`Changelog ${process.env.REACT_APP_VERSION}`}
+          fontIcon='bi-card-text fs-3'
+        />
+      </AsideMenuItemWithSubMain>
+      
+      <AsideMenuItem
+        to='/targets'
+        title="Targets"
+        fontIcon='bi-card-text fs-3'
+        bsTitle={"Targets"}
+        className='py-2'
+      />
+
+      <AsideMenuItemWithSubMain
         to='/crafted/pages'
         title='Crafted'
         fontIcon='bi-file-text'
@@ -144,26 +211,6 @@ export function AsideMenuMain() {
           />
         </AsideMenuItemWithSub>
 
-        <AsideMenuItemWithSub to='/apps/inbox' title='Inbox' hasBullet={true}>
-          <AsideMenuItem
-            to='/apps/inbox/messages'
-            title='Messages'
-            bsTitle='Messages'
-            hasBullet={true}
-          />
-          <AsideMenuItem
-            to='/apps/inbox/compose'
-            title='Compose'
-            bsTitle='Compose'
-            hasBullet={true}
-          />
-          <AsideMenuItem
-            to='/apps/inbox/view-reply'
-            title='View & Reply'
-            bsTitle='View & Reply'
-            hasBullet={true}
-          />
-        </AsideMenuItemWithSub>
         <AsideMenuItemWithSub to='/error' title='Errors' hasBullet={true}>
           <AsideMenuItem to='/error/404' title='Error 404' hasBullet={true} />
           <AsideMenuItem to='/error/500' title='Error 500' hasBullet={true} />
@@ -174,41 +221,7 @@ export function AsideMenuMain() {
           hasBullet={true}
           bsTitle='User management'
         />
-        <AsideMenuItem
-          to='/apps/user-contacts/users'
-          title='User Contacts'
-          hasBullet={true}
-          bsTitle='User Contacts'
-        />
-        <AsideMenuItem
-          to='/apps/leads/list'
-          title='Leads'
-          hasBullet={true}
-          bsTitle='Leads'
-        />
       </AsideMenuItemWithSubMain>
-
-      <AsideMenuItemWithSubMain
-        to='/builder'
-        title='Resources'
-        bsTitle='Resources'
-        fontIcon='bi-gear'
-      >
-        <AsideMenuItem to='/builder' title='Layout builder' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem
-          to={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
-          outside={true}
-          title={`Changelog ${process.env.REACT_APP_VERSION}`}
-          fontIcon='bi-card-text fs-3'
-        />
-      </AsideMenuItemWithSubMain>
-      <AsideMenuItem
-        to='/targets'
-        title="Targets"
-        fontIcon='bi-card-text fs-3'
-        bsTitle={"Targets"}
-        className='py-2'
-      />
     </>
   )
 }
