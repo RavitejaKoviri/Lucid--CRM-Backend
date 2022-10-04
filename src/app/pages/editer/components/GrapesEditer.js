@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react'
 import grapesjs from 'grapesjs'
 import 'grapesjs/dist/css/grapes.min.css'
 import 'grapesjs/dist/grapes.min.js'
-import 'grapesjs-preset-webpage/dist/index'
+import 'grapesjs-preset-webpage'
 
 const GrapesEditer = () => {
 
