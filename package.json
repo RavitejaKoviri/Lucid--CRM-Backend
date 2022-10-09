@@ -2,7 +2,7 @@
   "name": "demo6",
   "version": "8.1.2",
   "private": true,
-  "homepage": "/metronic8/react/demo6",
+  "homepage": "/websocCRM",
   "dependencies": {
     "@asseinfo/react-kanban": "^2.2.0",
     "@date-io/date-fns": "2.6.1",

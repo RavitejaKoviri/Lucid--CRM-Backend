@@ -18,8 +18,8 @@ const Footer: FC = () => {
         {/*begin::Copyright*/}
         <div className='text-dark order-2 order-md-1'>
           <span className='text-muted fw-bold me-1'>{new Date().getFullYear()}&copy;</span>
-          <a href='Keenthemes.com' target='_blank' className='text-gray-800 text-hover-primary'>
-            Keenthemes
+          <a href='websoc.co.in' target='_blank' className='text-gray-800 text-hover-primary'>
+            Websoc CRM
           </a>
         </div>
         {/*end::Copyright*/}

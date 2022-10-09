@@ -135,7 +135,7 @@ export function DemosDrawer() {
               </div>
 
               <a href={process.env.REACT_APP_PURCHASE_URL} className='btn btn-primary mb-15 w-100'>
-                Buy Now
+                Buy Nowm
               </a>
               <Demos />
             </div>

@@ -9,14 +9,18 @@ export function MenuInner() {
   return (
     <>
       <MenuItem title={intl.formatMessage({id: 'MENU.DASHBOARD'})} to='/dashboard' />
-      <MenuItem title='Layout Builder' to='/builder' />
+  {/*  */}
+    </>
+  )
+}
+
+{/*     <MenuItem title='Layout Builder' to='/builder' />
       <MenuInnerWithSub
         title='Crafted'
         to='/crafted'
         menuPlacement='bottom-start'
         menuTrigger='click'
       >
-        {/* PAGES */}
         <MenuInnerWithSub
           title='Pages'
           to='/crafted/pages'
@@ -56,8 +60,7 @@ export function MenuInner() {
           </MenuInnerWithSub>
         </MenuInnerWithSub>
 
-        {/* ACCOUNT */}
-        <MenuInnerWithSub
+]        <MenuInnerWithSub
           title='Accounts'
           to='/crafted/accounts'
           fontIcon='bi-person'
@@ -69,7 +72,6 @@ export function MenuInner() {
           <MenuItem to='/crafted/account/settings' title='Settings' hasBullet={true} />
         </MenuInnerWithSub>
 
-        {/* ERRORS */}
         <MenuInnerWithSub
           title='Errors'
           to='/error'
@@ -82,7 +84,6 @@ export function MenuInner() {
           <MenuItem to='/error/500' title='Error 500' hasBullet={true} />
         </MenuInnerWithSub>
 
-        {/* Widgets */}
         <MenuInnerWithSub
           title='Widgets'
           to='/crafted/widgets'
@@ -101,7 +102,7 @@ export function MenuInner() {
       </MenuInnerWithSub>
 
       <MenuInnerWithSub title='Apps' to='/apps' menuPlacement='bottom-start' menuTrigger='click'>
-        {/* PAGES */}
+      
         <MenuInnerWithSub
           title='Chat'
           to='/apps/chat'
@@ -119,11 +120,7 @@ export function MenuInner() {
           to='/apps/user-management/users'
           title='User management'
         />
-        {/* <MenuItem
-          icon='/media/icons/duotune/general/gen051.svg'
-          to='/apps/leads/list'
-          title='Leads'
-        /> */}
+        
 
       </MenuInnerWithSub>
 
@@ -136,7 +133,4 @@ export function MenuInner() {
       >
         <MegaMenu />
       </MenuInnerWithSub>
-      <MenuItem title='Targets' to='/targets' />
-    </>
-  )
-}
+      <MenuItem title='Targets' to='/targets' />*/}

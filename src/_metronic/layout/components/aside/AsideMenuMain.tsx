@@ -8,16 +8,71 @@ export function AsideMenuMain() {
   const intl = useIntl()
   return (
     <>
-      <AsideMenuItem
+      {/* <AsideMenuItem
         to='/dashboard'
         title="Home"
         fontIcon='bi-house fs-2'
         bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         className='py-2'
+      /> */}
+      <AsideMenuItemWithSubMain
+        to='/leads'
+        title='CRM'
+        // bsTitle='Leads'
+        fontIcon='bi-gear'
+      >
+        <AsideMenuItem to='/leads/list' title='Leads' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/bookings' title='Bookings' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/contacts' title='Contacts' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/deals' title='Deals' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/tasks' title='Tasks' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/tickets' title='Tickets' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='leads/targets' title='Targets' fontIcon='bi-layers fs-3' />
+
+        {/* <AsideMenuItem
+          to={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
+          outside={true}
+          title={`Changelog ${process.env.REACT_APP_VERSION}`}
+          fontIcon='bi-card-text fs-3'
+        /> */}
+      </AsideMenuItemWithSubMain>
+      <AsideMenuItemWithSubMain
+          to='/campaigns'
+        title="Campaigns"
+        fontIcon='bi-house fs-2'
+      >
+        <AsideMenuItem to='/leads/email' title='Email Campaigns' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/forms' title='Forms' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/automation' title='Automation' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/social' title='Social Media Campaigns' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='leads/landingPages' title='Landing Page Campaigns' fontIcon='bi-layers fs-3' />
+      </AsideMenuItemWithSubMain>
+     
+       {/* <AsideMenuItem
+        to='/forms'
+        title="Forms"
+        fontIcon='bi-card-text fs-3'
+        // bsTitle={"Targets"}
+        className='py-2'
+      />
+       <AsideMenuItem
+        to='/automation'
+        title="Automation"
+        fontIcon='bi-house fs-2'
+        // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
+        className='py-2'
+      /> */}
+      
+       <AsideMenuItem
+        to='/reports'
+        title="Reports"
+        fontIcon='bi-house fs-2'
+        // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
+        className='py-2'
       />
       <AsideMenuItemWithSubMain
         to='/inbox'
-        title='E-Mail'
+        title='Inbox'
         fontIcon='bi-file-text'
         bsTitle={"E-Mail"}
       >
@@ -42,52 +97,30 @@ export function AsideMenuMain() {
         />
        
       </AsideMenuItemWithSubMain>
-
       <AsideMenuItemWithSubMain
-        to='/leads'
-        title='Leads'
-        bsTitle='Leads'
+        to='/settings'
+        title='Settings'
+        // bsTitle='Leads'
         fontIcon='bi-gear'
       >
-        <AsideMenuItem to='/leads/list' title='List' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/leads/contacts' title='Contacts' fontIcon='bi-layers fs-3' />
-        {/* <AsideMenuItem
-          to={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
-          outside={true}
-          title={`Changelog ${process.env.REACT_APP_VERSION}`}
-          fontIcon='bi-card-text fs-3'
-        /> */}
-      </AsideMenuItemWithSubMain>
+        <AsideMenuItem to='/settings/sources' title='Sources' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/settings/brands' title='Brands' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/settings/departments' title='Departments' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/settings/team-members' title='Team Members' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/settings/roles' title='Tickets' fontIcon='bi-layers fs-3' />
+        {/* <AsideMenuItem to='/settings/contacts' title='Targets' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/settings/contacts' title='Contacts' fontIcon='bi-layers fs-3' /> */}
 
-      <AsideMenuItemWithSubMain
-        to='/builder'
-        title='Resources'
-        bsTitle='Resources'
-        fontIcon='bi-gear'
-      >
-        <AsideMenuItem to='/builder' title='Layout builder' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem
-          to={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
-          outside={true}
-          title={`Changelog ${process.env.REACT_APP_VERSION}`}
-          fontIcon='bi-card-text fs-3'
-        />
+       
       </AsideMenuItemWithSubMain>
-      
-      <AsideMenuItem
-        to='/targets'
-        title="Targets"
-        fontIcon='bi-card-text fs-3'
-        bsTitle={"Targets"}
-        className='py-2'
-      />
-      <AsideMenuItem
+      {/* settings should have sources config, team members  */}
+      {/* <AsideMenuItem
         to='/editer'
         title="Editer"
         fontIcon='bi-card-text fs-3'
         bsTitle={"Editer"}
         className='py-2'
-      />
+      /> */}
 
       <AsideMenuItemWithSubMain
         to='/crafted/pages'

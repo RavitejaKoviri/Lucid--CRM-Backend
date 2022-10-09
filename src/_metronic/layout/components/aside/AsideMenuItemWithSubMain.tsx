@@ -36,9 +36,9 @@ const AsideMenuItemWithSubMain: FC<Props & WithChildren> = ({
       <OverlayTrigger
         placement='right'
         delay={{show: 250, hide: 400}}
-        overlay={(props) => (
-          <Tooltip id='button-tooltip' {...props}>
-            {bsTitle}
+        overlay={() => (
+          <Tooltip>
+            {/* {bsTitle} */}
           </Tooltip>
         )}
       >
