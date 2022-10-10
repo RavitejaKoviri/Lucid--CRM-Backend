@@ -2,16 +2,16 @@ import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers'
-import { initialUser, User } from '../core/_models'
+import { initialUser, Lead } from '../core/_models'
 import clsx from 'clsx'
 import { useListView } from '../core/ListViewProvider'
-import { UsersListLoading } from '../components/loading/UsersListLoading'
+import { LeadsListLoading } from '../components/loading/LeadsListLoading'
 import { createUser, updateUser } from '../core/_requests'
 import { useQueryResponse } from '../core/QueryResponseProvider'
 
 type Props = {
   isUserLoading: boolean
-  user: User
+  lead: Lead
 }
 
 const editUserSchema = Yup.object().shape({
@@ -26,17 +26,17 @@ const editUserSchema = Yup.object().shape({
     .required('Name is required'),
 })
 
-const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
+const LeadEditModalForm: FC<Props> = ({ lead, isUserLoading }) => {
   const { setItemIdForUpdate } = useListView()
   const { refetch } = useQueryResponse()
 
-  const [userForEdit] = useState<User>({
-    ...user,
-    avatar: user.avatar || initialUser.avatar,
-    role: user.role || initialUser.role,
-    position: user.position || initialUser.position,
-    name: user.name || initialUser.name,
-    email: user.email || initialUser.email,
+  const [userForEdit] = useState<Lead>({
+    ...lead,
+    avatar: lead.avatar || initialUser.avatar,
+    role: lead.role || initialUser.role,
+    position: lead.position || initialUser.position,
+    name: lead.name || initialUser.name,
+    email: lead.email || initialUser.email,
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -399,9 +399,9 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
         </div>
         {/* end::Actions */}
       </form>
-      {(formik.isSubmitting || isUserLoading) && <UsersListLoading />}
+      {(formik.isSubmitting || isUserLoading) && <LeadsListLoading />}
     </>
   )
 }
 
-export { UserEditModalForm }
+export { LeadEditModalForm }

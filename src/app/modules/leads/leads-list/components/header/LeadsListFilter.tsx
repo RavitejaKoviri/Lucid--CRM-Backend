@@ -4,7 +4,7 @@ import { initialQueryState, KTSVG } from '../../../../../../_metronic/helpers'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
 
-const UsersListFilter = () => {
+const LeadsListFilter = () => {
   const { updateState } = useQueryRequest()
   const { isLoading } = useQueryResponse()
   const [role, setRole] = useState<string | undefined>()
@@ -130,4 +130,4 @@ const UsersListFilter = () => {
   )
 }
 
-export { UsersListFilter }
+export { LeadsListFilter }

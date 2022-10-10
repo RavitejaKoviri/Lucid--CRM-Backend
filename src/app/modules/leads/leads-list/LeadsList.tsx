@@ -1,9 +1,9 @@
 import { ListViewProvider, useListView } from './core/ListViewProvider'
 import { QueryRequestProvider } from './core/QueryRequestProvider'
 import { QueryResponseProvider } from './core/QueryResponseProvider'
-import { UsersListHeader } from './components/header/UsersListHeader'
-import { UsersTable } from './table/UsersTable'
-import { UserEditModal } from './user-edit-modal/UserEditModal'
+import { UsersListHeader } from './components/header/LeadsListHeader'
+import { LeadsTable } from './table/LeadsTable'
+import { LeadEditModal } from './lead-edit-modal/LeadEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 
 const LeadsList = () => {
@@ -12,9 +12,9 @@ const LeadsList = () => {
     <>
       <KTCard>
         <UsersListHeader />
-        <UsersTable />
+        <LeadsTable />
       </KTCard>
-      {itemIdForUpdate !== undefined && <UserEditModal />}
+      {itemIdForUpdate !== undefined && <LeadEditModal />}
     </>
   )
 }

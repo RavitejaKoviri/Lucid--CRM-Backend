@@ -1,10 +1,10 @@
 import { useQuery } from 'react-query'
-import { UserEditModalForm } from './UserEditModalForm'
+import { LeadEditModalForm } from './LeadEditModalForm'
 import { isNotEmpty, QUERIES } from '../../../../../_metronic/helpers'
 import { useListView } from '../core/ListViewProvider'
 import { getUserById } from '../core/_requests'
 
-const UserEditModalFormWrapper = () => {
+const LeadEditModalFormWrapper = () => {
   const { itemIdForUpdate, setItemIdForUpdate } = useListView()
   const enabledQuery: boolean = isNotEmpty(itemIdForUpdate)
   const {
@@ -26,15 +26,15 @@ const UserEditModalFormWrapper = () => {
     }
   )
 
-  if (!itemIdForUpdate) {
-    return <UserEditModalForm isUserLoading={isLoading} user={{ id: undefined }} />
-  }
+  // if (!itemIdForUpdate) {
+  //   return <LeadEditModalForm isUserLoading={isLoading} lead={{ id: undefined }} />
+  // }
 
   if (!isLoading && !error && user) {
-    return <UserEditModalForm isUserLoading={isLoading} user={user} />
+    return <LeadEditModalForm isUserLoading={isLoading} lead={user} />
   }
 
   return null
 }
 
-export { UserEditModalFormWrapper }
+export { LeadEditModalFormWrapper }

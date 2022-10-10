@@ -1,8 +1,8 @@
-import {useEffect} from 'react'
-import {UserEditModalHeader} from './UserEditModalHeader'
-import {UserEditModalFormWrapper} from './UserEditModalFormWrapper'
+import { useEffect } from 'react'
+import { LeadEditModalHeader } from './LeadEditModalHeader'
+import { LeadEditModalFormWrapper } from './LeadEditModalFormWrapper'
 
-const UserEditModal = () => {
+const LeadEditModal = () => {
   useEffect(() => {
     document.body.classList.add('modal-open')
     return () => {
@@ -23,10 +23,10 @@ const UserEditModal = () => {
         <div className='modal-dialog modal-dialog-centered mw-650px'>
           {/* begin::Modal content */}
           <div className='modal-content'>
-            <UserEditModalHeader />
+            <LeadEditModalHeader />
             {/* begin::Modal body */}
             <div className='modal-body scroll-y mx-5 mx-xl-15 my-7'>
-              <UserEditModalFormWrapper />
+              <LeadEditModalFormWrapper />
             </div>
             {/* end::Modal body */}
           </div>
@@ -41,4 +41,4 @@ const UserEditModal = () => {
   )
 }
 
-export {UserEditModal}
+export { LeadEditModal }

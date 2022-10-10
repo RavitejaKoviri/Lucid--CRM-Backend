@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 
 import * as auth from "../app/modules/auth/_redux/authRedux";
 import { ManageUserSlice } from "../app/modules/user-management/users-list/_redux/userSlice";
+import { LeadSlice } from "../app/modules/leads/leads-list/_redux/leadSlice";
 // import { dashboardSlice } from "../app/modules/DashboardAPI/dashboardSlice";
 
 // import { manageUsersSlice } from "../app/modules/Users/_redux/manageUsers/manageUsersSlice";
@@ -50,7 +51,8 @@ import { ManageUserSlice } from "../app/modules/user-management/users-list/_redu
 
 export const rootReducer = combineReducers({
   auth: auth.reducer,
-  ManageUserData: ManageUserSlice.reducer
+  ManageUserData: ManageUserSlice.reducer,
+  LeadData: LeadSlice.reducer,
   // dashboardData: dashboardSlice.reducer,
   // manageUsers: manageUsersSlice.reducer,
   // manageVerificationRequests: manageVerificationRequestsSlice.reducer,

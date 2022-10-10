@@ -4,7 +4,7 @@ import { useListView } from '../../core/ListViewProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
 import { deleteSelectedUsers } from '../../core/_requests'
 
-const UsersListGrouping = () => {
+const LeadsListGrouping = () => {
   const { selected, clearSelected } = useListView()
   const queryClient = useQueryClient()
   const { query } = useQueryResponse()
@@ -35,4 +35,4 @@ const UsersListGrouping = () => {
   )
 }
 
-export { UsersListGrouping }
+export { LeadsListGrouping }

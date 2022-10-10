@@ -1,23 +1,39 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
-import { CustomHeaderColumn } from '../table/columns/CustomHeaderColumn'
-import { CustomRow } from '../table/columns/CustomRow'
+import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
+import { CustomRow } from './columns/CustomRow'
 import { useQueryResponseData, useQueryResponseLoading } from '../core/QueryResponseProvider'
-import { usersColumns } from './columns/_columns'
-import { User } from '../core/_models'
-import { UsersListLoading } from '../components/loading/UsersListLoading'
-import { UsersListPagination } from '../components/pagination/UsersListPagination'
+import { LeadsColumns } from './columns/_columns'
+import { Lead } from '../core/_models'
+import { LeadsListLoading } from '../components/loading/LeadsListLoading'
+import { LeadsListPagination } from '../components/pagination/LeadsListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
+import { useDispatch, useSelector } from 'react-redux'
+import { getLeads } from '../_redux/leadAction'
 
-const UsersTable = () => {
+const LeadsTable = () => {
   const users = useQueryResponseData()
   const isLoading = useQueryResponseLoading()
   const data = useMemo(() => users, [users])
-  const columns = useMemo(() => usersColumns, [])
+  const columns = useMemo(() => LeadsColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
     data,
   })
+
+  const user = useSelector(
+    (state: any) => state?.LeadData?.Leads
+  );
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
+  const dispatch = useDispatch()
+
+  console.log(data);
+  useEffect(() => {
+    dispatch(getLeads(token))
+  }, [])
+  console.log(user, "users")
 
   return (
     <KTCardBody className='py-4'>
@@ -29,14 +45,14 @@ const UsersTable = () => {
         >
           <thead>
             <tr className='text-start text-muted fw-bolder fs-7 text-uppercase gs-0'>
-              {headers.map((column: ColumnInstance<User>) => (
+              {headers.map((column: ColumnInstance<Lead>) => (
                 <CustomHeaderColumn key={column.id} column={column} />
               ))}
             </tr>
           </thead>
           <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>
             {rows.length > 0 ? (
-              rows.map((row: Row<User>, i) => {
+              rows.map((row: Row<Lead>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />
               })
@@ -52,10 +68,10 @@ const UsersTable = () => {
           </tbody>
         </table>
       </div>
-      <UsersListPagination />
-      {isLoading && <UsersListLoading />}
+      <LeadsListPagination />
+      {isLoading && <LeadsListLoading />}
     </KTCardBody>
   )
 }
 
-export { UsersTable }
+export { LeadsTable }

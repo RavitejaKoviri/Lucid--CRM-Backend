@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import clsx from 'clsx'
-import {useQueryResponseLoading, useQueryResponsePagination} from '../../core/QueryResponseProvider'
-import {useQueryRequest} from '../../core/QueryRequestProvider'
+import { useQueryResponseLoading, useQueryResponsePagination } from '../../core/QueryResponseProvider'
+import { useQueryRequest } from '../../core/QueryRequestProvider'
 
 const mappedLabel = (label: string): string => {
   if (label === '&laquo; Previous') {
@@ -15,16 +15,16 @@ const mappedLabel = (label: string): string => {
   return label
 }
 
-const UsersListPagination = () => {
+const LeadsListPagination = () => {
   const pagination = useQueryResponsePagination()
   const isLoading = useQueryResponseLoading()
-  const {updateState} = useQueryRequest()
+  const { updateState } = useQueryRequest()
   const updatePage = (page: number | null) => {
     if (!page || isLoading || pagination.page === page) {
       return
     }
 
-    updateState({page, items_per_page: pagination.items_per_page || 10})
+    updateState({ page, items_per_page: pagination.items_per_page || 10 })
   }
 
   return (
@@ -35,7 +35,7 @@ const UsersListPagination = () => {
           <ul className='pagination'>
             {pagination.links
               ?.map((link) => {
-                return {...link, label: mappedLabel(link.label)}
+                return { ...link, label: mappedLabel(link.label) }
               })
               .map((link) => (
                 <li
@@ -53,7 +53,7 @@ const UsersListPagination = () => {
                       'me-5': link.label === 'Previous',
                     })}
                     onClick={() => updatePage(link.page)}
-                    style={{cursor: 'pointer'}}
+                    style={{ cursor: 'pointer' }}
                   >
                     {mappedLabel(link.label)}
                   </a>
@@ -66,4 +66,4 @@ const UsersListPagination = () => {
   )
 }
 
-export {UsersListPagination}
+export { LeadsListPagination }
