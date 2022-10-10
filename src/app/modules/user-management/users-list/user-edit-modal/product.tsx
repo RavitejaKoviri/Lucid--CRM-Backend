@@ -2,18 +2,18 @@ import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers'
-import { initialUser, Lead } from '../core/_models'
+import { initialUser, User } from '../core/_models'
 import clsx from 'clsx'
 import { useListView } from '../core/ListViewProvider'
-import { LeadsListLoading } from '../components/loading/LeadsListLoading'
+import { UsersListLoading } from '../components/loading/UsersListLoading'
 import { createUser, updateUser } from '../core/_requests'
 import { useQueryResponse } from '../core/QueryResponseProvider'
 
 type Props = {
   isUserLoading: boolean
-  lead: Lead
+  user: User
 }
-
+// editor
 const editUserSchema = Yup.object().shape({
   email: Yup.string()
     .email('Wrong email format')
@@ -26,17 +26,17 @@ const editUserSchema = Yup.object().shape({
     .required('Name is required'),
 })
 
-const LeadEditModalForm: FC<Props> = ({ lead, isUserLoading }) => {
+const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   const { setItemIdForUpdate } = useListView()
   const { refetch } = useQueryResponse()
 
-  const [userForEdit] = useState<Lead>({
-    ...lead,
-    avatar: lead.avatar || initialUser.avatar,
-    role: lead.role || initialUser.role,
-    position: lead.position || initialUser.position,
-    name: lead.name || initialUser.name,
-    email: lead.email || initialUser.email,
+  const [userForEdit] = useState<User>({
+    ...user,
+    // avatar: user.avatar || initialUser.avatar,
+    // role: user.role || initialUser.role,
+    // position: user.position || initialUser.position,
+    name: user.username || initialUser.username,
+    email: user.email || initialUser.email,
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -160,18 +160,18 @@ const LeadEditModalForm: FC<Props> = ({ lead, isUserLoading }) => {
               name='name'
               className={clsx(
                 'form-control form-control-solid mb-3 mb-lg-0',
-                { 'is-invalid': formik.touched.name && formik.errors.name },
+                { 'is-invalid': formik.touched.username && formik.errors.username },
                 {
-                  'is-valid': formik.touched.name && !formik.errors.name,
+                  'is-valid': formik.touched.username && !formik.errors.username,
                 }
               )}
               autoComplete='off'
               disabled={formik.isSubmitting || isUserLoading}
             />
-            {formik.touched.name && formik.errors.name && (
+            {formik.touched.username && formik.errors.username && (
               <div className='fv-plugins-message-container'>
                 <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.name}</span>
+                  <span role='alert'>{formik.errors.username}</span>
                 </div>
               </div>
             )}
@@ -266,7 +266,7 @@ const LeadEditModalForm: FC<Props> = ({ lead, isUserLoading }) => {
                 <label className='form-check-label' htmlFor='kt_modal_update_role_option_1'>
                   <div className='fw-bolder text-gray-800'>Developer</div>
                   <div className='text-gray-600'>
-                    Best for developers or people primarily using the AP
+                    Best for developers or people primarily using 
                   </div>
                 </label>
                 {/* end::Label */}
@@ -399,9 +399,9 @@ const LeadEditModalForm: FC<Props> = ({ lead, isUserLoading }) => {
         </div>
         {/* end::Actions */}
       </form>
-      {(formik.isSubmitting || isUserLoading) && <LeadsListLoading />}
+      {(formik.isSubmitting || isUserLoading) && <UsersListLoading />}
     </>
   )
 }
 
-export { LeadEditModalForm }
+export { UserEditModalForm }

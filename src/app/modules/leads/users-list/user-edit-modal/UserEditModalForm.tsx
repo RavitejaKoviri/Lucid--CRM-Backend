@@ -266,7 +266,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 <label className='form-check-label' htmlFor='kt_modal_update_role_option_1'>
                   <div className='fw-bolder text-gray-800'>Developer</div>
                   <div className='text-gray-600'>
-                    Best for developers or people primarily using the API
+                    Best for developers or people primarily using the 
                   </div>
                 </label>
                 {/* end::Label */}
