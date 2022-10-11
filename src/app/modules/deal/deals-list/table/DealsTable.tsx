@@ -9,7 +9,7 @@ import { DealsListLoading } from '../components/loading/DealsListLoading'
 import { DealsListPagination } from '../components/pagination/DealsListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../_redux/dealAction'
+import { getAlldeals } from '../_redux/dealAction'
 
 const DealsTable = () => {
   const user = useSelector(
@@ -28,7 +28,7 @@ const DealsTable = () => {
   })
   console.log(data);
   useEffect(() => {
-    dispatch(getAllUsers(token))
+    dispatch(getAlldeals(token))
   }, [])
   console.log(user, "users")
   return (

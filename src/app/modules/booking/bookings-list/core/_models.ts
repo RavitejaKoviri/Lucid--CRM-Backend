@@ -1,5 +1,5 @@
 import { ID, Response } from '../../../../../_metronic/helpers'
-export type User = {
+export type Booking = {
   id?: ID
   name?: string
   username?: string
@@ -15,15 +15,24 @@ export type User = {
     label: string
     state: string
   }
-  mobile?: string
+  mobileNumber?: string
+  address?:string
+  fullName?:string
+  gender?:string
+
 }
 
-export type UsersQueryResponse = Response<Array<User>>
+export type UsersQueryResponse = Response<Array<Booking>>
 
-export const initialUser: User = {
+export const initialUser: Booking = {
   avatar: 'avatars/300-6.jpg',
   position: 'Art Director',
   role: 'Administrator',
   username: '',
   email: '',
+  mobileNumber: '',
+  address:'',
+  fullName:'',
+  gender:'',
+  
 }

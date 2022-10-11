@@ -1,18 +1,18 @@
-import * as requestFromServer from "./userCrud";
-import { ManageUserSlice, callTypes } from "./userSlice";
+import * as requestFromServer from "./bookingCrud";
+import { BookingSlice, callTypes } from "./bookingSlice";
 
-const { actions } = ManageUserSlice;
+const { actions } = BookingSlice;
 
 
 
 //getAll user details
-export const getAllUsers = (token: any) => (dispatch: any) => {
+export const getAllBookings = () => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllUsers(token)
+    .getAllBooking()
     .then((response) => {
       const { data } = response;
-      dispatch(actions.getedAllUsersDetails({ data }));
+      dispatch(actions.fetchedAllBooking({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;

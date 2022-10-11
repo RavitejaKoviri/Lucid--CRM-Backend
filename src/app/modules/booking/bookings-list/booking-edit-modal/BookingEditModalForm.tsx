@@ -2,7 +2,7 @@ import { FC, useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers'
-import { initialUser, User } from '../core/_models'
+import { initialUser, Booking } from '../core/_models'
 import clsx from 'clsx'
 import { useListView } from '../core/ListViewProvider'
 import { BookingsListLoading } from '../components/loading/BookingsListLoading'
@@ -11,7 +11,7 @@ import { useQueryResponse } from '../core/QueryResponseProvider'
 
 type Props = {
   isUserLoading: boolean
-  user: User
+  user: Booking
 }
 
 const editUserSchema = Yup.object().shape({
@@ -30,7 +30,7 @@ const BookingEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   const { setItemIdForUpdate } = useListView()
   const { refetch } = useQueryResponse()
 
-  const [userForEdit] = useState<User>({
+  const [userForEdit] = useState<Booking>({
     ...user,
     // avatar: user.avatar || initialUser.avatar,
     // role: user.role || initialUser.role,

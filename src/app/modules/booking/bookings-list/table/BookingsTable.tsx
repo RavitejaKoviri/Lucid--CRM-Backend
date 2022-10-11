@@ -4,16 +4,16 @@ import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
 import { useQueryResponseData, useQueryResponseLoading } from '../core/QueryResponseProvider'
 import { usersColumns } from './columns/_columns'
-import { User } from '../core/_models'
+import { Booking } from '../core/_models'
 import { BookingsListLoading } from '../components/loading/BookingsListLoading'
 import { BookingsListPagination } from '../components/pagination/BookingsListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../_redux/userAction'
+import { getAllBookings } from '../_redux/bookingAction'
 
 const BookingsTable = () => {
   const user = useSelector(
-    (state: any) => state?.ManageUserData?.Users
+    (state: any) => state?.booking?.booking
   );
   const token = useSelector(
     (state: any) => state?.auth?.authToken
@@ -28,7 +28,7 @@ const BookingsTable = () => {
   })
   console.log(data);
   useEffect(() => {
-    dispatch(getAllUsers(token))
+    dispatch(getAllBookings())
   }, [])
   console.log(user, "users")
   return (
@@ -41,14 +41,14 @@ const BookingsTable = () => {
         >
           <thead>
             <tr className='text-start text-muted fw-bolder fs-7 text-uppercase gs-0'>
-              {headers.map((column: ColumnInstance<User>) => (
+              {headers.map((column: ColumnInstance<Booking>) => (
                 <CustomHeaderColumn key={column.id} column={column} />
               ))}
             </tr>
           </thead>
           <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>
             {rows.length > 0 ? (
-              rows.map((row: Row<User>, i) => {
+              rows.map((row: Row<Booking>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />
               })

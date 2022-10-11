@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Users: []
+  deals: [],
+  Source: [],
+  campaigns: [],
+  Comapnies: [],
+  dealStatus: []
 };
 
 export const callTypes = {
@@ -10,8 +14,8 @@ export const callTypes = {
   action: "action",
 };
 
-export const ManageUserSlice = createSlice({
-  name: "ManageUserSlice",
+export const dealsSlice = createSlice({
+  name: "dealsSlice",
   initialState: initialProductsState,
 
   reducers: {
@@ -31,10 +35,31 @@ export const ManageUserSlice = createSlice({
         state.actionsLoading = true;
       }
     },
+    
 
-    getedAllUsersDetails: (state, action) => {
+    fetchedalldeals: (state, action) => {
       const { data } = action.payload;
-      state.Users = data;
-    }
+      state.deals = data;
+    },
+    fetchedAllSourceDetails: (state, action) => {
+      const { data } = action.payload;
+      state.Source = data;
+    },
+    fetchedcampaignsDetails: (state, action) => {
+      const { data } = action.payload;
+      state.campaigns = data;
+    },
+    fetchedAllComapniesDetails: (state, action) => {
+      const { data } = action.payload;
+      state.Comapnies = data;
+    },
+    fetchedAllleadStatusesDetails: (state, action) => {
+      const { data } = action.payload;
+      state.dealStatus = data;
+    },
+    fetcheddeal: (state, action) => {
+      const { data } = action.payload;
+      state.deals = data;
+    },
   },
 });

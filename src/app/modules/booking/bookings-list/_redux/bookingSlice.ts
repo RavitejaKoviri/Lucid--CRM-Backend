@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Users: []
+  booking: []
 };
 
 export const callTypes = {
@@ -10,8 +10,8 @@ export const callTypes = {
   action: "action",
 };
 
-export const ManageUserSlice = createSlice({
-  name: "ManageUserSlice",
+export const BookingSlice = createSlice({
+  name: "BookingSlice",
   initialState: initialProductsState,
 
   reducers: {
@@ -32,9 +32,9 @@ export const ManageUserSlice = createSlice({
       }
     },
 
-    getedAllUsersDetails: (state, action) => {
+    fetchedAllBooking: (state, action) => {
       const { data } = action.payload;
-      state.Users = data;
+      state.booking = data;
     }
   },
 });

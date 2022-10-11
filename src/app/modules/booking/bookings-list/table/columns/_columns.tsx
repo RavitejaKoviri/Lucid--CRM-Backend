@@ -6,9 +6,9 @@ import { BookingActionsCell } from './BookingActionsCell'
 import { BookingSelectionCell } from './BookingSelectionCell'
 import { BookingCustomHeader } from './BookingCustomHeader'
 import { BookingSelectionHeader } from './BookingSelectionHeader'
-import { User } from '../../core/_models'
+import { Booking } from '../../core/_models'
 
-const usersColumns: ReadonlyArray<Column<User>> = [
+const usersColumns: ReadonlyArray<Column<Booking>> = [
   {
     Header: (props) => <BookingSelectionHeader tableProps={props} />,
     id: 'selection',
@@ -20,7 +20,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   //   Cell: ({ ...props }) => <UserInfoCell user={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <BookingCustomHeader tableProps={props} title='username' className='min-w-125px' />,
+    Header: (props) => <BookingCustomHeader tableProps={props} title='name' className='min-w-125px' />,
     accessor: 'fullName',
   },
   {
@@ -28,15 +28,15 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     accessor: 'email',
   },
   {
-    Header: (props) => <BookingCustomHeader tableProps={props} title='mobile' className='min-w-125px' />,
+    Header: (props) => <BookingCustomHeader tableProps={props} title='mobileNumber' className='min-w-125px' />,
     accessor: 'mobileNumber',
   },
   {
-    Header: (props) => <BookingCustomHeader tableProps={props} title='mobile' className='min-w-125px' />,
+    Header: (props) => <BookingCustomHeader tableProps={props} title='gender' className='min-w-125px' />,
     accessor: 'gender',
   },
   {
-    Header: (props) => <BookingCustomHeader tableProps={props} title='mobile' className='min-w-125px' />,
+    Header: (props) => <BookingCustomHeader tableProps={props} title='address' className='min-w-125px' />,
     accessor: 'address',
   },
   // {

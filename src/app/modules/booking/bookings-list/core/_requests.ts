@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import { ID, Response } from '../../../../../_metronic/helpers'
-import { User, UsersQueryResponse } from './_models'
+import { Booking, UsersQueryResponse } from './_models'
 
 const API_URL = process.env.REACT_APP_THEME_API_URL
 console.log("apiurl", API_URL)
@@ -13,25 +13,25 @@ const getUsers = (query: string): Promise<UsersQueryResponse> => {
     .then((d: AxiosResponse<UsersQueryResponse>) => d.data)
 }
 
-const getUserById = (id: ID): Promise<User | undefined> => {
+const getUserById = (id: ID): Promise<Booking | undefined> => {
   return axios
     .get(`${USER_URL}/${id}`)
-    .then((response: AxiosResponse<Response<User>>) => response.data)
-    .then((response: Response<User>) => response.data)
+    .then((response: AxiosResponse<Response<Booking>>) => response.data)
+    .then((response: Response<Booking>) => response.data)
 }
 
-const createUser = (user: User): Promise<User | undefined> => {
+const createUser = (user: Booking): Promise<Booking | undefined> => {
   return axios
     .put(USER_URL, user)
-    .then((response: AxiosResponse<Response<User>>) => response.data)
-    .then((response: Response<User>) => response.data)
+    .then((response: AxiosResponse<Response<Booking>>) => response.data)
+    .then((response: Response<Booking>) => response.data)
 }
 
-const updateUser = (user: User): Promise<User | undefined> => {
+const updateUser = (user: Booking): Promise<Booking | undefined> => {
   return axios
     .post(`${USER_URL}/${user.id}`, user)
-    .then((response: AxiosResponse<Response<User>>) => response.data)
-    .then((response: Response<User>) => response.data)
+    .then((response: AxiosResponse<Response<Booking>>) => response.data)
+    .then((response: Response<Booking>) => response.data)
 }
 
 const deleteUser = (userId: ID): Promise<void> => {
