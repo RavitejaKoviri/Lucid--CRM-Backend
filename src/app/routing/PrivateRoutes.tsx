@@ -11,6 +11,8 @@ import { WithChildren } from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 import Adduser from '../modules/user-management/users-list/user-edit-modal/Adduser'
 import LeadAdduser from '../modules/leads/leads-list/components/header/LeadAdduser'
+import BookingAdduser from '../modules/booking/bookings-list/components/header/BookingAdduser'
+import TargetAdduser from '../modules/Targets/Target-list/components/header/TargetAdduser'
 
 
 
@@ -46,7 +48,9 @@ const PrivateRoutes = () => {
         <Route path='editer' element={<EditerPage />} />
         <Route path='apps/user-management/users/adduser' element={<Adduser />} />
         <Route path='leads/list/leadadduser' element={<LeadAdduser />} />
-
+        <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser/>} />
+        <Route path='target/target/targetadduser' element={<TargetAdduser/>} />
+        
         {/* Lazy Modules */}
         <Route
           path='crafted/pages/profile/*'
