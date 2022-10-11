@@ -10,8 +10,8 @@ export const callTypes = {
   action: "action",
 };
 
-export const ManageUserSlice = createSlice({
-  name: "ManageUserSlice",
+export const TargetSlice = createSlice({
+  name: "TargetSlice",
   initialState: initialProductsState,
 
   reducers: {

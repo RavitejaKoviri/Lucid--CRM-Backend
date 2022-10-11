@@ -6,7 +6,7 @@ type Props = {
   id: ID
 }
 
-const UserSelectionCell: FC<Props> = ({ id }) => {
+const TargetSelectionCell: FC<Props> = ({ id }) => {
   const { selected, onSelect } = useListView()
   const isSelected = useMemo(() => selected.includes(id), [id, selected])
   return (
@@ -23,4 +23,4 @@ const UserSelectionCell: FC<Props> = ({ id }) => {
   )
 }
 
-export { UserSelectionCell }
+export { TargetSelectionCell }

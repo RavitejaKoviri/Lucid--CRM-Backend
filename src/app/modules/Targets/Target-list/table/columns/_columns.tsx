@@ -1,18 +1,18 @@
 import { Column } from 'react-table'
-import { UserInfoCell } from './UserInfoCell'
-import { UserLastLoginCell } from './UserLastLoginCell'
-import { UserTwoStepsCell } from './UserTwoStepsCell'
-import { UserActionsCell } from './UserActionsCell'
-import { UserSelectionCell } from './UserSelectionCell'
-import { UserCustomHeader } from './UserCustomHeader'
-import { UserSelectionHeader } from './UserSelectionHeader'
+import { TargetInfoCell } from './TargetInfoCell'
+import { TargetLastLoginCell } from './TargetLastLoginCell'
+import { TargetTwoStepsCell } from './TargetTwoStepsCell'
+import { TargetActionsCell } from './TargetActionsCell'
+import { TargetSelectionCell } from './TargetSelectionCell'
+import { TargetCustomHeader } from './TargetCustomHeader'
+import { TargetSelectionHeader } from './TargetSelectionHeader'
 import { User } from '../../core/_models'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
   {
-    Header: (props) => <UserSelectionHeader tableProps={props} />,
+    Header: (props) => <TargetSelectionHeader tableProps={props} />,
     id: 'selection',
-    Cell: ({ ...props }) => <UserSelectionCell id={props.data[props.row.index].id} />,
+    Cell: ({ ...props }) => <TargetSelectionCell id={props.data[props.row.index].id} />,
   },
   // {
   //   Header: (props) => <UserCustomHeader tableProps={props} title='username' className='min-w-125px' />,
@@ -20,15 +20,15 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   //   Cell: ({ ...props }) => <UserInfoCell user={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='username' className='min-w-125px' />,
+    Header: (props) => <TargetCustomHeader tableProps={props} title='username' className='min-w-125px' />,
     accessor: 'username',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Email' className='min-w-125px' />,
+    Header: (props) => <TargetCustomHeader tableProps={props} title='Email' className='min-w-125px' />,
     accessor: 'email',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='mobile' className='min-w-125px' />,
+    Header: (props) => <TargetCustomHeader tableProps={props} title='mobile' className='min-w-125px' />,
     accessor: 'mobile',
   },
   // {
@@ -53,10 +53,10 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
+      <TargetCustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
     ),
     id: 'actions',
-    Cell: ({ ...props }) => <UserActionsCell id={props.data[props.row.index].id} />,
+    Cell: ({ ...props }) => <TargetActionsCell id={props.data[props.row.index].id} />,
   },
 ]
 

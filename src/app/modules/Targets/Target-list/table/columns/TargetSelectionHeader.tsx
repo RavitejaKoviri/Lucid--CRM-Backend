@@ -7,7 +7,7 @@ type Props = {
   tableProps: PropsWithChildren<HeaderProps<User>>
 }
 
-const UserSelectionHeader: FC<Props> = ({tableProps}) => {
+const TargetSelectionHeader: FC<Props> = ({tableProps}) => {
   const {isAllSelected, onSelectAll} = useListView()
   return (
     <th {...tableProps.column.getHeaderProps()} className='w-10px pe-2'>
@@ -25,4 +25,4 @@ const UserSelectionHeader: FC<Props> = ({tableProps}) => {
   )
 }
 
-export {UserSelectionHeader}
+export {TargetSelectionHeader}

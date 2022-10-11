@@ -35,7 +35,7 @@ const PrivateRoutes = () => {
         <Route path='dashboard' element={<DashboardWrapper />} />
         <Route path='builder' element={<BuilderPageWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
-        <Route path='targets' element={<TargetsWrapper />} />
+        {/* <Route path='targets' element={<TargetsWrapper />} /> */}
         <Route path='editer' element={<EditerPage />} />
         {/* Lazy Modules */}
         <Route
@@ -103,6 +103,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
+       
         <Route
           path='leads/tasks'
           element={
@@ -120,7 +121,7 @@ const PrivateRoutes = () => {
           }
         />
         <Route
-          path='leads/targets'
+          path='target/*'
           element={
             <SuspensedView>
               <TargetPage />

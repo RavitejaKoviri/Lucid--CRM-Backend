@@ -1,7 +1,7 @@
-import * as requestFromServer from "./userCrud";
-import { ManageUserSlice, callTypes } from "./userSlice";
+import * as requestFromServer from "./targetCrud";
+import { TargetSlice, callTypes } from "./targetSlice";
 
-const { actions } = ManageUserSlice;
+const { actions } = TargetSlice;
 
 
 

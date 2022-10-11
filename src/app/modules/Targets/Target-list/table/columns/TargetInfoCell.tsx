@@ -8,7 +8,7 @@ type Props = {
   user: User
 }
 
-const UserInfoCell: FC<Props> = ({ user }) => (
+const TargetInfoCell: FC<Props> = ({ user }) => (
   <div className='d-flex align-items-center'>
     {/* begin:: Avatar */}
     <div className='symbol symbol-circle symbol-50px overflow-hidden me-3'>
@@ -39,4 +39,4 @@ const UserInfoCell: FC<Props> = ({ user }) => (
   </div>
 )
 
-export { UserInfoCell }
+export { TargetInfoCell }

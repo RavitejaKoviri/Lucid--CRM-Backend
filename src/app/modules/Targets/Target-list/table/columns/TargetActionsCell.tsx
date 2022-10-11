@@ -11,7 +11,7 @@ type Props = {
   id: ID
 }
 
-const UserActionsCell: FC<Props> = ({ id }) => {
+const TargetActionsCell: FC<Props> = ({ id }) => {
   console.log("edit check", id);
   const { setItemIdForUpdate } = useListView()
   const { query } = useQueryResponse()
@@ -75,4 +75,4 @@ const UserActionsCell: FC<Props> = ({ id }) => {
   )
 }
 
-export { UserActionsCell }
+export { TargetActionsCell }

@@ -3,7 +3,7 @@ import { QueryRequestProvider } from './core/QueryRequestProvider'
 import { QueryResponseProvider } from './core/QueryResponseProvider'
 import { TargetListHeader } from './components/header/TargetListHeader'
 import { TargetTable } from './table/TargetTable'
-import { TargetEditModal } from './user-edit-modal/TargetEditModal'
+import { TargetEditModal } from './Target-edit-modal/TargetEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 
 const TargetList = () => {

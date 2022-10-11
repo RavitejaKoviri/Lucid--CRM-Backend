@@ -27,7 +27,7 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/leads/deals' title='Deals' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/tasks' title='Tasks' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/tickets' title='Tickets' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='leads/targets' title='Targets' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/target' title='Targets' fontIcon='bi-layers fs-3' />
 
         {/* <AsideMenuItem
           to={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
