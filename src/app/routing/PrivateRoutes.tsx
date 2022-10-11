@@ -17,6 +17,11 @@ import TicketAdduser from '../modules/Tickets/Ticket-list/components/header/Tick
 import ContactAdduser from '../modules/Contact/contacts-list/components/header/ContactAdduser'
 
 import DealsAdduser from '../modules/deal/deals-list/components/header/DealsAdduser'
+import { Campaigns } from '../pages/campaigns/campaigns'
+import { EmailCampaigns } from '../pages/campaigns/emailCampaigns'
+import { SocialCampaigns } from '../pages/campaigns/socialCampaigns'
+import { PageCampaigns } from '../pages/campaigns/pageCampaigns'
+import { PostCampaigns } from '../pages/campaigns/postCampaingns'
 
 
 const PrivateRoutes = () => {
@@ -40,6 +45,11 @@ const PrivateRoutes = () => {
 
   return (
     <Routes>
+        <Route path='/leads/landingPages' element={<Campaigns />} />
+        <Route path='/leads/email' element={<EmailCampaigns />} />
+        <Route path='/leads/social' element={<SocialCampaigns />} />
+        <Route path='/leads/social/pagecampaign' element={<PageCampaigns />} />
+        <Route path='/leads/social/postcampaign' element={<PostCampaigns />} />
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />

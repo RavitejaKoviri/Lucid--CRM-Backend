@@ -1,0 +1,78 @@
+.photo-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-areas:
+    'a  a  b '
+    'c  d  e'
+    'f  f  g';
+    grid-template-columns: repeat( minmax(240px, 2fr));
+    grid-auto-rows: 240px;
+  }
+  
+  /* Medium screens */
+  @media screen and (min-width: 600px) {
+    .card-tall {
+      grid-row: span 2 / auto;
+    }
+  
+    .card-wide {
+      grid-column: span 2 / auto;
+    }
+  }
+  .card:nth-child(1) {
+    grid-area: a;
+  }
+  .card:nth-child(2) {
+    grid-area: b;
+   
+  }
+  .card:nth-child(3) {
+    grid-area: c;
+  
+  }
+  .card:nth-child(4) {
+    grid-area: d;
+  
+  }
+  .card:nth-child(5) {
+    grid-area: e;
+
+  }
+  .card:nth-child(6) {
+    grid-area: f;
+ 
+  }
+  .card:nth-child(7) {
+    grid-area: g;
+ 
+  }
+
+  .card-icon{
+width: 72px;
+height: 72px;
+background: #638CE8;
+border-radius: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+  }
+  .card-detail{
+font-family: 'Segoe Pro';
+font-style: normal;
+font-weight: 400;
+color: #B4B4B4
+}
+.card-value{
+font-family: 'Segoe Pro';
+font-style: normal;
+font-weight: 700;
+font-size: 36px;
+color: #638CE8;
+}
+.card-value-percent{
+    font-family: 'Segoe Pro';
+font-style: normal;
+font-weight: 600;
+font-size: 20px;
+color: #638CE8;
+}

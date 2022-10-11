@@ -48,7 +48,7 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/leads/forms' title='Forms' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/automation' title='Automation' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/social' title='Social Media Campaigns' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='leads/landingPages' title='Landing Page Campaigns' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/leads/landingPages' title='Landing Page Campaigns' fontIcon='bi-layers fs-3' />
       </AsideMenuItemWithSubMain>
      
        {/* <AsideMenuItem
