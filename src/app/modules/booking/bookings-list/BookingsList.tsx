@@ -3,7 +3,7 @@ import { QueryRequestProvider } from './core/QueryRequestProvider'
 import { QueryResponseProvider } from './core/QueryResponseProvider'
 import { BookingsListHeader } from './components/header/BookingsListHeader'
 import { BookingsTable } from './table/BookingsTable'
-import { BookingEditModal } from './booking-edit-modal/BookingEditModal'
+import { BookingEditModal } from './table/booking-edit-modal/BookingEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 
 const BookingsList = () => {
