@@ -9,3 +9,9 @@ export function getAllLeads(token: any) {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
+
+export function CreateLead(data: any, token: any) {
+  return axios.post(LEADS, data, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}

@@ -3,7 +3,7 @@ import { LeadsListToolbar } from './LeadsListToolbar'
 import { LeadsListGrouping } from './LeadsListGrouping'
 import { LeadsListSearchComponent } from './LeadsListSearchComponent'
 
-const UsersListHeader = () => {
+const LeadsListHeader = () => {
   const { selected } = useListView()
   return (
     <div className='card-header border-0 pt-6'>
@@ -19,4 +19,4 @@ const UsersListHeader = () => {
   )
 }
 
-export { UsersListHeader }
+export { LeadsListHeader }

@@ -5,7 +5,7 @@ const { actions } = LeadSlice;
 
 
 
-//getAll user details
+//get leads details
 export const getLeads = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
@@ -19,3 +19,16 @@ export const getLeads = (token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
+
+export const CreateLead = (data: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .CreateLead(data, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedLead({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });

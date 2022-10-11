@@ -20,23 +20,60 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
   //   Cell: ({ ...props }) => <LeadInfoCell lead={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <LeadCustomHeader tableProps={props} title='leadEmail' className='min-w-125px' />,
+    Header: (props) => <LeadCustomHeader tableProps={props} title='FirstName' className='min-w-125px' />,
+    accessor: 'leadFirstName',
+  },
+  {
+    Header: (props) => <LeadCustomHeader tableProps={props} title='LastName' className='min-w-125px' />,
+    accessor: 'leadLastName',
+  },
+  {
+    Header: (props) => <LeadCustomHeader tableProps={props} title='Email' className='min-w-125px' />,
     accessor: 'leadEmail',
   },
+  {
+    Header: (props) => <LeadCustomHeader tableProps={props} title='Company' className='min-w-125px' />,
+    accessor: 'leadCompanyName',
+  },
+  {
+    Header: (props) => <LeadCustomHeader tableProps={props} title='AnnualRevenue' className='min-w-125px' />,
+    accessor: 'leadAnnualRevenueContribution',
+  },
+  {
+    Header: (props) => <LeadCustomHeader tableProps={props} title='Industry' className='min-w-125px' />,
+    accessor: 'leadIndustry',
+  },
+  {
+    Header: (props) => <LeadCustomHeader tableProps={props} title='Phonenumber' className='min-w-125px' />,
+    accessor: 'leadPhonenumber',
+  },
+  {
+    Header: (props) => (
+      <LeadCustomHeader tableProps={props} title='campaignSource' className='min-w-125px' />
+    ),
+    id: 'campaignSource',
+    Cell: ({ ...props }) => <LeadLastLoginCell campaignSource={props.data[props.row.index].campaignName} />,
+  },
   // {
-  //   Header: (props) => <LeadCustomHeader tableProps={props} title='leadAnnualRevenueContribution' className='min-w-125px' />,
-  //   accessor: 'leadAnnualRevenueContribution',
-  // },
-  // {
-  //   Header: (props) => <LeadCustomHeader tableProps={props} title='leadCompanyName' className='min-w-125px' />,
-  //   accessor: 'leadCompanyName',
+  //   Header: (props) => (
+  //     <LeadCustomHeader tableProps={props} title='Owner' className='min-w-125px' />
+  //   ),
+  //   id: 'leadOwner',
+  //   Cell: ({ ...props }) => <LeadLastLoginCell campaignSource={props.data[props.row.index].leadOwner} />,
   // },
   // {
   //   Header: (props) => (
-  //     <LeadCustomHeader tableProps={props} title='Last login' className='min-w-125px' />
+  //     <LeadCustomHeader tableProps={props} title='campaignSource' className='min-w-125px' />
   //   ),
-  //   id: 'last_login',
-  //   Cell: ({ ...props }) => <LeadLastLoginCell last_login={props.data[props.row.index].last_login} />,
+  //   id: 'campaignSource',
+  //   Cell: ({ ...props }) => <LeadLastLoginCell campaignSource={props.data[props.row.index].campaignName} />,
+  // },
+  // {
+  //   Header: (props) => (
+  //     <LeadCustomHeader tableProps={props} title='campaignSource' className='min-w-125px' />
+  //   ),
+  //   id: 'campaignSource',
+  //   Cell: ({ ...props }) => <LeadLastLoginCell campaignSource={props.data[props.row.index].campaignName} />,
   // },
   // {
   //   Header: (props) => (

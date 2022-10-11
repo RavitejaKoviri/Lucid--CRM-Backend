@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Leads: []
+  Leads: [],
+  Createlead: []
 };
 
 export const callTypes = {
@@ -35,6 +36,10 @@ export const LeadSlice = createSlice({
     getedAllLeadsDetails: (state, action) => {
       const { data } = action.payload;
       state.Leads = data;
-    }
+    },
+    fetchedLead: (state, action) => {
+      const { data } = action.payload;
+      state.Createlead = data;
+    },
   },
 });
