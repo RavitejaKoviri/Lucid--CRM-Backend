@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const USER = "users";
+export const TARGETS = "targets";
 
 
-export function getAllUsers(token: any) {
+export function fetchAllTargets(token: any) {
 
-  return axios.get(USER, {
+  return axios.get(TARGETS, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

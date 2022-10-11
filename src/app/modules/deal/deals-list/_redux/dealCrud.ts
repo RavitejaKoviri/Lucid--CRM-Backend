@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const DEALS = "users";
+export const DEALS = "deals";
 export const companies = "companies";
 export const campaigns = "campaigns";
 export const dealstatuses = "deal-statuses";

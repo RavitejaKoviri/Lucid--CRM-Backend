@@ -25,9 +25,9 @@ export function AsideMenuMain() {
         <AsideMenuItem to='contacts' title='Contacts' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/bookings' title='Bookings' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/deals' title='Deals' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/leads/deals' title='Deals' fontIcon='bi-layers fs-3' />
+        {/* <AsideMenuItem to='/leads/deals' title='Deals' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/tasks' title='Tasks' fontIcon='bi-layers fs-3' />
-        {/* <AsideMenuItem to='/leads/tickets' title='Tickets' fontIcon='bi-layers fs-3' /> */}
+        <AsideMenuItem to='/leads/tickets' title='Tickets' fontIcon='bi-layers fs-3' /> */}
         <AsideMenuItem to='/target' title='Targets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/ticket' title='Tickets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/tasks' title='Tasks' fontIcon='bi-layers fs-3' />

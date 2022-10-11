@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Users: []
+  Tickets: []
 };
 
 export const callTypes = {
@@ -34,7 +34,7 @@ export const TicketSlice = createSlice({
 
     getedAllUsersDetails: (state, action) => {
       const { data } = action.payload;
-      state.Users = data;
+      state.Tickets = data;
     }
   },
 });

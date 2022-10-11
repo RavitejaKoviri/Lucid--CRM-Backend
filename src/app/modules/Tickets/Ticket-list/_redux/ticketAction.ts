@@ -6,7 +6,7 @@ const { actions } = TicketSlice;
 
 
 //getAll user details
-export const getAllUsers = (token: any) => (dispatch: any) => {
+export const getAllTickets = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .getAllUsers(token)

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Users: []
+  Targets: []
 };
 
 export const callTypes = {
@@ -34,7 +34,7 @@ export const TargetSlice = createSlice({
 
     getedAllUsersDetails: (state, action) => {
       const { data } = action.payload;
-      state.Users = data;
+      state.Targets = data;
     }
   },
 });

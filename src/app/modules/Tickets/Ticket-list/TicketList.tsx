@@ -5,6 +5,7 @@ import { TargetListHeader } from './components/header/TicketListHeader'
 import { TicketTable } from './table/TicketTable'
 import { TicketEditModal } from './Ticket-edit-modal/TicketEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
+import { TicketIndex } from './ticketUi/ticketIndex'
 
 const TicketList = () => {
   const { itemIdForUpdate } = useListView()
@@ -12,8 +13,10 @@ const TicketList = () => {
     <>
       <KTCard>
         <TargetListHeader />
-        <TicketTable />
+        {/* <TicketTable /> */}
       </KTCard>
+      <TicketIndex/>
+
       {itemIdForUpdate !== undefined && <TicketEditModal />}
     </>
   )

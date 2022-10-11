@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const USER = "users";
+export const TICKETS = "tickets";
 
 
 export function getAllUsers(token: any) {
 
-  return axios.get(USER, {
+  return axios.get(TICKETS, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

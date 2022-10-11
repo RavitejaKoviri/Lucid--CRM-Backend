@@ -9,7 +9,7 @@ import { TargetListLoading } from '../components/loading/TargetListLoading'
 import { TargetListPagination } from '../components/pagination/TargetListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../_redux/targetAction'
+import { getAllTargets } from "../_redux/targetAction";
 
 const TargetTable = () => {
   const user = useSelector(
@@ -28,7 +28,7 @@ const TargetTable = () => {
   })
   console.log(data);
   useEffect(() => {
-    dispatch(getAllUsers(token))
+    dispatch(getAllTargets(token))
   }, [])
   console.log(user, "users")
   return (

@@ -9,7 +9,7 @@ import { TicketListLoading } from '../components/loading/TicketListLoading'
 import { TicketListPagination } from '../components/pagination/TicketListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../_redux/ticketAction'
+import { getAllTickets } from '../_redux/ticketAction'
 
 const TicketTable = () => {
   const user = useSelector(
@@ -28,7 +28,7 @@ const TicketTable = () => {
   })
   console.log(data);
   useEffect(() => {
-    dispatch(getAllUsers(token))
+    dispatch(getAllTickets(token))
   }, [])
   console.log(user, "users")
   return (

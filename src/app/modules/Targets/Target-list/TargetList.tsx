@@ -5,6 +5,7 @@ import { TargetListHeader } from './components/header/TargetListHeader'
 import { TargetTable } from './table/TargetTable'
 import { TargetEditModal } from './Target-edit-modal/TargetEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
+import { TargetIndex } from './targetUi/targetIndex'
 
 const TargetList = () => {
   const { itemIdForUpdate } = useListView()
@@ -12,8 +13,10 @@ const TargetList = () => {
     <>
       <KTCard>
         <TargetListHeader />
-        <TargetTable />
+        {/* <TargetTable /> */}
       </KTCard>
+      <TargetIndex/>
+
       {itemIdForUpdate !== undefined && <TargetEditModal />}
     </>
   )

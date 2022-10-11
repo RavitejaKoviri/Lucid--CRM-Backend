@@ -6,10 +6,10 @@ const { actions } = TargetSlice;
 
 
 //getAll user details
-export const getAllUsers = (token: any) => (dispatch: any) => {
+export const getAllTargets = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllUsers(token)
+    .fetchAllTargets(token)
     .then((response) => {
       const { data } = response;
       dispatch(actions.getedAllUsersDetails({ data }));

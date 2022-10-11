@@ -12,9 +12,9 @@ import { v4 as uuidv4 } from "uuid";
 // html-react-parser components
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTasks } from "../_redux/taskAction";
+import { getAlldeals } from "../_redux/dealAction";
 
-const TaskIndex = () => {
+const DealIndex = () => {
   // const [controller] = useArgonController();
   // const { darkMode } = controller;
   const dispatch = useDispatch();
@@ -25,69 +25,84 @@ const TaskIndex = () => {
   const closeNewCardForm = () => setNewCardForm(false);
   const handeSetFormValue = ({ currentTarget }) =>
     setFormValue(currentTarget.value);
-  const task = useSelector((state) => state?.ManageTaskData?.Tasks);
+  const deals = useSelector((state) => state?.dealsSlice?.deals);
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
-    dispatch(getAllTasks(token));
+    dispatch(getAlldeals(token));
   }, []);
-  console.log(task, "tasks");
+  console.log(deals, "tasks");
 
-  const bucketListedTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "Bucket List"
+  const bucketListedTargets = deals?.filter(
+    (item) => item?.targetStatus?.targetStatusName === "Yet to start"
   );
-  const toDoTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "To-Do"
+  const completedTargets = deals?.filter(
+    (item) => item?.targetStatus?.targetStatusName === "Completed"
   );
-  const delegatedTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "Delegated"
+  // const delegatedTasks = targets?.filter(
+  //   (item) => item?.targetStatus?.targetStatusName === "Delegated"
+  // );
+  const inProgressTargets = deals?.filter(
+    (item) => item?.targetStatus?.targetStatusName === "In-Progress"
   );
-  const inProgressTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "In-Progress"
-  );
-  const doneTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "Done"
-  );
-  const verificationTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "Verification"
-  );
-  console.log(bucketListedTasks, "bucketListedTasks");
-  console.log(toDoTasks, "toDoTasks");
-  console.log(delegatedTasks, "delegatedTasks");
-  console.log(inProgressTasks, "inProgressTasks");
-  console.log(doneTasks, "doneTasks");
-  console.log(verificationTasks, "verificationTasks");
+  // const doneTasks = targets?.filter(
+  //   (item) => item?.targetStatus?.targetStatusName === "Done"
+  // );
+  // const verificationTasks = targets?.filter(
+  //   (item) => item?.targetStatus?.targetStatusName === "Verification"
+  // );
+  console.log(bucketListedTargets, "bucketListedTasks");
+  console.log(inProgressTargets, "inProgressTargets");
+  console.log(completedTargets, "delegatedTasks");
+  // console.log(inProgressTasks, "inProgressTasks");
+  // console.log(doneTasks, "doneTasks");
+  // console.log(verificationTasks, "verificationTasks");
   
   const boards = {
     columns: [
       {
         id: uuidv4(),
-        title: "Bucket List",
-        cards:bucketListedTasks,
+        title: "Value Proposition",
+        cards:bucketListedTargets?bucketListedTargets:[],
       },
       {
         id: uuidv4(),
-        title: "ToDo",
-       cards:toDoTasks,
+        title: "Qualification",
+       cards:inProgressTargets?inProgressTargets:[],
       },
       {
         id: uuidv4(),
-        title: "Assigned",
-       cards:delegatedTasks,
+        title: "Proposal/Price Quote",
+       cards:completedTargets?completedTargets:[],
       },
       {
         id: uuidv4(),
-        title: "In progress",
-       cards:inProgressTasks,
+        title: "Negotiation/Review",
+       cards:completedTargets?completedTargets:[],
       },
       {
         id: uuidv4(),
-        title: "Done",
-        cards:doneTasks,
+        title: "Needs Analysis",
+        cards:completedTargets?completedTargets:[],
       },
       {
         id: uuidv4(),
-        title: "Verified/Closed",
-        cards:verificationTasks,
+        title: "Identify Decision Makers",
+        cards:completedTargets?completedTargets:[],
+      },
+      {
+        id: uuidv4(),
+        title: "Closed-Lost to Competition",
+       cards:completedTargets?completedTargets:[],
+      },
+      {
+        id: uuidv4(),
+        title: "Closed Won",
+        cards:completedTargets?completedTargets:[],
+      },
+      {
+        id: uuidv4(),
+        title: "Closed Lost",
+        cards:completedTargets?completedTargets:[],
       },
     ],
   };
@@ -599,4 +614,4 @@ const TaskIndex = () => {
   );
 };
 
-export { TaskIndex };
+export { DealIndex };

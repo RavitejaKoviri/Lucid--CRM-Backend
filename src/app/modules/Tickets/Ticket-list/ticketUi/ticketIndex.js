@@ -12,9 +12,9 @@ import { v4 as uuidv4 } from "uuid";
 // html-react-parser components
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTasks } from "../_redux/taskAction";
+import { getAllTickets } from "../_redux/ticketAction";
 
-const TaskIndex = () => {
+const TicketIndex = () => {
   // const [controller] = useArgonController();
   // const { darkMode } = controller;
   const dispatch = useDispatch();
@@ -25,70 +25,72 @@ const TaskIndex = () => {
   const closeNewCardForm = () => setNewCardForm(false);
   const handeSetFormValue = ({ currentTarget }) =>
     setFormValue(currentTarget.value);
-  const task = useSelector((state) => state?.ManageTaskData?.Tasks);
+  const Tickets = useSelector((state) => state?.TicketSlice?.Tickets);
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
-    dispatch(getAllTasks(token));
+    dispatch(getAllTickets(token));
   }, []);
-  console.log(task, "tasks");
+  console.log(Tickets, "Tickets");
 
-  const bucketListedTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "Bucket List"
+  const bucketListedTargets = Tickets?.filter(
+    (item) => item?.ticketStatus?.ticketStatusName === "Open"
   );
-  const toDoTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "To-Do"
+ 
+ 
+  const inProgressTargets = Tickets?.filter(
+    (item) => item?.ticketStatus?.ticketStatusName === "In-Progress"
   );
-  const delegatedTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "Delegated"
+   const delegatedTasks = Tickets?.filter(
+    (item) => item?.ticketStatus?.ticketStatusName === "Escalated"
   );
-  const inProgressTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "In-Progress"
+  const completedTargets = Tickets?.filter(
+    (item) => item?.ticketStatus?.ticketStatusName === "Closed"
   );
-  const doneTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "Done"
+  const doneTasks = Tickets?.filter(
+    (item) => item?.ticketStatus?.ticketStatusName === "Customer Happy"
   );
-  const verificationTasks = task?.filter(
-    (item) => item?.taskStatus?.taskStatusName === "Verification"
-  );
-  console.log(bucketListedTasks, "bucketListedTasks");
-  console.log(toDoTasks, "toDoTasks");
-  console.log(delegatedTasks, "delegatedTasks");
-  console.log(inProgressTasks, "inProgressTasks");
-  console.log(doneTasks, "doneTasks");
-  console.log(verificationTasks, "verificationTasks");
+  // const verificationTasks = targets?.filter(
+  //   (item) => item?.targetStatus?.targetStatusName === "Verification"
+  // );
+  console.log(bucketListedTargets, "bucketListedTasks");
+  console.log(inProgressTargets, "inProgressTargets");
+  console.log(completedTargets, "delegatedTasks");
+  // console.log(inProgressTasks, "inProgressTasks");
+  // console.log(doneTasks, "doneTasks");
+  // console.log(verificationTasks, "verificationTasks");
   
   const boards = {
     columns: [
       {
         id: uuidv4(),
-        title: "Bucket List",
-        cards:bucketListedTasks,
+        title: "Open",
+        cards:bucketListedTargets?bucketListedTargets:[],
       },
       {
         id: uuidv4(),
-        title: "ToDo",
-       cards:toDoTasks,
+        title: "In Progress",
+       cards:inProgressTargets?inProgressTargets:[],
       },
       {
         id: uuidv4(),
-        title: "Assigned",
-       cards:delegatedTasks,
+        title: "Escalated",
+       cards:completedTargets?completedTargets:[],
       },
       {
         id: uuidv4(),
-        title: "In progress",
-       cards:inProgressTasks,
+        title: "Closed",
+       cards:inProgressTargets?inProgressTargets:[],
       },
       {
         id: uuidv4(),
-        title: "Done",
-        cards:doneTasks,
+        title: "Customer Happy",
+        cards:doneTasks?doneTasks:[],
       },
-      {
-        id: uuidv4(),
-        title: "Verified/Closed",
-        cards:verificationTasks,
-      },
+      // {
+      //   id: uuidv4(),
+      //   title: "Verified/Closed",
+      //   cards:verificationTasks?verificationTasks:[],
+      // },
     ],
   };
 
@@ -599,4 +601,4 @@ const TaskIndex = () => {
   );
 };
 
-export { TaskIndex };
+export { TicketIndex };

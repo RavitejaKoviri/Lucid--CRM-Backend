@@ -2,9 +2,10 @@ import { ListViewProvider, useListView } from './core/ListViewProvider'
 import { QueryRequestProvider } from './core/QueryRequestProvider'
 import { QueryResponseProvider } from './core/QueryResponseProvider'
 import { DealsListHeader } from './components/header/DealsListHeader'
-import { DealsTable } from './table/DealsTable'
+// import { DealsTable } from './table/DealsTable'
 import { DealEditModal } from './deal-edit-modal/DealEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
+import { DealIndex } from './dealUi/dealIndex'
 
 const DealsList = () => {
   const { itemIdForUpdate } = useListView()
@@ -12,8 +13,10 @@ const DealsList = () => {
     <>
       <KTCard>
         <DealsListHeader />
-        <DealsTable />
+        {/* <DealsTable /> */}
       </KTCard>
+      <DealIndex/>
+
       {itemIdForUpdate !== undefined && <DealEditModal />}
     </>
   )

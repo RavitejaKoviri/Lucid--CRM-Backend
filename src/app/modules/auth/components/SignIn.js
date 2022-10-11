@@ -139,7 +139,7 @@ function Signin(props) {
                   <h1 className="text-dark fw-bolder mb-3">Sign In</h1>
                   {/*end::Title*/}
                   {/*begin::Subtitle*/}
-                  <div className="text-gray-500 fw-semibold fs-6">Your Social Campaigns</div>
+                  <div className="text-gray-500 fw-semibold fs-6">Your Social Logins</div>
                   {/*end::Subtitle=*/}
                 </div>
                 {/*begin::Heading*/}
@@ -166,7 +166,7 @@ function Signin(props) {
                 {/*end::Login options*/}
                 {/*begin::Separator*/}
                 <div className="separator separator-content my-14">
-                  <span className="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
+                  <span className="w-125px text-gray-500 fw-semibold fs-7">Or with Phone Number</span>
                 </div>
                 {/*end::Separator*/}
                 {formik.status ? (
@@ -243,9 +243,9 @@ function Signin(props) {
           <div className="d-flex flex-center flex-wrap px-5">
             {/*begin::Links*/}
             <div className="d-flex fw-semibold text-primary fs-base">
-              <a href="#" className="px-5" target="_blank">Terms</a>
-              <a href="#" className="px-5" target="_blank">Plans</a>
-              <a href="#" className="px-5" target="_blank">Contact Us</a>
+              <a href="www.websoc.co.in" className="px-5" target="_blank">Terms</a>
+              <a href="www.websoc.co.in" className="px-5" target="_blank">Plans</a>
+              <a href="www.websoc.co.in" className="px-5" target="_blank">Contact Us</a>
             </div>
             {/*end::Links*/}
           </div>
@@ -262,19 +262,21 @@ function Signin(props) {
             <a href="#" className="mb-0 mb-lg-12">
               <img alt="Logo" src={toAbsoluteUrl("/media/logos/custom-1.png")} className="h-60px h-lg-75px" />
             </a>
+            <h1 className="text-white fw-bolder mb-3">WEBSOC</h1>
+
             {/*end::Logo*/}
             {/*begin::Image*/}
             <img className="d-none d-lg-block mx-auto w-275px w-md-50 w-xl-500px mb-10 mb-lg-20" src={toAbsoluteUrl("/media/misc/auth-screens.png")} alt="" />
             {/*end::Image*/}
             {/*begin::Title*/}
-            <h1 className="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7">Fast, Efficient and Productive</h1>
+            <h1 className="d-none d-lg-block text-white fs-2qx fw-bolder text-center mb-7">Fast, Efficient and Productive CRM</h1>
             {/*end::Title*/}
             {/*begin::Text*/}
-            <div className="d-none d-lg-block text-white fs-base text-center">In this kind of post,
+            {/* <div className="d-none d-lg-block text-white fs-base text-center">In this kind of post,
               <a href="#" className="opacity-75-hover text-warning fw-bold me-1">the blogger</a>introduces a person they’ve interviewed
               <br />and provides some background information about
               <a href="#" className="opacity-75-hover text-warning fw-bold me-1">the interviewee</a>and their
-              <br />work following this is a transcript of the interview.</div>
+              <br />work following this is a transcript of the interview.</div> */}
             {/*end::Text*/}
           </div>
           {/*end::Content*/}
