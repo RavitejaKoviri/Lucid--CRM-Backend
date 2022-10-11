@@ -13,6 +13,7 @@ import Adduser from '../modules/user-management/users-list/user-edit-modal/Addus
 import LeadAdduser from '../modules/leads/leads-list/components/header/LeadAdduser'
 import BookingAdduser from '../modules/booking/bookings-list/components/header/BookingAdduser'
 import TargetAdduser from '../modules/Targets/Target-list/components/header/TargetAdduser'
+import TicketAdduser from '../modules/Tickets/Ticket-list/components/header/TicketAddUser'
 
 import DealsAdduser from '../modules/deal/deals-list/components/header/DealsAdduser'
 
@@ -53,6 +54,7 @@ const PrivateRoutes = () => {
         <Route path='target/target/targetadduser' element={<TargetAdduser/>} />
         
         <Route path='deals/deals/dealsadduser' element={<DealsAdduser/>} />
+        <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
 
         {/* Lazy Modules */}
         <Route
