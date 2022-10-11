@@ -9,6 +9,7 @@ import { MenuTestPage } from '../pages/MenuTestPage'
 import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils'
 import { WithChildren } from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
+import Adduser from '../modules/user-management/users-list/user-edit-modal/Adduser'
 
 
 
@@ -39,6 +40,7 @@ const PrivateRoutes = () => {
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* <Route path='targets' element={<TargetsWrapper />} /> */}
         <Route path='editer' element={<EditerPage />} />
+        <Route path='apps/user-management/users/adduser' element={<Adduser />} />
         {/* Lazy Modules */}
         <Route
           path='crafted/pages/profile/*'

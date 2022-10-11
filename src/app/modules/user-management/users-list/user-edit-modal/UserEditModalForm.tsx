@@ -27,7 +27,7 @@ const editUserSchema = Yup.object().shape({
 })
 
 const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
-  const { setItemIdForUpdate } = useListView()
+//   const { setItemIdForUpdate } = useListView()
   const { refetch } = useQueryResponse()
 
   const [userForEdit] = useState<User>({
@@ -39,45 +39,40 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     email: user.email || initialUser.email,
   })
 
-  const cancel = (withRefresh?: boolean) => {
-    if (withRefresh) {
-      refetch()
-    }
-    setItemIdForUpdate(undefined)
-  }
+//   const cancel = (withRefresh?: boolean) => {
+//     if (withRefresh) {
+//       refetch()
+//     }
+//     setItemIdForUpdate(undefined)
+//   }
 
-  const blankImg = toAbsoluteUrl('/media/svg/avatars/blank.svg')
-  const userAvatarImg = toAbsoluteUrl(`/media/${userForEdit.avatar}`)
+//   const blankImg = toAbsoluteUrl('/media/svg/avatars/blank.svg')
+//   const userAvatarImg = toAbsoluteUrl(`/media/${userForEdit.avatar}`)
 
   const formik = useFormik({
     initialValues: userForEdit,
     validationSchema: editUserSchema,
     onSubmit: async (values, { setSubmitting }) => {
       setSubmitting(true)
-      try {
-        if (isNotEmpty(values.id)) {
-          await updateUser(values)
-        } else {
-          await createUser(values)
-        }
-      } catch (ex) {
-        console.error(ex)
-      } finally {
-        setSubmitting(true)
-        cancel(true)
-      }
+    //   try {
+    //     if (isNotEmpty(values.id)) {
+    //       await updateUser(values)
+    //     } else {
+    //       await createUser(values)
+    //     }
+    //   } catch (ex) {
+    //     console.error(ex)
+    //   } finally {
+    //     setSubmitting(true)
+    //     cancel(true)
+    //   }
     },
   })
 
   return (
     <>
-      <form id='kt_modal_add_user_form' className='form' onSubmit={formik.handleSubmit} noValidate>
-        {/* begin::Scroll */}
-        <body id="kt_body" className="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed">
-		{/* {/*begin::Theme mode setup on page load*/}
-		{/*end::Theme mode setup on page load*/}
-		{/*begin::Main*/}
-		{/*begin::Root*/}
+      <form   onSubmit={formik.handleSubmit} noValidate>
+        <body id="kt_body" className="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed">		
 		<div className="d-flex flex-column flex-root">
 			{/* {/*begin::Page*/}
 			<div className="page d-flex flex-row flex-column-fluid">
@@ -3195,7 +3190,6 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 					</div>
 					{/*end::Footer*/}
 				</div>
-				{/*end::Aside*/}
 				{/*begin::Wrapper*/}
 				<div className="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
 					{/*begin::Header*/}
@@ -6795,35 +6789,11 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 											{/*begin:Nav*/}
 											<div className="row g-0">
 												{/*begin:Item*/}
-												<div className="col-6">
-													<a href="../../demo6/dist/apps/projects/budget.html" className="d-flex flex-column flex-center h-100 p-6 bg-hover-light border-end border-bottom">
-														{/*begin::Svg Icon | path: icons/duotune/finance/fin009.svg*/}
-														<span className="svg-icon svg-icon-3x svg-icon-primary mb-2">
-															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																<path opacity="0.3" d="M15.8 11.4H6C5.4 11.4 5 11 5 10.4C5 9.80002 5.4 9.40002 6 9.40002H15.8C16.4 9.40002 16.8 9.80002 16.8 10.4C16.8 11 16.3 11.4 15.8 11.4ZM15.7 13.7999C15.7 13.1999 15.3 12.7999 14.7 12.7999H6C5.4 12.7999 5 13.1999 5 13.7999C5 14.3999 5.4 14.7999 6 14.7999H14.8C15.3 14.7999 15.7 14.2999 15.7 13.7999Z" fill="currentColor" />
-																<path d="M18.8 15.5C18.9 15.7 19 15.9 19.1 16.1C19.2 16.7 18.7 17.2 18.4 17.6C17.9 18.1 17.3 18.4999 16.6 18.7999C15.9 19.0999 15 19.2999 14.1 19.2999C13.4 19.2999 12.7 19.2 12.1 19.1C11.5 19 11 18.7 10.5 18.5C10 18.2 9.60001 17.7999 9.20001 17.2999C8.80001 16.8999 8.49999 16.3999 8.29999 15.7999C8.09999 15.1999 7.80001 14.7 7.70001 14.1C7.60001 13.5 7.5 12.8 7.5 12.2C7.5 11.1 7.7 10.1 8 9.19995C8.3 8.29995 8.79999 7.60002 9.39999 6.90002C9.99999 6.30002 10.7 5.8 11.5 5.5C12.3 5.2 13.2 5 14.1 5C15.2 5 16.2 5.19995 17.1 5.69995C17.8 6.09995 18.7 6.6 18.8 7.5C18.8 7.9 18.6 8.29998 18.3 8.59998C18.2 8.69998 18.1 8.69993 18 8.79993C17.7 8.89993 17.4 8.79995 17.2 8.69995C16.7 8.49995 16.5 7.99995 16 7.69995C15.5 7.39995 14.9 7.19995 14.2 7.19995C13.1 7.19995 12.1 7.6 11.5 8.5C10.9 9.4 10.5 10.6 10.5 12.2C10.5 13.3 10.7 14.2 11 14.9C11.3 15.6 11.7 16.1 12.3 16.5C12.9 16.9 13.5 17 14.2 17C15 17 15.7 16.8 16.2 16.4C16.8 16 17.2 15.2 17.9 15.1C18 15 18.5 15.2 18.8 15.5Z" fill="currentColor" />
-															</svg>
-														</span>
-														{/*end::Svg Icon*/}
-														<span className="fs-5 fw-semibold text-gray-800 mb-0">Accounting</span>
-														<span className="fs-7 text-gray-400">eCommerce</span>
-													</a>
-												</div>
+												
 												{/*end:Item*/}
 											</div>
 											{/*end:Nav*/}
 											{/*begin::View more*/}
-											<div className="py-2 text-center border-top">
-												<a href="../../demo6/dist/pages/user-profile/activity.html" className="btn btn-color-gray-600 btn-active-color-primary">View All
-												{/*begin::Svg Icon | path: icons/duotune/arrows/arr064.svg*/}
-												<span className="svg-icon svg-icon-5">
-													<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<rect opacity="0.5" x="18" y="13" width="13" height="2" rx="1" transform="rotate(-180 18 13)" fill="currentColor" />
-														<path d="M15.4343 12.5657L11.25 16.75C10.8358 17.1642 10.8358 17.8358 11.25 18.25C11.6642 18.6642 12.3358 18.6642 12.75 18.25L18.2929 12.7071C18.6834 12.3166 18.6834 11.6834 18.2929 11.2929L12.75 5.75C12.3358 5.33579 11.6642 5.33579 11.25 5.75C10.8358 6.16421 10.8358 6.83579 11.25 7.25L15.4343 11.4343C15.7467 11.7467 15.7467 12.2533 15.4343 12.5657Z" fill="currentColor" />
-													</svg>
-												</span>
-												{/*end::Svg Icon*/}</a>
-											</div>
 											{/*end::View more*/}
 										</div>
 										{/*end::Menu*/}
@@ -7116,25 +7086,6 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 												<div className="tab-pane fade show active" id="kt_topbar_notifications_2" role="tabpanel">
 													{/*begin::Wrapper*/}
 													<div className="d-flex flex-column px-9">
-														{/*begin::Section*/}
-														<div className="pt-10 pb-0">
-															{/*begin::Title*/}
-															<h3 className="text-dark text-center fw-bold">Get Pro Access</h3>
-															{/*end::Title*/}
-															{/*begin::Text*/}
-															<div className="text-center text-gray-600 fw-semibold pt-1">Outlines keep you honest. They stoping you from amazing poorly about drive</div>
-															{/*end::Text*/}
-															{/*begin::Action*/}
-															<div className="text-center mt-5 mb-9">
-																<a href="#" className="btn btn-sm btn-primary px-6" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">Upgrade</a>
-															</div>
-															{/*end::Action*/}
-														</div>
-														{/*end::Section*/}
-														{/*begin::Illustration*/}
-														<div className="text-center px-4">
-															<img className="mw-100 mh-200px" alt="image" src="assets/media/illustrations/sketchy-1/1.png" />
-														</div>
 														{/*end::Illustration*/}
 													</div>
 													{/*end::Wrapper*/}
@@ -7468,172 +7419,6 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 										{/*end::Menu*/}
 									</div>
 									{/*end::Theme mode*/}
-									{/*begin::User menu*/}
-									<div className="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-										{/*begin::Menu wrapper*/}
-										<div className="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-											<img src="assets/media/avatars/300-1.jpg" alt="image" />
-										</div>
-										{/*begin::User account menu*/}
-										<div className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-color fw-semibold py-4 fs-6 w-275px" data-kt-menu="true">
-											{/*begin::Menu item*/}
-											<div className="menu-item px-3">
-												<div className="menu-content d-flex align-items-center px-3">
-													{/*begin::Avatar*/}
-													<div className="symbol symbol-50px me-5">
-														<img alt="Logo" src="assets/media/avatars/300-1.jpg" />
-													</div>
-													{/*end::Avatar*/}
-													{/*begin::Username*/}
-													<div className="d-flex flex-column">
-														<div className="fw-bold d-flex align-items-center fs-5">Max Smith
-														<span className="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span></div>
-														<a href="#" className="fw-semibold text-muted text-hover-primary fs-7">max@kt.com</a>
-													</div>
-													{/*end::Username*/}
-												</div>
-											</div>
-											{/*end::Menu item*/}
-											{/*begin::Menu separator*/}
-											<div className="separator my-2"></div>
-											{/*end::Menu separator*/}
-											{/*begin::Menu item*/}
-											<div className="menu-item px-5">
-												<a href="../../demo6/dist/account/overview.html" className="menu-link px-5">My Profile</a>
-											</div>
-											{/*end::Menu item*/}
-											{/*begin::Menu item*/}
-											<div className="menu-item px-5">
-												<a href="../../demo6/dist/apps/projects/list.html" className="menu-link px-5">
-													<span className="menu-text">My Projects</span>
-													<span className="menu-badge">
-														<span className="badge badge-light-danger badge-circle fw-bold fs-7">3</span>
-													</span>
-												</a>
-											</div>
-											{/*end::Menu item*/}
-											{/*begin::Menu item*/}
-											<div className="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="left-start">
-												<a href="#" className="menu-link px-5">
-													<span className="menu-title">My Subscription</span>
-													<span className="menu-arrow"></span>
-												</a>
-												{/*begin::Menu sub*/}
-												<div className="menu-sub menu-sub-dropdown w-175px py-4">
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<a href="../../demo6/dist/account/referrals.html" className="menu-link px-5">Referrals</a>
-													</div>
-													{/*end::Menu item*/}
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<a href="../../demo6/dist/account/billing.html" className="menu-link px-5">Billing</a>
-													</div>
-													{/*end::Menu item*/}
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<a href="../../demo6/dist/account/statements.html" className="menu-link px-5">Payments</a>
-													</div>
-													{/*end::Menu item*/}
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<a href="../../demo6/dist/account/statements.html" className="menu-link d-flex flex-stack px-5">Statements
-														<i className="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="View your statements"></i></a>
-													</div>
-													{/*end::Menu item*/}
-													{/*begin::Menu separator*/}
-													<div className="separator my-2"></div>
-													{/*end::Menu separator*/}
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<div className="menu-content px-3">
-															<label className="form-check form-switch form-check-custom form-check-solid">
-																<input className="form-check-input w-30px h-20px" type="checkbox" value="1"  name="notifications" />
-																<span className="form-check-label text-muted fs-7">Notifications</span>
-															</label>
-														</div>
-													</div>
-													{/*end::Menu item*/}
-												</div>
-												{/*end::Menu sub*/}
-											</div>
-											{/*end::Menu item*/}
-											{/*begin::Menu item*/}
-											<div className="menu-item px-5">
-												<a href="../../demo6/dist/account/statements.html" className="menu-link px-5">My Statements</a>
-											</div>
-											{/*end::Menu item*/}
-											{/*begin::Menu separator*/}
-											<div className="separator my-2"></div>
-											{/*end::Menu separator*/}
-											{/*begin::Menu item*/}
-											<div className="menu-item px-5" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-placement="bottom-end" data-kt-menu-offset="-15px, 0">
-												<a href="#" className="menu-link px-5">
-													<span className="menu-title position-relative">Language
-													<span className="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">English
-													<img className="w-15px h-15px rounded-1 ms-2" src="assets/media/flags/united-states.svg" alt="" /></span></span>
-												</a>
-												{/*begin::Menu sub*/}
-												<div className="menu-sub menu-sub-dropdown w-175px py-4">
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<a href="../../demo6/dist/account/settings.html" className="menu-link d-flex px-5 active">
-														<span className="symbol symbol-20px me-4">
-															<img className="rounded-1" src="assets/media/flags/united-states.svg" alt="" />
-														</span>English</a>
-													</div>
-													{/*end::Menu item*/}
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<a href="../../demo6/dist/account/settings.html" className="menu-link d-flex px-5">
-														<span className="symbol symbol-20px me-4">
-															<img className="rounded-1" src="assets/media/flags/spain.svg" alt="" />
-														</span>Spanish</a>
-													</div>
-													{/*end::Menu item*/}
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<a href="../../demo6/dist/account/settings.html" className="menu-link d-flex px-5">
-														<span className="symbol symbol-20px me-4">
-															<img className="rounded-1" src="assets/media/flags/germany.svg" alt="" />
-														</span>German</a>
-													</div>
-													{/*end::Menu item*/}
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<a href="../../demo6/dist/account/settings.html" className="menu-link d-flex px-5">
-														<span className="symbol symbol-20px me-4">
-															<img className="rounded-1" src="assets/media/flags/japan.svg" alt="" />
-														</span>Japanese</a>
-													</div>
-													{/*end::Menu item*/}
-													{/*begin::Menu item*/}
-													<div className="menu-item px-3">
-														<a href="../../demo6/dist/account/settings.html" className="menu-link d-flex px-5">
-														<span className="symbol symbol-20px me-4">
-															<img className="rounded-1" src="assets/media/flags/france.svg" alt="" />
-														</span>French</a>
-													</div>
-													{/*end::Menu item*/}
-												</div>
-												{/*end::Menu sub*/}
-											</div>
-											{/*end::Menu item*/}
-											{/*begin::Menu item*/}
-											<div className="menu-item px-5 my-1">
-												<a href="../../demo6/dist/account/settings.html" className="menu-link px-5">Account Settings</a>
-											</div>
-											{/*end::Menu item*/}
-											{/*begin::Menu item*/}
-											<div className="menu-item px-5">
-												<a href="../../demo6/dist/authentication/layouts/corporate/sign-in.html" className="menu-link px-5">Sign Out</a>
-											</div>
-											{/*end::Menu item*/}
-										</div>
-										{/*end::User account menu*/}
-										{/*end::Menu wrapper*/}
-									</div>
-									{/*end::User menu*/}
 									{/*begin::Heaeder menu toggle*/}
 									<div className="d-flex align-items-center d-lg-none ms-2" title="Show header menu">
 										<div className="btn btn-icon btn-active-color-primary w-30px h-30px w-md-40px h-md-40px" id="kt_header_menu_mobile_toggle">
@@ -8534,7 +8319,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 							{/*begin::Copyright*/}
 							<div className="text-dark order-2 order-md-1">
 								<span className="text-muted fw-semibold me-1">2022&copy;</span>
-								<a href="https://keenthemes.com" target="_blank" className="text-gray-800 text-hover-primary">Keenthemes</a>
+								<a href="https://keenthemes.com" target="_blank" className="text-gray-800 text-hover-primary">Websoc CRM</a>
 							</div>
 							{/*end::Copyright*/}
 							{/*begin::Menu*/}
@@ -12968,7 +12753,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 		{/*end::Custom Javascript*/}
 	</body>
       </form>
-      {(formik.isSubmitting || isUserLoading) && <UsersListLoading />}
+      {/* {(formik.isSubmitting || isUserLoading) && <UsersListLoading />} */}
     </>
   )
 }
