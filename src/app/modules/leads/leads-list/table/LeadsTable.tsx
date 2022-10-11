@@ -13,17 +13,18 @@ import { getLeads } from '../_redux/leadAction'
 
 const LeadsTable = () => {
   const users = useQueryResponseData()
+  const user = useSelector(
+    (state: any) => state?.LeadData?.Leads
+  );
   const isLoading = useQueryResponseLoading()
-  const data = useMemo(() => users, [users])
+  const data = useMemo(() => user, [user])
   const columns = useMemo(() => LeadsColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
     data,
   })
 
-  const user = useSelector(
-    (state: any) => state?.LeadData?.Leads
-  );
+
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );

@@ -1,7 +1,7 @@
 import { ListViewProvider, useListView } from './core/ListViewProvider'
 import { QueryRequestProvider } from './core/QueryRequestProvider'
 import { QueryResponseProvider } from './core/QueryResponseProvider'
-import { UsersListHeader } from './components/header/LeadsListHeader'
+import { LeadsListHeader } from './components/header/LeadsListHeader'
 import { LeadsTable } from './table/LeadsTable'
 import { LeadEditModal } from './lead-edit-modal/LeadEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
@@ -11,7 +11,7 @@ const LeadsList = () => {
   return (
     <>
       <KTCard>
-        <UsersListHeader />
+        <LeadsListHeader />
         <LeadsTable />
       </KTCard>
       {itemIdForUpdate !== undefined && <LeadEditModal />}
