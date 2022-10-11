@@ -21,7 +21,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   // },
   {
     Header: (props) => <BookingCustomHeader tableProps={props} title='username' className='min-w-125px' />,
-    accessor: 'username',
+    accessor: 'fullName',
   },
   {
     Header: (props) => <BookingCustomHeader tableProps={props} title='Email' className='min-w-125px' />,
@@ -29,7 +29,15 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   },
   {
     Header: (props) => <BookingCustomHeader tableProps={props} title='mobile' className='min-w-125px' />,
-    accessor: 'mobile',
+    accessor: 'mobileNumber',
+  },
+  {
+    Header: (props) => <BookingCustomHeader tableProps={props} title='mobile' className='min-w-125px' />,
+    accessor: 'gender',
+  },
+  {
+    Header: (props) => <BookingCustomHeader tableProps={props} title='mobile' className='min-w-125px' />,
+    accessor: 'address',
   },
   // {
   //   Header: (props) => (
