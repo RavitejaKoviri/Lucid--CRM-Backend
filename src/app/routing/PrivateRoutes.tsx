@@ -24,6 +24,7 @@ const PrivateRoutes = () => {
   const TargetPage = lazy(() => import('../modules/Targets/TargetPage'))
   const TaskPage = lazy(() => import('../modules/task/TasksPage'))
   const BookingsPage = lazy(() => import('../modules/booking/BookingsPage'))
+  const ContactPage = lazy(() => import('../modules/Contact/ContactsPage'))
 
 
   return (
@@ -51,6 +52,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <WizardsPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='contacts/*'
+          element={
+            <SuspensedView>
+              <ContactPage />
             </SuspensedView>
           }
         />

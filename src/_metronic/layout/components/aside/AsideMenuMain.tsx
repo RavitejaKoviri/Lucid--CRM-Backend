@@ -23,7 +23,7 @@ export function AsideMenuMain() {
       >
         <AsideMenuItem to='/leads/list' title='Leads' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/bookings' title='Bookings' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/leads/contacts' title='Contacts' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='contacts' title='Contacts' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/deals' title='Deals' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/tasks' title='Tasks' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/tickets' title='Tickets' fontIcon='bi-layers fs-3' />
