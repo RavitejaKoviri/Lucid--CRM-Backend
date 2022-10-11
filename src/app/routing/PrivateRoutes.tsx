@@ -14,6 +14,7 @@ import LeadAdduser from '../modules/leads/leads-list/components/header/LeadAddus
 import BookingAdduser from '../modules/booking/bookings-list/components/header/BookingAdduser'
 import TargetAdduser from '../modules/Targets/Target-list/components/header/TargetAdduser'
 
+import DealsAdduser from '../modules/deal/deals-list/components/header/DealsAdduser'
 
 
 const PrivateRoutes = () => {
@@ -51,6 +52,8 @@ const PrivateRoutes = () => {
         <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser/>} />
         <Route path='target/target/targetadduser' element={<TargetAdduser/>} />
         
+        <Route path='deals/deals/dealsadduser' element={<DealsAdduser/>} />
+
         {/* Lazy Modules */}
         <Route
           path='crafted/pages/profile/*'
