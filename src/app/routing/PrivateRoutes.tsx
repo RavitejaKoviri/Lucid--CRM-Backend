@@ -10,6 +10,8 @@ import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils'
 import { WithChildren } from '../../_metronic/helpers'
 import BuilderPageWrapper from '../pages/layout-builder/BuilderPageWrapper'
 
+
+
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -21,6 +23,8 @@ const PrivateRoutes = () => {
   const LeadsPage = lazy(() => import('../modules/leads/LeadsPage'))
   const TargetPage = lazy(() => import('../modules/Targets/TargetPage'))
   const TaskPage = lazy(() => import('../modules/task/TasksPage'))
+  const BookingsPage = lazy(() => import('../modules/booking/BookingsPage'))
+
 
   return (
     <Routes>
@@ -120,6 +124,15 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <TargetPage />
+            </SuspensedView>
+          }
+        />
+
+        <Route
+          path='leads/bookings'
+          element={
+            <SuspensedView>
+              <BookingsPage />
             </SuspensedView>
           }
         />
