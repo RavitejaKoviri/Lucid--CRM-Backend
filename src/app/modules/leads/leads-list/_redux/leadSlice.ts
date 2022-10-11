@@ -3,7 +3,12 @@ import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
   Leads: [],
-  Createlead: []
+  Createlead: [],
+  Source: [],
+  campaigns: [],
+  Comapnies: [],
+  leadStatus: []
+
 };
 
 export const callTypes = {
@@ -33,9 +38,25 @@ export const LeadSlice = createSlice({
       }
     },
 
-    getedAllLeadsDetails: (state, action) => {
+    fetchedAllLeadsDetails: (state, action) => {
       const { data } = action.payload;
       state.Leads = data;
+    },
+    fetchedAllSourceDetails: (state, action) => {
+      const { data } = action.payload;
+      state.Source = data;
+    },
+    fetchedcampaignsDetails: (state, action) => {
+      const { data } = action.payload;
+      state.campaigns = data;
+    },
+    fetchedAllComapniesDetails: (state, action) => {
+      const { data } = action.payload;
+      state.Comapnies = data;
+    },
+    fetchedAllleadStatusesDetails: (state, action) => {
+      const { data } = action.payload;
+      state.leadStatus = data;
     },
     fetchedLead: (state, action) => {
       const { data } = action.payload;

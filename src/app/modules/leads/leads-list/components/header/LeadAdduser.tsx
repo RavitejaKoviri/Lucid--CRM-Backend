@@ -1,29 +1,87 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { FC, useState } from 'react'
-// import * as Yup from 'yup'
-// import { useFormik } from 'formik'
-// import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers'
-// import { initialUser, User } from '../core/_models'
-// import clsx from 'clsx'
-// import { useListView } from '../core/ListViewProvider'
-// import { UsersListLoading } from '../components/loading/UsersListLoading'
-// import { createUser, updateUser } from '../core/_requests'
-// import { useQueryResponse } from '../core/QueryResponseProvider'
+import { CreateLead, getcampaigns, getcompanies, getleadStatuses, getsource } from "../../_redux/leadAction";
 
 export default function LeadAdduser() {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
+  const user = useSelector(
+    (state: any) => state?.auth?.user
+  );
+  const source = useSelector(
+    (state: any) => state?.LeadData?.Source
+  );
+  const campaign = useSelector(
+    (state: any) => state?.LeadData?.campaigns
+  );
+  const company = useSelector(
+    (state: any) => state?.LeadData?.Comapnies
+  );
+  const status = useSelector(
+    (state: any) => state?.LeadData?.leadStatus
+  );
+  useEffect(() => {
+    dispatch(getsource(token))
+    dispatch(getcampaigns(token))
+    dispatch(getcompanies(token))
+    dispatch(getleadStatuses(token))
+  }, [])
+  const [data, setData] = useState({
+    leadFirstName: " ",
+    leadPhonenumber: " ",
+    leadIndustry: " ",
+    leadAnnualRevenueContribution: " ",
+    leadEmailOptOut: " ",
+    leadCompanyName: " ",
+    leadLastName: " ",
+    leadEmail: " ",
+    leadWebsite: " ",
+    leadSource: " ",
+    campaignSource: " ",
+    company: " ",
+    leadStatus: " ",
+    leadOwner: user?.id,
+  })
+
+  const handleChange = (e: any) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    console.log(data, "EDIT_PROFILE");
+    dispatch(CreateLead(data, token));
+    setData({
+      leadFirstName: " ",
+      leadPhonenumber: " ",
+      leadIndustry: " ",
+      leadAnnualRevenueContribution: " ",
+      leadEmailOptOut: " ",
+      leadCompanyName: " ",
+      leadLastName: " ",
+      leadEmail: " ",
+      leadWebsite: " ",
+      leadSource: " ",
+      campaignSource: " ",
+      company: " ",
+      leadStatus: " ",
+      leadOwner: " ",
+    })
+  };
   return (
     <>
       <div
         className="content d-flex flex-column flex-column-fluid"
-        id="kt_content"
+      // id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
           <form
-            id="kt_ecommerce_add_product_form"
+            // id="kt_ecommerce_add_product_form"
             className="form d-flex flex-column flex-lg-row"
-            data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
+          // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
               {/*begin::Thumbnail settings*/}
@@ -113,7 +171,6 @@ export default function LeadAdduser() {
                   <div className="card-toolbar">
                     <div
                       className="rounded-circle bg-success w-15px h-15px"
-                      id="kt_ecommerce_add_product_status"
                     ></div>
                   </div>
                   {/*begin::Card toolbar*/}
@@ -127,13 +184,17 @@ export default function LeadAdduser() {
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
-                    id="kt_ecommerce_add_product_status_select"
+                    value={data.leadStatus}
+                    onChange={handleChange}
+                    name="leadStatus"
                   >
                     <option></option>
-                    <option value="published">Published</option>
-                    <option value="draft">Draft</option>
-                    <option value="scheduled">Scheduled</option>
-                    <option value="inactive">Inactive</option>
+                    {
+                      status?.map((item: any) => (
+                        <option value={item?.id}>{item?.leadStatusName}</option>
+                      ))
+                    }
+
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
@@ -155,167 +216,182 @@ export default function LeadAdduser() {
                 {/*end::Card body*/}
               </div>
               {/*end::Status*/}
-              {/*begin::Category & tags*/}
+              {/*begin::Status*/}
               <div className="card card-flush py-4">
                 {/*begin::Card header*/}
                 <div className="card-header">
                   {/*begin::Card title*/}
                   <div className="card-title">
-                    <h2>Product Details</h2>
+                    <h2>Campaign</h2>
                   </div>
                   {/*end::Card title*/}
+                  {/*begin::Card toolbar*/}
+                  <div className="card-toolbar">
+                    <div
+                      className="rounded-circle bg-success w-15px h-15px"
+                    ></div>
+                  </div>
+                  {/*begin::Card toolbar*/}
                 </div>
                 {/*end::Card header*/}
                 {/*begin::Card body*/}
                 <div className="card-body pt-0">
-                  {/*begin::Input group*/}
-                  {/*begin::Label*/}
-                  <label className="form-label">Categories</label>
-                  {/*end::Label*/}
-                  {/*begin::Select2*/}
-                  <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-placeholder="Select an option"
-                    data-allow-clear="true"
-                  >
-                    <option></option>
-                    <option value="Computers">Computers</option>
-                    <option value="Watches">Watches</option>
-                    <option value="Headphones">Headphones</option>
-                    <option value="Footwear">Footwear</option>
-                    <option value="Cameras">Cameras</option>
-                    <option value="Shirts">Shirts</option>
-                    <option value="Household">Household</option>
-                    <option value="Handbags">Handbags</option>
-                    <option value="Wines">Wines</option>
-                    <option value="Sandals">Sandals</option>
-                  </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7 mb-7">
-                    Add product to a category.
-                  </div>
-                  {/*end::Description*/}
-                  {/*end::Input group*/}
-                  {/*begin::Button*/}
-                  <a
-                    href="../../demo6/dist/apps/ecommerce/catalog/add-category.html"
-                    className="btn btn-light-primary btn-sm mb-10"
-                  >
-                    {/*begin::Svg Icon | path: icons/duotune/arrows/arr087.svg*/}
-                    <span className="svg-icon svg-icon-2">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          opacity="0.5"
-                          x="11"
-                          y="18"
-                          width="12"
-                          height="2"
-                          rx="1"
-                          transform="rotate(-90 11 18)"
-                          fill="currentColor"
-                        />
-                        <rect
-                          x="6"
-                          y="11"
-                          width="12"
-                          height="2"
-                          rx="1"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </span>
-                    {/*end::Svg Icon*/}Create new category
-                  </a>
-                  {/*end::Button*/}
-                  {/*begin::Input group*/}
-                  {/*begin::Label*/}
-                  <label className="form-label d-block">Tags</label>
-                  {/*end::Label*/}
-                  {/*begin::Input*/}
-                  <input
-                    id="kt_ecommerce_add_product_tags"
-                    name="kt_ecommerce_add_product_tags"
-                    className="form-control mb-2"
-                    value=""
-                  />
-                  {/*end::Input*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7">Add tags to a product.</div>
-                  {/*end::Description*/}
-                  {/*end::Input group*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
-              {/*end::Category & tags*/}
-              {/*begin::Weekly sales*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Weekly Sales</h2>
-                  </div>
-                  {/*end::Card title*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body pt-0">
-                  <span className="text-muted">
-                    No data available. Sales data will begin capturing once
-                    product has been published.
-                  </span>
-                </div>
-                {/*end::Card body*/}
-              </div>
-              {/*end::Weekly sales*/}
-              {/*begin::Template settings*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Product Template</h2>
-                  </div>
-                  {/*end::Card title*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body pt-0">
-                  {/*begin::Select store template*/}
-                  {/*end::Select store template*/}
                   {/*begin::Select2*/}
                   <select
                     className="form-select mb-2"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
-                    id="kt_ecommerce_add_product_store_template"
+                    value={data.campaignSource}
+                    onChange={handleChange}
+                    name="campaignSource"
                   >
                     <option></option>
-                    <option value="default">Default template</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="office">Office stationary</option>
-                    <option value="fashion">Fashion</option>
+                    {
+                      campaign?.map((item: any) => (
+                        <option value={item?.id}>{item?.campaignName}</option>
+                      ))
+                    }
+
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">
-                    Assign a template from your current theme to define how a
-                    single product is displayed.
-                  </div>
+                  <div className="text-muted fs-7">Set the product status.</div>
                   {/*end::Description*/}
+                  {/*begin::Datepicker*/}
+                  <div className="d-none mt-10">
+                    <label className="form-label">
+                      Select publishing date and time
+                    </label>
+                    <input
+                      className="form-control"
+                      id="kt_ecommerce_add_product_status_datepicker"
+                      placeholder="Pick date & time"
+                    />
+                  </div>
+                  {/*end::Datepicker*/}
                 </div>
                 {/*end::Card body*/}
               </div>
-              {/*end::Template settings*/}
+              {/*end::Status*/}
+              {/*begin::Status*/}
+              <div className="card card-flush py-4">
+                {/*begin::Card header*/}
+                <div className="card-header">
+                  {/*begin::Card title*/}
+                  <div className="card-title">
+                    <h2>Source</h2>
+                  </div>
+                  {/*end::Card title*/}
+                  {/*begin::Card toolbar*/}
+                  <div className="card-toolbar">
+                    <div
+                      className="rounded-circle bg-success w-15px h-15px"
+                    ></div>
+                  </div>
+                  {/*begin::Card toolbar*/}
+                </div>
+                {/*end::Card header*/}
+                {/*begin::Card body*/}
+                <div className="card-body pt-0">
+                  {/*begin::Select2*/}
+                  <select
+                    className="form-select mb-2"
+                    data-control="select2"
+                    data-hide-search="true"
+                    data-placeholder="Select an option"
+                    value={data.leadSource}
+                    onChange={handleChange}
+                    name="leadSource"
+                  >
+                    <option></option>
+                    {
+                      source?.map((item: any) => (
+                        <option value={item?.id}>{item?.SourceName}</option>
+                      ))
+                    }
+
+                  </select>
+                  {/*end::Select2*/}
+                  {/*begin::Description*/}
+                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/*end::Description*/}
+                  {/*begin::Datepicker*/}
+                  <div className="d-none mt-10">
+                    <label className="form-label">
+                      Select publishing date and time
+                    </label>
+                    <input
+                      className="form-control"
+                      id="kt_ecommerce_add_product_status_datepicker"
+                      placeholder="Pick date & time"
+                    />
+                  </div>
+                  {/*end::Datepicker*/}
+                </div>
+                {/*end::Card body*/}
+              </div>
+              {/*end::Status*/}
+              {/*begin::Status*/}
+              <div className="card card-flush py-4">
+                {/*begin::Card header*/}
+                <div className="card-header">
+                  {/*begin::Card title*/}
+                  <div className="card-title">
+                    <h2>Company</h2>
+                  </div>
+                  {/*end::Card title*/}
+                  {/*begin::Card toolbar*/}
+                  <div className="card-toolbar">
+                    <div
+                      className="rounded-circle bg-success w-15px h-15px"
+                    ></div>
+                  </div>
+                  {/*begin::Card toolbar*/}
+                </div>
+                {/*end::Card header*/}
+                {/*begin::Card body*/}
+                <div className="card-body pt-0">
+                  {/*begin::Select2*/}
+                  <select
+                    className="form-select mb-2"
+                    data-control="select2"
+                    data-hide-search="true"
+                    data-placeholder="Select an option"
+                    value={data.company}
+                    onChange={handleChange}
+                    name="company"
+                  >
+                    <option></option>
+                    {
+                      company?.map((item: any) => (
+                        <option value={item?.id}>{item?.companyName}</option>
+                      ))
+                    }
+
+                  </select>
+                  {/*end::Select2*/}
+                  {/*begin::Description*/}
+                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/*end::Description*/}
+                  {/*begin::Datepicker*/}
+                  <div className="d-none mt-10">
+                    <label className="form-label">
+                      Select publishing date and time
+                    </label>
+                    <input
+                      className="form-control"
+                      id="kt_ecommerce_add_product_status_datepicker"
+                      placeholder="Pick date & time"
+                    />
+                  </div>
+                  {/*end::Datepicker*/}
+                </div>
+                {/*end::Card body*/}
+              </div>
+              {/*end::Status*/}
+
+
             </div>
             {/*end::Aside column*/}
             {/*begin::Main column*/}
@@ -333,17 +409,6 @@ export default function LeadAdduser() {
                   </a>
                 </li>
                 {/*end:::Tab item*/}
-                {/*begin:::Tab item*/}
-                <li className="nav-item">
-                  <a
-                    className="nav-link text-active-primary pb-4"
-                    data-bs-toggle="tab"
-                    href="#kt_ecommerce_add_product_advanced"
-                  >
-                    Advanced
-                  </a>
-                </li>
-                {/*end:::Tab item*/}
               </ul>
               {/*end:::Tabs*/}
               {/*begin::Tab content*/}
@@ -351,7 +416,6 @@ export default function LeadAdduser() {
                 {/*begin::Tab pane*/}
                 <div
                   className="tab-pane fade show active"
-                  id="kt_ecommerce_add_product_general"
                   role="tab-panel"
                 >
                   <div className="d-flex flex-column gap-7 gap-lg-10">
@@ -373,6 +437,9 @@ export default function LeadAdduser() {
                               <label>Lead FirstName:</label>
                               <input
                                 type="text"
+                                value={data.leadFirstName}
+                                onChange={handleChange}
+                                name="leadFirstName"
                                 className="form-control"
                                 placeholder="Enter FirstName"
                               />
@@ -381,6 +448,9 @@ export default function LeadAdduser() {
                               <label>Lead LastName:</label>
                               <input
                                 type="text"
+                                value={data.leadLastName}
+                                onChange={handleChange}
+                                name="leadLastName"
                                 className="form-control"
                                 placeholder="Enter LastNamer"
                               />
@@ -391,6 +461,9 @@ export default function LeadAdduser() {
                               <label>PhoneNumber:</label>
                               <input
                                 type="text"
+                                value={data.leadPhonenumber}
+                                onChange={handleChange}
+                                name="leadPhonenumber"
                                 className="form-control"
                                 placeholder="Enter PhoneNumber"
                               />
@@ -399,6 +472,9 @@ export default function LeadAdduser() {
                               <label> Email:</label>
                               <input
                                 type="email"
+                                value={data.leadEmail}
+                                onChange={handleChange}
+                                name="leadEmail"
                                 className="form-control"
                                 placeholder="Enter Email"
                               />
@@ -409,6 +485,9 @@ export default function LeadAdduser() {
                               <label>EmailOptOut:</label>
                               <input
                                 type="email"
+                                value={data.leadEmailOptOut}
+                                onChange={handleChange}
+                                name="leadEmailOptOut"
                                 className="form-control"
                                 placeholder="Enter EmailOptOut"
                               />
@@ -416,7 +495,10 @@ export default function LeadAdduser() {
                             <div className="col-lg-6">
                               <label>Industry:</label>
                               <input
-                                type="email"
+                                type="text"
+                                value={data.leadIndustry}
+                                onChange={handleChange}
+                                name="leadIndustry"
                                 className="form-control"
                                 placeholder="Enter Industry"
                               />
@@ -427,6 +509,9 @@ export default function LeadAdduser() {
                               <label>AnnualRevenue:</label>
                               <input
                                 type="text"
+                                value={data.leadAnnualRevenueContribution}
+                                onChange={handleChange}
+                                name="leadAnnualRevenueContribution"
                                 className="form-control"
                                 placeholder="Enter AnnualRevenue"
                               />
@@ -435,6 +520,9 @@ export default function LeadAdduser() {
                               <label>CompanyName:</label>
                               <input
                                 type="text"
+                                value={data.leadCompanyName}
+                                onChange={handleChange}
+                                name="leadCompanyName"
                                 className="form-control"
                                 placeholder="Enter CompanyName"
                               />
@@ -445,24 +533,33 @@ export default function LeadAdduser() {
                               <label>Website:</label>
                               <input
                                 type="text"
+                                value={data.leadWebsite}
+                                onChange={handleChange}
+                                name="leadWebsite"
                                 className="form-control"
                                 placeholder="Enter Website"
                               />
                             </div>
-                            <div className="col-lg-6">
+                            {/* <div className="col-lg-6">
                               <label>Source:</label>
                               <input
                                 type="text"
+                                value={data.leadSource}
+                                onChange={handleChange}
+                                name="leadSource"
                                 className="form-control"
                                 placeholder="Source"
                               />
-                            </div>
+                            </div> */}
                           </div>
-                          <div className="form-group row mb-2">
+                          {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>CampaignSource:</label>
                               <input
                                 type="text"
+                                value={data.campaignSource}
+                                onChange={handleChange}
+                                name="campaignSource"
                                 className="form-control"
                                 placeholder="Enter CampaignSource"
                               />
@@ -471,48 +568,46 @@ export default function LeadAdduser() {
                               <label>Company:</label>
                               <input
                                 type="text"
+                                value={data.company}
+                                onChange={handleChange}
+                                name="company"
                                 className="form-control"
                                 placeholder="Enter Company"
                               />
                             </div>
-                          </div>
-                          <div className="form-group row mb-2">
+                          </div> */}
+                          {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>Status:</label>
                               <input
-                                type="email"
+                                type="text"
+                                value={data.leadStatus}
+                                onChange={handleChange}
+                                name="leadStatus"
                                 className="form-control"
                                 placeholder="Enter Status"
                               />
                             </div>
-                            <div className="col-lg-6">
-                              <label>Owner:</label>
-                              <input
-                                type="email"
-                                className="form-control"
-                                placeholder="Enter Owner"
-                              />
-                            </div>
-                          </div>
+                          </div> */}
                         </form>
                       </div>
                     </div>
+                    {/* START:MEDIA */}
                     <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
                           <h2>Media</h2>
                         </div>
                       </div>
-                     
+
                       <div className="card-body pt-0">
                         <div className="fv-row mb-2">
                           <div
                             className="dropzone"
-                            id="kt_ecommerce_add_product_media"
                           >
                             <div className="dz-message needsclick">
                               <i className="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                              
+
                               <div className="ms-4">
                                 <h3 className="fs-5 fw-bold text-gray-900 mb-1">
                                   Drop files here or click to upload.
@@ -536,712 +631,6 @@ export default function LeadAdduser() {
                       {/*end::Card header*/}
                     </div>
                     {/*end::Media*/}
-                    {/*begin::Pricing*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Pricing</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div className="mb-10 fv-row">
-                          {/*begin::Label*/}
-                          <label className="required form-label">
-                            Base Price
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            name="price"
-                            className="form-control mb-2"
-                            placeholder="Product price"
-                            value=""
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set the product price.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="fv-row mb-10">
-                          {/*begin::Label*/}
-                          <label className="fs-6 fw-semibold mb-2">
-                            Discount Type
-                            <i
-                              className="fas fa-exclamation-circle ms-2 fs-7"
-                              data-bs-toggle="tooltip"
-                              title="Select a discount type that will be applied to this product"
-                            ></i>
-                          </label>
-                          {/*End::Label*/}
-                          {/*begin::Row*/}
-                          <div
-                            className="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-9"
-                            data-kt-buttons="true"
-                            data-kt-buttons-target="[data-kt-button='true']"
-                          >
-                            {/*begin::Col*/}
-                            <div className="col">
-                              {/*begin::Option*/}
-                              <label
-                                className="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6"
-                                data-kt-button="true"
-                              >
-                                {/*begin::Radio*/}
-                                <span className="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="discount_option"
-                                    value="1"
-                                  />
-                                </span>
-                                {/*end::Radio*/}
-                                {/*begin::Info*/}
-                                <span className="ms-5">
-                                  <span className="fs-4 fw-bold text-gray-800 d-block">
-                                    No Discount
-                                  </span>
-                                </span>
-                                {/*end::Info*/}
-                              </label>
-                              {/*end::Option*/}
-                            </div>
-                            {/*end::Col*/}
-                            {/*begin::Col*/}
-                            <div className="col">
-                              {/*begin::Option*/}
-                              <label
-                                className="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6"
-                                data-kt-button="true"
-                              >
-                                {/*begin::Radio*/}
-                                <span className="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="discount_option"
-                                    value="2"
-                                  />
-                                </span>
-                                {/*end::Radio*/}
-                                {/*begin::Info*/}
-                                <span className="ms-5">
-                                  <span className="fs-4 fw-bold text-gray-800 d-block">
-                                    Percentage %
-                                  </span>
-                                </span>
-                                {/*end::Info*/}
-                              </label>
-                              {/*end::Option*/}
-                            </div>
-                            {/*end::Col*/}
-                            {/*begin::Col*/}
-                            <div className="col">
-                              {/*begin::Option*/}
-                              <label
-                                className="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6"
-                                data-kt-button="true"
-                              >
-                                {/*begin::Radio*/}
-                                <span className="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="discount_option"
-                                    value="3"
-                                  />
-                                </span>
-                                {/*end::Radio*/}
-                                {/*begin::Info*/}
-                                <span className="ms-5">
-                                  <span className="fs-4 fw-bold text-gray-800 d-block">
-                                    Fixed Price
-                                  </span>
-                                </span>
-                                {/*end::Info*/}
-                              </label>
-                              {/*end::Option*/}
-                            </div>
-                            {/*end::Col*/}
-                          </div>
-                          {/*end::Row*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div
-                          className="d-none mb-10 fv-row"
-                          id="kt_ecommerce_add_product_discount_percentage"
-                        >
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Set Discount Percentage
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Slider*/}
-                          <div className="d-flex flex-column text-center mb-5">
-                            <div className="d-flex align-items-start justify-content-center mb-7">
-                              <span
-                                className="fw-bold fs-3x"
-                                id="kt_ecommerce_add_product_discount_label"
-                              >
-                                0
-                              </span>
-                              <span className="fw-bold fs-4 mt-1 ms-2">%</span>
-                            </div>
-                            <div
-                              id="kt_ecommerce_add_product_discount_slider"
-                              className="noUi-sm"
-                            ></div>
-                          </div>
-                          {/*end::Slider*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set a percentage discount to be applied on this
-                            product.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div
-                          className="d-none mb-10 fv-row"
-                          id="kt_ecommerce_add_product_discount_fixed"
-                        >
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Fixed Discounted Price
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            name="dicsounted_price"
-                            className="form-control mb-2"
-                            placeholder="Discounted price"
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set the discounted product price. The product will
-                            be reduced at the determined fixed price
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Tax*/}
-                        <div className="d-flex flex-wrap gap-5">
-                          {/*begin::Input group*/}
-                          <div className="fv-row w-100 flex-md-root">
-                            {/*begin::Label*/}
-                            <label className="required form-label">
-                              Tax className
-                            </label>
-                            {/*end::Label*/}
-                            {/*begin::Select2*/}
-                            <select
-                              className="form-select mb-2"
-                              name="tax"
-                              data-control="select2"
-                              data-hide-search="true"
-                              data-placeholder="Select an option"
-                            >
-                              <option></option>
-                              <option value="0">Tax Free</option>
-                              <option value="1">Taxable Goods</option>
-                              <option value="2">Downloadable Product</option>
-                            </select>
-                            {/*end::Select2*/}
-                            {/*begin::Description*/}
-                            <div className="text-muted fs-7">
-                              Set the product tax className.
-                            </div>
-                            {/*end::Description*/}
-                          </div>
-                          {/*end::Input group*/}
-                          {/*begin::Input group*/}
-                          <div className="fv-row w-100 flex-md-root">
-                            {/*begin::Label*/}
-                            <label className="form-label">VAT Amount (%)</label>
-                            {/*end::Label*/}
-                            {/*begin::Input*/}
-                            <input
-                              type="text"
-                              className="form-control mb-2"
-                              value=""
-                            />
-                            {/*end::Input*/}
-                            {/*begin::Description*/}
-                            <div className="text-muted fs-7">
-                              Set the product VAT about.
-                            </div>
-                            {/*end::Description*/}
-                          </div>
-                          {/*end::Input group*/}
-                        </div>
-                        {/*end:Tax*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Pricing*/}
-                  </div>
-                </div>
-                {/*end::Tab pane*/}
-                {/*begin::Tab pane*/}
-                <div
-                  className="tab-pane fade"
-                  id="kt_ecommerce_add_product_advanced"
-                  role="tab-panel"
-                >
-                  <div className="d-flex flex-column gap-7 gap-lg-10">
-                    {/*begin::Inventory*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Inventory</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div className="mb-10 fv-row">
-                          {/*begin::Label*/}
-                          <label className="required form-label">SKU</label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            name="sku"
-                            className="form-control mb-2"
-                            placeholder="SKU Number"
-                            value=""
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Enter the product SKU.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="mb-10 fv-row">
-                          {/*begin::Label*/}
-                          <label className="required form-label">Barcode</label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            name="sku"
-                            className="form-control mb-2"
-                            placeholder="Barcode Number"
-                            value=""
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Enter the product barcode number.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="mb-10 fv-row">
-                          {/*begin::Label*/}
-                          <label className="required form-label">
-                            Quantity
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <div className="d-flex gap-3">
-                            <input
-                              type="number"
-                              name="shelf"
-                              className="form-control mb-2"
-                              placeholder="On shelf"
-                              value=""
-                            />
-                            <input
-                              type="number"
-                              name="warehouse"
-                              className="form-control mb-2"
-                              placeholder="In warehouse"
-                            />
-                          </div>
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Enter the product quantity.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="fv-row">
-                          {/*begin::Label*/}
-                          <label className="form-label">Allow Backorders</label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <div className="form-check form-check-custom form-check-solid mb-2">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              value=""
-                            />
-                            <label className="form-check-label">Yes</label>
-                          </div>
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Allow customers to purchase products that are out of
-                            stock.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Inventory*/}
-                    {/*begin::Variations*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Variations</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div
-                          className=""
-                          data-kt-ecommerce-catalog-add-product="auto-options"
-                        >
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Add Product Variations
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Repeater*/}
-                          <div id="kt_ecommerce_add_product_options">
-                            {/*begin::Form group*/}
-                            <div className="form-group">
-                              <div
-                                data-repeater-list="kt_ecommerce_add_product_options"
-                                className="d-flex flex-column gap-3"
-                              >
-                                <div
-                                  data-repeater-item=""
-                                  className="form-group d-flex flex-wrap align-items-center gap-5"
-                                >
-                                  {/*begin::Select2*/}
-                                  <div className="w-100 w-md-200px">
-                                    <select
-                                      className="form-select"
-                                      name="product_option"
-                                      data-placeholder="Select a variation"
-                                      data-kt-ecommerce-catalog-add-product="product_option"
-                                    >
-                                      <option></option>
-                                      <option value="color">Color</option>
-                                      <option value="size">Size</option>
-                                      <option value="material">Material</option>
-                                      <option value="style">Style</option>
-                                    </select>
-                                  </div>
-                                  {/*end::Select2*/}
-                                  {/*begin::Input*/}
-                                  <input
-                                    type="text"
-                                    className="form-control mw-100 w-200px"
-                                    name="product_option_value"
-                                    placeholder="Variation"
-                                  />
-                                  {/*end::Input*/}
-                                  <button
-                                    type="button"
-                                    data-repeater-delete=""
-                                    className="btn btn-sm btn-icon btn-light-danger"
-                                  >
-                                    {/*begin::Svg Icon | path: icons/duotune/arrows/arr088.svg*/}
-                                    <span className="svg-icon svg-icon-1">
-                                      <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <rect
-                                          opacity="0.5"
-                                          x="7.05025"
-                                          y="15.5356"
-                                          width="12"
-                                          height="2"
-                                          rx="1"
-                                          transform="rotate(-45 7.05025 15.5356)"
-                                          fill="currentColor"
-                                        />
-                                        <rect
-                                          x="8.46447"
-                                          y="7.05029"
-                                          width="12"
-                                          height="2"
-                                          rx="1"
-                                          transform="rotate(45 8.46447 7.05029)"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                    {/*end::Svg Icon*/}
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                            {/*end::Form group*/}
-                            {/*begin::Form group*/}
-                            <div className="form-group mt-5">
-                              <button
-                                type="button"
-                                data-repeater-create=""
-                                className="btn btn-sm btn-light-primary"
-                              >
-                                {/*begin::Svg Icon | path: icons/duotune/arrows/arr087.svg*/}
-                                <span className="svg-icon svg-icon-2">
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <rect
-                                      opacity="0.5"
-                                      x="11"
-                                      y="18"
-                                      width="12"
-                                      height="2"
-                                      rx="1"
-                                      transform="rotate(-90 11 18)"
-                                      fill="currentColor"
-                                    />
-                                    <rect
-                                      x="6"
-                                      y="11"
-                                      width="12"
-                                      height="2"
-                                      rx="1"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </span>
-                                {/*end::Svg Icon*/}Add another variation
-                              </button>
-                            </div>
-                            {/*end::Form group*/}
-                          </div>
-                          {/*end::Repeater*/}
-                        </div>
-                        {/*end::Input group*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Variations*/}
-                    {/*begin::Shipping*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Shipping</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div className="fv-row">
-                          {/*begin::Input*/}
-                          <div className="form-check form-check-custom form-check-solid mb-2">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="kt_ecommerce_add_product_shipping_checkbox"
-                              value="1"
-                            />
-                            <label className="form-check-label">
-                              This is a physical product
-                            </label>
-                          </div>
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set if the product is a physical or digital item.
-                            Physical products may require shipping.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Shipping form*/}
-                        <div
-                          id="kt_ecommerce_add_product_shipping"
-                          className="d-none mt-10"
-                        >
-                          {/*begin::Input group*/}
-                          <div className="mb-10 fv-row">
-                            {/*begin::Label*/}
-                            <label className="form-label">Weight</label>
-                            {/*end::Label*/}
-                            {/*begin::Editor*/}
-                            <input
-                              type="text"
-                              name="weight"
-                              className="form-control mb-2"
-                              placeholder="Product weight"
-                              value=""
-                            />
-                            {/*end::Editor*/}
-                            {/*begin::Description*/}
-                            <div className="text-muted fs-7">
-                              Set a product weight in kilograms (kg).
-                            </div>
-                            {/*end::Description*/}
-                          </div>
-                          {/*end::Input group*/}
-                          {/*begin::Input group*/}
-                          <div className="fv-row">
-                            {/*begin::Label*/}
-                            <label className="form-label">Dimension</label>
-                            {/*end::Label*/}
-                            {/*begin::Input*/}
-                            <div className="d-flex flex-wrap flex-sm-nowrap gap-3">
-                              <input
-                                type="number"
-                                name="width"
-                                className="form-control mb-2"
-                                placeholder="Width (w)"
-                                value=""
-                              />
-                              <input
-                                type="number"
-                                name="height"
-                                className="form-control mb-2"
-                                placeholder="Height (h)"
-                                value=""
-                              />
-                              <input
-                                type="number"
-                                name="length"
-                                className="form-control mb-2"
-                                placeholder="Lengtn (l)"
-                                value=""
-                              />
-                            </div>
-                            {/*end::Input*/}
-                            {/*begin::Description*/}
-                            <div className="text-muted fs-7">
-                              Enter the product dimensions in centimeters (cm).
-                            </div>
-                            {/*end::Description*/}
-                          </div>
-                          {/*end::Input group*/}
-                        </div>
-                        {/*end::Shipping form*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Shipping*/}
-                    {/*begin::Meta options*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Meta Options</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div className="mb-10">
-                          {/*begin::Label*/}
-                          <label className="form-label">Meta Tag Title</label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            className="form-control mb-2"
-                            name="meta_title"
-                            placeholder="Meta tag name"
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set a meta tag title. Recommended to be simple and
-                            precise keywords.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="mb-10">
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Meta Tag Description
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Editor*/}
-                          <div
-                            id="kt_ecommerce_add_product_meta_description"
-                            className="min-h-100px mb-2"
-                          ></div>
-                          {/* end::Editor */}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set a meta tag description to the product for
-                            increased SEO ranking.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div>
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Meta Tag Keywords
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Editor*/}
-                          <input
-                            id="kt_ecommerce_add_product_meta_keywords"
-                            name="kt_ecommerce_add_product_meta_keywords"
-                            className="form-control mb-2"
-                          />
-                          {/*end::Editor*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set a list of keywords that the product is related
-                            to. Separate the keywords by adding a comma
-                            <code>,</code>between each keyword.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Meta options*/}
                   </div>
                 </div>
                 {/*end::Tab pane*/}
@@ -1255,10 +644,9 @@ export default function LeadAdduser() {
                   Cancel
                 </a>
                 <button
-                  type="submit"
-                  id="kt_ecommerce_add_product_submit"
                   onClick={() => {
-                    navigation("users");
+                    handleSubmit()
+                    // navigation("users");
                   }}
                   className="btn btn-primary"
                 >
