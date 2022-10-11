@@ -37,7 +37,7 @@ export function Connections() {
             totalEarnings='$236,400'
           />
         </div>
-        <div className='col-md-6 col-xxl-4'>
+        {/* <div className='col-md-6 col-xxl-4'>
           <Card3
             color='danger'
             name='Melody Macy'
@@ -140,7 +140,7 @@ export function Connections() {
             avgEarnings='$14,560'
             totalEarnings='$236,400'
           />
-        </div>
+        </div> */}
       </div>
 
       <div className='d-flex flex-stack flex-wrap pt-10'>

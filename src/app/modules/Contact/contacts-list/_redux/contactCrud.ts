@@ -1,9 +1,9 @@
 import axios from "axios";
 
-export const USER = "users";
+export const USER = "contacts";
 
 
-export function getAllUsers(token: any) {
+export function getAllContacts(token: any) {
 
   return axios.get(USER, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },

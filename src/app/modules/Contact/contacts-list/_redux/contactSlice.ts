@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Users: []
+  Contacts: []
 };
 
 export const callTypes = {
@@ -10,7 +10,7 @@ export const callTypes = {
   action: "action",
 };
 
-export const ManageUserSlice = createSlice({
+export const ContactSlice = createSlice({
   name: "ManageUserSlice",
   initialState: initialProductsState,
 
@@ -32,9 +32,9 @@ export const ManageUserSlice = createSlice({
       }
     },
 
-    getedAllUsersDetails: (state, action) => {
+    getedAllContactsDetails: (state, action) => {
       const { data } = action.payload;
-      state.Users = data;
+      state.Contacts = data;
     }
   },
 });

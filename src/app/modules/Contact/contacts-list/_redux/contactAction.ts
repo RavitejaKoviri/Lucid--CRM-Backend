@@ -1,18 +1,18 @@
-import * as requestFromServer from "./contcatCrud";
-import { ManageUserSlice, callTypes } from "./contactSlice";
+import * as requestFromServer from "./contactCrud";
+import { ContactSlice, callTypes } from "./contactSlice";
 
-const { actions } = ManageUserSlice;
+const { actions } = ContactSlice;
 
 
 
 //getAll user details
-export const getAllUsers = (token: any) => (dispatch: any) => {
+export const getAllContacts = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllUsers(token)
+    .getAllContacts(token)
     .then((response) => {
       const { data } = response;
-      dispatch(actions.getedAllUsersDetails({ data }));
+      dispatch(actions.getedAllContactsDetails({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;

@@ -5,6 +5,8 @@ import { ContactsListHeader } from './components/header/ContactsListHeader'
 import { ContactsTable } from './table/ContactsTable'
 import { ContactEditModal } from './contact-edit-modal/ContactEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
+import { ContactsData } from './table/ContactsData'
+import { ProfileHeader } from '../../profile/ProfileHeader'
 
 const ContactsList = () => {
   const { itemIdForUpdate } = useListView()
@@ -12,8 +14,13 @@ const ContactsList = () => {
     <>
       <KTCard>
         <ContactsListHeader />
-        <ContactsTable />
+        
+        {/* <ContactsTable /> */}
+        {/* <ProfileHeader /> */}
+        
+       
       </KTCard>
+      <ContactsData/>
       {itemIdForUpdate !== undefined && <ContactEditModal />}
     </>
   )
