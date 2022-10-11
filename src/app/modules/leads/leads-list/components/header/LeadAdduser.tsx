@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CreateLead, getcampaigns, getcompanies, getleadStatuses, getsource } from "../../_redux/leadAction";
 
 export default function LeadAdduser() {
+  const location = useLocation();
+
+  const id = location?.state
+  console.log(id, "location")
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector(
@@ -30,6 +34,9 @@ export default function LeadAdduser() {
     dispatch(getcompanies(token))
     dispatch(getleadStatuses(token))
   }, [])
+  if (id !== "") {
+
+  }
   const [data, setData] = useState({
     leadFirstName: " ",
     leadPhonenumber: " ",

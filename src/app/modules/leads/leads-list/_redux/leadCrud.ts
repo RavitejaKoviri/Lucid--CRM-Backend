@@ -14,6 +14,13 @@ export function getAllLeads(token: any) {
   });
 }
 
+export function getAllLeadsById(id: any, token: any) {
+
+  return axios.get(`${LEADS}/${id}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
 export function getSource(token: any) {
 
   return axios.get(sources, {

@@ -7,7 +7,8 @@ const initialProductsState = {
   Source: [],
   campaigns: [],
   Comapnies: [],
-  leadStatus: []
+  leadStatus: [],
+  LeadsById: []
 
 };
 
@@ -41,6 +42,10 @@ export const LeadSlice = createSlice({
     fetchedAllLeadsDetails: (state, action) => {
       const { data } = action.payload;
       state.Leads = data;
+    },
+    fetchedAllLeadsDetailsById: (state, action) => {
+      const { data } = action.payload;
+      state.LeadsById = data;
     },
     fetchedAllSourceDetails: (state, action) => {
       const { data } = action.payload;
