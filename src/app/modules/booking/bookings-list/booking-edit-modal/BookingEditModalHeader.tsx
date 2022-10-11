@@ -1,5 +1,5 @@
-import { KTSVG } from '../../../../../../_metronic/helpers'
-import { useListView } from '../../core/ListViewProvider'
+import { KTSVG } from '../../../../../_metronic/helpers'
+import { useListView } from '../core/ListViewProvider'
 
 const BookingEditModalHeader = () => {
   const { setItemIdForUpdate } = useListView()

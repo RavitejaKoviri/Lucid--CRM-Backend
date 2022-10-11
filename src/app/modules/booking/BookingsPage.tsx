@@ -2,10 +2,10 @@ import { Route, Routes, Outlet, Navigate } from 'react-router-dom'
 import { PageLink, PageTitle } from '../../../_metronic/layout/core'
 import { BookingsListWrapper } from './bookings-list/BookingsList'
 
-const usersBreadcrumbs: Array<PageLink> = [
+const bookingsBreadcrumbs: Array<PageLink> = [
   {
-    title: 'User Management',
-    path: '/apps/user-management/users',
+    title: 'Booking Management',
+    path: 'bookings',
     isSeparator: false,
     isActive: false,
   },
@@ -17,23 +17,23 @@ const usersBreadcrumbs: Array<PageLink> = [
   },
 ]
 
-const UsersPage = () => {
+const BookingsPage = () => {
   return (
     <Routes>
       <Route element={<Outlet />}>
         <Route
-          path='users'
+          path='bookings'
           element={
             <>
-              <PageTitle breadcrumbs={usersBreadcrumbs}>Bookings list</PageTitle>
+              <PageTitle breadcrumbs={bookingsBreadcrumbs}>Bookings list</PageTitle>
               <BookingsListWrapper />
             </>
           }
         />
       </Route>
-      <Route index element={<Navigate to='/apps/user-management/users' />} />
+      <Route index element={<Navigate to='bookings' />} />
     </Routes>
   )
 }
 
-export default UsersPage
+export default BookingsPage

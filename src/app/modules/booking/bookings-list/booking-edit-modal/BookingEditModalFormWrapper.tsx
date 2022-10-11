@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query'
 import { BookingEditModalForm } from './BookingEditModalForm'
-import { isNotEmpty, QUERIES } from '../../../../../../_metronic/helpers'
-import { useListView } from '../../core/ListViewProvider'
-import { getUserById } from '../../core/_requests'
+import { isNotEmpty, QUERIES } from '../../../../../_metronic/helpers'
+import { useListView } from '../core/ListViewProvider'
+import { getUserById } from '../core/_requests'
 
 const BookingEditModalFormWrapper = () => {
   const { itemIdForUpdate, setItemIdForUpdate } = useListView()

@@ -139,7 +139,7 @@ const PrivateRoutes = () => {
         />
 
         <Route
-          path='leads/bookings'
+          path='bookings/*'
           element={
             <SuspensedView>
               <BookingsPage />
