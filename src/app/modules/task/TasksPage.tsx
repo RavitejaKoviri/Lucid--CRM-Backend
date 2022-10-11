@@ -25,7 +25,7 @@ const TasksPage = () => {
           path='users'
           element={
             <>
-              <PageTitle breadcrumbs={usersBreadcrumbs}>Task</PageTitle>
+              <PageTitle breadcrumbs={usersBreadcrumbs}>Task List</PageTitle>
               <TasksListWrapper />
             </>
           }
