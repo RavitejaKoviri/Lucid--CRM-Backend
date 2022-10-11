@@ -29,6 +29,9 @@ const AsideDefault: FC = () => {
             src={toAbsoluteUrl('/media/logos/demo6.svg')}
             alt='logo'
             className='h-45px logo'
+            style={{ 
+              transform: "rotate(180deg)"
+            }}
           />
         </Link>
       </div>
