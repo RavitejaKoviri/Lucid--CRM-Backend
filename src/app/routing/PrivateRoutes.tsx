@@ -14,6 +14,7 @@ import LeadAdduser from '../modules/leads/leads-list/components/header/LeadAddus
 import BookingAdduser from '../modules/booking/bookings-list/components/header/BookingAdduser'
 import TargetAdduser from '../modules/Targets/Target-list/components/header/TargetAdduser'
 import TicketAdduser from '../modules/Tickets/Ticket-list/components/header/TicketAddUser'
+import ContactAdduser from '../modules/Contact/contacts-list/components/header/ContactAdduser'
 
 import DealsAdduser from '../modules/deal/deals-list/components/header/DealsAdduser'
 
@@ -55,6 +56,8 @@ const PrivateRoutes = () => {
         
         <Route path='deals/deals/dealsadduser' element={<DealsAdduser/>} />
         <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
+        <Route path='contacts/contacts/leadadduser' element={<ContactAdduser />} />
+
 
         {/* Lazy Modules */}
         <Route
