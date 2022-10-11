@@ -4,8 +4,8 @@ import { TasksListWrapper } from './tasks-list/TaskList'
 
 const usersBreadcrumbs: Array<PageLink> = [
   {
-    title: 'User Management',
-    path: '/apps/user-management/users',
+    title: 'Tasks',
+    path: 'tasks',
     isSeparator: false,
     isActive: false,
   },
@@ -22,16 +22,17 @@ const TasksPage = () => {
     <Routes>
       <Route element={<Outlet />}>
         <Route
-          path='users'
+          path='tasks'
           element={
             <>
-              <PageTitle breadcrumbs={usersBreadcrumbs}>Task List</PageTitle>
+              <PageTitle breadcrumbs={usersBreadcrumbs}>Task</PageTitle>
+              {/* <h1>hhhhh</h1> */}
               <TasksListWrapper />
             </>
           }
         />
       </Route>
-      <Route index element={<Navigate to='/apps/user-management/users' />} />
+      <Route index element={<Navigate to='tasks' />} />
     </Routes>
   )
 }

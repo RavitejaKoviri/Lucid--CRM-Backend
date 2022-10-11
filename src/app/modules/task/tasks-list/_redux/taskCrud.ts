@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const USER = "users";
+export const TASKS = "tasks";
 
 
-export function getAllUsers(token: any) {
+export function fetchAllTasks(token: any) {
 
-  return axios.get(USER, {
+  return axios.get(TASKS, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

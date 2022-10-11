@@ -1,18 +1,18 @@
 import * as requestFromServer from "./taskCrud";
-import { ManageUserSlice, callTypes } from "./taskSlice";
+import { ManageTaskSlice, callTypes } from "./taskSlice";
 
-const { actions } = ManageUserSlice;
+const { actions } = ManageTaskSlice;
 
 
 
 //getAll user details
-export const getAllUsers = (token: any) => (dispatch: any) => {
+export const getAllTasks = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllUsers(token)
+    .fetchAllTasks(token)
     .then((response) => {
       const { data } = response;
-      dispatch(actions.getedAllUsersDetails({ data }));
+      dispatch(actions.fetchedAllUsersDetails({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;

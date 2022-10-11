@@ -9,18 +9,18 @@ import { TasksListLoading } from '../components/loading/TasksListLoading'
 import { TasksListPagination } from '../components/pagination/TasksListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../_redux/taskAction'
+import { getAllTasks } from '../_redux/taskAction'
 
 const TasksTable = () => {
-  const user = useSelector(
-    (state: any) => state?.ManageUserData?.Users
+  const task = useSelector(
+    (state: any) => state?.ManageTaskData?.Tasks
   );
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
   const isLoading = useQueryResponseLoading()
   const dispatch = useDispatch()
-  const data = useMemo(() => user, [user])
+  const data = useMemo(() => task, [task])
   const columns = useMemo(() => TasksColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -28,9 +28,9 @@ const TasksTable = () => {
   })
   console.log(data);
   useEffect(() => {
-    dispatch(getAllUsers(token))
+    dispatch(getAllTasks(token))
   }, [])
-  console.log(user, "users")
+  console.log(task, "tasks")
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>

@@ -5,6 +5,7 @@ import { TasksListHeader } from './components/header/TasksListHeader'
 import { TasksTable } from './table/TasksTable'
 import { TaskEditModal } from './task-edit-modal/TaskEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
+import { TaskIndex } from './tasksUi/TaskIndex'
 
 const TasksList = () => {
   const { itemIdForUpdate } = useListView()
@@ -12,8 +13,9 @@ const TasksList = () => {
     <>
       <KTCard>
         <TasksListHeader />
-        <TasksTable />
+        {/* <TasksTable /> */}
       </KTCard>
+        <TaskIndex/>
       {itemIdForUpdate !== undefined && <TaskEditModal />}
     </>
   )
