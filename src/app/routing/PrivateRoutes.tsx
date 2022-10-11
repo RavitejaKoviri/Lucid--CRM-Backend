@@ -29,6 +29,9 @@ const PrivateRoutes = () => {
   const ContactPage = lazy(() => import('../modules/Contact/ContactsPage'))
   const DealPage =lazy(() =>import('../modules/deal/DealsPage') )
 
+  const TicketPage = lazy(() => import('../modules/Tickets/TicketPage'))
+  
+  
 
   return (
     <Routes>
@@ -148,6 +151,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <TargetPage />
+            </SuspensedView>
+          }
+        />
+         <Route
+          path='ticket/*'
+          element={
+            <SuspensedView>
+              <TicketPage />
             </SuspensedView>
           }
         />

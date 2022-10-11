@@ -5,6 +5,7 @@ import * as auth from "../app/modules/auth/_redux/authRedux";
 import { ManageUserSlice } from "../app/modules/user-management/users-list/_redux/userSlice";
 import { LeadSlice } from "../app/modules/leads/leads-list/_redux/leadSlice";
 import { TargetSlice } from "../app/modules/Targets/Target-list/_redux/targetSlice";
+import { TicketSlice } from "../app/modules/Tickets/Ticket-list/_redux/ticketSlice";
 // import { dashboardSlice } from "../app/modules/DashboardAPI/dashboardSlice";
 
 // import { manageUsersSlice } from "../app/modules/Users/_redux/manageUsers/manageUsersSlice";
@@ -54,7 +55,8 @@ export const rootReducer = combineReducers({
   auth: auth.reducer,
   ManageUserData: ManageUserSlice.reducer,
   LeadData: LeadSlice.reducer,
-  TargetData:TargetSlice.reducer
+  TargetData:TargetSlice.reducer,
+  TicketData:TicketSlice.reducer
   // dashboardData: dashboardSlice.reducer,
   // manageUsers: manageUsersSlice.reducer,
   // manageVerificationRequests: manageVerificationRequestsSlice.reducer,
