@@ -14,7 +14,7 @@ export function fetchAllCampaigns(token:any) {
 }
 export function fetchAllBookings() {
 
-  return axios.get("http://3.111.219.207:5377/appointments", {
+  return axios.get("http://43.205.49.41:5377/appointments", {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

@@ -5,7 +5,7 @@ const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMT
 
 export function getAllBooking() {
 
-  return axios.get("http://3.111.219.207:5377/appointments", {
+  return axios.get("http://43.205.49.41:5377/appointments", {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
