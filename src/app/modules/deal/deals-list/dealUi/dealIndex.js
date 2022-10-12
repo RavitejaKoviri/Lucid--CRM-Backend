@@ -56,53 +56,53 @@ const DealIndex = () => {
   // console.log(inProgressTasks, "inProgressTasks");
   // console.log(doneTasks, "doneTasks");
   // console.log(verificationTasks, "verificationTasks");
-  
+
   const boards = {
     columns: [
       {
         id: uuidv4(),
         title: "Value Proposition",
-        cards:bucketListedTargets?bucketListedTargets:[],
+        cards: bucketListedTargets ? bucketListedTargets : [],
       },
       {
         id: uuidv4(),
         title: "Qualification",
-       cards:inProgressTargets?inProgressTargets:[],
+        cards: inProgressTargets ? inProgressTargets : [],
       },
       {
         id: uuidv4(),
         title: "Proposal/Price Quote",
-       cards:completedTargets?completedTargets:[],
+        cards: completedTargets ? completedTargets : [],
       },
       {
         id: uuidv4(),
         title: "Negotiation/Review",
-       cards:completedTargets?completedTargets:[],
+        cards: completedTargets ? completedTargets : [],
       },
       {
         id: uuidv4(),
         title: "Needs Analysis",
-        cards:completedTargets?completedTargets:[],
+        cards: completedTargets ? completedTargets : [],
       },
       {
         id: uuidv4(),
         title: "Identify Decision Makers",
-        cards:completedTargets?completedTargets:[],
+        cards: completedTargets ? completedTargets : [],
       },
       {
         id: uuidv4(),
         title: "Closed-Lost to Competition",
-       cards:completedTargets?completedTargets:[],
+        cards: completedTargets ? completedTargets : [],
       },
       {
         id: uuidv4(),
         title: "Closed Won",
-        cards:completedTargets?completedTargets:[],
+        cards: completedTargets ? completedTargets : [],
       },
       {
         id: uuidv4(),
         title: "Closed Lost",
-        cards:completedTargets?completedTargets:[],
+        cards: completedTargets ? completedTargets : [],
       },
     ],
   };
@@ -120,7 +120,7 @@ const DealIndex = () => {
                 <div className="d-flex flex-stack">
                   <div className="fw-bold fs-4">
                     {title}
-                    <span className="fs-6 text-gray-400 ms-2">2</span>
+                    {/* <span className="fs-6 text-gray-400 ms-2">2</span> */}
                   </div>
                   {/* begin::Menu */}
                   <div>
@@ -227,7 +227,7 @@ const DealIndex = () => {
                           </div>
                           {/* end::Input */}
                         </div>
-                        
+
                         <div className="d-flex justify-content-end">
                           <button
                             type="reset"
@@ -292,7 +292,7 @@ const DealIndex = () => {
             ) : null} */}
             </>
           )}
-          renderCard={({ id, taskPriority ,subject}, { dragging }) => (
+          renderCard={({ id, taskPriority, subject }, { dragging }) => (
             <div
               style={{
                 display: "block",
@@ -302,7 +302,7 @@ const DealIndex = () => {
               key={id}
               dragging={dragging.toString() || undefined}
             >
-               <div className="card mb-6 mb-xl-9">
+              <div className="card mb-6 mb-xl-9">
                 {/* begin::Card body */}
                 <div className="card-body">
                   {/* begin::Header */}
@@ -604,7 +604,6 @@ const DealIndex = () => {
                 </div>
                 {/* end::Card body */}
               </div>
-              
             </div>
           )}
           onCardNew={() => null}

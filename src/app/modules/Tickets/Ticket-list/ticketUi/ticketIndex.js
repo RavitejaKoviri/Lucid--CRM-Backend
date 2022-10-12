@@ -35,12 +35,11 @@ const TicketIndex = () => {
   const bucketListedTargets = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "Open"
   );
- 
- 
+
   const inProgressTargets = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "In-Progress"
   );
-   const delegatedTasks = Tickets?.filter(
+  const delegatedTasks = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "Escalated"
   );
   const completedTargets = Tickets?.filter(
@@ -58,33 +57,33 @@ const TicketIndex = () => {
   // console.log(inProgressTasks, "inProgressTasks");
   // console.log(doneTasks, "doneTasks");
   // console.log(verificationTasks, "verificationTasks");
-  
+
   const boards = {
     columns: [
       {
         id: uuidv4(),
         title: "Open",
-        cards:bucketListedTargets?bucketListedTargets:[],
+        cards: bucketListedTargets ? bucketListedTargets : [],
       },
       {
         id: uuidv4(),
         title: "In Progress",
-       cards:inProgressTargets?inProgressTargets:[],
+        cards: inProgressTargets ? inProgressTargets : [],
       },
       {
         id: uuidv4(),
         title: "Escalated",
-       cards:completedTargets?completedTargets:[],
+        cards: completedTargets ? completedTargets : [],
       },
       {
         id: uuidv4(),
         title: "Closed",
-       cards:inProgressTargets?inProgressTargets:[],
+        cards: inProgressTargets ? inProgressTargets : [],
       },
       {
         id: uuidv4(),
         title: "Customer Happy",
-        cards:doneTasks?doneTasks:[],
+        cards: doneTasks ? doneTasks : [],
       },
       // {
       //   id: uuidv4(),
@@ -107,7 +106,7 @@ const TicketIndex = () => {
                 <div className="d-flex flex-stack">
                   <div className="fw-bold fs-4">
                     {title}
-                    <span className="fs-6 text-gray-400 ms-2">2</span>
+                    {/* <span className="fs-6 text-gray-400 ms-2">2</span> */}
                   </div>
                   {/* begin::Menu */}
                   <div>
@@ -214,7 +213,7 @@ const TicketIndex = () => {
                           </div>
                           {/* end::Input */}
                         </div>
-                        
+
                         <div className="d-flex justify-content-end">
                           <button
                             type="reset"
@@ -279,7 +278,7 @@ const TicketIndex = () => {
             ) : null} */}
             </>
           )}
-          renderCard={({ id, taskPriority ,subject}, { dragging }) => (
+          renderCard={({ id, taskPriority, subject }, { dragging }) => (
             <div
               style={{
                 display: "block",
@@ -289,7 +288,7 @@ const TicketIndex = () => {
               key={id}
               dragging={dragging.toString() || undefined}
             >
-               <div className="card mb-6 mb-xl-9">
+              <div className="card mb-6 mb-xl-9">
                 {/* begin::Card body */}
                 <div className="card-body">
                   {/* begin::Header */}
@@ -591,7 +590,6 @@ const TicketIndex = () => {
                 </div>
                 {/* end::Card body */}
               </div>
-              
             </div>
           )}
           onCardNew={() => null}

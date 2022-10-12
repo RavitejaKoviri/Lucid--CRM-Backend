@@ -25,12 +25,12 @@ const TargetIndex = () => {
   const closeNewCardForm = () => setNewCardForm(false);
   const handeSetFormValue = ({ currentTarget }) =>
     setFormValue(currentTarget.value);
-  const targets = useSelector((state) => state?.TargetSlice?.Targets);
+  const targets = useSelector((state) => state?.TargetData?.Targets);
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
     dispatch(getAllTargets(token));
   }, []);
-  console.log(targets, "tasks");
+  console.log(targets, "targets");
 
   const bucketListedTargets = targets?.filter(
     (item) => item?.targetStatus?.targetStatusName === "Yet to start"
@@ -56,23 +56,23 @@ const TargetIndex = () => {
   // console.log(inProgressTasks, "inProgressTasks");
   // console.log(doneTasks, "doneTasks");
   // console.log(verificationTasks, "verificationTasks");
-  
+
   const boards = {
     columns: [
       {
         id: uuidv4(),
         title: "Yet to start",
-        cards:bucketListedTargets?bucketListedTargets:[],
+        cards: bucketListedTargets ? bucketListedTargets : [],
       },
       {
         id: uuidv4(),
         title: "In Progress",
-       cards:inProgressTargets?inProgressTargets:[],
+        cards: inProgressTargets ? inProgressTargets : [],
       },
       {
         id: uuidv4(),
         title: "Completed",
-       cards:completedTargets?completedTargets:[],
+        cards: completedTargets ? completedTargets : [],
       },
       // {
       //   id: uuidv4(),
@@ -105,7 +105,7 @@ const TargetIndex = () => {
                 <div className="d-flex flex-stack">
                   <div className="fw-bold fs-4">
                     {title}
-                    <span className="fs-6 text-gray-400 ms-2">2</span>
+                    {/* <span className="fs-6 text-gray-400 ms-2">2</span> */}
                   </div>
                   {/* begin::Menu */}
                   <div>
@@ -212,7 +212,7 @@ const TargetIndex = () => {
                           </div>
                           {/* end::Input */}
                         </div>
-                        
+
                         <div className="d-flex justify-content-end">
                           <button
                             type="reset"
@@ -277,7 +277,7 @@ const TargetIndex = () => {
             ) : null} */}
             </>
           )}
-          renderCard={({ id, taskPriority ,subject}, { dragging }) => (
+          renderCard={({ id, targetName, subject }, { dragging }) => (
             <div
               style={{
                 display: "block",
@@ -287,7 +287,7 @@ const TargetIndex = () => {
               key={id}
               dragging={dragging.toString() || undefined}
             >
-               <div className="card mb-6 mb-xl-9">
+              <div className="card mb-6 mb-xl-9">
                 {/* begin::Card body */}
                 <div className="card-body">
                   {/* begin::Header */}
@@ -478,7 +478,7 @@ const TargetIndex = () => {
                       href="#"
                       className="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary"
                     >
-                      {taskPriority}
+                      {targetName}
                     </a>
                   </div>
                   {/* end::Title */}
@@ -589,7 +589,6 @@ const TargetIndex = () => {
                 </div>
                 {/* end::Card body */}
               </div>
-              
             </div>
           )}
           onCardNew={() => null}

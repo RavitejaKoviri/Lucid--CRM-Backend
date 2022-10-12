@@ -56,38 +56,38 @@ const TaskIndex = () => {
   console.log(inProgressTasks, "inProgressTasks");
   console.log(doneTasks, "doneTasks");
   console.log(verificationTasks, "verificationTasks");
-  
+
   const boards = {
     columns: [
       {
         id: uuidv4(),
         title: "Bucket List",
-        cards:bucketListedTasks,
+        cards: bucketListedTasks,
       },
       {
         id: uuidv4(),
         title: "ToDo",
-       cards:toDoTasks,
+        cards: toDoTasks,
       },
       {
         id: uuidv4(),
         title: "Assigned",
-       cards:delegatedTasks,
+        cards: delegatedTasks,
       },
       {
         id: uuidv4(),
         title: "In progress",
-       cards:inProgressTasks,
+        cards: inProgressTasks,
       },
       {
         id: uuidv4(),
         title: "Done",
-        cards:doneTasks,
+        cards: doneTasks,
       },
       {
         id: uuidv4(),
         title: "Verified/Closed",
-        cards:verificationTasks,
+        cards: verificationTasks,
       },
     ],
   };
@@ -105,7 +105,7 @@ const TaskIndex = () => {
                 <div className="d-flex flex-stack">
                   <div className="fw-bold fs-4">
                     {title}
-                    <span className="fs-6 text-gray-400 ms-2">2</span>
+                    {/* <span className="fs-6 text-gray-400 ms-2">2</span> */}
                   </div>
                   {/* begin::Menu */}
                   <div>
@@ -212,7 +212,7 @@ const TaskIndex = () => {
                           </div>
                           {/* end::Input */}
                         </div>
-                        
+
                         <div className="d-flex justify-content-end">
                           <button
                             type="reset"
@@ -277,7 +277,7 @@ const TaskIndex = () => {
             ) : null} */}
             </>
           )}
-          renderCard={({ id, taskPriority ,subject}, { dragging }) => (
+          renderCard={({ id, taskPriority, subject }, { dragging }) => (
             <div
               style={{
                 display: "block",
@@ -287,7 +287,7 @@ const TaskIndex = () => {
               key={id}
               dragging={dragging.toString() || undefined}
             >
-               <div className="card mb-6 mb-xl-9">
+              <div className="card mb-6 mb-xl-9">
                 {/* begin::Card body */}
                 <div className="card-body">
                   {/* begin::Header */}
@@ -589,7 +589,6 @@ const TaskIndex = () => {
                 </div>
                 {/* end::Card body */}
               </div>
-              
             </div>
           )}
           onCardNew={() => null}
