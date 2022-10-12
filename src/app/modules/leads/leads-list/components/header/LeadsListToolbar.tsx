@@ -7,8 +7,8 @@ const LeadsListToolbar = () => {
   const { setItemIdForUpdate } = useListView()
   const openAddUserModal = () => {
     setItemIdForUpdate(null)
-  } 
-   const navigation=useNavigate()
+  }
+  const navigation = useNavigate()
 
 
   return (
@@ -23,11 +23,11 @@ const LeadsListToolbar = () => {
       {/* end::Export */}
 
       {/* begin::Add user */}
-      <button type='button' className='btn btn-primary' onClick={()=>{
+      <button type='button' className='btn btn-primary' onClick={() => {
         navigation('leadadduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Add User
+        Add Leads
       </button>
       {/* end::Add user */}
     </div>

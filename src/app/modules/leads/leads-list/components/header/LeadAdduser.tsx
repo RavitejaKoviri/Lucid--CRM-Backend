@@ -1,11 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateLead, getcampaigns, getcompanies, getleadStatuses, getsource } from "../../_redux/leadAction";
+import { CreateLead, getcampaigns, getcompanies, getLeadsById, getleadStatuses, getsource, UpdateLead } from "../../_redux/leadAction";
 
 export default function LeadAdduser() {
   const location = useLocation();
-
+  const [lead, setLead] = useState(false);
   const id = location?.state
   console.log(id, "location")
   const navigation = useNavigate();
@@ -28,31 +29,60 @@ export default function LeadAdduser() {
   const status = useSelector(
     (state: any) => state?.LeadData?.leadStatus
   );
+  const leadById = useSelector(
+    (state: any) => state?.LeadData?.LeadsById
+  );
+  console.log(leadById, "leadById");
+
   useEffect(() => {
     dispatch(getsource(token))
     dispatch(getcampaigns(token))
     dispatch(getcompanies(token))
     dispatch(getleadStatuses(token))
+    if (id !== "") {
+      dispatch(getLeadsById(id, token))
+      setLead(true);
+    }
   }, [])
-  if (id !== "") {
 
-  }
-  const [data, setData] = useState({
-    leadFirstName: " ",
-    leadPhonenumber: " ",
-    leadIndustry: " ",
-    leadAnnualRevenueContribution: " ",
-    leadEmailOptOut: " ",
-    leadCompanyName: " ",
-    leadLastName: " ",
-    leadEmail: " ",
-    leadWebsite: " ",
-    leadSource: " ",
-    campaignSource: " ",
-    company: " ",
-    leadStatus: " ",
-    leadOwner: user?.id,
-  })
+  useEffect(() => {
+    setData({
+      leadFirstName: leadById?.leadFirstName,
+      leadPhonenumber: leadById?.leadPhonenumber,
+      leadIndustry: leadById?.leadIndustry,
+      leadAnnualRevenueContribution: leadById?.leadAnnualRevenueContribution,
+      leadEmailOptOut: leadById?.leadEmailOptOut,
+      leadCompanyName: leadById?.leadCompanyName,
+      leadLastName: leadById?.leadLastName,
+      leadEmail: leadById?.leadEmail,
+      leadWebsite: leadById?.leadWebsite,
+      leadSource: leadById?.leadSource,
+      campaignSource: leadById?.campaignSource,
+      company: leadById?.company,
+      leadStatus: leadById?.leadStatus,
+      leadOwner: leadById?.leadOwner,
+    })
+    setLead(false);
+    console.log("hello")
+  }, [lead])
+
+  const [data, setData] = useState(
+    {
+      leadFirstName: " ",
+      leadPhonenumber: " ",
+      leadIndustry: " ",
+      leadAnnualRevenueContribution: " ",
+      leadEmailOptOut: " ",
+      leadCompanyName: " ",
+      leadLastName: " ",
+      leadEmail: " ",
+      leadWebsite: " ",
+      leadSource: " ",
+      campaignSource: " ",
+      company: " ",
+      leadStatus: " ",
+      leadOwner: user?.id,
+    })
 
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -60,7 +90,12 @@ export default function LeadAdduser() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(CreateLead(data, token));
+    if (id !== null) {
+      dispatch(UpdateLead(id, data, token));
+    }
+    else {
+      dispatch(CreateLead(data, token));
+    }
     setData({
       leadFirstName: " ",
       leadPhonenumber: " ",
@@ -85,37 +120,28 @@ export default function LeadAdduser() {
       // id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
-          <form
+          <div
             // id="kt_ecommerce_add_product_form"
             className="form d-flex flex-column flex-lg-row"
           // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
               {/*begin::Thumbnail settings*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
+              {/* <div className="card card-flush py-4">
                 <div className="card-header">
-                  {/*begin::Card title*/}
                   <div className="card-title">
                     <h2>Thumbnail</h2>
                   </div>
-                  {/*end::Card title*/}
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+
                 <div className="card-body text-center pt-0">
-                  {/*begin::Image input*/}
-                  {/*begin::Image input placeholder*/}
-                  {/* <style>.image-input-placeholder [data-th</style> */}
-                  {/*end::Image input placeholder*/}
+
                   <div
                     className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
                     data-kt-image-input="true"
                   >
-                    {/*begin::Preview existing avatar*/}
                     <div className="image-input-wrapper w-150px h-150px"></div>
-                    {/*end::Preview existing avatar*/}
-                    {/*begin::Label*/}
+
                     <label
                       className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                       data-kt-image-input-action="change"
@@ -123,17 +149,14 @@ export default function LeadAdduser() {
                       title="Change avatar"
                     >
                       <i className="bi bi-pencil-fill fs-7"></i>
-                      {/*begin::Inputs*/}
                       <input
                         type="file"
                         name="avatar"
                         accept=".png, .jpg, .jpeg"
                       />
                       <input type="hidden" name="avatar_remove" />
-                      {/*end::Inputs*/}
                     </label>
-                    {/*end::Label*/}
-                    {/*begin::Cancel*/}
+
                     <span
                       className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                       data-kt-image-input-action="cancel"
@@ -142,8 +165,6 @@ export default function LeadAdduser() {
                     >
                       <i className="bi bi-x fs-2"></i>
                     </span>
-                    {/*end::Cancel*/}
-                    {/*begin::Remove*/}
                     <span
                       className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                       data-kt-image-input-action="remove"
@@ -152,40 +173,28 @@ export default function LeadAdduser() {
                     >
                       <i className="bi bi-x fs-2"></i>
                     </span>
-                    {/*end::Remove*/}
                   </div>
-                  {/*end::Image input*/}
-                  {/*begin::Description*/}
+
                   <div className="text-muted fs-7">
                     Set the product thumbnail image. Only *.png, *.jpg and
                     *.jpeg image files are accepted
                   </div>
-                  {/*end::Description*/}
                 </div>
-                {/*end::Card body*/}
-              </div>
-              {/*end::Thumbnail settings*/}
-              {/*begin::Status*/}
+              </div> */}
               <div className="card card-flush py-4">
-                {/*begin::Card header*/}
                 <div className="card-header">
-                  {/*begin::Card title*/}
                   <div className="card-title">
                     <h2>Status</h2>
                   </div>
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
+
                   <div className="card-toolbar">
                     <div
                       className="rounded-circle bg-success w-15px h-15px"
                     ></div>
                   </div>
-                  {/*begin::Card toolbar*/}
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+
                 <div className="card-body pt-0">
-                  {/*begin::Select2*/}
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -205,7 +214,7 @@ export default function LeadAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -263,7 +272,7 @@ export default function LeadAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -321,7 +330,7 @@ export default function LeadAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -379,7 +388,7 @@ export default function LeadAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -600,7 +609,7 @@ export default function LeadAdduser() {
                       </div>
                     </div>
                     {/* START:MEDIA */}
-                    <div className="card card-flush py-4">
+                    {/* <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
                           <h2>Media</h2>
@@ -623,20 +632,28 @@ export default function LeadAdduser() {
                                   Upload up to 10 files
                                 </span>
                               </div>
-                              {/*end::Info*/}
                             </div>
                           </div>
-                          {/*end::Dropzone*/}
                         </div>
-                        {/*end::Input group*/}
-                        {/*begin::Description*/}
+                     
                         <div className="text-muted fs-7">
                           Set the product media gallery.
                         </div>
-                        {/*end::Description*/}
                       </div>
-                      {/*end::Card header*/}
-                    </div>
+                    </div> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
                     {/*end::Media*/}
                   </div>
                 </div>
@@ -665,7 +682,7 @@ export default function LeadAdduser() {
                 </button>
               </div>
             </div>
-          </form>
+          </div>
           {/*end::Form*/}
         </div>
       </div>

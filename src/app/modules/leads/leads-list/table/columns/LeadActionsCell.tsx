@@ -1,23 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { FC, useEffect } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
-import { ID, KTSVG, QUERIES } from '../../../../../../_metronic/helpers'
-import { useListView } from '../../core/ListViewProvider'
-import { useQueryResponse } from '../../core/QueryResponseProvider'
-import { deleteUser } from '../../core/_requests'
+import { ID, KTSVG, } from '../../../../../../_metronic/helpers'
+
+import { DeleteLead } from '../../_redux/leadAction'
 
 type Props = {
   id: ID
 }
 
 const LeadActionsCell: FC<Props> = ({ id }) => {
-  const { setItemIdForUpdate } = useListView()
   const navigation = useNavigate()
-  const { query } = useQueryResponse()
-  const queryClient = useQueryClient()
+  const dispatch = useDispatch();
 
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [])
@@ -26,13 +26,8 @@ const LeadActionsCell: FC<Props> = ({ id }) => {
     navigation('leadadduser', { state: { id } })
   }
 
-  const deleteItem = useMutation(() => deleteUser(id), {
-    // 💡 response of the mutation is passed to onSuccess
-    onSuccess: () => {
-      // ✅ update detail view directly
-      queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
-    },
-  })
+  const deleteItem = () =>
+    dispatch(DeleteLead(id, token))
 
   return (
     <>
@@ -63,7 +58,7 @@ const LeadActionsCell: FC<Props> = ({ id }) => {
           <a
             className='menu-link px-3'
             data-kt-users-table-filter='delete_row'
-            onClick={async () => await deleteItem.mutateAsync()}
+            onClick={deleteItem}
           >
             Delete
           </a>

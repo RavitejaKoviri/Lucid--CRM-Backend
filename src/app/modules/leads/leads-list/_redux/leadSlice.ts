@@ -8,8 +8,8 @@ const initialProductsState = {
   campaigns: [],
   Comapnies: [],
   leadStatus: [],
-  LeadsById: []
-
+  LeadsById: null,
+  UpdatedLead: null,
 };
 
 export const callTypes = {
@@ -66,6 +66,10 @@ export const LeadSlice = createSlice({
     fetchedLead: (state, action) => {
       const { data } = action.payload;
       state.Createlead = data;
+    },
+    UpdatedLead: (state, action) => {
+      const { data } = action.payload;
+      state.UpdatedLead = data;
     },
   },
 });

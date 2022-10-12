@@ -104,3 +104,33 @@ export const CreateLead = (data: any, token: any) => (dispatch: any) =>
       error.clientMessage = "Can't find";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
+
+
+export const UpdateLead = (id: any, data: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .UpdateLead(id, data, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.UpdatedLead({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+
+export const DeleteLead = (id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .DeleteLead(id, token)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+
+export const deleteSelectedLeads = (id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .deleteSelectedLead(id, token)

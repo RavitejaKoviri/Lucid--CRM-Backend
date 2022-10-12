@@ -5,7 +5,7 @@ import { UsersList } from './users-list/UsersList'
 
 const leadsBreadcrumbs: Array<PageLink> = [
   {
-    title: 'Leads',
+    title: '',
     path: 'list',
     isSeparator: false,
     isActive: false,
@@ -29,12 +29,14 @@ const LeadsPage = () => {
             path='list'
             element={
               <>
-                <PageTitle breadcrumbs={leadsBreadcrumbs}>Leads</PageTitle>
+                {/* <PageTitle breadcrumbs={leadsBreadcrumbs}>Leads</PageTitle> */}
+                <PageTitle>Leads</PageTitle>
+
                 <LeadsListWrapper />
               </>
             }
           />
-          <Route
+          {/* <Route
             path='contacts'
             element={
               <>
@@ -42,7 +44,7 @@ const LeadsPage = () => {
                 <UsersList />
               </>
             }
-          />
+          /> */}
           <Route index element={<Navigate to='list' />} />
         </Route>
       </Routes>
