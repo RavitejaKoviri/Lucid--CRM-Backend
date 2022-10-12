@@ -6,7 +6,7 @@ import {TicketListSearchComponent} from './TicketListSearchComponent'
 const TargetListHeader = () => {
   const {selected} = useListView()
   return (
-    <div className='card-header border-0 pt-6'>
+    <div className='card-header border-0 py-6'>
       <TicketListSearchComponent />
       {/* begin::Card toolbar */}
       <div className='card-toolbar'>

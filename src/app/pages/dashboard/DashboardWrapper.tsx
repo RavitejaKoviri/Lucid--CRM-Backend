@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 import {useIntl} from 'react-intl'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import {PageTitle} from '../../../_metronic/layout/core'
 import {
@@ -14,8 +15,16 @@ import {
   TablesWidget11,
   MixedWidget6,
 } from '../../../_metronic/partials/widgets'
-
+import { getAllTasks } from '../../modules/task/tasks-list/_redux/taskAction'
+import { RootStateOrAny } from 'react-redux' 
+import { getcampaigns, getLeads } from '../../modules/leads/leads-list/_redux/leadAction'
+import { getAllContacts } from '../../modules/Contact/contacts-list/_redux/contactAction'
+import { getAllBookings } from '../../modules/booking/bookings-list/_redux/bookingAction'
+import { getAlldeals } from '../../modules/deal/deals-list/_redux/dealAction'
 const DashboardPage = () => {
+
+const dispatch = useDispatch();
+
   useEffect(() => {
     // We have to show toolbar only for dashboard page
     document.getElementById('kt_layout_toolbar')?.classList.remove('d-none')
@@ -23,6 +32,32 @@ const DashboardPage = () => {
       document.getElementById('kt_layout_toolbar')?.classList.add('d-none')
     }
   }, [])
+
+  //   const token = useSelector((state) => state?.auth?.authToken);
+  const token:any = useSelector<RootStateOrAny>(({auth}) => auth.authToken,shallowEqual)
+  useEffect(() => {
+	  dispatch(getAllTasks(token));
+	  dispatch(getLeads(token));
+	  dispatch(getAllContacts(token));
+	  dispatch(getAllBookings());
+	  dispatch(getAlldeals(token));
+	  dispatch(getcampaigns(token));
+	}, []);
+	// const task = useSelector((state) => state?.ManageTaskData?.Tasks);
+	const task:any = useSelector<RootStateOrAny>(({ManageTaskData}) => ManageTaskData.Tasks,shallowEqual)
+	const leads:any = useSelector<RootStateOrAny>(({LeadData}) => LeadData.Leads,shallowEqual)
+	const contacts:any = useSelector<RootStateOrAny>(({ContactData}) => ContactData.Contacts,shallowEqual)
+	const bookings:any = useSelector<RootStateOrAny>(({booking}) => booking.booking,shallowEqual)
+	const deals:any = useSelector<RootStateOrAny>(({deal}) => deal.deals,shallowEqual)
+	const campaigns:any = useSelector<RootStateOrAny>(({LeadData}) => LeadData.campaigns,shallowEqual)
+  console.log(task, "tasks");
+  console.log(leads, "leads");
+  console.log(contacts, "contacts");
+  console.log(bookings, "bookings");
+  console.log(deals, "deals");
+  console.log(campaigns, "campaigns");
+console.log(token, 'token');
+
 
   return (
     <>
@@ -49,7 +84,7 @@ const DashboardPage = () => {
 										<div className="card-body d-flex align-items- mb-3">
 					
 											<div className="d-flex align-items-center">
-												<span className="fs-4hx text-white fw-bold me-6">1.2k</span>
+												<span className="fs-4hx text-white fw-bold me-6">{leads?.length}</span>
 												<div className="fw-bold fs-6 text-white">
 													<span className="d-block">Leads</span>
 													{/* <span className="">Calls</span> */}
@@ -61,7 +96,7 @@ const DashboardPage = () => {
 										<div className="card-footer" style={{borderTop: "1px solid rgba(255, 255, 255, 0.3)", backgroundColor: "rgba(0, 0, 0, 0.15)"}}>
 						
 											<div className="fw-bold text-white py-2">
-												<span className="fs-1 d-block">935</span>
+												<span className="fs-1 d-block">{leads?.length}</span>
 												<span className="opacity-50">Generated Leads</span>
 											</div>
 							
@@ -72,7 +107,7 @@ const DashboardPage = () => {
 </div>
 </div>
 <div className="col-xl-3">
-						
+<Link to='/contacts'>
 									<div className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100" style={{backgroundColor: "#7239EA",backgroundImage:`url$('assets/media/svg/shapes/wave-bg-purple.svg')`}}>
 							
 										<div className="card-header pt-5 mb-3">
@@ -86,7 +121,7 @@ const DashboardPage = () => {
 										<div className="card-body d-flex align-items- mb-3">
 							
 											<div className="d-flex align-items-center">
-												<span className="fs-4hx text-white fw-bold me-6">427</span>
+												<span className="fs-4hx text-white fw-bold me-6">{contacts?.length}</span>
 												<div className="fw-bold fs-6 text-white">
 													<span className="d-block">Contacts</span>
 													{/* <span className="">Calls</span> */}
@@ -98,17 +133,18 @@ const DashboardPage = () => {
 										<div className="card-footer" style={{borderTop: "1px solid rgba(255, 255, 255, 0.3)", backgroundColor: "rgba(0, 0, 0, 0.15)"}}>
 								
 											<div className="fw-bold text-white py-2">
-												<span className="fs-1 d-block">386</span>
+												<span className="fs-1 d-block">{contacts?.length}</span>
 												<span className="opacity-50">Problems Solved</span>
 											</div>
 						
 										</div>
 					
 									</div>
-
+</Link>
 </div>
       <div className="col-xl-3">
       <div className='row g-5 g-xl-8'>
+		  <Link to='/bookings'>
       <div className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100" style={{backgroundColor: "#F1416C",backgroundImage:`url$('assets/media/svg/shapes/wave-bg-red.svg')`}}>
 					
 										<div className="card-header pt-5 mb-3">
@@ -122,9 +158,9 @@ const DashboardPage = () => {
 										<div className="card-body d-flex align-items- mb-3">
 					
 											<div className="d-flex align-items-center">
-												<span className="fs-4hx text-white fw-bold me-6">1.2k</span>
+												<span className="fs-4hx text-white fw-bold me-6">{task?.length}</span>
 												<div className="fw-bold fs-6 text-white">
-													<span className="d-block">Bookings</span>
+													<span className="d-block">Tasks</span>
 													{/* <span className="">Calls</span> */}
 												</div>
 											</div>
@@ -134,17 +170,18 @@ const DashboardPage = () => {
 										<div className="card-footer" style={{borderTop: "1px solid rgba(255, 255, 255, 0.3)", backgroundColor: "rgba(0, 0, 0, 0.15)"}}>
 						
 											<div className="fw-bold text-white py-2">
-												<span className="fs-1 d-block">935</span>
-												<span className="opacity-50">Bookings Completed</span>
+												<span className="fs-1 d-block">{task?.length}</span>
+												<span className="opacity-50">Tasks Completed</span>
 											</div>
 							
 										</div>
 							
 									</div>
+									</Link>
 </div>
 </div>
 <div className="col-xl-3">
-						
+<Link to='/deals'>
 									<div className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100" style={{backgroundColor: "#7239EA",backgroundImage:`url$('assets/media/svg/shapes/wave-bg-purple.svg')`}}>
 							
 										<div className="card-header pt-5 mb-3">
@@ -158,7 +195,7 @@ const DashboardPage = () => {
 										<div className="card-body d-flex align-items- mb-3">
 							
 											<div className="d-flex align-items-center">
-												<span className="fs-4hx text-white fw-bold me-6">427</span>
+												<span className="fs-4hx text-white fw-bold me-6">{deals?.length}</span>
 												<div className="fw-bold fs-6 text-white">
 													<span className="d-block">Deals</span>
 													{/* <span className="">Calls</span> */}
@@ -170,14 +207,14 @@ const DashboardPage = () => {
 										<div className="card-footer" style={{borderTop: "1px solid rgba(255, 255, 255, 0.3)", backgroundColor: "rgba(0, 0, 0, 0.15)"}}>
 								
 											<div className="fw-bold text-white py-2">
-												<span className="fs-1 d-block">386</span>
+												<span className="fs-1 d-block">{deals?.length}</span>
 												<span className="opacity-50">Deals Completed</span>
 											</div>
 						
 										</div>
 					
 									</div>
-
+</Link>
 </div>
 <div className="col-xl-12">
 <div className="row g-5 g-xl-10 mb-5 mb-xl-10">
@@ -274,14 +311,19 @@ const DashboardPage = () => {
 											
 													<div className="d-flex justify-content-between h-100 flex-column pt-xl-5 pb-xl-2 ps-xl-7">
 												
-														<div className="mb-7">
+														<div className="my-6">
 											
-															<div className="mb-6">
-																<h3 className="fs-2x fw-semibold text-white">Upgrade Your Plan</h3>
-																<span className="fw-semibold text-white opacity-75">Flat cartoony and illustrations with vivid color</span>
+															<div className="my-6" >
+																{/* <div> */}
+																<h3 className="fs-2x fw-semibold text-white">Bookings</h3>
+																<span className="fw-semibold text-white opacity-75">Total Number of Bookings</span>
+																{/* </div> */}
+																{/* <div> */}
+																<h1 className="fs-2x fw-semibold text-white">{bookings?.length}</h1>
+																{/* </div> */}
 															</div>
 													
-															<div className="d-flex align-items-center flex-wrap d-grid gap-2">
+															{/* <div className="d-flex align-items-center flex-wrap d-grid gap-2">
 												
 																<div className="d-flex align-items-center me-5 me-xl-13">
 														
@@ -327,13 +369,13 @@ const DashboardPage = () => {
 											
 																</div>
 														
-															</div>
+															</div> */}
 									
 														</div>
 												
-														<div className="m-0">
-															<a href="#" className="btn btn-color-white bg-white bg-opacity-15 bg-hover-opacity-25 fw-semibold" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">Upgrade Plan</a>
-														</div>
+														{/* <div className="m-0">
+															<a href="#" className="btn btn-color-white bg-white bg-opacity-15 bg-hover-opacity-25 fw-semibold" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">Add Booking</a>
+														</div> */}
 												
 													</div>
 									
@@ -633,7 +675,7 @@ const DashboardPage = () => {
 														
 															<div className="flex-grow-1">
 																<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Slack</a>
-																<span className="text-gray-400 fw-semibold d-block fs-6">Messanger</span>
+																<span className="text-gray-400 fw-semibold d-block fs-6">Messenger</span>
 															</div>
 															
 														</div>
@@ -695,11 +737,11 @@ const DashboardPage = () => {
 											
 											<div className="card-title pt-3 mb-0 gap-4 gap-lg-10 gap-xl-15 nav nav-tabs border-bottom-0" data-kt-table-widget-3="tabs_nav">
 											
-												<div className="fs-4 fw-bold pb-3 border-bottom border-3 border-primary cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Show All">All Campaigns (47)</div>
+												<div className="fs-4 fw-bold pb-3 border-bottom border-3 border-primary cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Show All">All Campaigns ({campaigns?.length})</div>
 												
-												<div className="fs-4 fw-bold text-muted pb-3 cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Pending">Pending (8)</div>
+												<div className="fs-4 fw-bold text-muted pb-3 cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Pending">Draft</div>
 											
-												<div className="fs-4 fw-bold text-muted pb-3 cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Completed">Completed (39)</div>
+												<div className="fs-4 fw-bold text-muted pb-3 cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Completed">Completed</div>
 												
 											</div>
 										
@@ -709,7 +751,7 @@ const DashboardPage = () => {
 											
 										</div>
 								
-										<div className="card-body pt-1">
+										<div className="card-body pt-1" >
 										
 											<div className="d-flex flex-stack flex-wrap gap-4">
 												
@@ -841,8 +883,8 @@ const DashboardPage = () => {
 											</div>
 										
 											<div className="separator separator-dashed my-5"></div>
-										
-											<table id="kt_widget_table_3" className="table table-row-dashed align-middle fs-6 gy-4 my-0 pb-3" data-kt-table-widget-3="all">
+										<div style={{overflow:'scroll'}}>
+											<table id="kt_widget_table_3" className="table table-row-dashed align-middle fs-6 gy-4 my-0 pb-3" data-kt-table-widget-3="all" >
 												<thead className="d-none">
 													<tr>
 														<th>Campaign</th>
@@ -855,18 +897,20 @@ const DashboardPage = () => {
 													</tr>
 												</thead>
 												<tbody>
+													{campaigns?.map((item:any)=>(
 													<tr>
 														<td className="min-w-175px">
 															<div className="position-relative ps-6 pe-3 py-2">
 																<div className="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-info"></div>
-																<a href="#" className="mb-1 text-dark text-hover-primary fw-bold">Happy Christmas</a>
-																<div className="fs-7 text-muted fw-bold">Created on 24 Dec 21</div>
+																<a href="#" className="mb-1 text-dark text-hover-primary fw-bold">{item?.campaignName}</a>
+																<div className="fs-7 text-muted fw-bold">Created on {item?.createdAt?.slice(0,10)}</div>
 															</div>
 														</td>
 														<td>
 															
-															<div className="d-flex gap-2 mb-2">
-																<a href="#">
+															<div className="mb-1 text-dark text-hover-primary fw-bold">
+																{item?.company?.companyName}
+																{/* <a href="#">
 																	<img src="assets/media/svg/brand-logos/facebook-4.svg" className="w-20px" alt="" />
 																</a>
 																<a href="#">
@@ -877,15 +921,15 @@ const DashboardPage = () => {
 																</a>
 																<a href="#">
 																	<img src="assets/media/svg/brand-logos/youtube-3.svg" className="w-20px" alt="" />
-																</a>
+																</a> */}
 															</div>
 															
-															<div className="fs-7 text-muted fw-bold">Labor 24 - 35 years</div>
+															{/* <div className="fs-7 text-muted fw-bold">Labor 24 - 35 years</div> */}
 														</td>
 														<td>
-															<span className="badge badge-light-success">Live Now</span>
+															<span className="badge badge-light-success">{item?.campaignStatus?.campaignStatusName}</span>
 														</td>
-														<td className="min-w-125px">
+														{/* <td className="min-w-125px">
 											
 															<div className="symbol-group symbol-hover mb-1">
 																
@@ -919,11 +963,11 @@ const DashboardPage = () => {
 															</div>
 													
 															<div className="fs-7 fw-bold text-muted">Team Members</div>
-														</td>
-														<td className="min-w-150px">
+														</td> */}
+														{/* <td className="min-w-150px">
 															<div className="mb-2 fw-bold">24 Dec 21 - 06 Jan 22</div>
 															<div className="fs-7 fw-bold text-muted">Date range</div>
-														</td>
+														</td> */}
 														<td className="d-none">Pending</td>
 														<td className="text-end">
 															<button type="button" className="btn btn-icon btn-sm btn-light btn-active-primary w-25px h-25px">
@@ -938,7 +982,8 @@ const DashboardPage = () => {
 															</button>
 														</td>
 													</tr>
-													<tr>
+													))}
+													{/* <tr>
 														<td className="min-w-175px">
 															<div className="position-relative ps-6 pe-3 py-2">
 																<div className="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-warning"></div>
@@ -1281,11 +1326,11 @@ const DashboardPage = () => {
 															
 															</button>
 														</td>
-													</tr>
+													</tr> */}
 												</tbody>
 												
 											</table>
-											
+											</div>
 										</div>
 								
 									</div>
@@ -1298,7 +1343,7 @@ const DashboardPage = () => {
     </>
   )
 }
-
+export default DashboardPage
 const DashboardWrapper = () => {
   const intl = useIntl()
   return (

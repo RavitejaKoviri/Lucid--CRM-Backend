@@ -6,7 +6,7 @@ import {DealsListSearchComponent} from './DealsListSearchComponent'
 const DealsListHeader = () => {
   const {selected} = useListView()
   return (
-    <div className='card-header border-0 pt-6'>
+    <div className='card-header border-0 py-6'>
       <DealsListSearchComponent />
       {/* begin::Card toolbar */}
       <div className='card-toolbar'>

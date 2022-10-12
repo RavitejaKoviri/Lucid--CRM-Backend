@@ -6,7 +6,7 @@ import {ContactsListSearchComponent} from './ContactsListSearchComponent'
 const ContactsListHeader = () => {
   const {selected} = useListView()
   return (
-    <div className='card-header border-0 pt-6 mb-5'>
+    <div className='card-header border-0 py-6'>
       <ContactsListSearchComponent />
       {/* begin::Card toolbar */}
       <div className='card-toolbar'>
