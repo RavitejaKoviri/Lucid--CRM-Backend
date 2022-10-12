@@ -1,14 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
-import { customers } from "./ticketCrud";
 
 const initialProductsState = {
-  Tickets :[],
-  CreateTicket :[],
-  Companies: [],
-  users : [],
-  customers :[],
-  ticketStatus :[]
+  Tickets: []
 };
 
 export const callTypes = {
@@ -38,33 +32,9 @@ export const TicketSlice = createSlice({
       }
     },
 
-    fetchedAllComapniesDetails: (state, action) => {
-      const { data } = action.payload;
-      state.Companies = data;
-    },
-
-    fetchedAllUsers: (state, action) => {
-      const { data } = action.payload;
-      state.users = data;
-    },
-
-    fetchedAllcustomers: (state, action) => {
-      const { data } = action.payload;
-      state.customers = data;
-    },
-    fetchedTicket: (state, action) => {
-      const { data } = action.payload;
-      state.CreateTicket = data;
-    },
-    
-    fetchedAllticketStatus: (state, action) => {
-      const { data } = action.payload;
-      state.ticketStatus = data;
-    }, 
-    fetchedAllTickets: (state, action) => {
+    getedAllUsersDetails: (state, action) => {
       const { data } = action.payload;
       state.Tickets = data;
-    },    
-
+    }
   },
 });
