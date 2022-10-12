@@ -22,6 +22,7 @@ import { EmailCampaigns } from '../pages/campaigns/emailCampaigns'
 import { SocialCampaigns } from '../pages/campaigns/socialCampaigns'
 import { PageCampaigns } from '../pages/campaigns/pageCampaigns'
 import { PostCampaigns } from '../pages/campaigns/postCampaingns'
+import TaskAdduser from '../modules/task/tasks-list/components/header/TaskAdduser'
 
 
 const PrivateRoutes = () => {
@@ -67,6 +68,8 @@ const PrivateRoutes = () => {
         <Route path='deals/deals/dealsadduser' element={<DealsAdduser/>} />
         <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
         <Route path='contacts/contacts/leadadduser' element={<ContactAdduser />} />
+        <Route path='tasks/tasks/taskAdduser' element={<TaskAdduser />} />
+
 
 
         {/* Lazy Modules */}

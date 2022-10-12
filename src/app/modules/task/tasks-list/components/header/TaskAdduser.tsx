@@ -1,58 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { CreateLead, getcampaigns, getcompanies, getleadStatuses, getsource } from "../../_redux/leadAction";
+import { useNavigate } from "react-router-dom";
+// import {
+//   CreateDeal,
+//   getcampaigns,
+//   getcompanies,
+//   getdealStatuses,
+//   getsource,
+// } from "../../_redux/taskAction";
 
-export default function LeadAdduser() {
-  const location = useLocation();
-
-  const id = location?.state
-  console.log(id, "location")
+export default function TaskAdduser() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector(
-    (state: any) => state?.auth?.authToken
-  );
-  const user = useSelector(
-    (state: any) => state?.auth?.user
-  );
-  const source = useSelector(
-    (state: any) => state?.LeadData?.Source
-  );
-  const campaign = useSelector(
-    (state: any) => state?.LeadData?.campaigns
-  );
-  const company = useSelector(
-    (state: any) => state?.LeadData?.Comapnies
-  );
-  const status = useSelector(
-    (state: any) => state?.LeadData?.leadStatus
-  );
-  useEffect(() => {
-    dispatch(getsource(token))
-    dispatch(getcampaigns(token))
-    dispatch(getcompanies(token))
-    dispatch(getleadStatuses(token))
-  }, [])
-  if (id !== "") {
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const user = useSelector((state: any) => state?.auth?.user);
+  const source = useSelector((state: any) => state?.deal?.Source);
+  const campaign = useSelector((state: any) => state?.deal?.campaigns);
+  const company = useSelector((state: any) => state?.deal?.Comapnies);
+  const status = useSelector((state: any) => state?.deal?.dealStatus);
+  console.log(company, "company");
 
-  }
+  // useEffect(() => {
+  //   dispatch(getsource(token));
+  //   dispatch(getcampaigns(token));
+  //   dispatch(getcompanies(token));
+  //   dispatch(getdealStatuses(token));
+  // }, []);
   const [data, setData] = useState({
-    leadFirstName: " ",
-    leadPhonenumber: " ",
-    leadIndustry: " ",
-    leadAnnualRevenueContribution: " ",
-    leadEmailOptOut: " ",
-    leadCompanyName: " ",
-    leadLastName: " ",
-    leadEmail: " ",
-    leadWebsite: " ",
-    leadSource: " ",
+    subject: " ",
+    taskRepeat: " ",
+    dealContactPersonPhoneNumber: " ",
+    dealContactPersonEmail: " ",
+    dealContactPersonAlternateEmail: " ",
+    dealContactPersonAlternatePhoneNumber: " ",
+    // dealType: " ",
+    dealSource: " ",
     campaignSource: " ",
     company: " ",
-    leadStatus: " ",
-    leadOwner: user?.id,
-  })
+    dealStatus: " ",
+    dealOwner: user?.id,
+  });
 
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -60,110 +47,36 @@ export default function LeadAdduser() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(CreateLead(data, token));
+    // dispatch(CreateDeal(data, token));
     setData({
-      leadFirstName: " ",
-      leadPhonenumber: " ",
-      leadIndustry: " ",
-      leadAnnualRevenueContribution: " ",
-      leadEmailOptOut: " ",
-      leadCompanyName: " ",
-      leadLastName: " ",
-      leadEmail: " ",
-      leadWebsite: " ",
-      leadSource: " ",
+      subject: " ",
+      taskRepeat: " ",
+      dealContactPersonPhoneNumber: " ",
+      dealContactPersonEmail: " ",
+      dealContactPersonAlternateEmail: " ",
+      dealContactPersonAlternatePhoneNumber: " ",
+      // dealType: " ",
+      dealSource: " ",
       campaignSource: " ",
       company: " ",
-      leadStatus: " ",
-      leadOwner: " ",
-    })
+      dealStatus: " ",
+      dealOwner: " ",
+    });
   };
   return (
     <>
       <div
         className="content d-flex flex-column flex-column-fluid"
-      // id="kt_content"
+        // id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
-          <form
+          <div
             // id="kt_ecommerce_add_product_form"
             className="form d-flex flex-column flex-lg-row"
-          // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
+            // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-              {/*begin::Thumbnail settings*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Thumbnail</h2>
-                  </div>
-                  {/*end::Card title*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body text-center pt-0">
-                  {/*begin::Image input*/}
-                  {/*begin::Image input placeholder*/}
-                  {/* <style>.image-input-placeholder [data-th</style> */}
-                  {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                    data-kt-image-input="true"
-                  >
-                    {/*begin::Preview existing avatar*/}
-                    <div className="image-input-wrapper w-150px h-150px"></div>
-                    {/*end::Preview existing avatar*/}
-                    {/*begin::Label*/}
-                    <label
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="change"
-                      data-bs-toggle="tooltip"
-                      title="Change avatar"
-                    >
-                      <i className="bi bi-pencil-fill fs-7"></i>
-                      {/*begin::Inputs*/}
-                      <input
-                        type="file"
-                        name="avatar"
-                        accept=".png, .jpg, .jpeg"
-                      />
-                      <input type="hidden" name="avatar_remove" />
-                      {/*end::Inputs*/}
-                    </label>
-                    {/*end::Label*/}
-                    {/*begin::Cancel*/}
-                    <span
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="cancel"
-                      data-bs-toggle="tooltip"
-                      title="Cancel avatar"
-                    >
-                      <i className="bi bi-x fs-2"></i>
-                    </span>
-                    {/*end::Cancel*/}
-                    {/*begin::Remove*/}
-                    <span
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="remove"
-                      data-bs-toggle="tooltip"
-                      title="Remove avatar"
-                    >
-                      <i className="bi bi-x fs-2"></i>
-                    </span>
-                    {/*end::Remove*/}
-                  </div>
-                  {/*end::Image input*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7">
-                    Set the product thumbnail image. Only *.png, *.jpg and
-                    *.jpeg image files are accepted
-                  </div>
-                  {/*end::Description*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
+              
               {/*end::Thumbnail settings*/}
               {/*begin::Status*/}
               <div className="card card-flush py-4">
@@ -176,9 +89,7 @@ export default function LeadAdduser() {
                   {/*end::Card title*/}
                   {/*begin::Card toolbar*/}
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                   {/*begin::Card toolbar*/}
                 </div>
@@ -191,21 +102,18 @@ export default function LeadAdduser() {
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
-                    value={data.leadStatus}
+                    value={data.dealStatus}
                     onChange={handleChange}
-                    name="leadStatus"
+                    name="dealStatus"
                   >
                     <option></option>
-                    {
-                      status?.map((item: any) => (
-                        <option value={item?.id}>{item?.leadStatusName}</option>
-                      ))
-                    }
-
+                    {status?.map((item: any) => (
+                      <option value={item?.id}>{item?.dealStatusName}</option>
+                    ))}
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -234,9 +142,7 @@ export default function LeadAdduser() {
                   {/*end::Card title*/}
                   {/*begin::Card toolbar*/}
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                   {/*begin::Card toolbar*/}
                 </div>
@@ -254,16 +160,13 @@ export default function LeadAdduser() {
                     name="campaignSource"
                   >
                     <option></option>
-                    {
-                      campaign?.map((item: any) => (
-                        <option value={item?.id}>{item?.campaignName}</option>
-                      ))
-                    }
-
+                    {campaign?.map((item: any) => (
+                      <option value={item?.id}>{item?.campaignName}</option>
+                    ))}
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -292,9 +195,7 @@ export default function LeadAdduser() {
                   {/*end::Card title*/}
                   {/*begin::Card toolbar*/}
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                   {/*begin::Card toolbar*/}
                 </div>
@@ -307,21 +208,18 @@ export default function LeadAdduser() {
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
-                    value={data.leadSource}
+                    value={data.dealSource}
                     onChange={handleChange}
-                    name="leadSource"
+                    name="dealSource"
                   >
                     <option></option>
-                    {
-                      source?.map((item: any) => (
-                        <option value={item?.id}>{item?.SourceName}</option>
-                      ))
-                    }
-
+                    {source?.map((item: any) => (
+                      <option value={item?.id}>{item?.SourceName}</option>
+                    ))}
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -350,9 +248,7 @@ export default function LeadAdduser() {
                   {/*end::Card title*/}
                   {/*begin::Card toolbar*/}
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                   {/*begin::Card toolbar*/}
                 </div>
@@ -370,16 +266,13 @@ export default function LeadAdduser() {
                     name="company"
                   >
                     <option></option>
-                    {
-                      company?.map((item: any) => (
-                        <option value={item?.id}>{item?.companyName}</option>
-                      ))
-                    }
-
+                    {company?.map((item: any) => (
+                      <option value={item?.id}>{item?.companyName}</option>
+                    ))}
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -397,8 +290,6 @@ export default function LeadAdduser() {
                 {/*end::Card body*/}
               </div>
               {/*end::Status*/}
-
-
             </div>
             {/*end::Aside column*/}
             {/*begin::Main column*/}
@@ -421,10 +312,7 @@ export default function LeadAdduser() {
               {/*begin::Tab content*/}
               <div className="tab-content">
                 {/*begin::Tab pane*/}
-                <div
-                  className="tab-pane fade show active"
-                  role="tab-panel"
-                >
+                <div className="tab-pane fade show active" role="tab-panel">
                   <div className="d-flex flex-column gap-7 gap-lg-10">
                     {/*begin::General options*/}
                     <div className="card card-flush py-4">
@@ -441,71 +329,62 @@ export default function LeadAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Lead FirstName:</label>
+                              <label>subject:</label>
                               <input
                                 type="text"
-                                value={data.leadFirstName}
+                                value={data.subject}
                                 onChange={handleChange}
-                                name="leadFirstName"
+                                name="subject"
                                 className="form-control"
-                                placeholder="Enter FirstName"
+                                placeholder="Enter subject"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>Lead LastName:</label>
-                              <input
+                              <label>TaskRepeat:</label>
+                              {/* <input
                                 type="text"
-                                value={data.leadLastName}
+                                value={data.taskRepeat}
                                 onChange={handleChange}
-                                name="leadLastName"
-                                className="form-control"
-                                placeholder="Enter LastNamer"
-                              />
-                            </div>
-                          </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>PhoneNumber:</label>
-                              <input
-                                type="text"
-                                value={data.leadPhonenumber}
-                                onChange={handleChange}
-                                name="leadPhonenumber"
+                                name="taskRepeat"
                                 className="form-control"
                                 placeholder="Enter PhoneNumber"
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label> Email:</label>
-                              <input
-                                type="email"
-                                value={data.leadEmail}
-                                onChange={handleChange}
-                                name="leadEmail"
-                                className="form-control"
-                                placeholder="Enter Email"
-                              />
+                              /> */}
+                              <select
+                    className="form-select mb-2"
+                    data-control="select2"
+                    data-hide-search="true"
+                    data-placeholder="Select an option"
+                    value={data.campaignSource}
+                    onChange={handleChange}
+                    name="campaignSource"
+                  >
+                    <option></option>
+                    {campaign?.map((item: any) => (
+                      <option value={item?.id}>{item?.campaignName}</option>
+                    ))}
+                  </select>
                             </div>
                           </div>
+
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>EmailOptOut:</label>
+                              <label>Contact Person AlternateEmail:</label>
                               <input
                                 type="email"
-                                value={data.leadEmailOptOut}
+                                value={data.dealContactPersonAlternateEmail}
                                 onChange={handleChange}
-                                name="leadEmailOptOut"
+                                name="dealContactPersonAlternateEmail"
                                 className="form-control"
-                                placeholder="Enter EmailOptOut"
+                                // placeholder="Enter EmailOptOut"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>Industry:</label>
+                              <label>Contact Person PhoneNumber:</label>
                               <input
                                 type="text"
-                                value={data.leadIndustry}
+                                value={data.dealContactPersonPhoneNumber}
                                 onChange={handleChange}
-                                name="leadIndustry"
+                                name="dealContactPersonPhoneNumber"
                                 className="form-control"
                                 placeholder="Enter Industry"
                               />
@@ -513,50 +392,57 @@ export default function LeadAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>AnnualRevenue:</label>
+                              <label>Contact PersonEmail:</label>
                               <input
                                 type="text"
-                                value={data.leadAnnualRevenueContribution}
+                                value={data.dealContactPersonEmail}
                                 onChange={handleChange}
-                                name="leadAnnualRevenueContribution"
+                                name="dealContactPersonEmail"
                                 className="form-control"
                                 placeholder="Enter AnnualRevenue"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>CompanyName:</label>
+                              <label>ContactPerson AlternatePhoneNumber:</label>
                               <input
                                 type="text"
-                                value={data.leadCompanyName}
+                                value={
+                                  data.dealContactPersonAlternatePhoneNumber
+                                }
                                 onChange={handleChange}
-                                name="leadCompanyName"
+                                name="dealContactPersonAlternatePhoneNumber"
                                 className="form-control"
                                 placeholder="Enter CompanyName"
                               />
                             </div>
                           </div>
                           <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Website:</label>
-                              <input
-                                type="text"
-                                value={data.leadWebsite}
-                                onChange={handleChange}
-                                name="leadWebsite"
-                                className="form-control"
-                                placeholder="Enter Website"
-                              />
-                            </div>
                             {/* <div className="col-lg-6">
-                              <label>Source:</label>
+                              <label>Deal Type:</label>
                               <input
                                 type="text"
-                                value={data.leadSource}
+                                value={data.dealType}
                                 onChange={handleChange}
-                                name="leadSource"
+                                name="dealType"
                                 className="form-control"
-                                placeholder="Source"
+                                placeholder="Enter PhoneNumber"
                               />
+                            </div> */}
+                            {/* <div className="col-lg-6">
+                            <label>Deal Type:</label>
+                              <select
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                value={data.dealType}
+                                onChange={handleChange}
+                                name="dealType"
+                                className="form-control selectpicker"
+                              >
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                              </select>
                             </div> */}
                           </div>
                           {/* <div className="form-group row mb-2">
@@ -600,7 +486,7 @@ export default function LeadAdduser() {
                       </div>
                     </div>
                     {/* START:MEDIA */}
-                    <div className="card card-flush py-4">
+                    {/* <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
                           <h2>Media</h2>
@@ -609,9 +495,7 @@ export default function LeadAdduser() {
 
                       <div className="card-body pt-0">
                         <div className="fv-row mb-2">
-                          <div
-                            className="dropzone"
-                          >
+                          <div className="dropzone">
                             <div className="dz-message needsclick">
                               <i className="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
 
@@ -623,24 +507,20 @@ export default function LeadAdduser() {
                                   Upload up to 10 files
                                 </span>
                               </div>
-                              {/*end::Info*/}
                             </div>
                           </div>
-                          {/*end::Dropzone*/}
                         </div>
-                        {/*end::Input group*/}
-                        {/*begin::Description*/}
+                    
                         <div className="text-muted fs-7">
                           Set the product media gallery.
                         </div>
-                        {/*end::Description*/}
+                   
                       </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Media*/}
+                     
+                    </div> */}
+                  
                   </div>
                 </div>
-                {/*end::Tab pane*/}
               </div>
               <div className="d-flex justify-content-end">
                 <a
@@ -652,7 +532,7 @@ export default function LeadAdduser() {
                 </a>
                 <button
                   onClick={() => {
-                    handleSubmit()
+                    handleSubmit();
                     // navigation("users");
                   }}
                   className="btn btn-primary"
@@ -665,7 +545,7 @@ export default function LeadAdduser() {
                 </button>
               </div>
             </div>
-          </form>
+          </div>
           {/*end::Form*/}
         </div>
       </div>
