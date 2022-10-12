@@ -3,13 +3,13 @@ import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
   target: [],
-  
+  Targets:[],
   Createtarget:[],
   
   campaigns: [],
   Comapnies: [],
   targetStatus: [],
-
+  assignedTo: []
 
 };
 
@@ -53,10 +53,18 @@ export const TargetSlice = createSlice({
       const { data } = action.payload;
       state.targetStatus = data;
     },
+    fetchedassignedToDetails: (state, action) => {
+      const { data } = action.payload;
+      state.assignedTo = data;
+    },
     fetchedTarget: (state, action) => {
       const { data } = action.payload;
       state.Createtarget = data;
     },
+    getedAllUsersDetails: (state, action) => {
+      const { data } = action.payload;
+      state.Targets = data;
+    }
   },
 });
 

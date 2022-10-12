@@ -4,6 +4,19 @@ import { TargetSlice, callTypes } from "./targetSlice";
 const { actions } = TargetSlice;
 
 
+export const getAllTargets = (token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .fetchAllTargets(token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.getedAllUsersDetails({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
 
 //getAll user details
 export const gettarget = (token: any) => (dispatch: any) => {
@@ -28,6 +41,19 @@ export const getTargetStatuses = (token: any) => (dispatch: any) => {
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedtargetsStatusesDetails({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
+export const getassignedTo = (token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getassignedto(token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedassignedToDetails({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;
