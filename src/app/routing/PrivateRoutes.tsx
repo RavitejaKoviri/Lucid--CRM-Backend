@@ -69,7 +69,7 @@ const PrivateRoutes = () => {
         <Route path='target/target/targetadduser' element={<TargetAdduser/>} />
         
         <Route path='deals/deals/dealsadduser' element={<DealsAdduser/>} />
-        <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
+        <Route path='ticket/ticket/ticketadd' element={<TicketAdduser />} />
         <Route path='tasks/tasks/taskAdduser' element={<TaskAdduser />} />
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />

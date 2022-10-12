@@ -25,7 +25,7 @@ const TicketIndex = () => {
   const closeNewCardForm = () => setNewCardForm(false);
   const handeSetFormValue = ({ currentTarget }) =>
     setFormValue(currentTarget.value);
-  const Tickets = useSelector((state) => state?.TicketSlice?.Tickets);
+  const Tickets = useSelector((state) => state?.TicketData?.Tickets);
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
     dispatch(getAllTickets(token));
@@ -279,7 +279,7 @@ const TicketIndex = () => {
             ) : null} */}
             </>
           )}
-          renderCard={({ id, taskPriority ,subject}, { dragging }) => (
+          renderCard={({ id, ticketName ,ticketPriority}, { dragging }) => (
             <div
               style={{
                 display: "block",
@@ -480,13 +480,13 @@ const TicketIndex = () => {
                       href="#"
                       className="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary"
                     >
-                      {taskPriority}
+                      {ticketName}
                     </a>
                   </div>
                   {/* end::Title */}
                   {/* begin::Content */}
                   <div className="fs-6 fw-semibold text-gray-600 mb-5">
-                    {subject}
+                    {ticketPriority}
                   </div>
                   {/* end::Content */}
                   {/* begin::Footer */}
