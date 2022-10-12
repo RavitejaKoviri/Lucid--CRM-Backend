@@ -4,7 +4,7 @@ import { ContactsListWrapper } from './contacts-list/ContactsList'
 
 const contactsBreadcrumbs: Array<PageLink> = [
   {
-    title: 'contacts',
+    title: '',
     path: 'contacts',
     isSeparator: false,
     isActive: false,
@@ -25,7 +25,9 @@ const ContactsPage = () => {
           path='contacts'
           element={
             <>
-              <PageTitle breadcrumbs={contactsBreadcrumbs}>Contacts</PageTitle>
+              {/* <PageTitle breadcrumbs={contactsBreadcrumbs}>Contacts</PageTitle> */}
+              <PageTitle >Contacts</PageTitle>
+
               <ContactsListWrapper />
             </>
           }

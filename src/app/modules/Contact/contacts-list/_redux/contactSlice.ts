@@ -2,12 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Contacts: []
+  Contacts: [],
+  Source: [],
+  campaigns: [],
+  Comapnies: [],
+  Createcontact: [],
 };
 
 export const callTypes = {
   list: "list",
-  action: "action",
+  action: "action"
 };
 
 export const ContactSlice = createSlice({
@@ -35,6 +39,29 @@ export const ContactSlice = createSlice({
     getedAllContactsDetails: (state, action) => {
       const { data } = action.payload;
       state.Contacts = data;
-    }
+    },
+
+    fetchedAllSourceDetails: (state, action) => {
+      const { data } = action.payload;
+      state.Source = data;
+    },
+    
+    fetchedcampaignsDetails: (state, action) => {
+      const { data } = action.payload;
+      state.campaigns = data;
+    },
+    
+    fetchedAllComapniesDetails: (state, action) => {
+      const { data } = action.payload;
+      state.Comapnies = data;
+    },
+
+     fetchedContact: (state, action) => {
+        const { data } =action.payload;
+        state.Createcontact = data;
+     },
+
   },
 });
+
+

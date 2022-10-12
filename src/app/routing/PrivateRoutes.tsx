@@ -14,7 +14,6 @@ import LeadAdduser from '../modules/leads/leads-list/components/header/LeadAddus
 import BookingAdduser from '../modules/booking/bookings-list/components/header/BookingAdduser'
 import TargetAdduser from '../modules/Targets/Target-list/components/header/TargetAdduser'
 import TicketAdduser from '../modules/Tickets/Ticket-list/components/header/TicketAddUser'
-import ContactAdduser from '../modules/Contact/contacts-list/components/header/ContactAdduser'
 
 import DealsAdduser from '../modules/deal/deals-list/components/header/DealsAdduser'
 import { Campaigns } from '../pages/campaigns/campaigns'
@@ -23,6 +22,7 @@ import { SocialCampaigns } from '../pages/campaigns/socialCampaigns'
 import { PageCampaigns } from '../pages/campaigns/pageCampaigns'
 import { PostCampaigns } from '../pages/campaigns/postCampaingns'
 import TaskAdduser from '../modules/task/tasks-list/components/header/TaskAdduser'
+import ContactsAdduser from '../modules/Contact/contacts-list/components/header/ContactsAdduser'
 
 
 const PrivateRoutes = () => {
@@ -67,9 +67,9 @@ const PrivateRoutes = () => {
         
         <Route path='deals/deals/dealsadduser' element={<DealsAdduser/>} />
         <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
-        <Route path='contacts/contacts/leadadduser' element={<ContactAdduser />} />
         <Route path='tasks/tasks/taskAdduser' element={<TaskAdduser />} />
 
+        <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
 
 
         {/* Lazy Modules */}
