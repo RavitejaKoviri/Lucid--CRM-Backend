@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 import {useIntl} from 'react-intl'
+import { Link } from 'react-router-dom'
 import {PageTitle} from '../../../_metronic/layout/core'
 import {
   ListsWidget4,
@@ -34,6 +35,7 @@ const DashboardPage = () => {
                 
       <div className="col-xl-3">
       <div className='row g-5 g-xl-8'>
+		  <Link to='/leads/list'>
       <div className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100" style={{backgroundColor: "#F1416C",backgroundImage:`url$('assets/media/svg/shapes/wave-bg-red.svg')`}}>
 					
 										<div className="card-header pt-5 mb-3">
@@ -60,12 +62,13 @@ const DashboardPage = () => {
 						
 											<div className="fw-bold text-white py-2">
 												<span className="fs-1 d-block">935</span>
-												<span className="opacity-50">Problems Solved</span>
+												<span className="opacity-50">Generated Leads</span>
 											</div>
 							
 										</div>
 							
 									</div>
+									</Link>
 </div>
 </div>
 <div className="col-xl-3">
@@ -85,7 +88,7 @@ const DashboardPage = () => {
 											<div className="d-flex align-items-center">
 												<span className="fs-4hx text-white fw-bold me-6">427</span>
 												<div className="fw-bold fs-6 text-white">
-													<span className="d-block">Tickets</span>
+													<span className="d-block">Contacts</span>
 													{/* <span className="">Calls</span> */}
 												</div>
 											</div>
@@ -96,7 +99,7 @@ const DashboardPage = () => {
 								
 											<div className="fw-bold text-white py-2">
 												<span className="fs-1 d-block">386</span>
-												<span className="opacity-50">Generated Leads</span>
+												<span className="opacity-50">Problems Solved</span>
 											</div>
 						
 										</div>
@@ -121,7 +124,7 @@ const DashboardPage = () => {
 											<div className="d-flex align-items-center">
 												<span className="fs-4hx text-white fw-bold me-6">1.2k</span>
 												<div className="fw-bold fs-6 text-white">
-													<span className="d-block">Targets</span>
+													<span className="d-block">Bookings</span>
 													{/* <span className="">Calls</span> */}
 												</div>
 											</div>
@@ -132,7 +135,7 @@ const DashboardPage = () => {
 						
 											<div className="fw-bold text-white py-2">
 												<span className="fs-1 d-block">935</span>
-												<span className="opacity-50">Problems Solved</span>
+												<span className="opacity-50">Bookings Completed</span>
 											</div>
 							
 										</div>
@@ -168,7 +171,7 @@ const DashboardPage = () => {
 								
 											<div className="fw-bold text-white py-2">
 												<span className="fs-1 d-block">386</span>
-												<span className="opacity-50">Generated Leads</span>
+												<span className="opacity-50">Deals Completed</span>
 											</div>
 						
 										</div>
