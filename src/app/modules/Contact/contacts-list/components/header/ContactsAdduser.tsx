@@ -407,6 +407,17 @@ export default function ContactsAdduser() {
                                 
                               />
                             </div>
+                            <div className="col-lg-6">
+                              <label>Email:</label>
+                              <input
+                                type="text"
+                                value={data.contactEmail}
+                                onChange={handleChange}
+                                name="contactEmail"
+                                className="form-control"
+                                
+                              />
+                            </div>
                             {/*begin::Status*/}
                            
                             {/*end::Status*/}
@@ -422,30 +433,7 @@ export default function ContactsAdduser() {
                             />
                           </div> */}
                           </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Email:</label>
-                              <input
-                                type="text"
-                                value={data.contactEmail}
-                                onChange={handleChange}
-                                name="contactEmail"
-                                className="form-control"
-                                
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label> Mobile:</label>
-                              <input
-                                type="text"
-                                value={data.contactMobile}
-                                onChange={handleChange}
-                                name="contactMobile"
-                                className="form-control"
-                                
-                              />
-                            </div>
-                          </div>
+                         
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>FirstName:</label>
@@ -465,6 +453,30 @@ export default function ContactsAdduser() {
                                 value={data.contactLastName}
                                 onChange={handleChange}
                                 name="contactLastName"
+                                className="form-control"
+                                
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                          <div className="col-lg-6">
+                              <label>SecondaryEmail:</label>
+                              <input
+                                type="text"
+                                value={data.contactSecondaryEmail}
+                                onChange={handleChange}
+                                name="contactSecondaryEmail"
+                                className="form-control"
+                                
+                              />
+                            </div>
+                            <div className="col-lg-6">
+                              <label> Mobile:</label>
+                              <input
+                                type="text"
+                                value={data.contactMobile}
+                                onChange={handleChange}
+                                name="contactMobile"
                                 className="form-control"
                                 
                               />
@@ -581,19 +593,6 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>SecondaryEmail:</label>
-                              <input
-                                type="text"
-                                value={data.contactSecondaryEmail}
-                                onChange={handleChange}
-                                name="contactSecondaryEmail"
-                                className="form-control"
-                                
-                              />
-                            </div>
-                          </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
                               <label>Notes:</label>
                               <input
                                 type="text"
@@ -604,6 +603,9 @@ export default function ContactsAdduser() {
                               
                               />
                             </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                           
                             <div className="col-lg-6">
                               <label>TwitterHandle:</label>
                               <input
@@ -611,6 +613,17 @@ export default function ContactsAdduser() {
                                 value={data.contactTwitterHandle}
                                 onChange={handleChange}
                                 name="contactTwitterHandle"
+                                className="form-control"
+                                
+                              />
+                            </div>
+                            <div className="col-lg-6">
+                              <label>LinkedinHandle:</label>
+                              <input
+                                type="text"
+                                value={data.contactLinkedinHandle}
+                                onChange={handleChange}
+                                name="contactLinkedinHandle"
                                 className="form-control"
                                 
                               />
@@ -642,17 +655,7 @@ export default function ContactsAdduser() {
                           </div>
 
                           <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>LinkedinHandle:</label>
-                              <input
-                                type="text"
-                                value={data.contactLinkedinHandle}
-                                onChange={handleChange}
-                                name="contactLinkedinHandle"
-                                className="form-control"
-                                
-                              />
-                            </div>
+                            
                             
                           </div>
 
