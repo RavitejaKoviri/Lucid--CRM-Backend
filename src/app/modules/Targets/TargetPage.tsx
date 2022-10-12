@@ -4,7 +4,7 @@ import { TargetListWrapper } from './Target-list/TargetList'
 
 const TargetsBreadcrumbs: Array<PageLink> = [
   {
-    title: 'Target Management',
+    title: '',
     path: 'target',
     isSeparator: false,
     isActive: false,
@@ -25,7 +25,7 @@ const TargetPage = () => {
           path='target'
           element={
             <>
-              <PageTitle breadcrumbs={TargetsBreadcrumbs}>Target list</PageTitle>
+              <PageTitle>Target list</PageTitle>
               <TargetListWrapper />
             </>
           }

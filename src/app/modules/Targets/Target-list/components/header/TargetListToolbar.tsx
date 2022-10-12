@@ -25,7 +25,7 @@ const TargetListToolbar = () => {
         navigation('targetadduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Add User
+        Target
       </button>
       {/* end::Add user */}
     </div>

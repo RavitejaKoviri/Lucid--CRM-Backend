@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import {  CreateTarget, getCompanies,  getTargetStatuses,  } from "../../_redux/targetAction";
+
 // import { FC, useState } from 'react'
 // import * as Yup from 'yup'
 // import { useFormik } from 'formik'
@@ -13,6 +16,68 @@ import { useNavigate } from "react-router-dom";
 
 export default function TargetAdduser() {
   const navigation = useNavigate();
+  
+  const dispatch = useDispatch();
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
+  
+  
+
+  // const campaign = useSelector(
+  //   (state: any) => state?.TargetData?.campaigns
+  // );
+  const company = useSelector(
+    (state: any) => state?.TargetData?.Comapnies
+  );
+  const status = useSelector(
+    (state: any) => state?.TargetData?.targetStatus
+  );
+  console.log(status,"status");
+  
+  useEffect(() => {
+    
+    
+    dispatch(getCompanies(token))
+    dispatch(getTargetStatuses(token))
+  }, [])
+
+  const [data, setData] = useState({
+    targetName: " ",
+    assignedTo: " ",
+    targetDescription: " ",
+    targetStatus: " ",
+    company: " ",
+    targetDueDate: " ",
+
+    
+    
+   
+  })
+
+  const handleChange = (e: any) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    console.log(data, "EDIT_PROFILE");
+    dispatch(CreateTarget(data, token));
+    setData({
+      targetName: " ",
+      assignedTo: " ",
+    targetDescription: " ",
+    targetStatus: " ",
+    company: " ",
+    targetDueDate: " ",
+      
+    })
+  };
+  
+
+  
+
+
+
   return (
     <>
       <div
@@ -79,14 +144,14 @@ export default function TargetAdduser() {
                     </span>
                     {/*end::Cancel*/}
                     {/*begin::Remove*/}
-                    <span
+                    {/* <span
                       className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                       data-kt-image-input-action="remove"
                       data-bs-toggle="tooltip"
                       title="Remove avatar"
                     >
                       <i className="bi bi-x fs-2"></i>
-                    </span>
+                    </span> */}
                     {/*end::Remove*/}
                   </div>
                   {/*end::Image input*/}
@@ -127,13 +192,20 @@ export default function TargetAdduser() {
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
-                    id="kt_ecommerce_add_product_status_select"
-                  >
-                    <option></option>
-                    <option value="published">Published</option>
+                    value={data.targetStatus}
+                    onChange={handleChange}
+                    name="targetStatus"
+                  > <option></option>
+                    {/* <option value="published">Published</option>
                     <option value="draft">Draft</option>
                     <option value="scheduled">Scheduled</option>
-                    <option value="inactive">Inactive</option>
+                    <option value="inactive">Inactive</option> */}
+                    {
+                      status?.map((item: any) => (
+                        <option value={item?.id}>{item?.targetStatusName}</option>
+                      ))
+                    }
+
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
@@ -161,7 +233,7 @@ export default function TargetAdduser() {
                 <div className="card-header">
                   {/*begin::Card title*/}
                   <div className="card-title">
-                    <h2>Product Details</h2>
+                    <h2>Company Details</h2>
                   </div>
                   {/*end::Card title*/}
                 </div>
@@ -170,41 +242,41 @@ export default function TargetAdduser() {
                 <div className="card-body pt-0">
                   {/*begin::Input group*/}
                   {/*begin::Label*/}
-                  <label className="form-label">Categories</label>
+                  <label className="form-label">Company</label>
                   {/*end::Label*/}
                   {/*begin::Select2*/}
                   <select
                     className="form-select mb-2"
                     data-control="select2"
+                    data-hide-search="true"
                     data-placeholder="Select an option"
-                    data-allow-clear="true"
-                  >
-                    <option></option>
-                    <option value="Computers">Computers</option>
-                    <option value="Watches">Watches</option>
-                    <option value="Headphones">Headphones</option>
-                    <option value="Footwear">Footwear</option>
-                    <option value="Cameras">Cameras</option>
-                    <option value="Shirts">Shirts</option>
-                    <option value="Household">Household</option>
-                    <option value="Handbags">Handbags</option>
-                    <option value="Wines">Wines</option>
-                    <option value="Sandals">Sandals</option>
+                    value={data.company}
+                    onChange={handleChange}
+                    name="company"
+                  ><option></option>
+                  
+                    
+                    {
+                      company?.map((item: any) => (
+                        <option value={item?.id}>{item?.companyName}</option>
+                      ))
+                    }
+
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7 mb-7">
+                  {/* <div className="text-muted fs-7 mb-7">
                     Add product to a category.
-                  </div>
+                  </div> */}
                   {/*end::Description*/}
                   {/*end::Input group*/}
                   {/*begin::Button*/}
-                  <a
+                  {/* <a
                     href="../../demo6/dist/apps/ecommerce/catalog/add-category.html"
                     className="btn btn-light-primary btn-sm mb-10"
                   >
-                    {/*begin::Svg Icon | path: icons/duotune/arrows/arr087.svg*/}
-                    <span className="svg-icon svg-icon-2">
+                   
+                     <span className="svg-icon svg-icon-2">
                       <svg
                         width="24"
                         height="24"
@@ -231,24 +303,24 @@ export default function TargetAdduser() {
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    {/*end::Svg Icon*/}Create new category
-                  </a>
+                    </span> 
+                  Create new company
+                  </a> */}
                   {/*end::Button*/}
                   {/*begin::Input group*/}
                   {/*begin::Label*/}
-                  <label className="form-label d-block">Tags</label>
+                  {/* <label className="form-label d-block">Tags</label> */}
                   {/*end::Label*/}
                   {/*begin::Input*/}
-                  <input
+                  {/* <input
                     id="kt_ecommerce_add_product_tags"
                     name="kt_ecommerce_add_product_tags"
                     className="form-control mb-2"
                     value=""
-                  />
+                  /> */}
                   {/*end::Input*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Add tags to a product.</div>
+                  {/* <div className="text-muted fs-7">Add tags to a product.</div> */}
                   {/*end::Description*/}
                   {/*end::Input group*/}
                 </div>
@@ -256,42 +328,37 @@ export default function TargetAdduser() {
               </div>
               {/*end::Category & tags*/}
               {/*begin::Weekly sales*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
+              {/* <div className="card card-flush py-4">
+               
                 <div className="card-header">
-                  {/*begin::Card title*/}
+                
                   <div className="card-title">
                     <h2>Weekly Sales</h2>
                   </div>
-                  {/*end::Card title*/}
+                 
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+               
                 <div className="card-body pt-0">
                   <span className="text-muted">
                     No data available. Sales data will begin capturing once
                     product has been published.
                   </span>
                 </div>
-                {/*end::Card body*/}
-              </div>
-              {/*end::Weekly sales*/}
-              {/*begin::Template settings*/}
+                
+              </div> */}
+{/*          
               <div className="card card-flush py-4">
-                {/*begin::Card header*/}
+            
                 <div className="card-header">
-                  {/*begin::Card title*/}
+               
                   <div className="card-title">
                     <h2>Product Template</h2>
                   </div>
-                  {/*end::Card title*/}
+               
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+              
                 <div className="card-body pt-0">
-                  {/*begin::Select store template*/}
-                  {/*end::Select store template*/}
-                  {/*begin::Select2*/}
+                  
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -300,21 +367,17 @@ export default function TargetAdduser() {
                     id="kt_ecommerce_add_product_store_template"
                   >
                     <option></option>
-                    <option value="default">Default template</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="office">Office stationary</option>
-                    <option value="fashion">Fashion</option>
+                    
                   </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
+                
                   <div className="text-muted fs-7">
                     Assign a template from your current theme to define how a
                     single product is displayed.
                   </div>
-                  {/*end::Description*/}
+                 
                 </div>
-                {/*end::Card body*/}
-              </div>
+                
+              </div> */}
               {/*end::Template settings*/}
             </div>
             {/*end::Aside column*/}
@@ -334,7 +397,7 @@ export default function TargetAdduser() {
                 </li>
                 {/*end:::Tab item*/}
                 {/*begin:::Tab item*/}
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a
                     className="nav-link text-active-primary pb-4"
                     data-bs-toggle="tab"
@@ -342,7 +405,7 @@ export default function TargetAdduser() {
                   >
                     Advanced
                   </a>
-                </li>
+                </li> */}
                 {/*end:::Tab item*/}
               </ul>
               {/*end:::Tabs*/}
@@ -370,45 +433,60 @@ export default function TargetAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Name:</label>
+                              <label>targetName:</label>
                               <input
                                 type="text"
+                                value={data.targetName}
+                                onChange={handleChange}
+                                name="targetName"
                                 className="form-control"
-                                placeholder="Enter Name"
+                                placeholder=" "
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>Assignedto:</label>
+                              <label>assignedTo:</label>
                               <input
                                 type="text"
+                                value={data.assignedTo}
+                                onChange={handleChange}
+                                name="assignedTo"
                                 className="form-control"
-                                placeholder="Enter AssignedTo"
+                                placeholder=" "
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-2">
+                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Status</label>
+                              <label>targetDueDate:</label>
                               <input
                                 type="text"
+                                value={data.targetDueDate}
+                                onChange={handleChange}
+                                name="targetDueDate"
                                 className="form-control"
-                                placeholder="Enter Status"
+                                placeholder=" "
                               />
                             </div>
-                            <div className="col-lg-6">
+                            {/* <div className="col-lg-6">
                               <label> Company:</label>
                               <input
-                                type="email"
+                                type="text"
+                                value={data.company}
+                                onChange={handleChange}
+                                name="targetCompanyName"
                                 className="form-control"
                                 placeholder="Enter CompanyName"
                               />
-                            </div>
-                          </div>
+                            </div> */}
+                          </div> 
                           <div className="form-group row mb-2">
                             <div className="col-lg-12">
-                              <label>Description:</label>
-                              <input 
-                                type="email"
+                              <label>targetDescription:</label>
+                              <input
+                                type="text"
+                                value={data.targetDescription}
+                                onChange={handleChange}
+                                name="targetDescription"
                                 className="form-control"
                                 placeholder="Enter Description"
                               />
@@ -497,7 +575,7 @@ export default function TargetAdduser() {
                         </form>
                       </div>
                     </div>
-                    <div className="card card-flush py-4">
+                    {/* <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
                           <h2>Media</h2>
@@ -521,40 +599,37 @@ export default function TargetAdduser() {
                                   Upload up to 10 files
                                 </span>
                               </div>
-                              {/*end::Info*/}
+                              
                             </div>
                           </div>
-                          {/*end::Dropzone*/}
+                         
                         </div>
-                        {/*end::Input group*/}
-                        {/*begin::Description*/}
+                        
                         <div className="text-muted fs-7">
                           Set the product media gallery.
                         </div>
-                        {/*end::Description*/}
+                        
                       </div>
-                      {/*end::Card header*/}
-                    </div>
+                      
+                    </div> */}
                     {/*end::Media*/}
                     {/*begin::Pricing*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
+                    {/* <div className="card card-flush py-4">
+                     
                       <div className="card-header">
                         <div className="card-title">
                           <h2>Pricing</h2>
                         </div>
                       </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
+                     
                       <div className="card-body pt-0">
-                        {/*begin::Input group*/}
+                        
                         <div className="mb-10 fv-row">
-                          {/*begin::Label*/}
+                         
                           <label className="required form-label">
                             Base Price
                           </label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
+                         
                           <input
                             type="text"
                             name="price"
@@ -562,17 +637,15 @@ export default function TargetAdduser() {
                             placeholder="Product price"
                             value=""
                           />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
+                          
                           <div className="text-muted fs-7">
                             Set the product price.
                           </div>
-                          {/*end::Description*/}
+                         
                         </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
+                     
                         <div className="fv-row mb-10">
-                          {/*begin::Label*/}
+                      
                           <label className="fs-6 fw-semibold mb-2">
                             Discount Type
                             <i
@@ -581,21 +654,20 @@ export default function TargetAdduser() {
                               title="Select a discount type that will be applied to this product"
                             ></i>
                           </label>
-                          {/*End::Label*/}
-                          {/*begin::Row*/}
+                         
                           <div
                             className="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-9"
                             data-kt-buttons="true"
                             data-kt-buttons-target="[data-kt-button='true']"
                           >
-                            {/*begin::Col*/}
+                           
                             <div className="col">
-                              {/*begin::Option*/}
+                              
                               <label
                                 className="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6"
                                 data-kt-button="true"
                               >
-                                {/*begin::Radio*/}
+                              
                                 <span className="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
                                   <input
                                     className="form-check-input"
@@ -604,26 +676,25 @@ export default function TargetAdduser() {
                                     value="1"
                                   />
                                 </span>
-                                {/*end::Radio*/}
-                                {/*begin::Info*/}
+                               
+                                
                                 <span className="ms-5">
                                   <span className="fs-4 fw-bold text-gray-800 d-block">
                                     No Discount
                                   </span>
                                 </span>
-                                {/*end::Info*/}
+                                
                               </label>
-                              {/*end::Option*/}
+                              
                             </div>
-                            {/*end::Col*/}
-                            {/*begin::Col*/}
+                          
                             <div className="col">
-                              {/*begin::Option*/}
+                             
                               <label
                                 className="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6"
                                 data-kt-button="true"
                               >
-                                {/*begin::Radio*/}
+                            
                                 <span className="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
                                   <input
                                     className="form-check-input"
@@ -632,26 +703,25 @@ export default function TargetAdduser() {
                                     value="2"
                                   />
                                 </span>
-                                {/*end::Radio*/}
-                                {/*begin::Info*/}
+                              
+                                
                                 <span className="ms-5">
                                   <span className="fs-4 fw-bold text-gray-800 d-block">
                                     Percentage %
                                   </span>
                                 </span>
-                                {/*end::Info*/}
+                               
                               </label>
-                              {/*end::Option*/}
+                             
                             </div>
-                            {/*end::Col*/}
-                            {/*begin::Col*/}
+                           
+                          
                             <div className="col">
-                              {/*begin::Option*/}
+                              
                               <label
                                 className="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6"
                                 data-kt-button="true"
                               >
-                                {/*begin::Radio*/}
                                 <span className="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
                                   <input
                                     className="form-check-input"
@@ -660,33 +730,31 @@ export default function TargetAdduser() {
                                     value="3"
                                   />
                                 </span>
-                                {/*end::Radio*/}
-                                {/*begin::Info*/}
+                                
                                 <span className="ms-5">
                                   <span className="fs-4 fw-bold text-gray-800 d-block">
                                     Fixed Price
                                   </span>
                                 </span>
-                                {/*end::Info*/}
+                               
                               </label>
-                              {/*end::Option*/}
+                             
                             </div>
-                            {/*end::Col*/}
+                      
                           </div>
-                          {/*end::Row*/}
+                       
                         </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
+                       
                         <div
                           className="d-none mb-10 fv-row"
                           id="kt_ecommerce_add_product_discount_percentage"
                         >
-                          {/*begin::Label*/}
+                       
                           <label className="form-label">
                             Set Discount Percentage
                           </label>
-                          {/*end::Label*/}
-                          {/*begin::Slider*/}
+                          
+                          
                           <div className="d-flex flex-column text-center mb-5">
                             <div className="d-flex align-items-start justify-content-center mb-7">
                               <span
@@ -702,51 +770,45 @@ export default function TargetAdduser() {
                               className="noUi-sm"
                             ></div>
                           </div>
-                          {/*end::Slider*/}
-                          {/*begin::Description*/}
+                        
                           <div className="text-muted fs-7">
                             Set a percentage discount to be applied on this
                             product.
                           </div>
-                          {/*end::Description*/}
+                          
                         </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
+                     
                         <div
                           className="d-none mb-10 fv-row"
                           id="kt_ecommerce_add_product_discount_fixed"
                         >
-                          {/*begin::Label*/}
+                        
                           <label className="form-label">
                             Fixed Discounted Price
                           </label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
+                       
                           <input
                             type="text"
                             name="dicsounted_price"
                             className="form-control mb-2"
                             placeholder="Discounted price"
                           />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
+                        
                           <div className="text-muted fs-7">
                             Set the discounted product price. The product will
                             be reduced at the determined fixed price
                           </div>
-                          {/*end::Description*/}
+                        
                         </div>
-                        {/*end::Input group*/}
-                        {/*begin::Tax*/}
+                      
                         <div className="d-flex flex-wrap gap-5">
-                          {/*begin::Input group*/}
+                         
                           <div className="fv-row w-100 flex-md-root">
-                            {/*begin::Label*/}
+                          
                             <label className="required form-label">
                               Tax className
                             </label>
-                            {/*end::Label*/}
-                            {/*begin::Select2*/}
+                           
                             <select
                               className="form-select mb-2"
                               name="tax"
@@ -759,43 +821,39 @@ export default function TargetAdduser() {
                               <option value="1">Taxable Goods</option>
                               <option value="2">Downloadable Product</option>
                             </select>
-                            {/*end::Select2*/}
-                            {/*begin::Description*/}
+                           
                             <div className="text-muted fs-7">
                               Set the product tax className.
                             </div>
-                            {/*end::Description*/}
+                         
                           </div>
-                          {/*end::Input group*/}
-                          {/*begin::Input group*/}
+                         
                           <div className="fv-row w-100 flex-md-root">
-                            {/*begin::Label*/}
+                           
                             <label className="form-label">VAT Amount (%)</label>
-                            {/*end::Label*/}
-                            {/*begin::Input*/}
+                        
                             <input
                               type="text"
                               className="form-control mb-2"
                               value=""
                             />
-                            {/*end::Input*/}
-                            {/*begin::Description*/}
+                           
                             <div className="text-muted fs-7">
                               Set the product VAT about.
                             </div>
-                            {/*end::Description*/}
+                           
                           </div>
-                          {/*end::Input group*/}
+                         
                         </div>
-                        {/*end:Tax*/}
+                       
                       </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Pricing*/}
+                     
+                    </div> */}
+                   
                   </div>
                 </div>
-                {/*end::Tab pane*/}
-                {/*begin::Tab pane*/}
+               
+              
                 <div
                   className="tab-pane fade"
                   id="kt_ecommerce_add_product_advanced"
@@ -1258,7 +1316,9 @@ export default function TargetAdduser() {
                   type="submit"
                   id="kt_ecommerce_add_product_submit"
                   onClick={() => {
-                    navigation("users");
+                    // navigation("user");
+                    handleSubmit();
+
                   }}
                   className="btn btn-primary"
                 >
