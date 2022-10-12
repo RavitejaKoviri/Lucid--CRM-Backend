@@ -25,84 +25,88 @@ const DealIndex = () => {
   const closeNewCardForm = () => setNewCardForm(false);
   const handeSetFormValue = ({ currentTarget }) =>
     setFormValue(currentTarget.value);
-  const deals = useSelector((state) => state?.dealsSlice?.deals);
+  const deals = useSelector((state) => state?.deal?.deals);
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
     dispatch(getAlldeals(token));
   }, []);
-  console.log(deals, "tasks");
+  console.log(deals, "deals");
 
-  const bucketListedTargets = deals?.filter(
-    (item) => item?.targetStatus?.targetStatusName === "Yet to start"
+  const Qualification = deals?.filter(
+    (item) => item?.dealStatus?.dealStatusName === "Qualification"
   );
-  const completedTargets = deals?.filter(
-    (item) => item?.targetStatus?.targetStatusName === "Completed"
+  const NeedsAnalysis = deals?.filter(
+    (item) => item?.dealStatus?.dealStatusName === "Needs Analysis"
   );
-  // const delegatedTasks = targets?.filter(
-  //   (item) => item?.targetStatus?.targetStatusName === "Delegated"
-  // );
-  const inProgressTargets = deals?.filter(
-    (item) => item?.targetStatus?.targetStatusName === "In-Progress"
+  const ValueProposition = deals?.filter(
+    (item) => item?.dealStatus?.dealStatusName === "Value Proposition"
   );
-  // const doneTasks = targets?.filter(
-  //   (item) => item?.targetStatus?.targetStatusName === "Done"
-  // );
-  // const verificationTasks = targets?.filter(
-  //   (item) => item?.targetStatus?.targetStatusName === "Verification"
-  // );
-  console.log(bucketListedTargets, "bucketListedTasks");
-  console.log(inProgressTargets, "inProgressTargets");
-  console.log(completedTargets, "delegatedTasks");
-  // console.log(inProgressTasks, "inProgressTasks");
-  // console.log(doneTasks, "doneTasks");
-  // console.log(verificationTasks, "verificationTasks");
-
+  const IdentifyDecisionMakers = deals?.filter(
+    (item) => item?.dealStatus?.dealStatusName === "Identify Decision Makers"
+  );
+  const Proposal = deals?.filter(
+    (item) => item?.dealStatus?.dealStatusName === "Proposal/Price Quote"
+  );
+  const Negotiation = deals?.filter(
+    (item) => item?.dealStatus?.dealStatusName === "Negotiation/Review"
+  );
+  const ClosedWon = deals?.filter(
+    (item) => item?.dealStatus?.dealStatusName === "Closed Won"
+  );
+  const ClosedLost = deals?.filter(
+    (item) => item?.dealStatus?.dealStatusName === "Closed Lost"
+  );
+  const ClosedCompetition = deals?.filter(
+    (item) => item?.dealStatus?.dealStatusName === "Closed-Lost to Competition"
+  );
+console.log(ValueProposition,"ValueProposition");
+  
   const boards = {
     columns: [
       {
         id: uuidv4(),
         title: "Value Proposition",
-        cards: bucketListedTargets ? bucketListedTargets : [],
+        cards:ValueProposition?ValueProposition:[],
       },
       {
         id: uuidv4(),
         title: "Qualification",
-        cards: inProgressTargets ? inProgressTargets : [],
+       cards:Qualification?Qualification:[],
       },
       {
         id: uuidv4(),
         title: "Proposal/Price Quote",
-        cards: completedTargets ? completedTargets : [],
+       cards:Proposal?Proposal:[],
       },
       {
         id: uuidv4(),
         title: "Negotiation/Review",
-        cards: completedTargets ? completedTargets : [],
+       cards:Negotiation?Negotiation:[],
       },
       {
         id: uuidv4(),
         title: "Needs Analysis",
-        cards: completedTargets ? completedTargets : [],
+        cards:NeedsAnalysis?NeedsAnalysis:[],
       },
       {
         id: uuidv4(),
         title: "Identify Decision Makers",
-        cards: completedTargets ? completedTargets : [],
+        cards:IdentifyDecisionMakers?IdentifyDecisionMakers:[],
       },
       {
         id: uuidv4(),
         title: "Closed-Lost to Competition",
-        cards: completedTargets ? completedTargets : [],
+       cards:ClosedCompetition?ClosedCompetition:[],
       },
       {
         id: uuidv4(),
         title: "Closed Won",
-        cards: completedTargets ? completedTargets : [],
+        cards:ClosedWon?ClosedWon:[],
       },
       {
         id: uuidv4(),
         title: "Closed Lost",
-        cards: completedTargets ? completedTargets : [],
+        cards:ClosedLost?ClosedLost:[],
       },
     ],
   };
@@ -292,7 +296,7 @@ const DealIndex = () => {
             ) : null} */}
             </>
           )}
-          renderCard={({ id, taskPriority, subject }, { dragging }) => (
+          renderCard={({ id, dealName ,dealContactPersonName}, { dragging }) => (
             <div
               style={{
                 display: "block",
@@ -493,13 +497,13 @@ const DealIndex = () => {
                       href="#"
                       className="fs-4 fw-bold mb-1 text-gray-900 text-hover-primary"
                     >
-                      {taskPriority}
+                      {dealName}
                     </a>
                   </div>
                   {/* end::Title */}
                   {/* begin::Content */}
                   <div className="fs-6 fw-semibold text-gray-600 mb-5">
-                    {subject}
+                    {dealContactPersonName}
                   </div>
                   {/* end::Content */}
                   {/* begin::Footer */}

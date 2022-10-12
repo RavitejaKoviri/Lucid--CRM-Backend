@@ -367,14 +367,7 @@ export default function TaskAdduser() {
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>Task Priority:</label>
-                              {/* <input
-                                type="text"
-                                value={data.taskPriority}
-                                onChange={handleChange}
-                                name="taskPriority"
-                                className="form-control"
-                                placeholder="Enter AnnualRevenue"
-                              /> */}
+                             
                                <select
                                 className="form-select mb-3"
                                 data-control="select2"
@@ -388,6 +381,7 @@ export default function TaskAdduser() {
                                   --Select --
                                 </option>
                                 <option value="High">High</option>
+                                <option value="Medium">Medium</option>
                                 <option value="Low">Low</option>
                               </select>
                             </div>

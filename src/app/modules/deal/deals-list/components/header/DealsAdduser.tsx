@@ -18,7 +18,7 @@ export default function DealsAdduser() {
   const campaign = useSelector((state: any) => state?.deal?.campaigns);
   const company = useSelector((state: any) => state?.deal?.Comapnies);
   const status = useSelector((state: any) => state?.deal?.dealStatus);
-  console.log(company, "company");
+  console.log(status, "status");
 
   useEffect(() => {
     dispatch(getsource(token));
@@ -33,7 +33,7 @@ export default function DealsAdduser() {
     dealContactPersonEmail: " ",
     dealContactPersonAlternateEmail: " ",
     dealContactPersonAlternatePhoneNumber: " ",
-    // dealType: " ",
+    dealType: " ",
     dealSource: " ",
     campaignSource: " ",
     company: " ",
@@ -55,7 +55,7 @@ export default function DealsAdduser() {
       dealContactPersonEmail: " ",
       dealContactPersonAlternateEmail: " ",
       dealContactPersonAlternatePhoneNumber: " ",
-      // dealType: " ",
+      dealType: " ",
       dealSource: " ",
       campaignSource: " ",
       company: " ",
@@ -329,7 +329,7 @@ export default function DealsAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Name:</label>
+                              <label>Deal Name:</label>
                               <input
                                 type="text"
                                 value={data.dealName}
@@ -354,7 +354,7 @@ export default function DealsAdduser() {
 
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Contact Person AlternateEmail:</label>
+                              <label>AlternateEmail:</label>
                               <input
                                 type="email"
                                 value={data.dealContactPersonAlternateEmail}
@@ -365,7 +365,7 @@ export default function DealsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>Contact Person PhoneNumber:</label>
+                              <label> PhoneNumber:</label>
                               <input
                                 type="text"
                                 value={data.dealContactPersonPhoneNumber}
@@ -378,7 +378,7 @@ export default function DealsAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Contact PersonEmail:</label>
+                              <label> PersonEmail:</label>
                               <input
                                 type="text"
                                 value={data.dealContactPersonEmail}
@@ -389,7 +389,7 @@ export default function DealsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>ContactPerson AlternatePhoneNumber:</label>
+                              <label>AlternatePhoneNumber:</label>
                               <input
                                 type="text"
                                 value={
@@ -403,18 +403,8 @@ export default function DealsAdduser() {
                             </div>
                           </div>
                           <div className="form-group row mb-2">
-                            {/* <div className="col-lg-6">
-                              <label>Deal Type:</label>
-                              <input
-                                type="text"
-                                value={data.dealType}
-                                onChange={handleChange}
-                                name="dealType"
-                                className="form-control"
-                                placeholder="Enter PhoneNumber"
-                              />
-                            </div> */}
-                            {/* <div className="col-lg-6">
+                           
+                            <div className="col-lg-6">
                             <label>Deal Type:</label>
                               <select
                                 data-control="select2"
@@ -425,11 +415,13 @@ export default function DealsAdduser() {
                                 name="dealType"
                                 className="form-control selectpicker"
                               >
-                                <option>Mustard</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
+                                <option>
+                                  --Select --
+                                </option>
+                                <option value="ExistingBusiness">Existing Business</option>
+                                <option value="NewBusiness">New Business </option>
                               </select>
-                            </div> */}
+                            </div>
                           </div>
                           {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
