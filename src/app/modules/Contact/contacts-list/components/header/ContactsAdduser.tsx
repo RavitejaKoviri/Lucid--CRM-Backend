@@ -218,7 +218,7 @@ export default function ContactsAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  <div className="text-muted fs-7"></div>
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -275,7 +275,7 @@ export default function ContactsAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  <div className="text-muted fs-7"></div>
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -332,7 +332,7 @@ export default function ContactsAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  <div className="text-muted fs-7"></div>
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -397,7 +397,7 @@ export default function ContactsAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactName:</label>
+                              <label>Name:</label>
                               <input
                                 type="text"
                                 value={data.contactName}
@@ -424,7 +424,7 @@ export default function ContactsAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactEmail:</label>
+                              <label>Email:</label>
                               <input
                                 type="text"
                                 value={data.contactEmail}
@@ -435,7 +435,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label> ContactMobile:</label>
+                              <label> Mobile:</label>
                               <input
                                 type="text"
                                 value={data.contactMobile}
@@ -448,7 +448,7 @@ export default function ContactsAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactFirstName:</label>
+                              <label>FirstName:</label>
                               <input
                                 type="text"
                                 value={data.contactFirstName}
@@ -459,7 +459,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>ContactLastName:</label>
+                              <label>LastName:</label>
                               <input
                                 type="text"
                                 value={data.contactLastName}
@@ -472,7 +472,7 @@ export default function ContactsAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactTitle:</label>
+                              <label>Title:</label>
                               <input
                                 type="text"
                                 value={data.contactTitle}
@@ -483,7 +483,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>ContactJobTitle:</label>
+                              <label>JobTitle:</label>
                               <input
                                 type="text"
                                 value={data.contactJobTitle}
@@ -496,7 +496,7 @@ export default function ContactsAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactCompanyName:</label>
+                              <label>CompanyName:</label>
                               <input
                                 type="text"
                                 value={data.contactCompanyName}
@@ -508,7 +508,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>ContactCity:</label>
+                              <label>City:</label>
                               <input
                                 type="text"
                                 value={data.contactCity}
@@ -521,7 +521,7 @@ export default function ContactsAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactAddress:</label>
+                              <label>Address:</label>
                               <input
                                 type="text"
                                 value={data.contactAddress}
@@ -532,7 +532,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>ContactState:</label>
+                              <label>State:</label>
                               <input
                                 type="text"
                                 value={data.contactState}
@@ -545,7 +545,7 @@ export default function ContactsAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactPincode:</label>
+                              <label>Pincode:</label>
                               <input
                                 type="text"
                                 value={data.contactPincode}
@@ -556,7 +556,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>ContactCountry:</label>
+                              <label>Country:</label>
                               <input
                                 type="text"
                                 value={data.contactCountry}
@@ -570,7 +570,7 @@ export default function ContactsAdduser() {
 
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactWebsiteAddress:</label>
+                              <label>WebsiteAddress:</label>
                               <input
                                 type="text"
                                 value={data.contactWebsiteAddress}
@@ -581,7 +581,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>ContactSecondaryEmail:</label>
+                              <label>SecondaryEmail:</label>
                               <input
                                 type="text"
                                 value={data.contactSecondaryEmail}
@@ -594,7 +594,7 @@ export default function ContactsAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactNotes:</label>
+                              <label>Notes:</label>
                               <input
                                 type="text"
                                 value={data.contactNotes}
@@ -605,7 +605,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>ContactTwitterHandle:</label>
+                              <label>TwitterHandle:</label>
                               <input
                                 type="text"
                                 value={data.contactTwitterHandle}
@@ -618,7 +618,7 @@ export default function ContactsAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactFacebookHandle:</label>
+                              <label>FacebookHandle:</label>
                               <input
                                 type="text"
                                 value={data.contactFacebookHandle}
@@ -629,7 +629,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>ContactInstagramHandle:</label>
+                              <label>InstagramHandle:</label>
                               <input
                                 type="text"
                                 value={data.contactInstagramHandle}
@@ -643,7 +643,7 @@ export default function ContactsAdduser() {
 
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>ContactLinkedinHandle:</label>
+                              <label>LinkedinHandle:</label>
                               <input
                                 type="text"
                                 value={data.contactLinkedinHandle}
