@@ -25,7 +25,7 @@ const TicketListToolbar = () => {
         navigation('ticketadduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Add User
+        Add Ticket
       </button>
       {/* end::Add user */}
     </div>

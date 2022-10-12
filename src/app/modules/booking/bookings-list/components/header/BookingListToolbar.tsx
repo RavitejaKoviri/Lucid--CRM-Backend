@@ -26,7 +26,7 @@ const BookingsListToolbar = () => {
         navigation('bookingadduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Add User
+        Add Booking
       </button>
       {/* end::Add user */}
     </div>

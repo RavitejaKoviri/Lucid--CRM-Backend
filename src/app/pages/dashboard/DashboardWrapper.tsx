@@ -15,12 +15,13 @@ import {
   TablesWidget11,
   MixedWidget6,
 } from '../../../_metronic/partials/widgets'
-import { getAllTasks } from '../../modules/task/tasks-list/_redux/taskAction'
+// import { getAllTasks } from '../../modules/task/tasks-list/_redux/taskAction'
 import { RootStateOrAny } from 'react-redux' 
-import { getcampaigns, getLeads } from '../../modules/leads/leads-list/_redux/leadAction'
-import { getAllContacts } from '../../modules/Contact/contacts-list/_redux/contactAction'
-import { getAllBookings } from '../../modules/booking/bookings-list/_redux/bookingAction'
-import { getAlldeals } from '../../modules/deal/deals-list/_redux/dealAction'
+// import { getcampaigns, getLeads } from '../../modules/leads/leads-list/_redux/leadAction'
+// import { getAllContacts } from '../../modules/Contact/contacts-list/_redux/contactAction'
+// import { getAllBookings } from '../../modules/booking/bookings-list/_redux/bookingAction'
+// import { getAlldeals } from '../../modules/deal/deals-list/_redux/dealAction'
+import { getAllBookings, getAllCampaigns, getAllContacts, getAllDeals, getAllLeads, getAllTasks } from './_redux/dashboardAction'
 const DashboardPage = () => {
 
 const dispatch = useDispatch();
@@ -37,19 +38,19 @@ const dispatch = useDispatch();
   const token:any = useSelector<RootStateOrAny>(({auth}) => auth.authToken,shallowEqual)
   useEffect(() => {
 	  dispatch(getAllTasks(token));
-	  dispatch(getLeads(token));
+	  dispatch(getAllLeads(token));
 	  dispatch(getAllContacts(token));
 	  dispatch(getAllBookings());
-	  dispatch(getAlldeals(token));
-	  dispatch(getcampaigns(token));
+	  dispatch(getAllDeals(token));
+	  dispatch(getAllCampaigns(token));
 	}, []);
 	// const task = useSelector((state) => state?.ManageTaskData?.Tasks);
-	const task:any = useSelector<RootStateOrAny>(({ManageTaskData}) => ManageTaskData.Tasks,shallowEqual)
-	const leads:any = useSelector<RootStateOrAny>(({LeadData}) => LeadData.Leads,shallowEqual)
-	const contacts:any = useSelector<RootStateOrAny>(({ContactData}) => ContactData.Contacts,shallowEqual)
-	const bookings:any = useSelector<RootStateOrAny>(({booking}) => booking.booking,shallowEqual)
-	const deals:any = useSelector<RootStateOrAny>(({deal}) => deal.deals,shallowEqual)
-	const campaigns:any = useSelector<RootStateOrAny>(({LeadData}) => LeadData.campaigns,shallowEqual)
+	const task:any = useSelector<RootStateOrAny>(({Dashboard}) => Dashboard.Tasks,shallowEqual)
+	const leads:any = useSelector<RootStateOrAny>(({Dashboard}) => Dashboard.Leads,shallowEqual)
+	const contacts:any = useSelector<RootStateOrAny>(({Dashboard}) => Dashboard.Contacts,shallowEqual)
+	const bookings:any = useSelector<RootStateOrAny>(({Dashboard}) => Dashboard.booking,shallowEqual)
+	const deals:any = useSelector<RootStateOrAny>(({Dashboard}) => Dashboard.deals,shallowEqual)
+	const campaigns:any = useSelector<RootStateOrAny>(({Dashboard}) => Dashboard.campaigns,shallowEqual)
   console.log(task, "tasks");
   console.log(leads, "leads");
   console.log(contacts, "contacts");

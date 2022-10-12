@@ -13,8 +13,8 @@ export function getAlldeal(token: any) {
       Authorization: `Bearer ${token}`,
     },
   });
- 
 }
+
 export function getSource (token: any) {
   return axios.get(sources, {
     headers: {
