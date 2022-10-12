@@ -25,7 +25,7 @@ const TaskIndex = () => {
   const closeNewCardForm = () => setNewCardForm(false);
   const handeSetFormValue = ({ currentTarget }) =>
     setFormValue(currentTarget.value);
-  const task = useSelector((state) => state?.ManageTaskData?.Tasks);
+  const task = useSelector((state) => state?.tasks?.Tasks);
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
     dispatch(getAllTasks(token));

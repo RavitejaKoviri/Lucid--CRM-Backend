@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { CreateTask, gettaskcompanies, gettaskcontact, gettaskStatus } from "../../_redux/taskAction";
 // import {
 //   CreateDeal,
 //   getcampaigns,
@@ -10,35 +11,32 @@ import { useNavigate } from "react-router-dom";
 // } from "../../_redux/taskAction";
 
 export default function TaskAdduser() {
-  const navigation = useNavigate();
+  // const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state?.auth?.authToken);
   const user = useSelector((state: any) => state?.auth?.user);
-  const source = useSelector((state: any) => state?.deal?.Source);
-  const campaign = useSelector((state: any) => state?.deal?.campaigns);
-  const company = useSelector((state: any) => state?.deal?.Comapnies);
-  const status = useSelector((state: any) => state?.deal?.dealStatus);
+  const contact = useSelector((state: any) => state?.tasks?.taskcontact);
+  const company = useSelector((state: any) => state?.tasks?.Comapnies);
+  const status = useSelector((state: any) => state?.tasks?.taskStatus);
   console.log(company, "company");
 
-  // useEffect(() => {
-  //   dispatch(getsource(token));
-  //   dispatch(getcampaigns(token));
-  //   dispatch(getcompanies(token));
-  //   dispatch(getdealStatuses(token));
-  // }, []);
+  useEffect(() => {
+    dispatch(gettaskcompanies(token));
+    dispatch(gettaskStatus(token));
+    dispatch(gettaskcontact(token));
+
+  }, []);
   const [data, setData] = useState({
     subject: " ",
     taskRepeat: " ",
-    dealContactPersonPhoneNumber: " ",
-    dealContactPersonEmail: " ",
-    dealContactPersonAlternateEmail: " ",
-    dealContactPersonAlternatePhoneNumber: " ",
-    // dealType: " ",
-    dealSource: " ",
-    campaignSource: " ",
+    taskRemainder: " ",
+    taskPriority: " ",
+    taskDueDate: " ",
+    taskDescription: " ",
+    contact: " ",
     company: " ",
-    dealStatus: " ",
-    dealOwner: user?.id,
+    taskStatus: " ",
+    taskOwner: user?.id,
   });
 
   const handleChange = (e: any) => {
@@ -47,20 +45,20 @@ export default function TaskAdduser() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    // dispatch(CreateDeal(data, token));
+    dispatch(CreateTask(data, token));
     setData({
       subject: " ",
       taskRepeat: " ",
-      dealContactPersonPhoneNumber: " ",
-      dealContactPersonEmail: " ",
-      dealContactPersonAlternateEmail: " ",
-      dealContactPersonAlternatePhoneNumber: " ",
+      taskRemainder: " ",
+      taskPriority: " ",
+      taskDueDate: " ",
+      taskDescription: " ",
       // dealType: " ",
-      dealSource: " ",
-      campaignSource: " ",
+      // dealSource: " ",
+      contact: " ",
       company: " ",
-      dealStatus: " ",
-      dealOwner: " ",
+      taskStatus: " ",
+      taskOwner: " ",
     });
   };
   return (
@@ -76,7 +74,6 @@ export default function TaskAdduser() {
             // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-              
               {/*end::Thumbnail settings*/}
               {/*begin::Status*/}
               <div className="card card-flush py-4">
@@ -102,13 +99,13 @@ export default function TaskAdduser() {
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
-                    value={data.dealStatus}
+                    value={data.taskStatus}
                     onChange={handleChange}
-                    name="dealStatus"
+                    name="taskStatus"
                   >
                     <option></option>
                     {status?.map((item: any) => (
-                      <option value={item?.id}>{item?.dealStatusName}</option>
+                      <option value={item?.id}>{item?.taskStatusName}</option>
                     ))}
                   </select>
                   {/*end::Select2*/}
@@ -137,7 +134,7 @@ export default function TaskAdduser() {
                 <div className="card-header">
                   {/*begin::Card title*/}
                   <div className="card-title">
-                    <h2>Campaign</h2>
+                    <h2>contact</h2>
                   </div>
                   {/*end::Card title*/}
                   {/*begin::Card toolbar*/}
@@ -155,13 +152,13 @@ export default function TaskAdduser() {
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
-                    value={data.campaignSource}
+                    value={data.contact}
                     onChange={handleChange}
-                    name="campaignSource"
+                    name="contact"
                   >
                     <option></option>
-                    {campaign?.map((item: any) => (
-                      <option value={item?.id}>{item?.campaignName}</option>
+                    {contact?.map((item: any) => (
+                      <option value={item?.id}>{item?.contactName}</option>
                     ))}
                   </select>
                   {/*end::Select2*/}
@@ -185,57 +182,7 @@ export default function TaskAdduser() {
               </div>
               {/*end::Status*/}
               {/*begin::Status*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Source</h2>
-                  </div>
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
-                  <div className="card-toolbar">
-                    <div className="rounded-circle bg-success w-15px h-15px"></div>
-                  </div>
-                  {/*begin::Card toolbar*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body pt-0">
-                  {/*begin::Select2*/}
-                  <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    value={data.dealSource}
-                    onChange={handleChange}
-                    name="dealSource"
-                  >
-                    <option></option>
-                    {source?.map((item: any) => (
-                      <option value={item?.id}>{item?.SourceName}</option>
-                    ))}
-                  </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
-                  {/*end::Description*/}
-                  {/*begin::Datepicker*/}
-                  <div className="d-none mt-10">
-                    <label className="form-label">
-                      Select publishing date and time
-                    </label>
-                    <input
-                      className="form-control"
-                      id="kt_ecommerce_add_product_status_datepicker"
-                      placeholder="Pick date & time"
-                    />
-                  </div>
-                  {/*end::Datepicker*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
+             
               {/*end::Status*/}
               {/*begin::Status*/}
               <div className="card card-flush py-4">
@@ -340,34 +287,20 @@ export default function TaskAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>TaskRepeat:</label>
-                              {/* <input
-                                type="text"
-                                value={data.taskRepeat}
+                              <label>Task DueDate:</label>
+                              <input
+                                type="date"
+                                value={data.taskDueDate}
                                 onChange={handleChange}
-                                name="taskRepeat"
+                                name="taskDueDate"
                                 className="form-control"
-                                placeholder="Enter PhoneNumber"
-                              /> */}
-                              <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    value={data.campaignSource}
-                    onChange={handleChange}
-                    name="campaignSource"
-                  >
-                    <option></option>
-                    {campaign?.map((item: any) => (
-                      <option value={item?.id}>{item?.campaignName}</option>
-                    ))}
-                  </select>
+                                // placeholder="Enter EmailOptOut"
+                              />
                             </div>
                           </div>
 
                           <div className="form-group row mb-2">
-                            <div className="col-lg-6">
+                            {/* <div className="col-lg-6">
                               <label>Contact Person AlternateEmail:</label>
                               <input
                                 type="email"
@@ -377,46 +310,103 @@ export default function TaskAdduser() {
                                 className="form-control"
                                 // placeholder="Enter EmailOptOut"
                               />
+                            </div> */}
+                            <div className="col-lg-6">
+                              <label>Task Repeat:</label>
+                              {/* <input
+                                type="text"
+                                value={data.taskRepeat}
+                                onChange={handleChange}
+                                name="taskRepeat"
+                                className="form-control"
+                                placeholder="Enter PhoneNumber"
+                              /> */}
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                value={data.taskRepeat}
+                                onChange={handleChange}
+                                name="taskRepeat"
+                              >
+                                <option >
+                                  --Select --
+                                </option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                              </select>
                             </div>
                             <div className="col-lg-6">
-                              <label>Contact Person PhoneNumber:</label>
-                              <input
+                              <label>Task Remainder:</label>
+                              {/* <input
                                 type="text"
-                                value={data.dealContactPersonPhoneNumber}
+                                value={data.taskRemainder}
                                 onChange={handleChange}
-                                name="dealContactPersonPhoneNumber"
+                                name="taskRemainder"
                                 className="form-control"
                                 placeholder="Enter Industry"
-                              />
+                              /> */}
+                                <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                value={data.taskRemainder}
+                                onChange={handleChange}
+                                name="taskRemainder"
+                              >
+                                <option >
+                                  --Select --
+                                </option>
+                                <option value="true">Yes</option>
+                                <option value="false">No</option>
+                              </select>
                             </div>
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Contact PersonEmail:</label>
-                              <input
+                              <label>Task Priority:</label>
+                              {/* <input
                                 type="text"
-                                value={data.dealContactPersonEmail}
+                                value={data.taskPriority}
                                 onChange={handleChange}
-                                name="dealContactPersonEmail"
+                                name="taskPriority"
                                 className="form-control"
                                 placeholder="Enter AnnualRevenue"
-                              />
+                              /> */}
+                               <select
+                                className="form-select mb-3"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                value={data.taskPriority}
+                                onChange={handleChange}
+                                name="taskPriority"
+                              >
+                                <option >
+                                  --Select --
+                                </option>
+                                <option value="High">High</option>
+                                <option value="Low">Low</option>
+                              </select>
                             </div>
-                            <div className="col-lg-6">
-                              <label>ContactPerson AlternatePhoneNumber:</label>
-                              <input
-                                type="text"
+                            
+                          </div>
+                          <div className="form-group row mb-2">
+                          <div className="col-lg-12">
+                              <label>Task Description:</label>
+                              <textarea
+                                // type="text"
                                 value={
-                                  data.dealContactPersonAlternatePhoneNumber
+                                  data.taskDescription
                                 }
                                 onChange={handleChange}
-                                name="dealContactPersonAlternatePhoneNumber"
+                                name="taskDescription"
                                 className="form-control"
                                 placeholder="Enter CompanyName"
                               />
                             </div>
-                          </div>
-                          <div className="form-group row mb-2">
                             {/* <div className="col-lg-6">
                               <label>Deal Type:</label>
                               <input
@@ -518,7 +508,6 @@ export default function TaskAdduser() {
                       </div>
                      
                     </div> */}
-                  
                   </div>
                 </div>
               </div>

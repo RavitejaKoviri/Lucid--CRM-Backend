@@ -2,7 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Tasks: []
+  Tasks: [],
+  taskStatus:[],
+  Comapnies:[],
+  taskcontact:[],
+  CreateTask: [],
+
 };
 
 export const callTypes = {
@@ -10,8 +15,8 @@ export const callTypes = {
   action: "action",
 };
 
-export const ManageTaskSlice = createSlice({
-  name: "ManageTaskSlice",
+export const TaskSlice = createSlice({
+  name: "TaskSlice",
   initialState: initialProductsState,
 
   reducers: {
@@ -35,6 +40,22 @@ export const ManageTaskSlice = createSlice({
     fetchedAllUsersDetails: (state, action) => {
       const { data } = action.payload;
       state.Tasks = data;
-    }
+    },
+    fetchedtaskcompanies: (state, action) => {
+      const { data } = action.payload;
+      state.Comapnies = data;
+    },
+    fetchedAlltaskStatus: (state, action) => {
+      const { data } = action.payload;
+      state.taskStatus = data;
+    },
+    fetchedgettaskcontact: (state, action) => {
+      const { data } = action.payload;
+      state.taskcontact = data;
+    },
+    createdtask: (state, action) => {
+      const { data } = action.payload;
+      state.CreateTask = data;
+    },
   },
 });

@@ -19,7 +19,7 @@ const TasksColumns: ReadonlyArray<Column<User>> = [
   //   id: 'username',
   //   Cell: ({ ...props }) => <UserInfoCell user={props.data[props.row.index]} />,
   // },
-  {
+ {
     Header: (props) => <TaskCustomHeader tableProps={props} title='username' className='min-w-125px' />,
     accessor: 'username',
   },
@@ -30,7 +30,7 @@ const TasksColumns: ReadonlyArray<Column<User>> = [
   {
     Header: (props) => <TaskCustomHeader tableProps={props} title='mobile' className='min-w-125px' />,
     accessor: 'mobile',
-  },
+  }, 
   // {
   //   Header: (props) => (
   //     <UserCustomHeader tableProps={props} title='Last login' className='min-w-125px' />

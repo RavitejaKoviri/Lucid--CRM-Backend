@@ -6,7 +6,7 @@ import { ManageUserSlice } from "../app/modules/user-management/users-list/_redu
 import { LeadSlice } from "../app/modules/leads/leads-list/_redux/leadSlice";
 import { TargetSlice } from "../app/modules/Targets/Target-list/_redux/targetSlice";
 import { TicketSlice } from "../app/modules/Tickets/Ticket-list/_redux/ticketSlice";
-import { ManageTaskSlice } from "../app/modules/task/tasks-list/_redux/taskSlice";
+import { TaskSlice } from "../app/modules/task/tasks-list/_redux/taskSlice";
 import { ContactSlice } from "../app/modules/Contact/contacts-list/_redux/contactSlice";
 import { BookingSlice } from "../app/modules/booking/bookings-list/_redux/bookingSlice";
 import { dealsSlice } from "../app/modules/deal/deals-list/_redux/dealSlice";
@@ -61,7 +61,6 @@ import { CampaignSlice } from "../app/modules/campaign/campaigns-list/_redux/cam
 export const rootReducer = combineReducers({
   auth: auth.reducer,
   ManageUserData: ManageUserSlice.reducer,
-  ManageTaskData: ManageTaskSlice.reducer,
   LeadData: LeadSlice.reducer,
   TargetData:TargetSlice.reducer,
   TicketData:TicketSlice.reducer,
@@ -69,6 +68,7 @@ export const rootReducer = combineReducers({
   booking:BookingSlice.reducer,
   deal:dealsSlice.reducer,
   campaignData:CampaignSlice.reducer,
+  tasks:TaskSlice.reducer
   // dashboardData: dashboardSlice.reducer,
   // manageUsers: manageUsersSlice.reducer,
   // manageVerificationRequests: manageVerificationRequestsSlice.reducer,
