@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllTickets } from '../_redux/ticketAction'
 
 const TicketTable = () => {
+  const dispatch = useDispatch()
   const user = useSelector(
     (state: any) => state?.ManageUserData?.Users
   );
@@ -19,7 +20,6 @@ const TicketTable = () => {
     (state: any) => state?.auth?.authToken
   );
   const isLoading = useQueryResponseLoading()
-  const dispatch = useDispatch()
   const data = useMemo(() => user, [user])
   const columns = useMemo(() => usersColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
