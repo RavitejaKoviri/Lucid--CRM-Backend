@@ -28,7 +28,9 @@ export default function ContactsAdduser() {
   const company = useSelector(
     (state: any) => state?.ContactData?.Comapnies
   );
-
+  const user = useSelector(
+    (state: any) => state?.auth?.users
+  );
   useEffect(() => {
     dispatch(getsource(token))
     dispatch(getcampaigns(token))
@@ -36,7 +38,7 @@ export default function ContactsAdduser() {
   }, [])
 
   const [data, setData] = useState({
-    company: " ",
+    company:user?.company,
     contactCompanyName:" ",
     contactName:" ",
     contactEmail:" ",
@@ -179,62 +181,7 @@ export default function ContactsAdduser() {
 
 
              {/*begin::Status*/}
-             <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Company</h2>
-                  </div>
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
-                  <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
-                  </div>
-                  {/*begin::Card toolbar*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body pt-0">
-                  {/*begin::Select2*/}
-                  <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    value={data.company}
-                    onChange={handleChange}
-                    name="company"
-                  >
-                    <option></option>
-                    {
-                      company?.map((item: any) => (
-                        <option value={item?.id}>{item?.companyName}</option>
-                      ))
-                    }
-
-                  </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7"></div>
-                  {/*end::Description*/}
-                  {/*begin::Datepicker*/}
-                  <div className="d-none mt-10">
-                    <label className="form-label">
-                      Select publishing date and time
-                    </label>
-                    <input
-                      className="form-control"
-                      id="kt_ecommerce_add_product_status_datepicker"
-                      placeholder="Pick date & time"
-                    />
-                  </div>
-                  {/*end::Datepicker*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
+            
               {/*end::Status*/}
               <div className="card card-flush py-4">
                 {/*begin::Card header*/}
