@@ -33,8 +33,7 @@ export default function DealsAdduser() {
     dealContactPersonEmail: " ",
     dealContactPersonAlternateEmail: " ",
     dealContactPersonAlternatePhoneNumber: " ",
-    dealType: " ",
-    leadEmail: " ",
+    // dealType: " ",
     dealSource: " ",
     campaignSource: " ",
     company: " ",
@@ -56,8 +55,7 @@ export default function DealsAdduser() {
       dealContactPersonEmail: " ",
       dealContactPersonAlternateEmail: " ",
       dealContactPersonAlternatePhoneNumber: " ",
-      dealType: " ",
-      leadEmail: " ",
+      // dealType: " ",
       dealSource: " ",
       campaignSource: " ",
       company: " ",
@@ -72,85 +70,13 @@ export default function DealsAdduser() {
         // id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
-          <form
+          <div
             // id="kt_ecommerce_add_product_form"
             className="form d-flex flex-column flex-lg-row"
             // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-              {/*begin::Thumbnail settings*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Thumbnail</h2>
-                  </div>
-                  {/*end::Card title*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body text-center pt-0">
-                  {/*begin::Image input*/}
-                  {/*begin::Image input placeholder*/}
-                  {/* <style>.image-input-placeholder [data-th</style> */}
-                  {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                    data-kt-image-input="true"
-                  >
-                    {/*begin::Preview existing avatar*/}
-                    <div className="image-input-wrapper w-150px h-150px"></div>
-                    {/*end::Preview existing avatar*/}
-                    {/*begin::Label*/}
-                    <label
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="change"
-                      data-bs-toggle="tooltip"
-                      title="Change avatar"
-                    >
-                      <i className="bi bi-pencil-fill fs-7"></i>
-                      {/*begin::Inputs*/}
-                      <input
-                        type="file"
-                        name="avatar"
-                        accept=".png, .jpg, .jpeg"
-                      />
-                      <input type="hidden" name="avatar_remove" />
-                      {/*end::Inputs*/}
-                    </label>
-                    {/*end::Label*/}
-                    {/*begin::Cancel*/}
-                    <span
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="cancel"
-                      data-bs-toggle="tooltip"
-                      title="Cancel avatar"
-                    >
-                      <i className="bi bi-x fs-2"></i>
-                    </span>
-                    {/*end::Cancel*/}
-                    {/*begin::Remove*/}
-                    <span
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="remove"
-                      data-bs-toggle="tooltip"
-                      title="Remove avatar"
-                    >
-                      <i className="bi bi-x fs-2"></i>
-                    </span>
-                    {/*end::Remove*/}
-                  </div>
-                  {/*end::Image input*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7">
-                    Set the product thumbnail image. Only *.png, *.jpg and
-                    *.jpeg image files are accepted
-                  </div>
-                  {/*end::Description*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
+              
               {/*end::Thumbnail settings*/}
               {/*begin::Status*/}
               <div className="card card-flush py-4">
@@ -187,7 +113,7 @@ export default function DealsAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -240,7 +166,7 @@ export default function DealsAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -293,7 +219,7 @@ export default function DealsAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -346,7 +272,7 @@ export default function DealsAdduser() {
                   </select>
                   {/*end::Select2*/}
                   {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
+                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
                   {/*end::Description*/}
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
@@ -435,7 +361,7 @@ export default function DealsAdduser() {
                                 onChange={handleChange}
                                 name="dealContactPersonAlternateEmail"
                                 className="form-control"
-                                placeholder="Enter EmailOptOut"
+                                // placeholder="Enter EmailOptOut"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -488,7 +414,7 @@ export default function DealsAdduser() {
                                 placeholder="Enter PhoneNumber"
                               />
                             </div> */}
-                            <div className="col-lg-6">
+                            {/* <div className="col-lg-6">
                             <label>Deal Type:</label>
                               <select
                                 data-control="select2"
@@ -503,7 +429,7 @@ export default function DealsAdduser() {
                                 <option>Ketchup</option>
                                 <option>Relish</option>
                               </select>
-                            </div>
+                            </div> */}
                           </div>
                           {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
@@ -546,7 +472,7 @@ export default function DealsAdduser() {
                       </div>
                     </div>
                     {/* START:MEDIA */}
-                    <div className="card card-flush py-4">
+                    {/* <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
                           <h2>Media</h2>
@@ -567,24 +493,20 @@ export default function DealsAdduser() {
                                   Upload up to 10 files
                                 </span>
                               </div>
-                              {/*end::Info*/}
                             </div>
                           </div>
-                          {/*end::Dropzone*/}
                         </div>
-                        {/*end::Input group*/}
-                        {/*begin::Description*/}
+                    
                         <div className="text-muted fs-7">
                           Set the product media gallery.
                         </div>
-                        {/*end::Description*/}
+                   
                       </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Media*/}
+                     
+                    </div> */}
+                  
                   </div>
                 </div>
-                {/*end::Tab pane*/}
               </div>
               <div className="d-flex justify-content-end">
                 <a
@@ -609,7 +531,7 @@ export default function DealsAdduser() {
                 </button>
               </div>
             </div>
-          </form>
+          </div>
           {/*end::Form*/}
         </div>
       </div>

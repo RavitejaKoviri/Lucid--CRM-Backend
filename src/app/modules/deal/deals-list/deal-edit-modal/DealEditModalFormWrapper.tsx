@@ -26,13 +26,13 @@ const DealEditModalFormWrapper = () => {
     }
   )
 
-  if (!itemIdForUpdate) {
-    return <DealEditModalForm isDealLoading={isLoading} user={{ id: undefined }} />
-  }
+  // if (!itemIdForUpdate) {
+  //   return <DealEditModalForm isDealLoading={isLoading} user={{ id: undefined }} />
+  // }
 
-  if (!isLoading && !error && user) {
-    return <DealEditModalForm isDealLoading={isLoading} user={user} />
-  }
+  // if (!isLoading && !error && user) {
+  //   return <DealEditModalForm isDealLoading={isLoading} user={user} />
+  // }
 
   return null
 }

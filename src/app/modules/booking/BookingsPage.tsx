@@ -4,7 +4,7 @@ import { BookingsListWrapper } from './bookings-list/BookingsList'
 
 const bookingsBreadcrumbs: Array<PageLink> = [
   {
-    title: 'Booking Management',
+    title: '',
     path: 'bookings',
     isSeparator: false,
     isActive: false,
@@ -25,7 +25,9 @@ const BookingsPage = () => {
           path='bookings'
           element={
             <>
-              <PageTitle breadcrumbs={bookingsBreadcrumbs}>Bookings list</PageTitle>
+                         <PageTitle>Bookings List</PageTitle>
+
+              {/* <PageTitle breadcrumbs={bookingsBreadcrumbs}>Bookings list</PageTitle> */}
               <BookingsListWrapper />
             </>
           }

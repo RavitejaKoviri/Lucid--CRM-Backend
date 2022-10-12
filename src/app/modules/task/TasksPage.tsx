@@ -4,7 +4,7 @@ import { TasksListWrapper } from './tasks-list/TaskList'
 
 const usersBreadcrumbs: Array<PageLink> = [
   {
-    title: 'Tasks',
+    title: '',
     path: 'tasks',
     isSeparator: false,
     isActive: false,
@@ -25,7 +25,8 @@ const TasksPage = () => {
           path='tasks'
           element={
             <>
-              <PageTitle breadcrumbs={usersBreadcrumbs}>Task</PageTitle>
+                            <PageTitle>Task</PageTitle>
+              {/* <PageTitle breadcrumbs={usersBreadcrumbs}>Task</PageTitle> */}
               {/* <h1>hhhhh</h1> */}
               <TasksListWrapper />
             </>

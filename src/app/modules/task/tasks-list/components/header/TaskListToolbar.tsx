@@ -27,7 +27,7 @@ const TasksListToolbar = () => {
         navigation('taskadduser')
          }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Add User
+        Add Task
       </button>
       {/* end::Add user */}
     </div>

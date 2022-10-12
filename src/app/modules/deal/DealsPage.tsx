@@ -4,7 +4,7 @@ import { DealsListWrapper } from './deals-list/DealList'
 
 const usersBreadcrumbs: Array<PageLink> = [
   {
-    title: 'Deal',
+    title: '',
     path: 'deals',
     isSeparator: false,
     isActive: false,
@@ -25,7 +25,8 @@ const DealsPage = () => {
           path='deals'
           element={
             <>
-              <PageTitle breadcrumbs={usersBreadcrumbs}>Deal List</PageTitle>
+              {/* <PageTitle breadcrumbs={usersBreadcrumbs}>Deal List</PageTitle> */}
+              <PageTitle>Deal List</PageTitle>
               <DealsListWrapper />
             </>
           }

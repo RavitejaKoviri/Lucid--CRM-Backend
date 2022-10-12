@@ -28,7 +28,7 @@ const Toolbar2: FC = () => {
           }
         >
           {/* begin::Wrapper */}
-          <div className='flex-shrink-0 me-2'>
+          {/* <div className='flex-shrink-0 me-2'>
             <ul className='nav'>
               <li className='nav-item'>
                 <a
@@ -60,12 +60,11 @@ const Toolbar2: FC = () => {
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
           {/* end::Wrapper */}
 
           {/* begin::Wrapper */}
-          <div className='d-flex align-items-center'>
-            {/* begin::Daterangepicker */}
+          {/* <div className='d-flex align-items-center'>
             <a
               href='#'
               className='btn btn-sm btn-bg-light btn-color-gray-500 btn-active-color-primary me-2'
@@ -75,17 +74,12 @@ const Toolbar2: FC = () => {
               data-bs-trigger='hover'
               title='Select dashboard daterange'
             >
-              {/* <span className='fw-bold me-1' id='kt_dashboard_daterangepicker_title'>
-                Range:
-              </span> */}
+             
               <span className='fw-bolder' id='kt_dashboard_daterangepicker_date'>
-                {/* <?php echo date('F j')?> */}
                 Today: {today.getDate()} {today.toLocaleString('default', {month: 'long'})}
               </span>
             </a>
-            {/* end::Daterangepicker */}
 
-            {/* begin::Actions */}
             <div className='d-flex align-items-center'>
               <button
                 type='button'
@@ -97,8 +91,7 @@ const Toolbar2: FC = () => {
                 <KTSVG path='/media/icons/duotune/files/fil005.svg' className='svg-icon-2x' />
               </button>
             </div>
-            {/* end::Actions */}
-          </div>
+          </div> */}
           {/* end::Wrapper */}
         </div>
         {/* end::Actions */}
