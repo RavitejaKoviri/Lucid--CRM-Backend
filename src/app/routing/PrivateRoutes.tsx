@@ -25,6 +25,7 @@ import TaskAdduser from '../modules/task/tasks-list/components/header/TaskAdduse
 import ContactsAdduser from '../modules/Contact/contacts-list/components/header/ContactsAdduser'
 
 
+
 const PrivateRoutes = () => {
   const ProfilePage = lazy(() => import('../modules/profile/ProfilePage'))
   const WizardsPage = lazy(() => import('../modules/wizards/WizardsPage'))
@@ -41,7 +42,7 @@ const PrivateRoutes = () => {
   const DealPage =lazy(() =>import('../modules/deal/DealsPage') )
 
   const TicketPage = lazy(() => import('../modules/Tickets/TicketPage'))
-  
+  const CampaignPage = lazy (() => import('../modules/campaign/CampaignsPage'))
   
 
   return (
@@ -51,6 +52,8 @@ const PrivateRoutes = () => {
         <Route path='/leads/social' element={<SocialCampaigns />} />
         <Route path='/leads/social/pagecampaign' element={<PageCampaigns />} />
         <Route path='/leads/social/postcampaign' element={<PostCampaigns />} />
+        <Route path= '/Campaigns/Campaigns' element={<CampaignPage />} />
+        
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
@@ -94,6 +97,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <ContactPage />
+            </SuspensedView>
+          }
+        />
+         <Route
+          path='campaigns/*'
+          element={
+            <SuspensedView>
+              <CampaignPage />
             </SuspensedView>
           }
         />
