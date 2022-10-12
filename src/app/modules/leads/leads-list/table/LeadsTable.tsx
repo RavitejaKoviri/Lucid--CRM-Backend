@@ -1,4 +1,5 @@
-import { useEffect, useMemo } from 'react'
+/* eslint-disable array-callback-return */
+import { useContext, useEffect, useMemo } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -10,6 +11,7 @@ import { LeadsListPagination } from '../components/pagination/LeadsListPaginatio
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLeads } from '../_redux/leadAction'
+import UserContext from './columns/context'
 
 const LeadsTable = () => {
   const users = useQueryResponseData()

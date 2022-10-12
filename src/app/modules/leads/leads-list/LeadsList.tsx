@@ -5,20 +5,31 @@ import { LeadsListHeader } from './components/header/LeadsListHeader'
 import { LeadsTable } from './table/LeadsTable'
 import { LeadEditModal } from './lead-edit-modal/LeadEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
+import { useState } from 'react'
+import UserContext from './table/columns/context'
+
+
+
+
+
 
 const LeadsList = () => {
   const { itemIdForUpdate } = useListView()
+
+  const [searchTerm, setSearchTerm] = useState<string>('')
   return (
     <>
       <KTCard>
-        <LeadsListHeader />
-        <LeadsTable />
+        <UserContext.Provider value={{ searchTerm, setSearchTerm }}>
+          <LeadsListHeader />
+          <LeadsTable />
+        </UserContext.Provider>
+
       </KTCard>
       {itemIdForUpdate !== undefined && <LeadEditModal />}
     </>
   )
 }
-
 const LeadsListWrapper = () => (
   <QueryRequestProvider>
     <QueryResponseProvider>
