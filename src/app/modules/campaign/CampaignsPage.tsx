@@ -22,16 +22,16 @@ const CampaignsPage = () => {
     <Routes>
       <Route element={<Outlet />}>
         <Route
-          path='bookings'
+          path='campaigns'
           element={
             <>
-              <PageTitle> </PageTitle>
+              <PageTitle> Campaigns List </PageTitle>
               <CampaignsListWrapper />
             </>
           }
         />
       </Route>
-      <Route index element={<Navigate to='bookings' />} />
+      <Route index element={<Navigate to='campaigns' />} />
     </Routes>
   )
 }

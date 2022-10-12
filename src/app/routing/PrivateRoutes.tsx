@@ -23,6 +23,7 @@ import { PageCampaigns } from '../pages/campaigns/pageCampaigns'
 import { PostCampaigns } from '../pages/campaigns/postCampaingns'
 import TaskAdduser from '../modules/task/tasks-list/components/header/TaskAdduser'
 import ContactsAdduser from '../modules/Contact/contacts-list/components/header/ContactsAdduser'
+import CampaignAdduser from '../modules/campaign/campaigns-list/components/header/CampaignAdduser'
 
 
 
@@ -52,7 +53,7 @@ const PrivateRoutes = () => {
         <Route path='/leads/social' element={<SocialCampaigns />} />
         <Route path='/leads/social/pagecampaign' element={<PageCampaigns />} />
         <Route path='/leads/social/postcampaign' element={<PostCampaigns />} />
-        <Route path= '/Campaigns/Campaigns' element={<CampaignPage />} />
+        {/* <Route path= '/Campaigns/Campaigns' element={<CampaignPage />} /> */}
         
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
@@ -71,6 +72,7 @@ const PrivateRoutes = () => {
         <Route path='deals/deals/dealsadduser' element={<DealsAdduser/>} />
         <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
         <Route path='tasks/tasks/taskAdduser' element={<TaskAdduser />} />
+        <Route path='campaigns/campaigns/campaignadduser' element={<CampaignAdduser/>} />
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
 

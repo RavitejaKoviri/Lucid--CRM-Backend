@@ -23,10 +23,10 @@ const CampaignsListToolbar = () => {
 
       {/* begin::Add user */}
       <button type='button' className='btn btn-primary' onClick={()=>{
-        navigation('bookingadduser')
+        navigation('campaignadduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
-        Add User
+        Add Campaign
       </button>
       {/* end::Add user */}
     </div>
