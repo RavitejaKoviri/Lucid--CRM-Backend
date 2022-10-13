@@ -1,19 +1,141 @@
-import { Select } from "@mui/material";
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Autocomplete, Select, TextField } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { FC, useState } from 'react'
-// import * as Yup from 'yup'
-// import { useFormik } from 'formik'
-// import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers'
-// import { initialUser, User } from '../core/_models'
-// import clsx from 'clsx'
-// import { useListView } from '../core/ListViewProvider'
-// import { UsersListLoading } from '../components/loading/UsersListLoading'
-// import { createUser, updateUser } from '../core/_requests'
-// import { useQueryResponse } from '../core/QueryResponseProvider'
+// import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchBranchAddressesByCityId,
+  fetchBranchwisetestByBranch,
+  fetchCity,
+  fetchDoctors,
+  fetchHealthPackagesByBranch,
+  fetchHealthScansByBranch,
+} from "../../_redux/bookingAction";
+// import { any } from "prop-types";
 
 export default function BookingAdduser() {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const [type, setType] = useState("");
+  const [branchwisetests, setBranchwisetests] = useState([]);
+  console.log(branchwisetests,"branchwisetests");
+  
+  const [healthPackages, setHealthPackages] = useState("");
+  const [healthScans, setHealthScans] = useState("");
+
+  const [startDate, setStartDate] = useState(new Date());
+  console.log(startDate.toLocaleString(), "startDate");
+  const isSelectedDateToday = new Date().getDate() === startDate.getDate();
+  const isSelectedDateInFuture = +startDate > +new Date();
+
+  let minTimeHour = new Date().getHours();
+  if (!isSelectedDateToday) minTimeHour = 0;
+
+  const date = new Date();
+  let currentMins = date.getMinutes();
+  let currentHour = date.getHours();
+  if (isSelectedDateInFuture) {
+    currentHour = 0;
+    currentMins = 0;
+  }
+  const newdate = new Date();
+  newdate?.setDate(newdate?.getDate() + 9);
+  const user = useSelector((state: any) => state?.auth?.user);
+  // const token = useSelector((state: any) => state?.auth?.authToken);
+  const doctor = useSelector((state: any) => state?.booking?.doctors);
+  const city = useSelector((state: any) => state?.booking?.city);
+  const branch = useSelector(
+    (state: any) => state?.booking?.BranchAddressesByCityId
+  );
+  const branchwisetest = useSelector(
+    (state: any) => state?.booking?.branchwisetestsByBranch
+  );
+  const healthPackage = useSelector(
+    (state: any) => state?.booking?.packagesByBranch
+  );
+  const healthScan = useSelector(
+    (state: any) => state?.booking?.healthscanBybranch
+  );
+
+  console.log(healthScan, "healthScan");
+  const totalAmount = [
+    ...healthPackage?.map((item:any) => Number(item?.price)),
+    ...healthScan?.map((item:any) => Number(item?.price)),
+    ...branchwisetest?.map((item:any) => Number(item?.price)),
+  ]
+    .reduce((a, b) => a + b, 0)
+    .toString();
+  const [data, setData] = useState({
+    fullName: " ",
+    email: " ",
+    mobileNumber: " ",
+    dateOfAppointment: " ",
+    branch: " ",
+    message: " ",
+    doctor: " ",
+    type: " ",
+    healthPackages: [],
+    healthScans: [],
+    paymentId: " ",
+    paymentStatus: " ",
+    paymentMode: "",
+    city: "",
+    gender: "",
+    patient: "",
+    branchwisetests: [],
+    totalAmount: "",
+    address: "",
+    appointmentStatus:"",
+    age: "",
+    user: user?.id,
+  });
+
+  const handleChange = (e: any) => {
+    setData({ ...data, [e.target.name||e.target.id]: e.target.value });
+  };
+
+  useEffect(() => {
+    dispatch(fetchDoctors());
+    dispatch(fetchCity());
+  }, []);
+  useEffect(() => {
+    dispatch(fetchBranchwisetestByBranch(data?.branch));
+    dispatch(fetchHealthScansByBranch(data?.branch));
+    dispatch(fetchHealthPackagesByBranch(data?.branch));
+  }, [data?.branch]);
+  useEffect(() => {
+    dispatch(fetchBranchAddressesByCityId(data?.city));
+  }, [data?.city]);
+  const handleSubmit = () => {
+    setData({
+      fullName: " ",
+      email: " ",
+      mobileNumber: " ",
+      dateOfAppointment: " ",
+      branch: " ",
+      message: " ",
+      doctor: " ",
+      type: " ",
+      appointmentStatus:"",
+      healthPackages: [],
+      healthScans: [],
+      paymentId: " ",
+      paymentStatus: " ",
+      paymentMode: "",
+      city: "",
+      gender: "",
+      patient: "",
+      branchwisetests: [],
+      totalAmount: "",
+      address: "",
+      age: "",
+      user: "",
+    });
+  };
+console.log(data.branchwisetests,"branchwisetests");
+
   return (
     <>
       <div
@@ -59,7 +181,6 @@ export default function BookingAdduser() {
                 <div
                   className="tab-pane fade show active"
                   id="kt_ecommerce_add_product_general"
-                  role="tab-panel"
                 >
                   <div className="d-flex flex-column gap-7 gap-lg-10">
                     {/*begin::General options*/}
@@ -74,56 +195,66 @@ export default function BookingAdduser() {
                       {/*begin::Card body*/}
                       <div className="card-body pt-0">
                         {/*begin::Input group*/}
-                        <form className="form">
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>FullName:</label>
+                        <div className="form">
+                          <div className="form-group row mb-4">
+                            <div className="col-lg-5">
+                              {/* <label>FullName:</label> */}
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Enter FullName"
+                                placeholder="Enter Full Name"
                                 name="fullName"
+                                value={data?.fullName}
+                                onChange={handleChange}
                               />
                             </div>
-                            <div className="col-lg-6">
-                              <label>Email:</label>
+                            <div className="col-lg-5">
+                              {/* <label>Email:</label> */}
                               <input
                                 type="email"
                                 className="form-control"
-                                placeholder="email"
+                                placeholder="Email"
                                 name="email"
+                                value={data?.email}
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>PhoneNumber:</label>
+                          <div className="form-group row mb-4">
+                            <div className="col-lg-5">
+                              {/* <label>PhoneNumber:</label> */}
                               <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Enter PhoneNumber"
                                 name="mobileNumber"
+                                value={data?.mobileNumber}
+                                onChange={handleChange}
                               />
                             </div>
-                            <div className="col-lg-6">
-                              <label> Age:</label>
+                            <div className="col-lg-5">
+                              {/* <label> Age:</label> */}
                               <input
                                 type="text"
                                 name="age"
                                 className="form-control"
                                 placeholder="Enter Age"
+                                value={data?.age}
+                                onChange={handleChange} 
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                            <label>Gender</label>
+                          <div className="form-group row mb-4">
+                            <div className="col-lg-5">
+                              {/* <label>Gender</label> */}
                               <select
                                 className="form-select mb-2"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
-                                name="company"
+                                name="gender"
+                                value={data?.gender}
+                                onChange={handleChange}
                               >
                                 <option value="" disabled selected>
                                   --Select Gender--
@@ -133,585 +264,319 @@ export default function BookingAdduser() {
                                 <option value="others">others</option>
                               </select>
                             </div>
-                            <div className="col-lg-6">
-                            <label>Gender</label>
+                            <div className="col-lg-5">
+                              {/* <label>Type</label> */}
                               <select
                                 className="form-select mb-2"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
-                                name="company"
+                                name="type"
+                                value={data?.type}
+                                onChange={handleChange}
                               >
                                 <option value="" disabled selected>
-                                  --Select Gender--
+                                  --Select Type--
                                 </option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="others">others</option>
+                                <option value="clinic">Clinic</option>
+                                <option value="enquiry">Enquiry</option>
+                                <option value="homeSampleCollection">
+                                  Home Sample Collection
+                                </option>
+                                <option value="doctorAppointment">
+                                  Doctor Appointment
+                                </option>
                               </select>
                             </div>
                           </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>AnnualRevenue:</label>
+                          <div className="form-group row mb-4">
+                            {data?.type === "doctorAppointment" && (
+                            <div className="col-lg-5">
+                              {/* <label>Doctor:</label> */}
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                value={data.doctor}
+                                onChange={handleChange}
+                                name="doctor"
+                              >
+                                <option value="" disabled selected>
+                                  --Select Doctor --
+                                </option>
+                                <option></option>
+                                {doctor?.map((item: any) => (
+                                  <option value={item?.id}>{item?.name}</option>
+                                ))}
+                              </select>
+                            </div>
+                           )}
+                          </div>
+                          <div className="form-group row mb-4">
+                            <div className="col-lg-5">
+                              {/* <label>Address:</label> */}
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Enter AnnualRevenue"
+                                placeholder="Enter Address"
+                                value={data.address}
+                                name="address"
+                                onChange={handleChange}
                               />
                             </div>
-                            <div className="col-lg-6">
-                              <label>CompanyName:</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter CompanyName"
-                              />
+                            <div className="col-lg-5">
+                              {/* <label>Appointment Status</label> */}
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                name="appointmentStatus"
+                                value={data.appointmentStatus}
+                                onChange={handleChange}
+                              >
+                                <option value="" disabled selected>
+                                  --Select  Appointment Status --
+                                </option>
+                                <option value="visited">visited</option>
+                                <option value="rescheduled">rescheduled</option>
+                                <option value="cancelled"> cancelled</option>
+                              </select>
                             </div>
                           </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Website:</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Website"
-                              />
+                          <div className="form-group row mb-4">
+                            <div className="col-lg-5">
+                              {/* <label>City:</label> */}
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                name="city"
+                                value={data.city}
+                                onChange={handleChange}
+                              >
+                                <option value="" disabled selected>
+                                  --Select City --
+                                </option>
+                                {city?.map((item: any) => (
+                                  <option value={item?.id}>{item?.name}</option>
+                                ))}
+                              </select>
                             </div>
-                            <div className="col-lg-6">
-                              <label>Source:</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Source"
-                              />
+                            <div className="col-lg-5">
+                              {/* <label>Branch:</label> */}
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                placeholder="Select an option"
+                                value={data.branch}
+                                onChange={handleChange}
+                                name="branch"
+                              >
+                                <option disabled selected>
+                                  --Select Branch --
+                                </option>
+                                {branch?.map((item: any) => (
+                                  <option value={item?.id}>{item?.name}</option>
+                                ))}
+                              </select>
                             </div>
                           </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>CampaignSource:</label>
+                          {data?.branch!=="" &&(
+                            <>
+                            <div className="form-group row mb-4">
+                            {branchwisetest.length>0 && (
+                              <div className="col-lg-5">
+                                <Autocomplete
+                                  multiple
+                                  id="controllable-states-demo"
+                                  options={branchwisetest}
+                                  getOptionLabel={(option: any) =>
+                                    option?.test?.testName
+                                  }
+                                  onChange={(e:any) => {
+                                    setBranchwisetests(e.target.value);
+                                  }}
+                                  value={data.branchwisetests}
+                                  renderInput={(params) => (
+                                    <TextField
+                                      {...params}
+                                      label="Test"
+                                      variant="outlined"
+                                    
+                                    />
+                                  )}
+                                />
+                              </div>
+                            )}
+                            {healthPackage.length>0 && (
+                              <div className="col-lg-5">
+                                <Autocomplete
+                                  multiple
+                                  id="controllable-states-demo"
+                                  options={healthPackage}
+                                  onChange={handleChange}
+                                  getOptionLabel={(option: any) =>
+                                    option?.title
+                                  }
+                                  renderInput={(params) => (
+                                    <TextField
+                                      {...params}
+                                      label="HealthPackage"
+                                      variant="outlined"
+                                    />
+                                  )}
+                                />
+                              </div>
+                            )}
+                          </div>
+                            <div className="form-group row mb-4">
+                            {healthScan.length>0 && (
+                              <div className="col-lg-5">
+                                <Autocomplete
+                                  multiple
+                                  id="controllable-states-demo"
+                                  options={healthScan}
+                                  getOptionLabel={(option: any) =>
+                                    option?.title
+                                  }
+                                  renderInput={(params) => (
+                                    <TextField
+                                      {...params}
+                                      label="HealthScan"
+                                      variant="outlined"
+                                    />
+                                  )}
+                                />
+                              </div>
+                              )}
+                            </div>
+                            </>
+                          )}
+                          
+                          
+                          <div className="form-group row mb-4">
+                            <div className="col-lg-5">
+                              {/* <label>message:</label> */}
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Enter CampaignSource"
+                                placeholder="Enter message"
+                                value={data.message}
+                                name="message"
+                                onChange={handleChange}
                               />
                             </div>
-                            <div className="col-lg-6">
-                              <label>Company:</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Company"
-                              />
+                            {/* <div className="col-lg-5">
+                              <label>Select the date of Appointment</label>
+                              <div style={{ width: "100%", height: "100%" }}>
+                                <DatePicker
+                                  showTimeSelect
+                                  selected={startDate}
+                                  onChange={(date) => setStartDate(date)}
+                                  minDate={new Date()}
+                                  maxDate={newdate}
+                                  minTime={
+                                    new Date(
+                                      new Date().setHours(
+                                        currentHour,
+                                        currentMins,
+                                        0,
+                                        0
+                                      )
+                                    )
+                                  }
+                                  maxTime={
+                                    new Date(new Date().setHours(23, 59, 0, 0))
+                                  }
+                                  placeholderText="Select date and time"
+                                  dateFormat="dd/MM/yyyy  h:mm aa"
+                                  customInput={
+                                    <input
+                                      // type="date"
+                                      placeholder="Select"
+                                      style={{ height: "40px", width: "250px" }}
+                                    />
+                                  }
+                                />
+                              </div>
+                            </div> */}
+                          </div>
+                          <div className="form-group row mb-4">
+                            <div className="col-lg-5">
+                              {/* <label>paymentMode</label> */}
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                name="paymentMode"
+                                value={data.paymentMode}
+                                onChange={handleChange}
+                              >
+                                <option value="" disabled selected>
+                                  -- Select PaymentMode --
+                                </option>
+                                <option value="cash">cash</option>
+                                <option value="Google">Google Pay </option>
+                                <option value="phonepay">phonepay</option>
+                                <option value="paytm">paytm</option>
+                              </select>
+                            </div>
+                            <div className="col-lg-5">
+                              {/* <label>paymentStatus</label> */}
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                name="paymentStatus"
+                                value={data.paymentStatus}
+                                onChange={handleChange}
+                              >
+                                <option value="" disabled selected>
+                                  -- Select Payment Status --
+                                </option>
+                                <option value="Received">Received</option>
+                                <option value="NotReceived">
+                                  Not Received{" "}
+                                </option>
+                                <option value="pending">pending</option>
+                              </select>
                             </div>
                           </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Status:</label>
+                          <div className="form-group row mb-4">
+                            <div className="col-lg-5">
+                              {/* <label>paymentId:</label> */}
                               <input
                                 type="email"
                                 className="form-control"
-                                placeholder="Enter Status"
+                                placeholder="Enter PaymentId"
+                                name="paymentId"
+                                value={data.paymentId}
+                                onChange={handleChange}
                               />
                             </div>
-                            <div className="col-lg-6">
-                              <label>Owner:</label>
+                            <div className="col-lg-5">
+                              {/* <label>TotalAmount:</label> */}
                               <input
                                 type="email"
                                 className="form-control"
-                                placeholder="Enter Owner"
+                                placeholder="Enter Total Amount"
+                                name="totalAmount"
+                                value={data.totalAmount}
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
-                        </form>
+                        </div>
                       </div>
                     </div>
-                    {/* <div className="card card-flush py-4">
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Media</h2>
-                        </div>
-                      </div>
-                     
-                      <div className="card-body pt-0">
-                        <div className="fv-row mb-2">
-                          <div
-                            className="dropzone"
-                            id="kt_ecommerce_add_product_media"
-                          >
-                            <div className="dz-message needsclick">
-                              <i className="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                              
-                              <div className="ms-4">
-                                <h3 className="fs-5 fw-bold text-gray-900 mb-1">
-                                  Drop files here or click to upload.
-                                </h3>
-                                <span className="fs-7 fw-semibold text-gray-400">
-                                  Upload up to 10 files
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                     
-                        <div className="text-muted fs-7">
-                          Set the product media gallery.
-                        </div>
-                      </div>
-                    </div> */}
                   </div>
                 </div>
-                {/*end::Tab pane*/}
-                {/*begin::Tab pane*/}
-                <div
-                  className="tab-pane fade"
-                  id="kt_ecommerce_add_product_advanced"
-                  role="tab-panel"
-                >
-                  <div className="d-flex flex-column gap-7 gap-lg-10">
-                    {/*begin::Inventory*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Inventory</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div className="mb-10 fv-row">
-                          {/*begin::Label*/}
-                          <label className="required form-label">SKU</label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            name="sku"
-                            className="form-control mb-2"
-                            placeholder="SKU Number"
-                            value=""
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Enter the product SKU.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="mb-10 fv-row">
-                          {/*begin::Label*/}
-                          <label className="required form-label">Barcode</label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            name="sku"
-                            className="form-control mb-2"
-                            placeholder="Barcode Number"
-                            value=""
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Enter the product barcode number.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="mb-10 fv-row">
-                          {/*begin::Label*/}
-                          <label className="required form-label">
-                            Quantity
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <div className="d-flex gap-3">
-                            <input
-                              type="number"
-                              name="shelf"
-                              className="form-control mb-2"
-                              placeholder="On shelf"
-                              value=""
-                            />
-                            <input
-                              type="number"
-                              name="warehouse"
-                              className="form-control mb-2"
-                              placeholder="In warehouse"
-                            />
-                          </div>
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Enter the product quantity.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="fv-row">
-                          {/*begin::Label*/}
-                          <label className="form-label">Allow Backorders</label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <div className="form-check form-check-custom form-check-solid mb-2">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              value=""
-                            />
-                            <label className="form-check-label">Yes</label>
-                          </div>
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Allow customers to purchase products that are out of
-                            stock.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Inventory*/}
-                    {/*begin::Variations*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Variations</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div
-                          className=""
-                          data-kt-ecommerce-catalog-add-product="auto-options"
-                        >
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Add Product Variations
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Repeater*/}
-                          <div id="kt_ecommerce_add_product_options">
-                            {/*begin::Form group*/}
-                            <div className="form-group">
-                              <div
-                                data-repeater-list="kt_ecommerce_add_product_options"
-                                className="d-flex flex-column gap-3"
-                              >
-                                <div
-                                  data-repeater-item=""
-                                  className="form-group d-flex flex-wrap align-items-center gap-5"
-                                >
-                                  {/*begin::Select2*/}
-                                  <div className="w-100 w-md-200px">
-                                    <select
-                                      className="form-select"
-                                      name="product_option"
-                                      data-placeholder="Select a variation"
-                                      data-kt-ecommerce-catalog-add-product="product_option"
-                                    >
-                                      <option></option>
-                                      <option value="color">Color</option>
-                                      <option value="size">Size</option>
-                                      <option value="material">Material</option>
-                                      <option value="style">Style</option>
-                                    </select>
-                                  </div>
-                                  {/*end::Select2*/}
-                                  {/*begin::Input*/}
-                                  <input
-                                    type="text"
-                                    className="form-control mw-100 w-200px"
-                                    name="product_option_value"
-                                    placeholder="Variation"
-                                  />
-                                  {/*end::Input*/}
-                                  <button
-                                    type="button"
-                                    data-repeater-delete=""
-                                    className="btn btn-sm btn-icon btn-light-danger"
-                                  >
-                                    {/*begin::Svg Icon | path: icons/duotune/arrows/arr088.svg*/}
-                                    <span className="svg-icon svg-icon-1">
-                                      <svg
-                                        width="24"
-                                        height="24"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                      >
-                                        <rect
-                                          opacity="0.5"
-                                          x="7.05025"
-                                          y="15.5356"
-                                          width="12"
-                                          height="2"
-                                          rx="1"
-                                          transform="rotate(-45 7.05025 15.5356)"
-                                          fill="currentColor"
-                                        />
-                                        <rect
-                                          x="8.46447"
-                                          y="7.05029"
-                                          width="12"
-                                          height="2"
-                                          rx="1"
-                                          transform="rotate(45 8.46447 7.05029)"
-                                          fill="currentColor"
-                                        />
-                                      </svg>
-                                    </span>
-                                    {/*end::Svg Icon*/}
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                            {/*end::Form group*/}
-                            {/*begin::Form group*/}
-                            <div className="form-group mt-5">
-                              <button
-                                type="button"
-                                data-repeater-create=""
-                                className="btn btn-sm btn-light-primary"
-                              >
-                                {/*begin::Svg Icon | path: icons/duotune/arrows/arr087.svg*/}
-                                <span className="svg-icon svg-icon-2">
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <rect
-                                      opacity="0.5"
-                                      x="11"
-                                      y="18"
-                                      width="12"
-                                      height="2"
-                                      rx="1"
-                                      transform="rotate(-90 11 18)"
-                                      fill="currentColor"
-                                    />
-                                    <rect
-                                      x="6"
-                                      y="11"
-                                      width="12"
-                                      height="2"
-                                      rx="1"
-                                      fill="currentColor"
-                                    />
-                                  </svg>
-                                </span>
-                                {/*end::Svg Icon*/}Add another variation
-                              </button>
-                            </div>
-                            {/*end::Form group*/}
-                          </div>
-                          {/*end::Repeater*/}
-                        </div>
-                        {/*end::Input group*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Variations*/}
-                    {/*begin::Shipping*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Shipping</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div className="fv-row">
-                          {/*begin::Input*/}
-                          <div className="form-check form-check-custom form-check-solid mb-2">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              id="kt_ecommerce_add_product_shipping_checkbox"
-                              value="1"
-                            />
-                            <label className="form-check-label">
-                              This is a physical product
-                            </label>
-                          </div>
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set if the product is a physical or digital item.
-                            Physical products may require shipping.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Shipping form*/}
-                        <div
-                          id="kt_ecommerce_add_product_shipping"
-                          className="d-none mt-10"
-                        >
-                          {/*begin::Input group*/}
-                          <div className="mb-10 fv-row">
-                            {/*begin::Label*/}
-                            <label className="form-label">Weight</label>
-                            {/*end::Label*/}
-                            {/*begin::Editor*/}
-                            <input
-                              type="text"
-                              name="weight"
-                              className="form-control mb-2"
-                              placeholder="Product weight"
-                              value=""
-                            />
-                            {/*end::Editor*/}
-                            {/*begin::Description*/}
-                            <div className="text-muted fs-7">
-                              Set a product weight in kilograms (kg).
-                            </div>
-                            {/*end::Description*/}
-                          </div>
-                          {/*end::Input group*/}
-                          {/*begin::Input group*/}
-                          <div className="fv-row">
-                            {/*begin::Label*/}
-                            <label className="form-label">Dimension</label>
-                            {/*end::Label*/}
-                            {/*begin::Input*/}
-                            <div className="d-flex flex-wrap flex-sm-nowrap gap-3">
-                              <input
-                                type="number"
-                                name="width"
-                                className="form-control mb-2"
-                                placeholder="Width (w)"
-                                value=""
-                              />
-                              <input
-                                type="number"
-                                name="height"
-                                className="form-control mb-2"
-                                placeholder="Height (h)"
-                                value=""
-                              />
-                              <input
-                                type="number"
-                                name="length"
-                                className="form-control mb-2"
-                                placeholder="Lengtn (l)"
-                                value=""
-                              />
-                            </div>
-                            {/*end::Input*/}
-                            {/*begin::Description*/}
-                            <div className="text-muted fs-7">
-                              Enter the product dimensions in centimeters (cm).
-                            </div>
-                            {/*end::Description*/}
-                          </div>
-                          {/*end::Input group*/}
-                        </div>
-                        {/*end::Shipping form*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Shipping*/}
-                    {/*begin::Meta options*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Meta Options</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div className="mb-10">
-                          {/*begin::Label*/}
-                          <label className="form-label">Meta Tag Title</label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            className="form-control mb-2"
-                            name="meta_title"
-                            placeholder="Meta tag name"
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set a meta tag title. Recommended to be simple and
-                            precise keywords.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="mb-10">
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Meta Tag Description
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Editor*/}
-                          <div
-                            id="kt_ecommerce_add_product_meta_description"
-                            className="min-h-100px mb-2"
-                          ></div>
-                          {/* end::Editor */}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set a meta tag description to the product for
-                            increased SEO ranking.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div>
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Meta Tag Keywords
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Editor*/}
-                          <input
-                            id="kt_ecommerce_add_product_meta_keywords"
-                            name="kt_ecommerce_add_product_meta_keywords"
-                            className="form-control mb-2"
-                          />
-                          {/*end::Editor*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set a list of keywords that the product is related
-                            to. Separate the keywords by adding a comma
-                            <code>,</code>between each keyword.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Meta options*/}
-                  </div>
-                </div>
-                {/*end::Tab pane*/}
               </div>
               <div className="d-flex justify-content-end">
                 <a
@@ -725,7 +590,8 @@ export default function BookingAdduser() {
                   type="submit"
                   id="kt_ecommerce_add_product_submit"
                   onClick={() => {
-                    navigation("users");
+                    // navigation("users");
+                    handleSubmit();
                   }}
                   className="btn btn-primary"
                 >

@@ -1,6 +1,5 @@
 import { all } from "redux-saga/effects";
 import { combineReducers } from "redux";
-
 import * as auth from "../app/modules/auth/_redux/authRedux";
 import { ManageUserSlice } from "../app/modules/user-management/users-list/_redux/userSlice";
 import { LeadSlice } from "../app/modules/leads/leads-list/_redux/leadSlice";

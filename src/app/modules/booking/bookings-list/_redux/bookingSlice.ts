@@ -2,7 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  booking: []
+  booking: [],
+  packagesByBranch:[],
+  healthscanBybranch:[],
+  branchwisetestsByBranch:[],
+  doctors:[],
+  city:[],
+  BranchAddressesByCityId:[],
+  patient:[],
 };
 
 export const callTypes = {
@@ -35,6 +42,41 @@ export const BookingSlice = createSlice({
     fetchedAllBooking: (state, action) => {
       const { data } = action.payload;
       state.booking = data;
-    }
+    },
+//   packagesByBranch
+ packagesByBranch: (state, action) => {
+  const { data } = action.payload;
+  state.packagesByBranch = data;
+},
+//getHealthScanByBranch
+healthscanByBranch: (state, action) => {
+  const { data } = action.payload;
+  state.healthscanBybranch = data;
+},
+//branchwisetestByBranch
+branchwisetestByBranch: (state, action) => {
+  const { data } = action.payload;
+  state.branchwisetestsByBranch = data;
+},
+//doctors
+doctorsFetched: (state, action) => {
+  const { data } = action.payload;
+  state.doctors = data;
+},
+//city
+Fetchedcity: (state, action) => {
+  const { data } = action.payload;
+  state.city = data;
+},
+//BranchAddressesByCityId
+fetchedBranchAddressesByCityId: (state, action) => {
+  const { data } = action.payload;
+  state.BranchAddressesByCityId = data;
+},
+//patient
+patientsFetched: (state, action) => {
+  const { data } = action.payload;
+  state.patient = data;
+},
   },
 });
