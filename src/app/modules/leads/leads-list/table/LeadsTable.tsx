@@ -11,7 +11,7 @@ import { LeadsListPagination } from '../components/pagination/LeadsListPaginatio
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLeads } from '../_redux/leadAction'
-import UserContext from './columns/context'
+import LeadContext from './columns/context'
 
 const LeadsTable = () => {
   const users = useQueryResponseData()
@@ -37,7 +37,7 @@ const LeadsTable = () => {
     dispatch(getLeads(token))
   }, [])
   console.log(user, "users")
-
+  const { searchTerm } = useContext(LeadContext);
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>
@@ -55,7 +55,23 @@ const LeadsTable = () => {
           </thead>
           <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>
             {rows.length > 0 ? (
-              rows.map((row: Row<Lead>, i) => {
+              rows.filter((val: any) => {
+                if (searchTerm === "") {
+                  return val;
+                }
+                if (val?.original?.leadFirstName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
+                if (val?.original?.leadLastName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
+                if (val?.original?.leadCompanyName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
+                if (val?.original?.leadPhonenumber?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
+              }).map((row: Row<Lead>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />
               })

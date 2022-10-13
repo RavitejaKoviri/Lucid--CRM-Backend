@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -10,6 +10,7 @@ import { BookingsListPagination } from '../components/pagination/BookingsListPag
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllBookings } from '../_redux/bookingAction'
+import BookingContext from './columns/context'
 
 const BookingsTable = () => {
   const user = useSelector(
@@ -31,6 +32,7 @@ const BookingsTable = () => {
     dispatch(getAllBookings())
   }, [])
   console.log(user, "users")
+  const { searchTerm } = useContext(BookingContext);
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>
@@ -48,7 +50,17 @@ const BookingsTable = () => {
           </thead>
           <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>
             {rows.length > 0 ? (
-              rows.map((row: Row<Booking>, i) => {
+              rows.filter((val: any) => {
+                if (searchTerm === "") {
+                  return val;
+                }
+                if (val?.original?.fullName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
+                if (val?.original?.mobileNumber?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
+              }).map((row: Row<Booking>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />
               })

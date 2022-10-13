@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 // import Board, { moveCard } from "@lourenci/react-kanban";
 // import "@lourenci/react-kanban/dist/styles.css";
 // @asseinfo/react-kanban components
@@ -13,6 +13,7 @@ import { v4 as uuidv4 } from "uuid";
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTickets } from "../_redux/ticketAction";
+import TicketContext from "../table/columns/context";
 
 const TicketIndex = () => {
   // const [controller] = useArgonController();
@@ -25,13 +26,21 @@ const TicketIndex = () => {
   const closeNewCardForm = () => setNewCardForm(false);
   const handeSetFormValue = ({ currentTarget }) =>
     setFormValue(currentTarget.value);
-  const Tickets = useSelector((state) => state?.TicketData?.Tickets);
+  const TicketsData = useSelector((state) => state?.TicketData?.Tickets);
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
     dispatch(getAllTickets(token));
   }, []);
+  const { searchTerm } = useContext(TicketContext);
+  const Tickets = TicketsData.filter((val) => {
+    if (searchTerm === "") {
+      return val;
+    }
+    if (val?.ticketName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+      return val;
+    }
+  })
   console.log(Tickets, "Tickets");
-
   const bucketListedTargets = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "Open"
   );
@@ -51,9 +60,9 @@ const TicketIndex = () => {
   // const verificationTasks = targets?.filter(
   //   (item) => item?.targetStatus?.targetStatusName === "Verification"
   // );
-  console.log(bucketListedTargets, "bucketListedTasks");
-  console.log(inProgressTargets, "inProgressTargets");
-  console.log(completedTargets, "delegatedTasks");
+  // console.log(bucketListedTargets, "bucketListedTasks");
+  // console.log(inProgressTargets, "inProgressTargets");
+  // console.log(completedTargets, "delegatedTasks");
   // console.log(inProgressTasks, "inProgressTasks");
   // console.log(doneTasks, "doneTasks");
   // console.log(verificationTasks, "verificationTasks");

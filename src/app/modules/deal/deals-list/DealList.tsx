@@ -6,16 +6,22 @@ import { DealsListHeader } from './components/header/DealsListHeader'
 import { DealEditModal } from './deal-edit-modal/DealEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 import { DealIndex } from './dealUi/dealIndex'
+import DealContext from './table/columns/context'
+import { useState } from 'react'
 
 const DealsList = () => {
   const { itemIdForUpdate } = useListView()
+  const [searchTerm, setSearchTerm] = useState<string>('')
   return (
     <>
-      <KTCard>
-        <DealsListHeader />
-        {/* <DealsTable /> */}
-      </KTCard>
-      <DealIndex/>
+      <DealContext.Provider value={{ searchTerm, setSearchTerm }}>
+        <KTCard>
+          <DealsListHeader />
+          {/* <DealsTable /> */}
+        </KTCard>
+        <DealIndex />
+      </DealContext.Provider>
+
 
       {itemIdForUpdate !== undefined && <DealEditModal />}
     </>

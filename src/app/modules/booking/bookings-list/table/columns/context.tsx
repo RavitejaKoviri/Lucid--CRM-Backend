@@ -1,13 +1,13 @@
 import { createContext } from "react"
 
-type LeadContextType = {
+type BookingContextType = {
     searchTerm: string,
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>
 }
 
-const iLeadContextState = {
+const iBookingContextState = {
     searchTerm: '',
     setSearchTerm: () => { }
 }
-const LeadContext = createContext<LeadContextType>(iLeadContextState)
-export default LeadContext
+const BookingContext = createContext<BookingContextType>(iBookingContextState)
+export default BookingContext

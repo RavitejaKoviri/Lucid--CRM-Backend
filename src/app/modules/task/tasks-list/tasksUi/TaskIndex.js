@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 // import Board, { moveCard } from "@lourenci/react-kanban";
 // import "@lourenci/react-kanban/dist/styles.css";
 // @asseinfo/react-kanban components
@@ -13,23 +13,33 @@ import { v4 as uuidv4 } from "uuid";
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTasks } from "../_redux/taskAction";
+import TaskContext from "../table/columns/context";
 
 const TaskIndex = () => {
   // const [controller] = useArgonController();
   // const { darkMode } = controller;
   const dispatch = useDispatch();
-  const [newCardForm, setNewCardForm] = useState(false);
-  const [formValue, setFormValue] = useState("");
+  // const [newCardForm, setNewCardForm] = useState(false);
+  // const [formValue, setFormValue] = useState("");
 
-  const openNewCardForm = (event, id) => setNewCardForm(id);
-  const closeNewCardForm = () => setNewCardForm(false);
-  const handeSetFormValue = ({ currentTarget }) =>
-    setFormValue(currentTarget.value);
-  const task = useSelector((state) => state?.tasks?.Tasks);
+  // const openNewCardForm = (event, id) => setNewCardForm(id);
+  // const closeNewCardForm = () => setNewCardForm(false);
+  // const handeSetFormValue = ({ currentTarget }) =>
+  //   setFormValue(currentTarget.value);
+  const { searchTerm } = useContext(TaskContext);
+  const taskData = useSelector((state) => state?.tasks?.Tasks);
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
     dispatch(getAllTasks(token));
   }, []);
+  const task = taskData.filter((val) => {
+    if (searchTerm === "") {
+      return val;
+    }
+    if (val?.contact?.contactFirstName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+      return val;
+    }
+  })
   console.log(task, "tasks");
 
   const bucketListedTasks = task?.filter(
@@ -50,12 +60,12 @@ const TaskIndex = () => {
   const verificationTasks = task?.filter(
     (item) => item?.taskStatus?.taskStatusName === "Verification"
   );
-  console.log(bucketListedTasks, "bucketListedTasks");
-  console.log(toDoTasks, "toDoTasks");
-  console.log(delegatedTasks, "delegatedTasks");
-  console.log(inProgressTasks, "inProgressTasks");
-  console.log(doneTasks, "doneTasks");
-  console.log(verificationTasks, "verificationTasks");
+  // console.log(bucketListedTasks, "bucketListedTasks");
+  // console.log(toDoTasks, "toDoTasks");
+  // console.log(delegatedTasks, "delegatedTasks");
+  // console.log(inProgressTasks, "inProgressTasks");
+  // console.log(doneTasks, "doneTasks");
+  // console.log(verificationTasks, "verificationTasks");
 
   const boards = {
     columns: [

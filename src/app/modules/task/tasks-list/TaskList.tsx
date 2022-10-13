@@ -6,16 +6,22 @@ import { TasksListHeader } from './components/header/TasksListHeader'
 import { TaskEditModal } from './task-edit-modal/TaskEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 import { TaskIndex } from './tasksUi/TaskIndex'
+import TaskContext from './table/columns/context'
+import { useState } from 'react'
 
 const TasksList = () => {
   const { itemIdForUpdate } = useListView()
+  const [searchTerm, setSearchTerm] = useState<string>('')
   return (
     <>
-      <KTCard>
-        <TasksListHeader />
-        {/* <TasksTable /> */}
-      </KTCard>
-        <TaskIndex/>
+      <TaskContext.Provider value={{ searchTerm, setSearchTerm }}>
+        <KTCard>
+          <TasksListHeader />
+          {/* <TasksTable /> */}
+        </KTCard>
+        <TaskIndex />
+      </TaskContext.Provider>
+
       {itemIdForUpdate !== undefined && <TaskEditModal />}
     </>
   )

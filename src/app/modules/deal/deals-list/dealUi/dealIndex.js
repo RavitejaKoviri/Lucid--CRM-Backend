@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 // import Board, { moveCard } from "@lourenci/react-kanban";
 // import "@lourenci/react-kanban/dist/styles.css";
 // @asseinfo/react-kanban components
@@ -13,19 +13,32 @@ import { v4 as uuidv4 } from "uuid";
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
 import { getAlldeals } from "../_redux/dealAction";
+import DealContext from "../table/columns/context";
 
 const DealIndex = () => {
   // const [controller] = useArgonController();
   // const { darkMode } = controller;
   const dispatch = useDispatch();
-  const [newCardForm, setNewCardForm] = useState(false);
-  const [formValue, setFormValue] = useState("");
+  // const [newCardForm, setNewCardForm] = useState(false);
+  // const [formValue, setFormValue] = useState("");
 
-  const openNewCardForm = (event, id) => setNewCardForm(id);
-  const closeNewCardForm = () => setNewCardForm(false);
-  const handeSetFormValue = ({ currentTarget }) =>
-    setFormValue(currentTarget.value);
-  const deals = useSelector((state) => state?.deal?.deals);
+  // const openNewCardForm = (event, id) => setNewCardForm(id);
+  // const closeNewCardForm = () => setNewCardForm(false);
+  // const handeSetFormValue = ({ currentTarget }) =>
+  //   setFormValue(currentTarget.value);
+  const { searchTerm } = useContext(DealContext);
+  const dealsData = useSelector((state) => state?.deal?.deals);
+  const deals = dealsData.filter((val) => {
+    if (searchTerm === "") {
+      return val;
+    }
+    if (val?.dealName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+      return val;
+    }
+    if (val?.dealContactPersonName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+      return val;
+    }
+  });
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
     dispatch(getAlldeals(token));
@@ -59,54 +72,54 @@ const DealIndex = () => {
   const ClosedCompetition = deals?.filter(
     (item) => item?.dealStatus?.dealStatusName === "Closed-Lost to Competition"
   );
-console.log(ValueProposition,"ValueProposition");
-  
+  console.log(Qualification, "ValueProposition");
+
   const boards = {
     columns: [
       {
         id: uuidv4(),
         title: "Value Proposition",
-        cards:ValueProposition?ValueProposition:[],
+        cards: ValueProposition ? ValueProposition : [],
       },
       {
         id: uuidv4(),
         title: "Qualification",
-       cards:Qualification?Qualification:[],
+        cards: Qualification ? Qualification : [],
       },
       {
         id: uuidv4(),
         title: "Proposal/Price Quote",
-       cards:Proposal?Proposal:[],
+        cards: Proposal ? Proposal : [],
       },
       {
         id: uuidv4(),
         title: "Negotiation/Review",
-       cards:Negotiation?Negotiation:[],
+        cards: Negotiation ? Negotiation : [],
       },
       {
         id: uuidv4(),
         title: "Needs Analysis",
-        cards:NeedsAnalysis?NeedsAnalysis:[],
+        cards: NeedsAnalysis ? NeedsAnalysis : [],
       },
       {
         id: uuidv4(),
         title: "Identify Decision Makers",
-        cards:IdentifyDecisionMakers?IdentifyDecisionMakers:[],
+        cards: IdentifyDecisionMakers ? IdentifyDecisionMakers : [],
       },
       {
         id: uuidv4(),
         title: "Closed-Lost to Competition",
-       cards:ClosedCompetition?ClosedCompetition:[],
+        cards: ClosedCompetition ? ClosedCompetition : [],
       },
       {
         id: uuidv4(),
         title: "Closed Won",
-        cards:ClosedWon?ClosedWon:[],
+        cards: ClosedWon ? ClosedWon : [],
       },
       {
         id: uuidv4(),
         title: "Closed Lost",
-        cards:ClosedLost?ClosedLost:[],
+        cards: ClosedLost ? ClosedLost : [],
       },
     ],
   };
@@ -296,7 +309,7 @@ console.log(ValueProposition,"ValueProposition");
             ) : null} */}
             </>
           )}
-          renderCard={({ id, dealName ,dealContactPersonName}, { dragging }) => (
+          renderCard={({ id, dealName, dealContactPersonName }, { dragging }) => (
             <div
               style={{
                 display: "block",

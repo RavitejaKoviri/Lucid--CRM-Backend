@@ -1,13 +1,13 @@
 import { createContext } from "react"
 
-type LeadContextType = {
+type ContactContextType = {
     searchTerm: string,
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>
 }
 
-const iLeadContextState = {
+const iContactContextState = {
     searchTerm: '',
     setSearchTerm: () => { }
 }
-const LeadContext = createContext<LeadContextType>(iLeadContextState)
-export default LeadContext
+const ContactContext = createContext<ContactContextType>(iContactContextState)
+export default ContactContext

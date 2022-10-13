@@ -5,14 +5,20 @@ import { UsersListHeader } from './components/header/UsersListHeader'
 import { UsersTable } from './table/UsersTable'
 import { UserEditModal } from './user-edit-modal/UserEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
+import UserContext from './table/columns/context'
+import { useState } from 'react'
 
 const UsersList = () => {
   const { itemIdForUpdate } = useListView()
+  const [searchTerm, setSearchTerm] = useState<string>('')
   return (
     <>
       <KTCard>
-        <UsersListHeader />
-        <UsersTable />
+        <UserContext.Provider value={{ searchTerm, setSearchTerm }}>
+          <UsersListHeader />
+          <UsersTable />
+        </UserContext.Provider>
+
       </KTCard>
       {itemIdForUpdate !== undefined && <UserEditModal />}
     </>

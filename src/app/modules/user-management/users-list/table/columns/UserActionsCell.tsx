@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { FC, useEffect } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
+import { useNavigate } from 'react-router-dom'
 import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
 import { ID, KTSVG, QUERIES } from '../../../../../../_metronic/helpers'
 import { useListView } from '../../core/ListViewProvider'
@@ -16,7 +17,7 @@ const UserActionsCell: FC<Props> = ({ id }) => {
   const { setItemIdForUpdate } = useListView()
   const { query } = useQueryResponse()
   const queryClient = useQueryClient()
-
+  const navigation = useNavigate();
   useEffect(() => {
     MenuComponent.reinitialization()
   }, [])
@@ -52,7 +53,9 @@ const UserActionsCell: FC<Props> = ({ id }) => {
       >
         {/* begin::Menu item */}
         <div className='menu-item px-3'>
-          <a className='menu-link px-3' onClick={openEditModal}>
+          <a className='menu-link px-3' onClick={() => {
+            navigation('adduser')
+          }}>
             Edit
           </a>
         </div>

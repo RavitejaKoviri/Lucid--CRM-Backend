@@ -1,22 +1,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import {Card3} from '../../../../../_metronic/partials/content/cards/Card3'
+import { Card3 } from '../../../../../_metronic/partials/content/cards/Card3'
 import { getAllContacts } from '../_redux/contactAction'
+import ContactContext from './columns/context';
 
 
 export function ContactsData() {
-    const Contacts = useSelector(
-        (state: any) => state?.ContactData?.Contacts
-      );
-      const token = useSelector(
-        (state: any) => state?.auth?.authToken
-      );
-    const dispatch = useDispatch()
-    useEffect(() => {
-        dispatch(getAllContacts(token))
-      }, [])
-      console.log(Contacts, "Contacts")
+  const Contacts = useSelector(
+    (state: any) => state?.ContactData?.Contacts
+  );
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getAllContacts(token))
+  }, [])
+  console.log(Contacts, "Contacts")
+  const { searchTerm } = useContext(ContactContext);
   return (
     <>
       <div className='d-flex flex-wrap flex-stack mb-6'>
@@ -42,20 +44,33 @@ export function ContactsData() {
       </div>
 
       <div className='row g-6 g-xl-4'>
-        {Contacts?.map((item: any)=>(
-        <div className='col-md-6 col-xxl-4'>
-          <Card3
-            avatar='/media/avatars/300-6.jpg'
-            name={item?.contactTitle +". "+ item?.contactName}
-            job={item?.contactJobTitle}
-            avgEarnings={item?.contactCompanyName}
-            totalEarnings={item?.contactCountry}
-          />
-        </div>
+        {Contacts?.filter((val: any) => {
+          if (searchTerm === "") {
+            return val;
+          }
+          if (val?.contactJobTitle?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+            return val;
+          }
+          if (val?.contactName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+            return val;
+          }
+          if (val?.contactCompanyName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+            return val;
+          }
+        }).map((item: any) => (
+          <div className='col-md-6 col-xxl-4'>
+            <Card3
+              avatar='/media/avatars/300-6.jpg'
+              name={item?.contactTitle + ". " + item?.contactName}
+              job={item?.contactJobTitle}
+              avgEarnings={item?.contactCompanyName}
+              totalEarnings={item?.contactCountry}
+            />
+          </div>
         ))}
 
       </div>
-      
+
 
       <div className='d-flex flex-stack flex-wrap pt-10'>
         <div className='fs-6 fw-bold text-gray-700'>Showing 1 to 10 of 50 entries</div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 // import Board, { moveCard } from "@lourenci/react-kanban";
 // import "@lourenci/react-kanban/dist/styles.css";
 // @asseinfo/react-kanban components
@@ -13,25 +13,34 @@ import { v4 as uuidv4 } from "uuid";
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTargets } from "../_redux/targetAction";
+import TargetContext from "../table/columns/context";
 
 const TargetIndex = () => {
   // const [controller] = useArgonController();
   // const { darkMode } = controller;
   const dispatch = useDispatch();
-  const [newCardForm, setNewCardForm] = useState(false);
-  const [formValue, setFormValue] = useState("");
+  // const [newCardForm, setNewCardForm] = useState(false);
+  // const [formValue, setFormValue] = useState("");
 
-  const openNewCardForm = (event, id) => setNewCardForm(id);
-  const closeNewCardForm = () => setNewCardForm(false);
-  const handeSetFormValue = ({ currentTarget }) =>
-    setFormValue(currentTarget.value);
-  const targets = useSelector((state) => state?.TargetData?.Targets);
+  // const openNewCardForm = (event, id) => setNewCardForm(id);
+  // const closeNewCardForm = () => setNewCardForm(false);
+  // const handeSetFormValue = ({ currentTarget }) =>
+  //   setFormValue(currentTarget.value);
+  const { searchTerm } = useContext(TargetContext);
+  const targetsData = useSelector((state) => state?.TargetData?.Targets);
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
     dispatch(getAllTargets(token));
   }, []);
+  const targets = targetsData.filter((val) => {
+    if (searchTerm === "") {
+      return val;
+    }
+    if (val?.targetName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+      return val;
+    }
+  })
   console.log(targets, "targets");
-
   const bucketListedTargets = targets?.filter(
     (item) => item?.targetStatus?.targetStatusName === "Yet to start"
   );
