@@ -23,7 +23,9 @@ export default function TargetAdduser() {
   );
   
   
-
+  const userData = useSelector(
+    (state: any) => state?.auth?.user
+  );
   // const campaign = useSelector(
   //   (state: any) => state?.TargetData?.campaigns
   // );
@@ -49,12 +51,8 @@ export default function TargetAdduser() {
     assignedTo: " ",
     targetDescription: " ",
     targetStatus: " ",
-    company: " ",
+    company: userData?.company?.id,
     targetDueDate: " ",
-
-    
-    
-   
   })
 
   const handleChange = (e: any) => {
@@ -75,11 +73,6 @@ export default function TargetAdduser() {
     })
   };
   
-
-  
-
-
-
   return (
     <>
       <div
@@ -156,23 +149,20 @@ export default function TargetAdduser() {
               </div>
               {/*end::Status*/}
               {/*begin::Category & tags*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
+              {/* <div className="card card-flush py-4">
+           
                 <div className="card-header">
-                  {/*begin::Card title*/}
+                  
                   <div className="card-title">
                     <h2>Company Details</h2>
                   </div>
-                  {/*end::Card title*/}
+             
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+           
                 <div className="card-body pt-0">
-                  {/*begin::Input group*/}
-                  {/*begin::Label*/}
+              
                   <label className="form-label">Company</label>
-                  {/*end::Label*/}
-                  {/*begin::Select2*/}
+            
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -191,69 +181,8 @@ export default function TargetAdduser() {
                     }
 
                   </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7 mb-7">
-                    Add product to a category.
-                  </div> */}
-                  {/*end::Description*/}
-                  {/*end::Input group*/}
-                  {/*begin::Button*/}
-                  {/* <a
-                    href="../../demo6/dist/apps/ecommerce/catalog/add-category.html"
-                    className="btn btn-light-primary btn-sm mb-10"
-                  >
-                   
-                     <span className="svg-icon svg-icon-2">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          opacity="0.5"
-                          x="11"
-                          y="18"
-                          width="12"
-                          height="2"
-                          rx="1"
-                          transform="rotate(-90 11 18)"
-                          fill="currentColor"
-                        />
-                        <rect
-                          x="6"
-                          y="11"
-                          width="12"
-                          height="2"
-                          rx="1"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </span> 
-                  Create new company
-                  </a> */}
-                  {/*end::Button*/}
-                  {/*begin::Input group*/}
-                  {/*begin::Label*/}
-                  {/* <label className="form-label d-block">Tags</label> */}
-                  {/*end::Label*/}
-                  {/*begin::Input*/}
-                  {/* <input
-                    id="kt_ecommerce_add_product_tags"
-                    name="kt_ecommerce_add_product_tags"
-                    className="form-control mb-2"
-                    value=""
-                  /> */}
-                  {/*end::Input*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7">Add tags to a product.</div> */}
-                  {/*end::Description*/}
-                  {/*end::Input group*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
+                 </div>
+              </div> */}
               {/*end::Category & tags*/}
               {/*begin::Weekly sales*/}
               {/* <div className="card card-flush py-4">

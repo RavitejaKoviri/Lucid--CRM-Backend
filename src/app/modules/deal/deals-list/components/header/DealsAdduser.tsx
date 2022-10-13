@@ -36,7 +36,7 @@ export default function DealsAdduser() {
     dealType: " ",
     dealSource: " ",
     campaignSource: " ",
-    company: " ",
+    company: user?.company?.id,
     dealStatus: " ",
     dealOwner: user?.id,
   });
@@ -238,24 +238,22 @@ export default function DealsAdduser() {
               </div>
               {/*end::Status*/}
               {/*begin::Status*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
+              {/* <div className="card card-flush py-4">
+              
                 <div className="card-header">
-                  {/*begin::Card title*/}
+               
                   <div className="card-title">
                     <h2>Company</h2>
                   </div>
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
+                 
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
-                  {/*begin::Card toolbar*/}
+      
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+              
                 <div className="card-body pt-0">
-                  {/*begin::Select2*/}
+        
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -270,11 +268,7 @@ export default function DealsAdduser() {
                       <option value={item?.id}>{item?.companyName}</option>
                     ))}
                   </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
-                  {/*end::Description*/}
-                  {/*begin::Datepicker*/}
+              
                   <div className="d-none mt-10">
                     <label className="form-label">
                       Select publishing date and time
@@ -285,10 +279,10 @@ export default function DealsAdduser() {
                       placeholder="Pick date & time"
                     />
                   </div>
-                  {/*end::Datepicker*/}
+               
                 </div>
-                {/*end::Card body*/}
-              </div>
+            
+              </div> */}
               {/*end::Status*/}
             </div>
             {/*end::Aside column*/}

@@ -209,7 +209,28 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-
+   <Route
+          path='sources/*'
+          element={
+            <SuspensedView>
+              <LeadsPage />
+            </SuspensedView>
+          }
+        />   <Route
+        path='brands/*'
+        element={
+          <SuspensedView>
+            <LeadsPage />
+          </SuspensedView>
+        }
+      />   <Route
+      path='departments/*'
+      element={
+        <SuspensedView>
+          <LeadsPage />
+        </SuspensedView>
+      }
+    />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
