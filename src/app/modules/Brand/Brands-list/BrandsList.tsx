@@ -3,7 +3,7 @@ import { QueryRequestProvider } from './core/QueryRequestProvider'
 import { QueryResponseProvider } from './core/QueryResponseProvider'
 import { BrandsListHeader } from './components/header/BrandsListHeader'
 import { BrandsTable } from './table/BrandsTable'
-import { BrandsEditModal } from './Brands-edit-modal/BrandsEditModal'
+import { BrandEditModal } from './Brand-edit-modal/BrandEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 import { useState } from 'react'
 import UserContext from './table/columns/context'
@@ -26,7 +26,7 @@ const BrandsList = () => {
         </UserContext.Provider>
 
       </KTCard>
-      {itemIdForUpdate !== undefined && <BrandsEditModal />}
+      {itemIdForUpdate !== undefined && <BrandEditModal />}
     </>
   )
 }

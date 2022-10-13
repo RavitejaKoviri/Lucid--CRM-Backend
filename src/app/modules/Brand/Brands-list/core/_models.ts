@@ -14,15 +14,8 @@ export type Lead = {
     label: string
     state: string
   }
-  lead_source: Object
-  campaign_source: Object
-  leadAnnualRevenueContribution: string
-  leadCompanyName: string
-  leadEmail: string
-  leadFirstName: string
-  leadIndustry: string
-  leadLastName: string
-  leadPhonenumber: string
+  company:string
+  brandName:string
 }
 
 export type LeadsQueryResponse = Response<Array<Lead>>
@@ -33,13 +26,6 @@ export const initialUser: Lead = {
   role: 'Administrator',
   name: '',
   email: '',
-  lead_source: {},
-  campaign_source: {},
-  leadAnnualRevenueContribution: '',
-  leadCompanyName: '',
-  leadEmail: '',
-  leadFirstName: '',
-  leadIndustry: '',
-  leadLastName: '',
-  leadPhonenumber: '',
+  company:"",
+  brandName:"",
 }

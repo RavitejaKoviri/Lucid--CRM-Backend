@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
-import { BrandsEditModalHeader } from './BrandsEditModalHeader'
-import { BrandsEditModalFormWrapper } from './BrandsEditModalFormWrapper'
+import { BrandsEditModalHeader } from './BrandEditModalHeader'
+import { BrandsEditModalFormWrapper } from './BrandEditModalFormWrapper'
 
-const BrandsEditModal = () => {
+const BrandEditModal = () => {
   useEffect(() => {
     document.body.classList.add('modal-open')
     return () => {
@@ -41,4 +41,4 @@ const BrandsEditModal = () => {
   )
 }
 
-export { BrandsEditModal }
+export { BrandEditModal }

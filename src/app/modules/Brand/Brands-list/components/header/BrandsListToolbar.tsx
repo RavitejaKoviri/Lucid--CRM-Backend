@@ -24,7 +24,7 @@ const BrandsListToolbar = () => {
 
       {/* begin::Add user */}
       <button type='button' className='btn btn-primary' onClick={() => {
-        navigation('addBrand')
+        navigation('addBrands')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Add Brands

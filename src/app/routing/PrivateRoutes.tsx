@@ -24,8 +24,10 @@ import { PostCampaigns } from '../pages/campaigns/postCampaingns'
 import TaskAdduser from '../modules/task/tasks-list/components/header/TaskAdduser'
 import ContactsAdduser from '../modules/Contact/contacts-list/components/header/ContactsAdduser'
 import CampaignAdduser from '../modules/campaign/campaigns-list/components/header/CampaignAdduser'
-import AddBrand from '../modules/Brands/Brand-list/components/header/AddBrand'
+
 import AddDepartment from '../modules/Department/Department-list/components/header/AddDepartment'
+import AddBrands from '../modules/Brand/Brands-list/components/header/AddBrands'
+// import AddBrand from '../modules/Brand/Brands-list/components/header/AddBrand'
 
 
 
@@ -47,7 +49,7 @@ const PrivateRoutes = () => {
   const TicketPage = lazy(() => import('../modules/Tickets/TicketPage'))
   const CampaignPage = lazy(() => import('../modules/campaign/CampaignsPage'))
 
-  const BrandsPage = lazy(() => import('../modules/Brands/BrandsPage'))
+  const BrandsPage = lazy(() => import('../modules/Brand/BrandsPage'))
   const DepartmentPage = lazy(() => import('../modules/Department/DepartmentPage'))
 
 
@@ -73,9 +75,9 @@ const PrivateRoutes = () => {
         <Route path='leads/list/leadadduser' element={<LeadAdduser />} />
         <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser />} />
         <Route path='target/target/targetadduser' element={<TargetAdduser />} />
-        <Route path='brands/brand/addBrand' element={<AddBrand />} />
+        <Route path='brands/brands/addBrands' element={<AddBrands />} />
         <Route path='department/department/addDepartment' element={<AddDepartment />} />
-        
+        {/* <Route path='brand/brand/addBrand' element={<AddBrand />} /> */}
 
         <Route path='deals/deals/dealsadduser' element={<DealsAdduser />} />
         <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
@@ -225,6 +227,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
+
         <Route
           path='department/*'
           element={

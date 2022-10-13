@@ -10,13 +10,14 @@ import { BrandsListLoading } from '../components/loading/BrandsListLoading'
 import { BrandsListPagination } from '../components/pagination/BrandsListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getBrands } from '../_redux/brandAction'
+import { getBrands } from '../_redux/brandsAction'
 import UserContext from './columns/context'
 
 const BrandsTable = () => {
   const users = useQueryResponseData()
+  const dispatch = useDispatch()
   const user = useSelector(
-    (state: any) => state?.LeadData?.Leads
+    (state: any) => state?.BrandsData?.Brands
   );
   const isLoading = useQueryResponseLoading()
   const data = useMemo(() => user, [user])
@@ -30,7 +31,7 @@ const BrandsTable = () => {
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
-  const dispatch = useDispatch()
+  
 
   console.log(data);
   useEffect(() => {

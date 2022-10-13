@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
 import { ID, KTSVG, } from '../../../../../../_metronic/helpers'
 
-import { DeleteLead } from '../../_redux/brandAction'
+import { DeleteBrands } from '../../_redux/brandsAction'
 
 type Props = {
   id: ID
@@ -23,11 +23,11 @@ const BrandsActionsCell: FC<Props> = ({ id }) => {
   }, [])
 
   const openEditModal = () => {
-    navigation('leadadduser', { state: { id } })
+    navigation('AddBrands', { state: { id } })
   }
 
   const deleteItem = () =>
-    dispatch(DeleteLead(id, token))
+    dispatch(DeleteBrands(id, token))
 
   return (
     <>

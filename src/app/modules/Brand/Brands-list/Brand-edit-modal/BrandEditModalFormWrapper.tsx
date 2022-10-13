@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query'
-import { BrandsEditModalForm } from './BrandsEditModalForm'
+import { BrandsEditModalForm } from './BrandEditModalForm'
 import { isNotEmpty, QUERIES } from '../../../../../_metronic/helpers'
 import { useListView } from '../core/ListViewProvider'
 import { getUserById } from '../core/_requests'

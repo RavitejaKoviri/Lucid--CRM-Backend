@@ -1,12 +1,12 @@
 import { Route, Routes, Outlet, Navigate } from 'react-router-dom'
 import { PageLink, PageTitle } from '../../../_metronic/layout/core'
-import { BrandsListWrapper } from './Brand-list/BrandsList'
+import { BrandsListWrapper } from './Brands-list/BrandsList'
 // import { UsersList } from './Brand-list/UsersList'
 
 const BrandsBreadcrumbs: Array<PageLink> = [
   {
     title: '',
-    path: 'brand',
+    path: 'brands',
     isSeparator: false,
     isActive: false,
   },
@@ -26,7 +26,7 @@ const BrandsPage = () => {
         <Route element={<Outlet />}>
 
           <Route
-            path='brand'
+            path='brands'
             element={
               <>
                 {/* <PageTitle breadcrumbs={leadsBreadcrumbs}>Leads</PageTitle> */}
@@ -45,7 +45,7 @@ const BrandsPage = () => {
               </>
             }
           /> */}
-          <Route index element={<Navigate to='brand' />} />
+          <Route index element={<Navigate to='brands' />} />
         </Route>
       </Routes>
     </>

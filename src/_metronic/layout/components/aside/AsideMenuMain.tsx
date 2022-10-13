@@ -109,8 +109,8 @@ export function AsideMenuMain() {
       >
         <AsideMenuItem to='/settings/sources' title='Sources' fontIcon='bi-layers fs-3' />
         {/* <AsideMenuItem to='/settings/brands' title='Brands' fontIcon='bi-layers fs-3' /> */}
+        {/* <AsideMenuItem to='/brands' title='Brands' fontIcon='bi-layers fs-3' /> */}
         <AsideMenuItem to='/brands' title='Brands' fontIcon='bi-layers fs-3' />
-        {/* <AsideMenuItem to='/settings/departments' title='Departments' fontIcon='bi-layers fs-3' /> */}
         <AsideMenuItem to='/department' title='Department' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/team-members' title='Team Members' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/roles' title='Tickets' fontIcon='bi-layers fs-3' />

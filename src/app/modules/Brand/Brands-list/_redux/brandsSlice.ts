@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Leads: [],
-  Createlead: [],
+  Brands: [],
+  CreateBrands: [],
   Source: [],
   campaigns: [],
   Comapnies: [],
-  leadStatus: [],
-  LeadsById: null,
-  UpdatedLead: null,
+  BrandsStatus: [],
+  BrandsById: null,
+  UpdatedBrands: null,
 };
 
 export const callTypes = {
@@ -39,13 +39,13 @@ export const BrandsSlice = createSlice({
       }
     },
 
-    fetchedAllLeadsDetails: (state, action) => {
+    fetchedAllBrandsDetails: (state, action) => {
       const { data } = action.payload;
-      state.Leads = data;
+      state.Brands = data;
     },
-    fetchedAllLeadsDetailsById: (state, action) => {
+    fetchedAllBrandsDetailsById: (state, action) => {
       const { data } = action.payload;
-      state.LeadsById = data;
+      state.BrandsById = data;
     },
     fetchedAllSourceDetails: (state, action) => {
       const { data } = action.payload;
@@ -59,17 +59,17 @@ export const BrandsSlice = createSlice({
       const { data } = action.payload;
       state.Comapnies = data;
     },
-    fetchedAllleadStatusesDetails: (state, action) => {
+    fetchedAllBrandsStatusesDetails: (state, action) => {
       const { data } = action.payload;
-      state.leadStatus = data;
+      state.BrandsStatus = data;
     },
-    fetchedLead: (state, action) => {
+    fetchedBrands: (state, action) => {
       const { data } = action.payload;
-      state.Createlead = data;
+      state.CreateBrands = data;
     },
-    UpdatedLead: (state, action) => {
+    UpdatedBrands: (state, action) => {
       const { data } = action.payload;
-      state.UpdatedLead = data;
+      state.UpdatedBrands = data;
     },
   },
 });

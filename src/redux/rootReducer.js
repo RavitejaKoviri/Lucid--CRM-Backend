@@ -12,8 +12,10 @@ import { BookingSlice } from "../app/modules/booking/bookings-list/_redux/bookin
 import { dealsSlice } from "../app/modules/deal/deals-list/_redux/dealSlice";
 import { CampaignSlice } from "../app/modules/campaign/campaigns-list/_redux/campaignSlice";
 import { DashboardSlice } from "../app/pages/dashboard/_redux/dashboardSlice";
-import { BrandsSlice } from "../app/modules/Brands/Brand-list/_redux/brandSlice";
+
 import { DepartmentSlice } from "../app/modules/Department/Department-list/_redux/departmentSlice";
+import { BrandsSlice } from "../app/modules/Brand/Brands-list/_redux/brandsSlice";
+// import { BrandSlice } from "../app/modules/Brand/Brands-list/_redux/brandSlice";
 // import { bookingSlice } from "../app/modules/booking/bookings-list/_redux/bookingSlice";
 
 // import { dashboardSlice } from "../app/modules/DashboardAPI/dashboardSlice";
@@ -75,6 +77,7 @@ export const rootReducer = combineReducers({
   Dashboard: DashboardSlice.reducer,
   BrandsData: BrandsSlice.reducer,
   DepartmentData: DepartmentSlice.reducer, 
+
   // dashboardData: dashboardSlice.reducer,
   // manageUsers: manageUsersSlice.reducer,
   // manageVerificationRequests: manageVerificationRequestsSlice.reducer,

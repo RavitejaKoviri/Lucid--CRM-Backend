@@ -1,5 +1,5 @@
-import * as requestFromServer from "./brandCrud";
-import { BrandsSlice, callTypes } from "./brandSlice";
+import * as requestFromServer from "./brandsCrud";
+import { BrandsSlice, callTypes } from "./brandsSlice";
 
 const { actions } = BrandsSlice;
 
@@ -12,7 +12,7 @@ export const getBrands = (token: any) => (dispatch: any) => {
     .getAllBrands(token)
     .then((response) => {
       const { data } = response;
-      dispatch(actions.fetchedAllLeadsDetails({ data }));
+      dispatch(actions.fetchedAllBrandsDetails({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;
@@ -20,13 +20,13 @@ export const getBrands = (token: any) => (dispatch: any) => {
     });
 };
 
-export const getLeadsById = (id: any, token: any) => (dispatch: any) => {
+export const getBrandsById = (id: any, token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllLeadsById(id, token)
+    .getAllBrandsById(id, token)
     .then((response) => {
       const { data } = response;
-      dispatch(actions.fetchedAllLeadsDetailsById({ data }));
+      dispatch(actions.fetchedAllBrandsDetailsById({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;
@@ -77,13 +77,13 @@ export const getcompanies = (token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getleadStatuses = (token: any) => (dispatch: any) => {
+export const getBrandsStatuses = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getleadStatuses(token)
+    .getBrandsStatuses(token)
     .then((response) => {
       const { data } = response;
-      dispatch(actions.fetchedAllleadStatusesDetails({ data }));
+      dispatch(actions.fetchedAllBrandsStatusesDetails({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;
@@ -92,12 +92,12 @@ export const getleadStatuses = (token: any) => (dispatch: any) => {
 };
 
 
-export const CreateLead = (data: any, token: any) => (dispatch: any) =>
+export const CreateBrands = (data: any, token: any) => (dispatch: any) =>
   requestFromServer
-    .CreateLead(data, token)
+    .CreateBrands(data, token)
     .then((response) => {
       const { data } = response;
-      dispatch(actions.fetchedLead({ data }));
+      dispatch(actions.fetchedBrands({ data }));
     })
     .catch((error) => {
       // eslint-disable-next-line no-param-reassign
@@ -106,12 +106,12 @@ export const CreateLead = (data: any, token: any) => (dispatch: any) =>
     });
 
 
-export const UpdateLead = (id: any, data: any, token: any) => (dispatch: any) =>
+export const UpdateBrands= (id: any, data: any, token: any) => (dispatch: any) =>
   requestFromServer
-    .UpdateLead(id, data, token)
+    .UpdateBrands(id, data, token)
     .then((response) => {
       const { data } = response;
-      dispatch(actions.UpdatedLead({ data }));
+      dispatch(actions.UpdatedBrands({ data }));
     })
     .catch((error) => {
       // eslint-disable-next-line no-param-reassign
@@ -119,9 +119,9 @@ export const UpdateLead = (id: any, data: any, token: any) => (dispatch: any) =>
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 
-export const DeleteLead = (id: any, token: any) => (dispatch: any) =>
+export const DeleteBrands = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
-    .DeleteLead(id, token)
+    .DeleteBrands(id, token)
     .then((response) => {
       console.log(response)
     })
@@ -131,6 +131,6 @@ export const DeleteLead = (id: any, token: any) => (dispatch: any) =>
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 
-export const deleteSelectedLeads = (id: any, token: any) => (dispatch: any) =>
+export const deleteSelectedBrands = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
-    .deleteSelectedLead(id, token)
+    .deleteSelectedBrands(id, token)
