@@ -347,9 +347,10 @@ export default function ContactsAdduser() {
                               <label>Name:</label>
                               <input
                                 type="text"
+                                placeholder="Name"
                                 value={data.contactName}
                                 onChange={handleChange}
-                                name="contactName"
+                                // name="Name"
                                 className="form-control"
                                 
                               />
@@ -362,7 +363,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactEmail"
                                 className="form-control"
-                                
+                                placeholder="Email"
                               />
                             </div>
                             {/*begin::Status*/}
@@ -390,7 +391,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactFirstName"
                                 className="form-control"
-                                
+                                placeholder="FirstName"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -401,7 +402,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactLastName"
                                 className="form-control"
-                                
+                                placeholder="LastName"
                               />
                             </div>
                           </div>
@@ -414,7 +415,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactSecondaryEmail"
                                 className="form-control"
-                                
+                                placeholder="SecondaryEmail"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -425,7 +426,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactMobile"
                                 className="form-control"
-                                
+                                placeholder="Mobile"
                               />
                             </div>
                           </div>
@@ -438,7 +439,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactTitle"
                                 className="form-control"
-                                
+                                placeholder="Title"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -449,7 +450,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactJobTitle"
                                 className="form-control"
-                                
+                                placeholder="JobTitle"
                               />
                             </div>
                           </div>
@@ -462,7 +463,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactCompanyName"
                                 className="form-control"
-                                
+                                placeholder="CompanyName"
 
                               />
                             </div>
@@ -474,7 +475,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactCity"
                                 className="form-control"
-                                
+                                placeholder="City"
                               />
                             </div>
                           </div>
@@ -487,7 +488,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactAddress"
                                 className="form-control"
-                                
+                                placeholder="Address"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -498,7 +499,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactState"
                                 className="form-control"
-                                
+                                placeholder="State"
                               />
                             </div>
                           </div>
@@ -511,7 +512,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactPincode"
                                 className="form-control"
-                                
+                                placeholder="Pincode"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -522,7 +523,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactCountry"
                                 className="form-control"
-                                
+                                placeholder="Country"
                               />
                             </div>
                           </div>
@@ -536,7 +537,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactWebsiteAddress"
                                 className="form-control"
-                                
+                                placeholder="WebsiteAddress"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -547,7 +548,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactNotes"
                                 className="form-control"
-                              
+                              placeholder="Notes"
                               />
                             </div>
                           </div>
@@ -561,7 +562,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactTwitterHandle"
                                 className="form-control"
-                                
+                                placeholder="TwitterHandle"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -572,7 +573,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactLinkedinHandle"
                                 className="form-control"
-                                
+                                placeholder="LinkedinHandle"
                               />
                             </div>
                           </div>
@@ -585,7 +586,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactFacebookHandle"
                                 className="form-control"
-                                
+                                placeholder="FacebookHandle"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -596,7 +597,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactInstagramHandle"
                                 className="form-control"
-                                
+                                placeholder="InstagramHandle"
                               />
                             </div>
                           </div>

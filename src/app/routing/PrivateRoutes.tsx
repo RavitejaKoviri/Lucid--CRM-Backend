@@ -24,6 +24,9 @@ import { PostCampaigns } from '../pages/campaigns/postCampaingns'
 import TaskAdduser from '../modules/task/tasks-list/components/header/TaskAdduser'
 import ContactsAdduser from '../modules/Contact/contacts-list/components/header/ContactsAdduser'
 import CampaignAdduser from '../modules/campaign/campaigns-list/components/header/CampaignAdduser'
+import SourceAdduser from '../modules/sources/sources-list/components/header/SourcesAdduser'
+
+// import SourcesAdduser from '../modules/sources/sources-list/components/header/SourcesAdduser'
 
 import AddDepartment from '../modules/Department/Department-list/components/header/AddDepartment'
 import AddBrands from '../modules/Brand/Brands-list/components/header/AddBrands'
@@ -51,6 +54,7 @@ const PrivateRoutes = () => {
 
   const BrandsPage = lazy(() => import('../modules/Brand/BrandsPage'))
   const DepartmentPage = lazy(() => import('../modules/Department/DepartmentPage'))
+  const SourcesPage = lazy (() => import('../modules/sources/SourcesPage'))
 
 
   return (
@@ -85,6 +89,11 @@ const PrivateRoutes = () => {
         <Route path='campaigns/campaigns/campaignadduser' element={<CampaignAdduser />} />
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
+
+        <Route path='sources/source/addsource' element={<SourceAdduser/>}/>
+
+        {/* <Route path='sourcesadduser' element={<SourcesPage/>}/> */}
+
 
         {/* Lazy Modules */}
         <Route
@@ -236,6 +245,13 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
+        <Route 
+            path='sources/*'
+            element={
+              <SuspensedView>
+                <SourcesPage/>
+              </SuspensedView>
+            }/>
 
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
