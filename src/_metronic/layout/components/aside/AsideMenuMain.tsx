@@ -32,6 +32,7 @@ export function AsideMenuMain() {
         <AsideMenuItem to='/ticket' title='Tickets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/tasks' title='Tasks' fontIcon='bi-layers fs-3' />
 
+
         {/* <AsideMenuItem
           to={process.env.REACT_APP_PREVIEW_DOCS_URL + '/docs/changelog'}
           outside={true}
@@ -107,8 +108,10 @@ export function AsideMenuMain() {
         fontIcon='bi-gear'
       >
         <AsideMenuItem to='/settings/sources' title='Sources' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/settings/brands' title='Brands' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/settings/departments' title='Departments' fontIcon='bi-layers fs-3' />
+        {/* <AsideMenuItem to='/settings/brands' title='Brands' fontIcon='bi-layers fs-3' /> */}
+        <AsideMenuItem to='/brands' title='Brands' fontIcon='bi-layers fs-3' />
+        {/* <AsideMenuItem to='/settings/departments' title='Departments' fontIcon='bi-layers fs-3' /> */}
+        <AsideMenuItem to='/department' title='Department' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/team-members' title='Team Members' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/roles' title='Tickets' fontIcon='bi-layers fs-3' />
         {/* <AsideMenuItem to='/settings/contacts' title='Targets' fontIcon='bi-layers fs-3' />

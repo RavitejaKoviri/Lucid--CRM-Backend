@@ -24,6 +24,8 @@ import { PostCampaigns } from '../pages/campaigns/postCampaingns'
 import TaskAdduser from '../modules/task/tasks-list/components/header/TaskAdduser'
 import ContactsAdduser from '../modules/Contact/contacts-list/components/header/ContactsAdduser'
 import CampaignAdduser from '../modules/campaign/campaigns-list/components/header/CampaignAdduser'
+import AddBrand from '../modules/Brands/Brand-list/components/header/AddBrand'
+import AddDepartment from '../modules/Department/Department-list/components/header/AddDepartment'
 
 
 
@@ -40,21 +42,24 @@ const PrivateRoutes = () => {
   const TasksPage = lazy(() => import('../modules/task/TasksPage'))
   const BookingsPage = lazy(() => import('../modules/booking/BookingsPage'))
   const ContactPage = lazy(() => import('../modules/Contact/ContactsPage'))
-  const DealPage =lazy(() =>import('../modules/deal/DealsPage') )
+  const DealPage = lazy(() => import('../modules/deal/DealsPage'))
 
   const TicketPage = lazy(() => import('../modules/Tickets/TicketPage'))
-  const CampaignPage = lazy (() => import('../modules/campaign/CampaignsPage'))
-  
+  const CampaignPage = lazy(() => import('../modules/campaign/CampaignsPage'))
+
+  const BrandsPage = lazy(() => import('../modules/Brands/BrandsPage'))
+  const DepartmentPage = lazy(() => import('../modules/Department/DepartmentPage'))
+
 
   return (
     <Routes>
-        <Route path='/leads/landingPages' element={<Campaigns />} />
-        <Route path='/leads/email' element={<EmailCampaigns />} />
-        <Route path='/leads/social' element={<SocialCampaigns />} />
-        <Route path='/leads/social/pagecampaign' element={<PageCampaigns />} />
-        <Route path='/leads/social/postcampaign' element={<PostCampaigns />} />
-        {/* <Route path= '/Campaigns/Campaigns' element={<CampaignPage />} /> */}
-        
+      <Route path='/leads/landingPages' element={<Campaigns />} />
+      <Route path='/leads/email' element={<EmailCampaigns />} />
+      <Route path='/leads/social' element={<SocialCampaigns />} />
+      <Route path='/leads/social/pagecampaign' element={<PageCampaigns />} />
+      <Route path='/leads/social/postcampaign' element={<PostCampaigns />} />
+      {/* <Route path= '/Campaigns/Campaigns' element={<CampaignPage />} /> */}
+
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/dashboard' />} />
@@ -66,16 +71,18 @@ const PrivateRoutes = () => {
         <Route path='editer' element={<EditerPage />} />
         <Route path='apps/user-management/users/adduser' element={<Adduser />} />
         <Route path='leads/list/leadadduser' element={<LeadAdduser />} />
-        <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser/>} />
-        <Route path='target/target/targetadduser' element={<TargetAdduser/>} />
+        <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser />} />
+        <Route path='target/target/targetadduser' element={<TargetAdduser />} />
+        <Route path='brands/brand/addBrand' element={<AddBrand />} />
+        <Route path='department/department/addDepartment' element={<AddDepartment />} />
         
-        <Route path='deals/deals/dealsadduser' element={<DealsAdduser/>} />
+
+        <Route path='deals/deals/dealsadduser' element={<DealsAdduser />} />
         <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
         <Route path='tasks/tasks/taskAdduser' element={<TaskAdduser />} />
-        <Route path='campaigns/campaigns/campaignadduser' element={<CampaignAdduser/>} />
+        <Route path='campaigns/campaigns/campaignadduser' element={<CampaignAdduser />} />
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
-
 
         {/* Lazy Modules */}
         <Route
@@ -102,7 +109,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-         <Route
+        <Route
           path='campaigns/*'
           element={
             <SuspensedView>
@@ -142,7 +149,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-        
+
         <Route
           path='apps/user-management/*'
           element={
@@ -159,7 +166,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-       
+
         <Route
           path='tasks/*'
           element={
@@ -192,7 +199,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-         <Route
+        <Route
           path='ticket/*'
           element={
             <SuspensedView>
@@ -209,28 +216,24 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-   <Route
-          path='sources/*'
+
+        <Route
+          path='brands/*'
           element={
             <SuspensedView>
-              <LeadsPage />
+              <BrandsPage />
             </SuspensedView>
           }
-        />   <Route
-        path='brands/*'
-        element={
-          <SuspensedView>
-            <LeadsPage />
-          </SuspensedView>
-        }
-      />   <Route
-      path='departments/*'
-      element={
-        <SuspensedView>
-          <LeadsPage />
-        </SuspensedView>
-      }
-    />
+        />
+        <Route
+          path='department/*'
+          element={
+            <SuspensedView>
+              <DepartmentPage />
+            </SuspensedView>
+          }
+        />
+
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
