@@ -18,7 +18,7 @@ export default function TaskAdduser() {
   const contact = useSelector((state: any) => state?.tasks?.taskcontact);
   const company = useSelector((state: any) => state?.tasks?.Comapnies);
   const status = useSelector((state: any) => state?.tasks?.taskStatus);
-  console.log(company, "company");
+  console.log(user, "user");
 
   useEffect(() => {
     dispatch(gettaskcompanies(token));
@@ -201,6 +201,17 @@ export default function TaskAdduser() {
              
                 <div className="card-body pt-0">
                 
+                <div className="card-header">
+                  <div className="card-title">
+                    <h2>Company</h2>
+                  </div>
+                  
+                  <div className="card-toolbar">
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
+                  </div>
+                </div>
+                
+                <div className="card-body pt-0">
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -214,8 +225,7 @@ export default function TaskAdduser() {
                     {company?.map((item: any) => (
                       <option value={item?.id}>{item?.companyName}</option>
                     ))}
-                  </select>
-               
+                  </select>                 
                   <div className="d-none mt-10">
                     <label className="form-label">
                       Select publishing date and time
@@ -229,6 +239,7 @@ export default function TaskAdduser() {
               
                 </div>
            
+                </div>
               </div> */}
               {/*end::Status*/}
             </div>

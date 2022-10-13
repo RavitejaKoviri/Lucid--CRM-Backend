@@ -1,3 +1,4 @@
+import { Select } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 // import { FC, useState } from 'react'
@@ -25,8 +26,6 @@ export default function BookingAdduser() {
             className="form d-flex flex-column flex-lg-row"
             data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
-           
-           
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
               {/*begin:::Tabs*/}
               <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
@@ -78,19 +77,21 @@ export default function BookingAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Lead FirstName:</label>
+                              <label>FullName:</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Enter FirstName"
+                                placeholder="Enter FullName"
+                                name="fullName"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>Lead LastName:</label>
+                              <label>Email:</label>
                               <input
-                                type="text"
+                                type="email"
                                 className="form-control"
-                                placeholder="Enter LastNamer"
+                                placeholder="email"
+                                name="email"
                               />
                             </div>
                           </div>
@@ -101,33 +102,53 @@ export default function BookingAdduser() {
                                 type="text"
                                 className="form-control"
                                 placeholder="Enter PhoneNumber"
+                                name="mobileNumber"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label> Email:</label>
+                              <label> Age:</label>
                               <input
-                                type="email"
+                                type="text"
+                                name="age"
                                 className="form-control"
-                                placeholder="Enter Email"
+                                placeholder="Enter Age"
                               />
                             </div>
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>EmailOptOut:</label>
-                              <input
-                                type="email"
-                                className="form-control"
-                                placeholder="Enter EmailOptOut"
-                              />
+                            <label>Gender</label>
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                name="company"
+                              >
+                                <option value="" disabled selected>
+                                  --Select Gender--
+                                </option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">others</option>
+                              </select>
                             </div>
                             <div className="col-lg-6">
-                              <label>Industry:</label>
-                              <input
-                                type="email"
-                                className="form-control"
-                                placeholder="Enter Industry"
-                              />
+                            <label>Gender</label>
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                name="company"
+                              >
+                                <option value="" disabled selected>
+                                  --Select Gender--
+                                </option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">others</option>
+                              </select>
                             </div>
                           </div>
                           <div className="form-group row mb-2">
@@ -238,8 +259,6 @@ export default function BookingAdduser() {
                         </div>
                       </div>
                     </div> */}
-                   
-                   
                   </div>
                 </div>
                 {/*end::Tab pane*/}
