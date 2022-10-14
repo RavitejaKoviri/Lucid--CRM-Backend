@@ -31,6 +31,7 @@ import SourceAdduser from '../modules/sources/sources-list/components/header/Sou
 import AddDepartment from '../modules/Department/Department-list/components/header/AddDepartment'
 import AddBrands from '../modules/Brand/Brands-list/components/header/AddBrands'
 // import AddBrand from '../modules/Brand/Brands-list/components/header/AddBrand'
+import ReportsPage from '../modules/reports/ReportsPage'
 
 
 
@@ -253,6 +254,30 @@ const PrivateRoutes = () => {
               </SuspensedView>
             }/>
 
+        <Route
+        path='brands/*'
+        element={
+          <SuspensedView>
+            <LeadsPage />
+          </SuspensedView>
+        }
+      />  
+       <Route
+      path='departments/*'
+      element={
+        <SuspensedView>
+          <LeadsPage />
+        </SuspensedView>
+      }
+    />
+       <Route
+      path='reports/*'
+      element={
+        <SuspensedView>
+          <ReportsPage />
+        </SuspensedView>
+      }
+    />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
