@@ -10,6 +10,9 @@ const initialProductsState = {
   city:[],
   BranchAddressesByCityId:[],
   patient:[],
+  createdbookings:[],
+  Updatedbooking: null,
+  BookingById:null,
 };
 
 export const callTypes = {
@@ -78,5 +81,23 @@ patientsFetched: (state, action) => {
   const { data } = action.payload;
   state.patient = data;
 },
+//createbooking
+createdbooking: (state, action) => {
+  const { data } = action.payload;
+  state.createdbookings = data;
+},
+//updatebooking
+Updatedbooking: (state, action) => {
+  const { data } = action.payload;
+  state.Updatedbooking = data;
+},
+fetchedAllbokkingDetailsById: (state, action) => {
+  const { data } = action.payload;
+  state.BookingById = data;
+},
+
+
+
+
   },
 });

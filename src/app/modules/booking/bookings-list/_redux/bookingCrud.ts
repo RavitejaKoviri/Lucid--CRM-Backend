@@ -60,3 +60,36 @@ export function getAllPatient() {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
+//createbooking
+export function Createbooking(data: any, token: any) {
+  return axios.post(`http://43.205.49.41:5377/appointments`, data, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+//updatebooking
+export function Updatebooking(id: any, data: any, token: any) {
+  return axios.put(`http://43.205.49.41:5377/appointments/${id}`, data, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function Deletebooking(id: any, token: any) {
+  return axios.delete(`http://43.205.49.41:5377/appointments/${id}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function deleteSelectedbooking(Usersid: any, token: any) {
+  Usersid.map((id: any) => {
+    return axios.delete(`http://43.205.49.41:5377/appointments/${id}`, {
+      headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+    });
+  })
+
+}
+export function getAllbookingsById(id: any, token: any) {
+
+  return axios.get(`http://43.205.49.41:5377/appointments/${id}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}

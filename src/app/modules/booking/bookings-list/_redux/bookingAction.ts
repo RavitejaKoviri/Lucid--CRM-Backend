@@ -124,3 +124,59 @@ export const fetchPatients = () => (dispatch:any) => {
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 };
+//createbooking
+export const Createbooking = (data: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .Createbooking(data, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.createdbooking({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+    //updatebooking
+    export const Updatebooking = (id: any, data: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .Updatebooking(id, data, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.Updatedbooking({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+//Deletebooking
+export const Deletebooking = (id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .Deletebooking(id, token)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+
+export const deleteSelectedbooking = (id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .deleteSelectedbooking(id, token)
+    //getbookingsById
+    export const getbookingsById = (id: any, token: any) => (dispatch: any) => {
+      dispatch(actions.startCall({ callType: callTypes.action }));
+      return requestFromServer
+        .getAllbookingsById(id, token)
+        .then((response) => {
+          const { data } = response;
+          dispatch(actions.fetchedAllbokkingDetailsById({ data }));
+        })
+        .catch((error) => {
+          error.clientMessage = "Can't find patient test reports";;
+          dispatch(actions.catchError({ error, callType: callTypes.action }));
+        });
+    };

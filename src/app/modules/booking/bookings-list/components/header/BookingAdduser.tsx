@@ -1,18 +1,23 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Autocomplete, Select, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-// import DatePicker from "react-datepicker";
+import { useLocation, useNavigate } from "react-router-dom";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  Createbooking,
   fetchBranchAddressesByCityId,
   fetchBranchwisetestByBranch,
   fetchCity,
   fetchDoctors,
   fetchHealthPackagesByBranch,
   fetchHealthScansByBranch,
+  fetchPatients,
+  Updatebooking,
 } from "../../_redux/bookingAction";
+import axios from "axios";
 // import { any } from "prop-types";
 
 export default function BookingAdduser() {
@@ -20,10 +25,17 @@ export default function BookingAdduser() {
   const dispatch = useDispatch();
   const [type, setType] = useState("");
   const [branchwisetests, setBranchwisetests] = useState([]);
-  console.log(branchwisetests,"branchwisetests");
-  
-  const [healthPackages, setHealthPackages] = useState("");
-  const [healthScans, setHealthScans] = useState("");
+  console.log(branchwisetests, "branchwisetests");
+  const [booking, setBooking] = useState(false);
+  const location = useLocation();
+  const id = location?.state
+
+  const [healthPackages, setHealthPackages] = useState([]);
+  const [healthScans, setHealthScans] = useState([]);
+  const [userID, setUserID] = useState([]);
+  const [mobilenumber, setMobilenumber] = useState("");
+  const[ patient,setPatient]=useState("");
+  console.log(healthScans, "healthScans");
 
   const [startDate, setStartDate] = useState(new Date());
   console.log(startDate.toLocaleString(), "startDate");
@@ -42,12 +54,16 @@ export default function BookingAdduser() {
   }
   const newdate = new Date();
   newdate?.setDate(newdate?.getDate() + 9);
-  const user = useSelector((state: any) => state?.auth?.user);
+  // const user = useSelector((state: any) => state?.auth?.user);
   // const token = useSelector((state: any) => state?.auth?.authToken);
+  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
   const doctor = useSelector((state: any) => state?.booking?.doctors);
   const city = useSelector((state: any) => state?.booking?.city);
   const branch = useSelector(
     (state: any) => state?.booking?.BranchAddressesByCityId
+  );
+  const PatientData = useSelector(
+    (state: any) => state?.booking?.patient
   );
   const branchwisetest = useSelector(
     (state: any) => state?.booking?.branchwisetestsByBranch
@@ -58,20 +74,51 @@ export default function BookingAdduser() {
   const healthScan = useSelector(
     (state: any) => state?.booking?.healthscanBybranch
   );
+  const bookingById = useSelector(
+    (state: any) => state?.booking?.BookingById
+  );
+ 
 
-  console.log(healthScan, "healthScan");
+  // console.log(PatientData, "healthScan");
   const totalAmount = [
-    ...healthPackage?.map((item:any) => Number(item?.price)),
-    ...healthScan?.map((item:any) => Number(item?.price)),
-    ...branchwisetest?.map((item:any) => Number(item?.price)),
+    ...healthPackages?.map((item: any) => Number(item?.price)),
+    ...healthScans?.map((item: any) => Number(item?.price)),
+    ...branchwisetests?.map((item: any) => Number(item?.price)),
   ]
     .reduce((a, b) => a + b, 0)
     .toString();
+  console.log(bookingById,"bookingById");
+  // useEffect(() => {
+  //   setData({
+  //     fullName: bookingById?.fullName,
+  //     email: bookingById?.email,
+  //     mobileNumber: bookingById?.mobileNumber,
+  //     dateOfAppointment: bookingById?.dateOfAppointment,
+  //     branch: bookingById?.branch,
+  //     message: bookingById?.message,
+  //     doctor: bookingById?.doctor,
+  //     type: bookingById?.type,
+  //     healthPackages: bookingById?.healthPackages,
+  //     healthScans: bookingById?.healthScans,
+  //     paymentId: bookingById?.paymentId,
+  //     paymentStatus: bookingById?.paymentStatus,
+  //     paymentMode: bookingById?.paymentMode,
+  //     city: bookingById?.city,
+  //     gender: bookingById?.gender,
+  //     branchwisetests: bookingById?.branchwisetests,
+  //     totalAmount:bookingById?.totalAmount,
+  //     address:bookingById?.address,
+  //     age:bookingById?.age,
+  //     user: userID,
+  //   })
+  //   setBooking(false);
+  //   console.log("hello")
+  // }, [booking])
   const [data, setData] = useState({
     fullName: " ",
     email: " ",
     mobileNumber: " ",
-    dateOfAppointment: " ",
+    dateOfAppointment: new Date(),
     branch: " ",
     message: " ",
     doctor: " ",
@@ -87,18 +134,68 @@ export default function BookingAdduser() {
     branchwisetests: [],
     totalAmount: "",
     address: "",
-    appointmentStatus:"",
+    // appointmentStatus: "",
     age: "",
-    user: user?.id,
+    user: userID,
   });
-
+console.log(data,"userID");
+const FindPatient = PatientData?.length > 0 &&  PatientData?.filter(
+  (item:any) => item?.mobileNumber === data.mobileNumber
+);
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name||e.target.id]: e.target.value });
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+      branchwisetests: branchwisetests,
+      healthPackages: healthPackages,
+      healthScans: healthScans,
+      totalAmount: totalAmount,
+      dateOfAppointment:startDate,
+      user: userID[0],
+      patient:patient,
+    });
   };
+const FindPatientDetails = ()=>{
+  type Patientdetails = {
+    gender?: string;
+    patientName?: string;
+    user ?: string;
+    mobileNumber?: string;
+    city ?: string;
+    branch ?: string;
+   };
+   const obj: Patientdetails = {};
+  obj.gender = data.gender;
+  obj.patientName = data.fullName;
+  obj.user = userID[0];
+  obj.mobileNumber = mobilenumber;
+  obj.city = data.city;
+  obj.branch = data.branch;
+ 
+  if (FindPatient.length === 0 &&  data.mobileNumber.length === 10 ) {
+   axios
+     .post("http://43.205.49.41:5377/patients", obj, {
+       headers: {
+         "content-type": "application/json",
+         Authorization: `Bearer ${token}`,
+       },
+     })
+     .then(({ data }) => {
+       console.log(data, "data");
+       handleSubmit(data);
+     })
+     .catch(() => {});
+ } else {
+  if(data.mobileNumber.length === 10){
+    handleSubmit(FindPatient[0]);
+  }
+ }
 
+}
   useEffect(() => {
     dispatch(fetchDoctors());
     dispatch(fetchCity());
+    dispatch(fetchPatients());
   }, []);
   useEffect(() => {
     dispatch(fetchBranchwisetestByBranch(data?.branch));
@@ -108,33 +205,114 @@ export default function BookingAdduser() {
   useEffect(() => {
     dispatch(fetchBranchAddressesByCityId(data?.city));
   }, [data?.city]);
-  const handleSubmit = () => {
-    setData({
-      fullName: " ",
-      email: " ",
-      mobileNumber: " ",
-      dateOfAppointment: " ",
-      branch: " ",
-      message: " ",
-      doctor: " ",
-      type: " ",
-      appointmentStatus:"",
-      healthPackages: [],
-      healthScans: [],
-      paymentId: " ",
-      paymentStatus: " ",
-      paymentMode: "",
-      city: "",
-      gender: "",
-      patient: "",
-      branchwisetests: [],
-      totalAmount: "",
-      address: "",
-      age: "",
-      user: "",
-    });
+
+
+  const handleSubmit = (i:any) => {  
+    if (id !== null) {
+      dispatch(Updatebooking(id, data, token));
+    }
+    else {
+      const AppointData = {...data,patient:i}
+      axios
+     .post("http://43.205.49.41:5377/appointments", AppointData, {
+       headers: {
+         "content-type": "application/json",
+         Authorization: `Bearer ${token}`,
+       },
+     })
+     .then(({ data }) => {
+       console.log(data, "data");
+     })
+     .catch(() => {});
+    }
+
+  setData({
+    fullName: " ",
+    email: " ",
+    mobileNumber: " ",
+    dateOfAppointment: new Date(),
+    branch: " ",
+    message: " ",
+    doctor: " ",
+    type: " ",
+    // appointmentStatus: "",
+    healthPackages: [],
+    healthScans: [],
+    paymentId: " ",
+    paymentStatus: " ",
+    paymentMode: "",
+    city: "",
+    gender: "",
+    patient: "",
+    branchwisetests: [],
+    totalAmount: "",
+    address: "",
+    age: "",
+    user: [],
+  });
   };
-console.log(data.branchwisetests,"branchwisetests");
+  console.log(data.branchwisetests, "branchwisetests");
+  useEffect(() => {
+    verifyuser();
+  }, [data.mobileNumber]);
+  const verifyuser = () => {
+    data.mobileNumber.length === 10 &&
+      axios
+        .get("http://43.205.49.41:5377/users-permissions/users", {
+          params: {
+            mobile: data.mobileNumber,
+          },
+            headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+          
+        })
+        .then((response) => {
+          console.log(response, "response");
+          if (response.data === true) {
+            // dispatch(fetchUsersByMobile(mobilenumber));
+            data.mobileNumber.length === 10 &&
+              axios
+                .get(`http://43.205.49.41:5377/users?mobile=${data.mobileNumber}`,{
+                  headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+                })
+                .then((response) => {
+                  console.log(response);
+                  if (response.status !== 200) {
+                    throw Error(response.statusText);
+                  }
+                  return response.data;
+                })
+                .then((data) => {
+                  console.log("llkkk--------------------", data);
+                  setUserID(data);
+                })
+                .catch(() => {});
+          } else {
+            data.mobileNumber.length === 10 &&
+              axios
+                .post("http://43.205.49.41:5377/auth/local/register", {
+                  mobile: data.mobileNumber,
+                  username: data.mobileNumber,
+                  password: "123456",
+                  email: `${data.mobileNumber}@gmail.com`,
+                },{
+                  headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+                })
+                .then((response) => {
+                  console.log(response);
+                  if (response.status !== 200) {
+                    throw Error(response.statusText);
+                  }
+                  return response.data;
+                })
+                .then((data) => {
+                  console.log("llkkk--------------------", data);
+                  setUserID(data?.user);
+                })
+                .catch(() => {});
+          }
+        })
+        .catch(() => {});
+  };
 
   return (
     <>
@@ -197,13 +375,13 @@ console.log(data.branchwisetests,"branchwisetests");
                         {/*begin::Input group*/}
                         <div className="form">
                           <div className="form-group row mb-4">
-                            <div className="col-lg-5">
-                              {/* <label>FullName:</label> */}
+                          <div className="col-lg-5">
+                              {/* <label> Age:</label> */}
                               <input
                                 type="text"
-                                className="form-control"
-                                placeholder="Enter Full Name"
                                 name="fullName"
+                                className="form-control"
+                                placeholder="Enter fullName"
                                 value={data?.fullName}
                                 onChange={handleChange}
                               />
@@ -240,7 +418,7 @@ console.log(data.branchwisetests,"branchwisetests");
                                 className="form-control"
                                 placeholder="Enter Age"
                                 value={data?.age}
-                                onChange={handleChange} 
+                                onChange={handleChange}
                               />
                             </div>
                           </div>
@@ -291,27 +469,29 @@ console.log(data.branchwisetests,"branchwisetests");
                           </div>
                           <div className="form-group row mb-4">
                             {data?.type === "doctorAppointment" && (
-                            <div className="col-lg-5">
-                              {/* <label>Doctor:</label> */}
-                              <select
-                                className="form-select mb-2"
-                                data-control="select2"
-                                data-hide-search="true"
-                                data-placeholder="Select an option"
-                                value={data.doctor}
-                                onChange={handleChange}
-                                name="doctor"
-                              >
-                                <option value="" disabled selected>
-                                  --Select Doctor --
-                                </option>
-                                <option></option>
-                                {doctor?.map((item: any) => (
-                                  <option value={item?.id}>{item?.name}</option>
-                                ))}
-                              </select>
-                            </div>
-                           )}
+                              <div className="col-lg-5">
+                                {/* <label>Doctor:</label> */}
+                                <select
+                                  className="form-select mb-2"
+                                  data-control="select2"
+                                  data-hide-search="true"
+                                  data-placeholder="Select an option"
+                                  value={data.doctor}
+                                  onChange={handleChange}
+                                  name="doctor"
+                                >
+                                  <option value="" disabled selected>
+                                    --Select Doctor --
+                                  </option>
+                                  <option></option>
+                                  {doctor?.map((item: any) => (
+                                    <option value={item?.id}>
+                                      {item?.name}
+                                    </option>
+                                  ))}
+                                </select>
+                              </div>
+                            )}
                           </div>
                           <div className="form-group row mb-4">
                             <div className="col-lg-5">
@@ -325,8 +505,7 @@ console.log(data.branchwisetests,"branchwisetests");
                                 onChange={handleChange}
                               />
                             </div>
-                            <div className="col-lg-5">
-                              {/* <label>Appointment Status</label> */}
+                            {/* <div className="col-lg-5">
                               <select
                                 className="form-select mb-2"
                                 data-control="select2"
@@ -337,13 +516,13 @@ console.log(data.branchwisetests,"branchwisetests");
                                 onChange={handleChange}
                               >
                                 <option value="" disabled selected>
-                                  --Select  Appointment Status --
+                                  --Select Appointment Status --
                                 </option>
                                 <option value="visited">visited</option>
                                 <option value="rescheduled">rescheduled</option>
                                 <option value="cancelled"> cancelled</option>
                               </select>
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group row mb-4">
                             <div className="col-lg-5">
@@ -385,79 +564,84 @@ console.log(data.branchwisetests,"branchwisetests");
                               </select>
                             </div>
                           </div>
-                          {data?.branch!=="" &&(
+                          {data?.branch !== "" && (
                             <>
-                            <div className="form-group row mb-4">
-                            {branchwisetest.length>0 && (
-                              <div className="col-lg-5">
-                                <Autocomplete
-                                  multiple
-                                  id="controllable-states-demo"
-                                  options={branchwisetest}
-                                  getOptionLabel={(option: any) =>
-                                    option?.test?.testName
-                                  }
-                                  onChange={(e:any) => {
-                                    setBranchwisetests(e.target.value);
-                                  }}
-                                  value={data.branchwisetests}
-                                  renderInput={(params) => (
-                                    <TextField
-                                      {...params}
-                                      label="Test"
-                                      variant="outlined"
-                                    
+                              <div className="form-group row mb-4">
+                                {branchwisetest.length > 0 && (
+                                  <div className="col-lg-5">
+                                    <Autocomplete
+                                      multiple
+                                      id="controllable-states-demo"
+                                      options={branchwisetest}
+                                      getOptionLabel={(option: any) =>
+                                        option?.test?.testName
+                                      }
+                                      onChange={(_event, newTeam: any) => {
+                                        setBranchwisetests(newTeam);
+                                      }}
+                                      value={branchwisetests}
+                                      renderInput={(params) => (
+                                        <TextField
+                                          {...params}
+                                          label="Test"
+                                          variant="outlined"
+                                        />
+                                      )}
                                     />
-                                  )}
-                                />
-                              </div>
-                            )}
-                            {healthPackage.length>0 && (
-                              <div className="col-lg-5">
-                                <Autocomplete
-                                  multiple
-                                  id="controllable-states-demo"
-                                  options={healthPackage}
-                                  onChange={handleChange}
-                                  getOptionLabel={(option: any) =>
-                                    option?.title
-                                  }
-                                  renderInput={(params) => (
-                                    <TextField
-                                      {...params}
-                                      label="HealthPackage"
-                                      variant="outlined"
+                                  </div>
+                                )}
+                                {healthPackage.length > 0 && (
+                                  <div className="col-lg-5">
+                                    <Autocomplete
+                                      multiple
+                                      id="controllable-states-demo"
+                                      options={healthPackage}
+                                      getOptionLabel={(option: any) =>
+                                        option?.title
+                                      }
+                                      onChange={(_event, newTeam: any) => {
+                                        setHealthPackages(newTeam);
+                                      }}
+                                      value={healthPackages}
+                                      renderInput={(params) => (
+                                        <TextField
+                                          {...params}
+                                          label="HealthPackage"
+                                          variant="outlined"
+                                        />
+                                      )}
                                     />
-                                  )}
-                                />
+                                  </div>
+                                )}
                               </div>
-                            )}
-                          </div>
-                            <div className="form-group row mb-4">
-                            {healthScan.length>0 && (
-                              <div className="col-lg-5">
-                                <Autocomplete
-                                  multiple
-                                  id="controllable-states-demo"
-                                  options={healthScan}
-                                  getOptionLabel={(option: any) =>
-                                    option?.title
-                                  }
-                                  renderInput={(params) => (
-                                    <TextField
-                                      {...params}
-                                      label="HealthScan"
-                                      variant="outlined"
+                              <div className="form-group row mb-4">
+                                {healthScan.length > 0 && (
+                                  <div className="col-lg-5">
+                                    <Autocomplete
+                                      multiple
+                                      id="controllable-states-demo"
+                                      options={healthScan}
+                                      getOptionLabel={(option: any) =>
+                                        option?.title
+                                      }
+                                      onChange={(_event, newTeam: any) => {
+                                        setHealthScans(newTeam);
+                                      }}
+                                      value={healthScans}
+                                      renderInput={(params) => (
+                                        <TextField
+                                          {...params}
+                                          label="HealthScan"
+                                          variant="outlined"
+                                        />
+                                      )}
                                     />
-                                  )}
-                                />
+                                  </div>
+                                )}
                               </div>
-                              )}
-                            </div>
                             </>
                           )}
-                          
-                          
+
                           <div className="form-group row mb-4">
                             <div className="col-lg-5">
                               {/* <label>message:</label> */}
@@ -470,13 +654,13 @@ console.log(data.branchwisetests,"branchwisetests");
                                 onChange={handleChange}
                               />
                             </div>
-                            {/* <div className="col-lg-5">
-                              <label>Select the date of Appointment</label>
+                            <div className="col-lg-4">
+                              {/* <label>Select the date of Appointment</label> */}
                               <div style={{ width: "100%", height: "100%" }}>
                                 <DatePicker
                                   showTimeSelect
                                   selected={startDate}
-                                  onChange={(date) => setStartDate(date)}
+                                  onChange={(date: any) => setStartDate(date)}
                                   minDate={new Date()}
                                   maxDate={newdate}
                                   minTime={
@@ -498,12 +682,12 @@ console.log(data.branchwisetests,"branchwisetests");
                                     <input
                                       // type="date"
                                       placeholder="Select"
-                                      style={{ height: "40px", width: "250px" }}
+                                      style={{ height: "40px", width: "350px" }}
                                     />
                                   }
                                 />
                               </div>
-                            </div> */}
+                            </div>
                           </div>
                           <div className="form-group row mb-4">
                             <div className="col-lg-5">
@@ -549,26 +733,26 @@ console.log(data.branchwisetests,"branchwisetests");
                             </div>
                           </div>
                           <div className="form-group row mb-4">
-                            <div className="col-lg-5">
-                              {/* <label>paymentId:</label> */}
-                              <input
-                                type="email"
-                                className="form-control"
-                                placeholder="Enter PaymentId"
-                                name="paymentId"
-                                value={data.paymentId}
-                                onChange={handleChange}
-                              />
-                            </div>
+                            {data.paymentMode !== "cash" && (
+                              <div className="col-lg-5">
+                                {/* <label>paymentId:</label> */}
+                                <input
+                                  type="email"
+                                  className="form-control"
+                                  placeholder="Enter PaymentId"
+                                  name="paymentId"
+                                  value={data.paymentId}
+                                  onChange={handleChange}
+                                />
+                              </div>
+                            )}
                             <div className="col-lg-5">
                               {/* <label>TotalAmount:</label> */}
                               <input
                                 type="email"
                                 className="form-control"
                                 placeholder="Enter Total Amount"
-                                name="totalAmount"
-                                value={data.totalAmount}
-                                onChange={handleChange}
+                                value={totalAmount}
                               />
                             </div>
                           </div>
@@ -591,7 +775,7 @@ console.log(data.branchwisetests,"branchwisetests");
                   id="kt_ecommerce_add_product_submit"
                   onClick={() => {
                     // navigation("users");
-                    handleSubmit();
+                    FindPatientDetails()
                   }}
                   className="btn btn-primary"
                 >
