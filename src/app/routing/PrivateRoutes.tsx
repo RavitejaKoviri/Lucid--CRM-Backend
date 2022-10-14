@@ -47,6 +47,7 @@ const PrivateRoutes = () => {
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const InboxPage = lazy(() => import('../modules/apps/chat/InboxPage'))
   const UsersPage = lazy(() => import('../modules/user-management/UsersPage'))
+  
   const LeadsPage = lazy(() => import('../modules/leads/LeadsPage'))
   const TargetPage = lazy(() => import('../modules/Targets/TargetPage'))
   const TasksPage = lazy(() => import('../modules/task/TasksPage'))
@@ -173,22 +174,22 @@ const PrivateRoutes = () => {
         />
 
         <Route
-          path='apps/user-management/*'
+          path='team-members/*'
           element={
             <SuspensedView>
               <UsersPage />
             </SuspensedView>
           }
         />
-        <Route
+        {/* <Route
           path='apps/user-management/*'
           element={
             <SuspensedView>
               <UsersPage />
             </SuspensedView>
           }
-        />
-
+        /> */}
+       
         <Route
           path='tasks/*'
           element={

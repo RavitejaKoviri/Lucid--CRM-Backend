@@ -125,12 +125,11 @@ export function AsideMenuMain() {
         // bsTitle='Leads'
         fontIcon='bi-gear'
       >
-        <AsideMenuItem to='/sources' title='Sources' fontIcon='bi-layers fs-3' />
-        {/* <AsideMenuItem to='/settings/brands' title='Brands' fontIcon='bi-layers fs-3' /> */}
-        {/* <AsideMenuItem to='/brands' title='Brands' fontIcon='bi-layers fs-3' /> */}
-        <AsideMenuItem to='/brands' title='Brands' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/department' title='Department' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/settings/team-members' title='Team Members' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/settings/sources' title='Sources' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/settings/brands' title='Brands' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/settings/departments' title='Departments' fontIcon='bi-layers fs-3' />
+          
+        <AsideMenuItem to='/team-members' title='Team Members' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/roles' title='Tickets' fontIcon='bi-layers fs-3' />
         {/* <AsideMenuItem to='/settings/contacts' title='Targets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/contacts' title='Contacts' fontIcon='bi-layers fs-3' /> */}

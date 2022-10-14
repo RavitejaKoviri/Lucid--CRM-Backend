@@ -21,7 +21,7 @@ export const getAllContacts = (token: any, companyId: any) => (dispatch: any) =>
     });
 };
 
-//get source details
+//get  details
 export const getsource = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
