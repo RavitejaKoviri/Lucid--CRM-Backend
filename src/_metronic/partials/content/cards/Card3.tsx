@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {FC} from 'react'
-import {toAbsoluteUrl, KTSVG} from '../../../helpers'
+import { FC } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { DeleteContact, getContactById } from '../../../../app/modules/Contact/contacts-list/_redux/contactAction'
+import { toAbsoluteUrl, KTSVG } from '../../../helpers'
 
 type Props = {
   color?: string
@@ -10,7 +13,9 @@ type Props = {
   job: string
   avgEarnings: string
   totalEarnings: string
+  id: string
 }
+
 
 const Card3: FC<Props> = ({
   color = '',
@@ -20,7 +25,22 @@ const Card3: FC<Props> = ({
   job,
   avgEarnings,
   totalEarnings,
+  id
 }) => {
+  console.log(id, " id");
+
+  const navigation = useNavigate()
+  const dispatch = useDispatch();
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
+  const openEditModal = () => {
+    navigation('contactaddcontact', { state: { id } })
+    dispatch(getContactById(id, token))
+  }
+
+  const deleteItem = () =>
+    dispatch(DeleteContact(id, token))
   return (
     <div className='card'>
       <div className='card-body d-flex flex-center flex-column p-9'>
@@ -31,7 +51,45 @@ const Card3: FC<Props> = ({
                 {name.charAt(0)}
               </span>
             ) : (
-              <img alt='Pic' src={toAbsoluteUrl(avatar)} />
+              <>
+                <img alt='Pic' src={toAbsoluteUrl(avatar)} />
+
+                <a
+                  href='#'
+                  className='btn btn-light btn-active-light-primary btn-sm'
+                  data-kt-menu-trigger='click'
+                  data-kt-menu-placement='bottom-end'
+                >
+                  Actions
+                  <KTSVG path='/media/icons/duotune/arrows/arr072.svg' className='svg-icon-5 m-0' />
+                </a>
+                {/* begin::Menu */}
+                <div
+                  className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold fs-7 w-125px py-4'
+                  data-kt-menu='true'
+                >
+                  {/* begin::Menu item */}
+                  <div className='menu-item px-3'>
+                    <a className='menu-link px-3' onClick={openEditModal}>
+                      Edit
+                    </a>
+                  </div>
+                  {/* end::Menu item */}
+
+                  {/* begin::Menu item */}
+                  <div className='menu-item px-3'>
+                    <a
+                      className='menu-link px-3'
+                      data-kt-users-table-filter='delete_row'
+                      onClick={deleteItem}
+                    >
+                      Delete
+                    </a>
+                  </div>
+                  {/* end::Menu item */}
+                </div>
+                {/* end::Menu */}
+              </>
             )}
             {online && (
               <div className='symbol-badge bg-success start-100 top-100 border-4 h-15px w-15px ms-n3 mt-n3'></div>
@@ -66,4 +124,4 @@ const Card3: FC<Props> = ({
   )
 }
 
-export {Card3}
+export { Card3 }

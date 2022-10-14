@@ -14,23 +14,8 @@ export default function SourceAdduser() {
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
-  const user = useSelector(
-    (state: any) => state?.auth?.user
-  );
-  const source = useSelector(
-    (state: any) => state?.LeadData?.Source
-  );
-  const campaign = useSelector(
-    (state: any) => state?.LeadData?.campaigns
-  );
-  const company = useSelector(
-    (state: any) => state?.LeadData?.Comapnies
-  );
-  const status = useSelector(
-    (state: any) => state?.LeadData?.leadStatus
-  );
   const sourceById = useSelector(
-    (state: any) => state?.LeadData?.LeadsById
+    (state: any) => state?.Sources?.SourcesById
   );
   console.log(sourceById, "leadById");
 
@@ -39,37 +24,15 @@ export default function SourceAdduser() {
     dispatch(getcampaigns(token))
     dispatch(getcompanies(token))
     dispatch(getsourceStatuses(token))
-    if (id !== "") {
+    if (id !== null) {
       dispatch(getSourcesById(id, token))
       setSource(true);
     }
   }, [])
 
-  // useEffect(() => {
-  //   setData({
-  //     Name: sourceById?.Name,
-      
-  //   })
-  //   setSource(false);
-  //   console.log("hello")
-  // }, [source])
-
   const [data, setData] = useState(
     {
-      Name: " ",
-      // leadPhonenumber: " ",
-      // leadIndustry: " ",
-      // leadAnnualRevenueContribution: " ",
-      // leadEmailOptOut: " ",
-      // leadCompanyName: " ",
-      // leadLastName: " ",
-      // leadEmail: " ",
-      // leadWebsite: " ",
-      // leadSource: " ",
-      // campaignSource: " ",
-      // company: " ",
-      // leadStatus: " ",
-      // leadOwner: user?.id,
+      SourceName: " ",
     })
 
   const handleChange = (e: any) => {
@@ -85,63 +48,56 @@ export default function SourceAdduser() {
       dispatch(CreateSource(data, token));
     }
     setData({
-      Name: " ",
-      // leadPhonenumber: " ",
-      // leadIndustry: " ",
-      // leadAnnualRevenueContribution: " ",
-      // leadEmailOptOut: " ",
-      // leadCompanyName: " ",
-      // leadLastName: " ",
-      // leadEmail: " ",
-      // leadWebsite: " ",
-      // leadSource: " ",
-      // campaignSource: " ",
-      // company: " ",
-      // leadStatus: " ",
-      // leadOwner: " ",
+      SourceName: " ",
     })
   };
+  useEffect(() => {
+    setData({
+      SourceName: sourceById?.SourceName,
+    })
+    setSource(false);
+  }, [Source])
   return (
     <>
-     
+
       <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-              {/*begin:::Tabs*/}
-             
-              {/*end:::Tabs*/}
-              {/*begin::Tab content*/}
-              <div className="tab-content">
-                {/*begin::Tab pane*/}
-                <div
-                  className="tab-pane fade show active"
-                  role="tab-panel"
-                >
-                  <div className="d-flex flex-column gap-7 gap-lg-10">
-                    {/*begin::General options*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>General</h2>
-                        </div>
+        {/*begin:::Tabs*/}
+
+        {/*end:::Tabs*/}
+        {/*begin::Tab content*/}
+        <div className="tab-content">
+          {/*begin::Tab pane*/}
+          <div
+            className="tab-pane fade show active"
+            role="tab-panel"
+          >
+            <div className="d-flex flex-column gap-7 gap-lg-10">
+              {/*begin::General options*/}
+              <div className="card card-flush py-4">
+                {/*begin::Card header*/}
+                <div className="card-header">
+                  <div className="card-title">
+                    <h2>General</h2>
+                  </div>
+                </div>
+                {/*end::Card header*/}
+                {/*begin::Card body*/}
+                <div className="card-body pt-0">
+                  {/*begin::Input group*/}
+                  <form className="form">
+                    <div className="form-group row mb-2 ">
+                      <div className="col-lg-6 ">
+                        <label>Name:</label>
+                        <input
+                          type="text"
+                          value={data.SourceName}
+                          onChange={handleChange}
+                          name="SourceName"
+                          className="form-control"
+                          placeholder="Name"
+                        />
                       </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <form className="form">
-                          <div className="form-group row mb-2 ">
-                            <div className="col-lg-6 ">
-                              <label>Name:</label>
-                              <input
-                                type="text"
-                                value={data.Name}
-                                onChange={handleChange}
-                                name="Name"
-                                className="form-control"
-                                placeholder="Name"
-                              />
-                            </div>
-                            {/* <div className="col-lg-6">
+                      {/* <div className="col-lg-6">
                               <label>Lead LastName:</label>
                               <input
                                 type="text"
@@ -152,8 +108,8 @@ export default function SourceAdduser() {
                                 placeholder="Enter LastNamer"
                               />
                             </div> */}
-                          </div>
-                          {/* <div className="form-group row mb-2">
+                    </div>
+                    {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>PhoneNumber:</label>
                               <input
@@ -177,7 +133,7 @@ export default function SourceAdduser() {
                               />
                             </div>
                           </div> */}
-                          {/* <div className="form-group row mb-2">
+                    {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>EmailOptOut:</label>
                               <input
@@ -201,7 +157,7 @@ export default function SourceAdduser() {
                               />
                             </div>
                           </div> */}
-                          {/* <div className="form-group row mb-2">
+                    {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>AnnualRevenue:</label>
                               <input
@@ -225,8 +181,8 @@ export default function SourceAdduser() {
                               />
                             </div>
                           </div> */}
-                          <div className="form-group row mb-2">
-                            {/* <div className="col-lg-6">
+                    <div className="form-group row mb-2">
+                      {/* <div className="col-lg-6">
                               <label>Website:</label>
                               <input
                                 type="text"
@@ -237,7 +193,7 @@ export default function SourceAdduser() {
                                 placeholder="Enter Website"
                               />
                             </div> */}
-                            {/* <div className="col-lg-6">
+                      {/* <div className="col-lg-6">
                               <label>Source:</label>
                               <input
                                 type="text"
@@ -248,8 +204,8 @@ export default function SourceAdduser() {
                                 placeholder="Source"
                               />
                             </div> */}
-                          </div>
-                          {/* <div className="form-group row mb-2">
+                    </div>
+                    {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>CampaignSource:</label>
                               <input
@@ -273,7 +229,7 @@ export default function SourceAdduser() {
                               />
                             </div>
                           </div> */}
-                          {/* <div className="form-group row mb-2">
+                    {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>Status:</label>
                               <input
@@ -286,11 +242,11 @@ export default function SourceAdduser() {
                               />
                             </div>
                           </div> */}
-                        </form>
-                      </div>
-                    </div>
-                    {/* START:MEDIA */}
-                    {/* <div className="card card-flush py-4">
+                  </form>
+                </div>
+              </div>
+              {/* START:MEDIA */}
+              {/* <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
                           <h2>Media</h2>
@@ -335,34 +291,34 @@ export default function SourceAdduser() {
 
 
 
-                    {/*end::Media*/}
-                  </div>
-                </div>
-                {/*end::Tab pane*/}
-              </div>
-              <div className="d-flex justify-content-end">
-                <a
-                  href="../../demo6/dist/apps/ecommerce/catalog/products.html"
-                  id="kt_ecommerce_add_product_cancel"
-                  className="btn btn-light me-5"
-                >
-                  Cancel
-                </a>
-                <button
-                  onClick={() => {
-                    handleSubmit()
-                    // navigation("users");
-                  }}
-                  className="btn btn-primary"
-                >
-                  <span className="indicator-label">Save Changes</span>
-                  <span className="indicator-progress">
-                    Please wait...
-                    <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
-                  </span>
-                </button>
-              </div>
+              {/*end::Media*/}
             </div>
+          </div>
+          {/*end::Tab pane*/}
+        </div>
+        <div className="d-flex justify-content-end">
+          <a
+            href="../../demo6/dist/apps/ecommerce/catalog/products.html"
+            id="kt_ecommerce_add_product_cancel"
+            className="btn btn-light me-5"
+          >
+            Cancel
+          </a>
+          <button
+            onClick={() => {
+              handleSubmit()
+              // navigation("users");
+            }}
+            className="btn btn-primary"
+          >
+            <span className="indicator-label">Save Changes</span>
+            <span className="indicator-progress">
+              Please wait...
+              <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+          </button>
+        </div>
+      </div>
     </>
   );
 }

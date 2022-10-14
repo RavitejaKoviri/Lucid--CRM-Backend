@@ -65,6 +65,7 @@ export function ContactsData() {
               job={item?.contactJobTitle}
               avgEarnings={item?.contactCompanyName}
               totalEarnings={item?.contactCountry}
+              id={item?.id}
             />
           </div>
         ))}

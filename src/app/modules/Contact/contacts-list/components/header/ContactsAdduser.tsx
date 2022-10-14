@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { CreateContact, getcampaigns, getcompanies, getsource } from "../../_redux/contactAction";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CreateContact, getcampaigns, getcompanies, getsource, UpdateContact } from "../../_redux/contactAction";
 // import { FC, useState } from 'react'
 // import * as Yup from 'yup'
 // import { useFormik } from 'formik'
@@ -15,7 +16,9 @@ import { CreateContact, getcampaigns, getcompanies, getsource } from "../../_red
 
 export default function ContactsAdduser() {
   const navigation = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
+  const id = location?.state
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
@@ -31,6 +34,10 @@ export default function ContactsAdduser() {
   const user = useSelector(
     (state: any) => state?.auth?.users
   );
+  const ContactById = useSelector(
+    (state: any) => state?.ContactData?.ContactById
+  );
+  const [contact, setContact] = useState(false);
   useEffect(() => {
     dispatch(getsource(token))
     dispatch(getcampaigns(token))
@@ -38,62 +45,98 @@ export default function ContactsAdduser() {
   }, [])
 
   const [data, setData] = useState({
-    company:user?.company,
-    contactCompanyName:" ",
-    contactName:" ",
-    contactEmail:" ",
-    contactMobile:" ",
-    contactTitle:" ",
-    contactFirstName:" ",
-    contactLastName:" ",
-    contactJobTitle:" ",
-    contactCity:" ",
-    contactAddress:" ",
-    contactState:" ",
-    contactPincode:" ",
-    contactCountry:" ",
-    contactWebsiteAddress:" ",
-    contactSecondaryEmail:" ",
-    contactNotes:" ",
-    contactTwitterHandle:" ",
-    contactFacebookHandle:" ",
-    contactInstagramHandle:" ",
-    contactLinkedinHandle:" ",
-    contactSource:" ",
-    campaignSource:" ",
+    company: user?.company,
+    contactCompanyName: " ",
+    contactName: " ",
+    contactEmail: " ",
+    contactMobile: " ",
+    contactTitle: " ",
+    contactFirstName: " ",
+    contactLastName: " ",
+    contactJobTitle: " ",
+    contactCity: " ",
+    contactAddress: " ",
+    contactState: " ",
+    contactPincode: " ",
+    contactCountry: " ",
+    contactWebsiteAddress: " ",
+    contactSecondaryEmail: " ",
+    contactNotes: " ",
+    contactTwitterHandle: " ",
+    contactFacebookHandle: " ",
+    contactInstagramHandle: " ",
+    contactLinkedinHandle: " ",
+    contactSource: " ",
+    campaignSource: " ",
   });
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    setData({
+      company: ContactById?.company,
+      contactCompanyName: ContactById?.contactCompanyName,
+      contactName: ContactById?.contactName,
+      contactEmail: ContactById?.contactEmail,
+      contactMobile: ContactById?.contactMobile,
+      contactTitle: ContactById?.contactTitle,
+      contactFirstName: ContactById?.contactFirstName,
+      contactLastName: ContactById?.contactLastName,
+      contactJobTitle: ContactById?.contactJobTitle,
+      contactCity: ContactById?.contactCity,
+      contactAddress: ContactById?.contactAddress,
+      contactState: ContactById?.contactState,
+      contactPincode: ContactById?.contactPincode,
+      contactCountry: ContactById?.contactCountry,
+      contactWebsiteAddress: ContactById?.contactWebsiteAddress,
+      contactSecondaryEmail: ContactById?.contactSecondaryEmail,
+      contactNotes: ContactById?.contactNotes,
+      contactTwitterHandle: ContactById?.contactTwitterHandle,
+      contactFacebookHandle: ContactById?.contactFacebookHandle,
+      contactInstagramHandle: ContactById?.contactInstagramHandle,
+      contactLinkedinHandle: ContactById?.contactLinkedinHandle,
+      contactSource: ContactById?.contactSource,
+      campaignSource: ContactById?.campaignSource,
+    })
+    setContact(false);
+    console.log("hello")
+  }, [contact])
+
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(CreateContact(data, token));
-    console.log(data,"data")
+    if (id !== null) {
+      dispatch(UpdateContact(id, data, token));
+    }
+    else {
+      dispatch(CreateContact(data, token));
+    }
+
+    console.log(data, "data")
     setData({
       company: " ",
-      contactCompanyName:" ",
-      contactName:" ",
-      contactEmail:" ",
-      contactMobile:" ",
-      contactTitle:" ",
-      contactFirstName:" ",
-      contactLastName:" ",
-      contactJobTitle:" ",
-      contactCity:" ",
-      contactAddress:" ",
-      contactState:" ",
-      contactPincode:" ",
-      contactCountry:" ",
-      contactWebsiteAddress:" ",
-      contactSecondaryEmail:" ",
-      contactNotes:" ",
-      contactTwitterHandle:" ",
-      contactFacebookHandle:" ",
-      contactInstagramHandle:" ",
-      contactLinkedinHandle:" ",
-      contactSource:" ",
-      campaignSource:" ",
+      contactCompanyName: " ",
+      contactName: " ",
+      contactEmail: " ",
+      contactMobile: " ",
+      contactTitle: " ",
+      contactFirstName: " ",
+      contactLastName: " ",
+      contactJobTitle: " ",
+      contactCity: " ",
+      contactAddress: " ",
+      contactState: " ",
+      contactPincode: " ",
+      contactCountry: " ",
+      contactWebsiteAddress: " ",
+      contactSecondaryEmail: " ",
+      contactNotes: " ",
+      contactTwitterHandle: " ",
+      contactFacebookHandle: " ",
+      contactInstagramHandle: " ",
+      contactLinkedinHandle: " ",
+      contactSource: " ",
+      campaignSource: " ",
     });
   };
 
@@ -180,8 +223,8 @@ export default function ContactsAdduser() {
               {/*end::Thumbnail settings*/}
 
 
-             {/*begin::Status*/}
-            
+              {/*begin::Status*/}
+
               {/*end::Status*/}
               <div className="card card-flush py-4">
                 {/*begin::Card header*/}
@@ -297,9 +340,9 @@ export default function ContactsAdduser() {
                 {/*end::Card body*/}
               </div>
               {/*end::Status*/}
-             
-              
-             
+
+
+
             </div>
             {/*end::Aside column*/}
             {/*begin::Main column*/}
@@ -317,7 +360,7 @@ export default function ContactsAdduser() {
                   </a>
                 </li>
                 {/*end:::Tab item*/}
-                
+
               </ul>
               {/*end:::Tabs*/}
               {/*begin::Tab content*/}
@@ -352,7 +395,7 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 // name="Name"
                                 className="form-control"
-                                
+
                               />
                             </div>
                             <div className="col-lg-6">
@@ -367,7 +410,7 @@ export default function ContactsAdduser() {
                               />
                             </div>
                             {/*begin::Status*/}
-                           
+
                             {/*end::Status*/}
 
                             {/* <div className="col-lg-6">
@@ -381,7 +424,7 @@ export default function ContactsAdduser() {
                             />
                           </div> */}
                           </div>
-                         
+
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>FirstName:</label>
@@ -407,7 +450,7 @@ export default function ContactsAdduser() {
                             </div>
                           </div>
                           <div className="form-group row mb-2">
-                          <div className="col-lg-6">
+                            <div className="col-lg-6">
                               <label>SecondaryEmail:</label>
                               <input
                                 type="text"
@@ -548,12 +591,12 @@ export default function ContactsAdduser() {
                                 onChange={handleChange}
                                 name="contactNotes"
                                 className="form-control"
-                              placeholder="Notes"
+                                placeholder="Notes"
                               />
                             </div>
                           </div>
                           <div className="form-group row mb-2">
-                           
+
                             <div className="col-lg-6">
                               <label>TwitterHandle:</label>
                               <input
@@ -603,16 +646,16 @@ export default function ContactsAdduser() {
                           </div>
 
                           <div className="form-group row mb-2">
-                            
-                            
+
+
                           </div>
 
-                          
+
                         </form>
                       </div>
                     </div>
-                    
-                    
+
+
                   </div>
                 </div>
                 {/*end::Tab pane*/}

@@ -16,7 +16,7 @@ import UserContext from './columns/context'
 const SourcesTable = () => {
   const users = useQueryResponseData()
   const user = useSelector(
-    (state: any) => state?.LeadData?.Leads
+    (state: any) => state?.Sources?.Sources
   );
   const isLoading = useQueryResponseLoading()
   const data = useMemo(() => user, [user])
@@ -37,6 +37,7 @@ const SourcesTable = () => {
     dispatch(getSources(token))
   }, [])
   console.log(user, "users")
+  const { searchTerm } = useContext(UserContext);
 
   return (
     <KTCardBody className='py-4'>
@@ -55,7 +56,16 @@ const SourcesTable = () => {
           </thead>
           <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>
             {rows.length > 0 ? (
-              rows.map((row: Row<Lead>, i) => {
+              rows.filter((val: any) => {
+                if (searchTerm === "") {
+                  return val;
+                }
+                console.log(val, "val")
+                if (val?.original?.SourceName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  console.log(val, "useC");
+                  return val;
+                }
+              }).map((row: Row<Lead>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />
               })

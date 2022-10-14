@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateBrands, getcampaigns, getcompanies, getBrandsById, getBrandsStatuses, getsource, UpdateBrands } from "../../_redux/brandsAction";
+import { CreateBrands, getBrandsById, getBrandsStatuses, getsource, UpdateBrands } from "../../_redux/brandsAction";
 
 export default function AddBrands() {
   const location = useLocation();
@@ -17,46 +17,30 @@ export default function AddBrands() {
   const user = useSelector(
     (state: any) => state?.auth?.user
   );
-  const source = useSelector(
-    (state: any) => state?.BrandsData?.Source
-  );
-  const campaign = useSelector(
-    (state: any) => state?.BrandsData?.campaigns
-  );
-  const company = useSelector(
-    (state: any) => state?.BrandsData?.Comapnies
-  );
-  const status = useSelector(
-    (state: any) => state?.BrandsData?.BrandsStatus
-  );
   const BrandsById = useSelector(
-    (state: any) => state?.BrandsData?.BrandssById
+    (state: any) => state?.BrandsData?.BrandsById
   );
   console.log(BrandsById, "BrandsById");
-
   useEffect(() => {
-    dispatch(getsource(token))
-    dispatch(getcampaigns(token))
-    dispatch(getcompanies(token))
-    dispatch(getBrandsStatuses(token))
+
     if (id !== "") {
       dispatch(getBrandsById(id, token))
       setBrands(true);
     }
   }, [])
 
-  // useEffect(() => {
-  //   setData({
-  //     BrandsName: BrandsById?.BrandsName,
-  //     company: BrandsById?.company,
-  //   })
-  //   setBrands(false);
-  //   console.log("hello")
-  // }, [Brands])
+  useEffect(() => {
+    setData({
+      brandName: BrandsById?.brandName,
+      company: BrandsById?.company,
+    })
+    setBrands(false);
+    console.log("hello")
+  }, [Brands])
 
   const [data, setData] = useState(
     {
-      BrandsName: " ",
+      brandName: " ",
       company: user?.company?.id,
     })
 
@@ -70,12 +54,12 @@ export default function AddBrands() {
       dispatch(UpdateBrands(id, data, token));
     }
     else {
-      
-      console.log(user,"data")
+
+      console.log(user, "data")
       dispatch(CreateBrands(data, token));
     }
     setData({
-      BrandsName: " ",
+      brandName: " ",
       company: " ",
     })
   };
@@ -91,7 +75,7 @@ export default function AddBrands() {
             className="form d-flex flex-column flex-lg-row"
           // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
-            
+
             {/*begin::Main column*/}
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
               {/*begin:::Tabs*/}
@@ -129,7 +113,7 @@ export default function AddBrands() {
                       {/*begin::Card body*/}
                       <div className="card-body pt-0">
 
-                        
+
                         {/*begin::Input group*/}
                         <form className="form">
                           <div className="form-group row mb-2">
@@ -137,9 +121,9 @@ export default function AddBrands() {
                               <label>Brand Name</label>
                               <input
                                 type="text"
-                                value={data.BrandsName}
+                                value={data.brandName}
                                 onChange={handleChange}
-                                name="BrandsName"
+                                name="brandName"
                                 className="form-control"
                                 placeholder="Enter Brands"
                               />
@@ -156,7 +140,7 @@ export default function AddBrands() {
                               />
                             </div> */}
                           </div>
-                         
+
                           {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>CampaignSource:</label>

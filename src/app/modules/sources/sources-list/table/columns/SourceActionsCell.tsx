@@ -23,7 +23,7 @@ const SourceActionsCell: FC<Props> = ({ id }) => {
   }, [])
 
   const openEditModal = () => {
-    navigation('leadadduser', { state: { id } })
+    navigation('addsource', { state: { id } })
   }
 
   const deleteItem = () =>

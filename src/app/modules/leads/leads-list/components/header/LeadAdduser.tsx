@@ -39,7 +39,7 @@ export default function LeadAdduser() {
     dispatch(getcampaigns(token))
     dispatch(getcompanies(token))
     dispatch(getleadStatuses(token))
-    if (id !== "") {
+    if (id !== null) {
       dispatch(getLeadsById(id, token))
       setLead(true);
     }
@@ -49,14 +49,27 @@ export default function LeadAdduser() {
     setData({
       leadFirstName: leadById?.leadFirstName,
       leadPhonenumber: leadById?.leadPhonenumber,
+      leadGender: leadById?.leadGender,
       leadIndustry: leadById?.leadIndustry,
+      leadStatusName: leadById?.leadStatusName,
+      leadStatusId: leadById?.leadStatusId,
+      leadAppointmentDate: leadById?.leadAppointmentDate,
       leadAnnualRevenueContribution: leadById?.leadAnnualRevenueContribution,
       leadEmailOptOut: leadById?.leadEmailOptOut,
       leadCompanyName: leadById?.leadCompanyName,
       leadLastName: leadById?.leadLastName,
+      leadSpecialityName: leadById?.leadSpecialityName,
+      leadLocationName: leadById?.leadLocationName,
       leadEmail: leadById?.leadEmail,
+      utmMedium: leadById?.utmMedium,
       leadWebsite: leadById?.leadWebsite,
+      utmSource: leadById?.utmSource,
+      utmCampaign: leadById?.utmCampaign,
       leadSource: leadById?.leadSource,
+      utmAdgroup: leadById?.utmAdgroup,
+      utmTerm: leadById?.utmTerm,
+      leadId: leadById?.leadId,
+      leadBusinessUnit: leadById?.leadBusinessUnit,
       campaignSource: leadById?.campaignSource,
       company: leadById?.company,
       leadStatus: leadById?.leadStatus,
@@ -71,14 +84,27 @@ export default function LeadAdduser() {
       leadFirstName: " ",
       leadPhonenumber: " ",
       leadIndustry: " ",
+      leadGender: "",
+      leadAppointmentDate: "",
       leadAnnualRevenueContribution: " ",
       leadEmailOptOut: " ",
+      leadStatusName: "",
       leadCompanyName: " ",
       leadLastName: " ",
       leadEmail: " ",
       leadWebsite: " ",
+      leadStatusId: "",
+      leadLocationName: "",
+      utmSource: "",
+      utmCampaign: "",
+      utmAdgroup: "",
+      utmTerm: "",
+      utmMedium: "",
+      leadId: "",
       leadSource: " ",
+      leadBusinessUnit: "",
       campaignSource: " ",
+      leadSpecialityName: "",
       company: user?.company?.id,
       leadStatus: " ",
       leadOwner: user?.id,
@@ -100,13 +126,26 @@ export default function LeadAdduser() {
       leadFirstName: " ",
       leadPhonenumber: " ",
       leadIndustry: " ",
+      leadGender: "",
+      leadAppointmentDate: "",
+      leadStatusName: "",
+      leadLocationName: "",
+      utmSource: "",
+      utmMedium: "",
+      utmCampaign: "",
+      leadId: "",
+      leadBusinessUnit: "",
+      utmTerm: "",
+      utmAdgroup: "",
       leadAnnualRevenueContribution: " ",
       leadEmailOptOut: " ",
       leadCompanyName: " ",
       leadLastName: " ",
+      leadSpecialityName: "",
       leadEmail: " ",
       leadWebsite: " ",
       leadSource: " ",
+      leadStatusId: "",
       campaignSource: " ",
       company: " ",
       leadStatus: " ",
@@ -444,6 +483,19 @@ export default function LeadAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
+                              <label>Lead ID:</label>
+                              <input
+                                type="text"
+                                value={data.leadId}
+                                onChange={handleChange}
+                                name="leadId"
+                                className="form-control"
+                                placeholder="Enter LeadId"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                            <div className="col-lg-6">
                               <label>Lead FirstName:</label>
                               <input
                                 type="text"
@@ -487,6 +539,150 @@ export default function LeadAdduser() {
                                 name="leadEmail"
                                 className="form-control"
                                 placeholder="Enter Email"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                            <div className="col-lg-6">
+                              <label>Gender:</label>
+                              <input
+                                type="text"
+                                value={data.leadGender}
+                                onChange={handleChange}
+                                name="leadGender"
+                                className="form-control"
+                                placeholder="Enter Gender"
+                              />
+                            </div>
+                            <div className="col-lg-6">
+                              <label>AppointmentDate:</label>
+                              <input
+                                type="date"
+                                value={data.leadAppointmentDate}
+                                onChange={handleChange}
+                                name="leadAppointmentDate"
+                                className="form-control"
+                                placeholder="Enter AppointmentDate"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                            <div className="col-lg-6">
+                              <label>StatusName:</label>
+                              <input
+                                type="text"
+                                value={data.leadStatusName}
+                                onChange={handleChange}
+                                name="leadStatusName"
+                                className="form-control"
+                                placeholder="Enter StatusName"
+                              />
+                            </div>
+                            <div className="col-lg-6">
+                              <label>StatusID:</label>
+                              <input
+                                type="text"
+                                value={data.leadStatusId}
+                                onChange={handleChange}
+                                name="leadStatusId"
+                                className="form-control"
+                                placeholder="Enter StatusID"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                            <div className="col-lg-6">
+                              <label>Speciality Name:</label>
+                              <input
+                                type="text"
+                                value={data.leadSpecialityName}
+                                onChange={handleChange}
+                                name="leadSpecialityName"
+                                className="form-control"
+                                placeholder="Enter SpecialityName"
+                              />
+                            </div>
+                            <div className="col-lg-6">
+                              <label>Location Name:</label>
+                              <input
+                                type="email"
+                                value={data.leadLocationName}
+                                onChange={handleChange}
+                                name="leadLocationName"
+                                className="form-control"
+                                placeholder="Enter Location"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                            <div className="col-lg-6">
+                              <label>utmSource:</label>
+                              <input
+                                type="text"
+                                value={data.utmSource}
+                                onChange={handleChange}
+                                name="utmSource"
+                                className="form-control"
+                                placeholder="Enter utmSource"
+                              />
+                            </div>
+                            <div className="col-lg-6">
+                              <label>utmMedium:</label>
+                              <input
+                                type="email"
+                                value={data.utmMedium}
+                                onChange={handleChange}
+                                name="utmMedium"
+                                className="form-control"
+                                placeholder="Enter utmMedium"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                            <div className="col-lg-6">
+                              <label>utmCampaign:</label>
+                              <input
+                                type="text"
+                                value={data.utmCampaign}
+                                onChange={handleChange}
+                                name="utmCampaign"
+                                className="form-control"
+                                placeholder="Enter utmCampaign"
+                              />
+                            </div>
+                            <div className="col-lg-6">
+                              <label>leadBusinessUnit:</label>
+                              <input
+                                type="text"
+                                value={data.leadBusinessUnit}
+                                onChange={handleChange}
+                                name="leadBusinessUnit"
+                                className="form-control"
+                                placeholder="Enter leadBusinessUnit"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group row mb-2">
+                            <div className="col-lg-6">
+                              <label>utmTerm:</label>
+                              <input
+                                type="text"
+                                value={data.utmTerm}
+                                onChange={handleChange}
+                                name="utmTerm"
+                                className="form-control"
+                                placeholder="Enter utmTerm"
+                              />
+                            </div>
+                            <div className="col-lg-6">
+                              <label>utmAdgroup:</label>
+                              <input
+                                type="text"
+                                value={data.utmAdgroup}
+                                onChange={handleChange}
+                                name="utmAdgroup"
+                                className="form-control"
+                                placeholder="Enter utmAdgroup"
                               />
                             </div>
                           </div>

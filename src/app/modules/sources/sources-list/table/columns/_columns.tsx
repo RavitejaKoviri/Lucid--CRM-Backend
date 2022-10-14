@@ -20,39 +20,8 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
   //   Cell: ({ ...props }) => <LeadInfoCell lead={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <SourceCustomHeader tableProps={props} title='FirstName' className='min-w-125px' />,
-    accessor: 'leadFirstName',
-  },
-  {
-    Header: (props) => <SourceCustomHeader tableProps={props} title='LastName' className='min-w-125px' />,
-    accessor: 'leadLastName',
-  },
-  {
-    Header: (props) => <SourceCustomHeader tableProps={props} title='Email' className='min-w-125px' />,
-    accessor: 'leadEmail',
-  },
-  {
-    Header: (props) => <SourceCustomHeader tableProps={props} title='Company' className='min-w-125px' />,
-    accessor: 'leadCompanyName',
-  },
-  {
-    Header: (props) => <SourceCustomHeader tableProps={props} title='AnnualRevenue' className='min-w-125px' />,
-    accessor: 'leadAnnualRevenueContribution',
-  },
-  {
-    Header: (props) => <SourceCustomHeader tableProps={props} title='Industry' className='min-w-125px' />,
-    accessor: 'leadIndustry',
-  },
-  {
-    Header: (props) => <SourceCustomHeader tableProps={props} title='Phonenumber' className='min-w-125px' />,
-    accessor: 'leadPhonenumber',
-  },
-  {
-    Header: (props) => (
-      <SourceCustomHeader tableProps={props} title='campaignSource' className='min-w-125px' />
-    ),
-    id: 'campaignSource',
-    Cell: ({ ...props }) => <SourceLastLoginCell campaignSource={props.data[props.row.index].campaignName} />,
+    Header: (props) => <SourceCustomHeader tableProps={props} title='SourceName' className='min-w-125px' />,
+    accessor: 'SourceName',
   },
   // {
   //   Header: (props) => (

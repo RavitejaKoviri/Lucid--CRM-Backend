@@ -42,3 +42,30 @@ export function CreateContact(data: any, token: any) {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
+
+export function getAllContactById(id: any, token: any) {
+
+  return axios.get(`${CONTACTS}/${id}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+export function UpdateContact(id: any, data: any, token: any) {
+  return axios.put(`${CONTACTS}/${id?.id}`, data, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function DeleteContact(id: any, token: any) {
+  return axios.delete(`${CONTACTS}/${id}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function deleteSelectedContact(Usersid: any, token: any) {
+  Usersid.map((id: any) => {
+    return axios.delete(`${CONTACTS}/${id}`, {
+      headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+    });
+  })
+
+}

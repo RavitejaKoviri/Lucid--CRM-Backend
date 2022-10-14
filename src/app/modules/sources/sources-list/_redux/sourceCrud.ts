@@ -9,14 +9,14 @@ export const sources = "sources";
 
 export function getAllSources(token: any) {
 
-  return axios.get(LEADS, {
+  return axios.get(sources, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 
 export function getAllSourcesById(id: any, token: any) {
 
-  return axios.get(`${LEADS}/${id?.id}`, {
+  return axios.get(`${sources}/${id?.id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
@@ -56,20 +56,20 @@ export function CreateSource(data: any, token: any) {
 }
 
 export function UpdateSource(id: any, data: any, token: any) {
-  return axios.put(`${LEADS}/${id?.id}`, data, {
+  return axios.put(`${sources}/${id?.id}`, data, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 
 export function DeleteSource(id: any, token: any) {
-  return axios.delete(`${LEADS}/${id}`, {
+  return axios.delete(`${sources}/${id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 
 export function deleteSelectedSource(Usersid: any, token: any) {
   Usersid.map((id: any) => {
-    return axios.delete(`${LEADS}/${id}`, {
+    return axios.delete(`${sources}/${id}`, {
       headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
     });
   })

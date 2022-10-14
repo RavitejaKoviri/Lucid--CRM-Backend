@@ -7,6 +7,8 @@ const initialProductsState = {
   campaigns: [],
   Comapnies: [],
   Createcontact: [],
+  ContactById: null,
+  UpdatedContact: null
 };
 
 export const callTypes = {
@@ -45,21 +47,30 @@ export const ContactSlice = createSlice({
       const { data } = action.payload;
       state.Source = data;
     },
-    
+
     fetchedcampaignsDetails: (state, action) => {
       const { data } = action.payload;
       state.campaigns = data;
     },
-    
+
     fetchedAllComapniesDetails: (state, action) => {
       const { data } = action.payload;
       state.Comapnies = data;
     },
 
-     fetchedContact: (state, action) => {
-        const { data } =action.payload;
-        state.Createcontact = data;
-     },
+    fetchedContact: (state, action) => {
+      const { data } = action.payload;
+      state.Createcontact = data;
+    },
+
+    fetchedAllContactDetailsById: (state, action) => {
+      const { data } = action.payload;
+      state.ContactById = data;
+    },
+    UpdatedContact: (state, action) => {
+      const { data } = action.payload;
+      state.UpdatedContact = data;
+    },
 
   },
 });

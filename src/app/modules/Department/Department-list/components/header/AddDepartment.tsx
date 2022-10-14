@@ -17,26 +17,18 @@ export default function AddDepartment() {
   const user = useSelector(
     (state: any) => state?.auth?.user
   );
-  const source = useSelector(
-    (state: any) => state?.DepartmentData?.Source
-  );
-  const campaign = useSelector(
-    (state: any) => state?.DepartmentData?.campaigns
-  );
+
   const company = useSelector(
     (state: any) => state?.DepartmentData?.Comapnies
   );
-  const status = useSelector(
-    (state: any) => state?.DepartmentData?.DepartmentStatus
-  );
+
   const DepartmentById = useSelector(
-    (state: any) => state?.DepartmentData?.DepartmentsById
+    (state: any) => state?.DepartmentData?.DepartmentById
   );
   console.log(DepartmentById, "DepartmentById");
 
   useEffect(() => {
-    dispatch(getsource(token))
-    dispatch(getcampaigns(token))
+
     dispatch(getcompanies(token))
     dispatch(getDepartmentStatuses(token))
     if (id !== "") {
@@ -45,14 +37,14 @@ export default function AddDepartment() {
     }
   }, [])
 
-  // useEffect(() => {
-  //   setData({
-  //     departmentName: DepartmentById?.departmentName,
-  //     company: DepartmentById?.company,
-  //   })
-  //   setDepartment(false);
-  //   console.log("hello")
-  // }, [Department])
+  useEffect(() => {
+    setData({
+      departmentName: DepartmentById?.departmentName,
+      company: DepartmentById?.company,
+    })
+    setDepartment(false);
+    console.log("hello")
+  }, [Department])
 
   const [data, setData] = useState(
     {
@@ -70,8 +62,8 @@ export default function AddDepartment() {
       dispatch(UpdateDepartment(id, data, token));
     }
     else {
-      
-      console.log(user,"data")
+
+      console.log(user, "data")
       dispatch(CreateDepartment(data, token));
     }
     setData({
@@ -91,7 +83,7 @@ export default function AddDepartment() {
             className="form d-flex flex-column flex-lg-row"
           // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
-            
+
             {/*begin::Main column*/}
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
               {/*begin:::Tabs*/}
@@ -129,7 +121,7 @@ export default function AddDepartment() {
                       {/*begin::Card body*/}
                       <div className="card-body pt-0">
 
-                        
+
                         {/*begin::Input group*/}
                         <form className="form">
                           <div className="form-group row mb-2">
@@ -156,7 +148,7 @@ export default function AddDepartment() {
                               />
                             </div> */}
                           </div>
-                         
+
                           {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>CampaignSource:</label>

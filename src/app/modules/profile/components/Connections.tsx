@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {Card3} from '../../../../_metronic/partials/content/cards/Card3'
+import { Card3 } from '../../../../_metronic/partials/content/cards/Card3'
 
 export function Connections() {
   return (
@@ -35,6 +35,7 @@ export function Connections() {
             job='Art Director'
             avgEarnings='$14,560'
             totalEarnings='$236,400'
+            id=""
           />
         </div>
         {/* <div className='col-md-6 col-xxl-4'>
