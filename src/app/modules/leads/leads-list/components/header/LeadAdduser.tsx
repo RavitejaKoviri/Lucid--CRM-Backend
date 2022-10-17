@@ -483,14 +483,14 @@ export default function LeadAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Lead ID:</label>
+                              {/* <label>Lead ID:</label> */}
                               <input
                                 type="text"
                                 value={data.leadId}
                                 onChange={handleChange}
                                 name="leadId"
                                 className="form-control"
-                                placeholder="Enter LeadId"
+                              // placeholder="Enter LeadId"
                               />
                             </div>
                           </div>
