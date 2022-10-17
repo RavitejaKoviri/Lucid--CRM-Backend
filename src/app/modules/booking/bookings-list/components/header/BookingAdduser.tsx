@@ -15,6 +15,7 @@ import {
   fetchHealthPackagesByBranch,
   fetchHealthScansByBranch,
   fetchPatients,
+  getbookingsById,
   Updatebooking,
 } from "../../_redux/bookingAction";
 import axios from "axios";
@@ -29,6 +30,8 @@ export default function BookingAdduser() {
   const [booking, setBooking] = useState(false);
   const location = useLocation();
   const id = location?.state
+  console.log(id,"id");
+  
 
   const [healthPackages, setHealthPackages] = useState([]);
   const [healthScans, setHealthScans] = useState([]);
@@ -77,7 +80,7 @@ export default function BookingAdduser() {
   const bookingById = useSelector(
     (state: any) => state?.booking?.BookingById
   );
- 
+  
 
   // console.log(PatientData, "healthScan");
   const totalAmount = [
@@ -88,32 +91,33 @@ export default function BookingAdduser() {
     .reduce((a, b) => a + b, 0)
     .toString();
   console.log(bookingById,"bookingById");
-  // useEffect(() => {
-  //   setData({
-  //     fullName: bookingById?.fullName,
-  //     email: bookingById?.email,
-  //     mobileNumber: bookingById?.mobileNumber,
-  //     dateOfAppointment: bookingById?.dateOfAppointment,
-  //     branch: bookingById?.branch,
-  //     message: bookingById?.message,
-  //     doctor: bookingById?.doctor,
-  //     type: bookingById?.type,
-  //     healthPackages: bookingById?.healthPackages,
-  //     healthScans: bookingById?.healthScans,
-  //     paymentId: bookingById?.paymentId,
-  //     paymentStatus: bookingById?.paymentStatus,
-  //     paymentMode: bookingById?.paymentMode,
-  //     city: bookingById?.city,
-  //     gender: bookingById?.gender,
-  //     branchwisetests: bookingById?.branchwisetests,
-  //     totalAmount:bookingById?.totalAmount,
-  //     address:bookingById?.address,
-  //     age:bookingById?.age,
-  //     user: userID,
-  //   })
-  //   setBooking(false);
-  //   console.log("hello")
-  // }, [booking])
+  useEffect(() => {
+    setData({
+      fullName: bookingById?.fullName,
+      email: bookingById?.email,
+      mobileNumber: bookingById?.mobileNumber,
+      dateOfAppointment: bookingById?.dateOfAppointment,
+      branch: bookingById?.branch,
+      message: bookingById?.message,
+      doctor: bookingById?.doctor,
+      type: bookingById?.type,
+      healthPackages: bookingById?.healthPackages,
+      healthScans: bookingById?.healthScans,
+      paymentId: bookingById?.paymentId,
+      paymentStatus: bookingById?.paymentStatus,
+      paymentMode: bookingById?.paymentMode,
+      city: bookingById?.city,
+      gender: bookingById?.gender,
+      patient: bookingById?.patient,
+      branchwisetests: bookingById?.branchwisetests,
+      totalAmount:bookingById?.totalAmount,
+      address:bookingById?.address,
+      age:bookingById?.age,
+      user: userID,
+    })
+    setBooking(false);
+    console.log("hello")
+  }, [booking])
   const [data, setData] = useState({
     fullName: " ",
     email: " ",
@@ -196,6 +200,10 @@ const FindPatientDetails = ()=>{
     dispatch(fetchDoctors());
     dispatch(fetchCity());
     dispatch(fetchPatients());
+    if (id !== null) {
+      dispatch(getbookingsById(id, token))
+      setBooking(true);
+    }
   }, []);
   useEffect(() => {
     dispatch(fetchBranchwisetestByBranch(data?.branch));
@@ -256,7 +264,7 @@ const FindPatientDetails = ()=>{
     verifyuser();
   }, [data.mobileNumber]);
   const verifyuser = () => {
-    data.mobileNumber.length === 10 &&
+    data?.mobileNumber?.length === 10 &&
       axios
         .get("http://43.205.49.41:5377/users-permissions/users", {
           params: {

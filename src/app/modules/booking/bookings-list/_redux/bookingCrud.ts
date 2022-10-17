@@ -89,7 +89,7 @@ export function deleteSelectedbooking(Usersid: any, token: any) {
 }
 export function getAllbookingsById(id: any, token: any) {
 
-  return axios.get(`http://43.205.49.41:5377/appointments/${id}`, {
+  return axios.get(`http://43.205.49.41:5377/appointments/${id?.id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

@@ -166,8 +166,11 @@ export const Deletebooking = (id: any, token: any) => (dispatch: any) =>
 export const deleteSelectedbooking = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
     .deleteSelectedbooking(id, token)
-    //getbookingsById
-    export const getbookingsById = (id: any, token: any) => (dispatch: any) => {
+
+
+    
+//getbookingsById
+export const getbookingsById = (id: any, token: any) => (dispatch: any) => {
       dispatch(actions.startCall({ callType: callTypes.action }));
       return requestFromServer
         .getAllbookingsById(id, token)
