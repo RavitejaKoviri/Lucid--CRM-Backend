@@ -16,7 +16,7 @@ export function getAllBrands(token: any) {
 
 export function getAllBrandsById(id: any, token: any) {
 
-  return axios.get(`${BRAND}/${id}`, {
+  return axios.get(`${BRAND}/${id?.id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

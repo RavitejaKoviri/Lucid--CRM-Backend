@@ -24,12 +24,12 @@ export default function SourceAdduser() {
     dispatch(getcampaigns(token))
     dispatch(getcompanies(token))
     dispatch(getsourceStatuses(token))
-    if (id !== null) {
-      dispatch(getSourcesById(id, token))
-      setSource(true);
-    }
   }, [])
-
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getSourcesById(id, token))
+    setSource(true);
+  }, [sourceById?.id])
   const [data, setData] = useState(
     {
       SourceName: " ",

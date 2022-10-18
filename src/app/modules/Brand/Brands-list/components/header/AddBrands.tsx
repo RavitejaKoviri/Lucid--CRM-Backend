@@ -22,13 +22,10 @@ export default function AddBrands() {
   );
   console.log(BrandsById, "BrandsById");
   useEffect(() => {
-
-    if (id !== "") {
-      dispatch(getBrandsById(id, token))
-      setBrands(true);
-    }
-  }, [])
-
+    console.log(id, "TestId");
+    dispatch(getBrandsById(id, token))
+    setBrands(true);
+  }, [BrandsById?.id])
   useEffect(() => {
     setData({
       brandName: BrandsById?.brandName,

@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {KTSVG} from '../../../../_metronic/helpers'
+import { Link } from 'react-router-dom'
+import { KTSVG } from '../../../../_metronic/helpers'
 import {
   ChartsWidget1,
   TablesWidget1,
@@ -98,7 +98,7 @@ export function Overview() {
             </div>
           </div>
 
-          <div className='notice d-flex bg-light-warning rounded border-warning border border-dashed p-6'>
+          {/* <div className='notice d-flex bg-light-warning rounded border-warning border border-dashed p-6'>
             <KTSVG
               path='icons/duotune/general/gen044.svg'
               className='svg-icon-2tx svg-icon-warning me-4'
@@ -116,11 +116,11 @@ export function Overview() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
-      <div className='row gy-10 gx-xl-10'>
+      {/* <div className='row gy-10 gx-xl-10'>
         <div className='col-xl-6'>
           <ChartsWidget1 className='card-xxl-stretch mb-5 mb-xl-10' />
         </div>
@@ -138,7 +138,7 @@ export function Overview() {
         <div className='col-xl-6'>
           <TablesWidget5 className='card-xxl-stretch mb-5 mb-xl-10' />
         </div>
-      </div>
+      </div> */}
     </>
   )
 }

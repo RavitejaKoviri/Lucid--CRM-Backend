@@ -31,11 +31,12 @@ export default function AddDepartment() {
 
     dispatch(getcompanies(token))
     dispatch(getDepartmentStatuses(token))
-    if (id !== "") {
-      dispatch(getDepartmentById(id, token))
-      setDepartment(true);
-    }
   }, [])
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getDepartmentById(id, token))
+    setDepartment(true);
+  }, [DepartmentById?.id])
 
   useEffect(() => {
     setData({

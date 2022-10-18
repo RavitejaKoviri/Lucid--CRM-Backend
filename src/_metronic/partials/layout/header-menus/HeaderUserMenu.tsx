@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {FC} from 'react'
-import {Link} from 'react-router-dom'
-import {useAuth} from '../../../../app/modules/auth'
-import {Languages} from './Languages'
-import {toAbsoluteUrl} from '../../../helpers'
+import { FC } from 'react'
+import { Link } from 'react-router-dom'
+import { useAuth } from '../../../../app/modules/auth'
+import { Languages } from './Languages'
+import { toAbsoluteUrl } from '../../../helpers'
 
 const HeaderUserMenu: FC = () => {
-  const {currentUser, logout} = useAuth()
+  const { currentUser, logout } = useAuth()
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'
@@ -32,22 +32,22 @@ const HeaderUserMenu: FC = () => {
 
       <div className='separator my-2'></div>
 
-      <div className='menu-item px-5'>
+      {/* <div className='menu-item px-5'>
         <Link to={'/crafted/pages/profile'} className='menu-link px-5'>
           My Profile
         </Link>
-      </div>
+      </div> */}
 
-      <div className='menu-item px-5'>
+      {/* <div className='menu-item px-5'>
         <a href='#' className='menu-link px-5'>
           <span className='menu-text'>My Projects</span>
           <span className='menu-badge'>
             <span className='badge badge-light-danger badge-circle fw-bolder fs-7'>3</span>
           </span>
         </a>
-      </div>
+      </div> */}
 
-      <div
+      {/* <div
         className='menu-item px-5'
         data-kt-menu-trigger='hover'
         data-kt-menu-placement='left-start'
@@ -105,17 +105,17 @@ const HeaderUserMenu: FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className='menu-item px-5'>
+      {/* <div className='menu-item px-5'>
         <a href='#' className='menu-link px-5'>
           My Statements
         </a>
-      </div>
+      </div> */}
 
-      <div className='separator my-2'></div>
+      {/* <div className='separator my-2'></div>
 
-      <Languages />
+      <Languages /> */}
 
       <div className='menu-item px-5 my-1'>
         <Link to='/crafted/account/settings' className='menu-link px-5'>
@@ -132,4 +132,4 @@ const HeaderUserMenu: FC = () => {
   )
 }
 
-export {HeaderUserMenu}
+export { HeaderUserMenu }

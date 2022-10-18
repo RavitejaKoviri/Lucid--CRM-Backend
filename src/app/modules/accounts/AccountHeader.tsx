@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
-import {Link} from 'react-router-dom'
-import {Dropdown1} from '../../../_metronic/partials'
-import {useLocation} from 'react-router'
+import { KTSVG, toAbsoluteUrl } from '../../../_metronic/helpers'
+import { Link } from 'react-router-dom'
+import { Dropdown1 } from '../../../_metronic/partials'
+import { useLocation } from 'react-router'
 
 const AccountHeader: React.FC = () => {
   const location = useLocation()
@@ -111,7 +111,7 @@ const AccountHeader: React.FC = () => {
               </div>
             </div>
 
-            <div className='d-flex flex-wrap flex-stack'>
+            {/* <div className='d-flex flex-wrap flex-stack'>
               <div className='d-flex flex-column flex-grow-1 pe-8'>
                 <div className='d-flex flex-wrap'>
                   <div className='border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3'>
@@ -161,11 +161,11 @@ const AccountHeader: React.FC = () => {
                   <div
                     className='bg-success rounded h-5px'
                     role='progressbar'
-                    style={{width: '50%'}}
+                    style={{ width: '50%' }}
                   ></div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -200,4 +200,4 @@ const AccountHeader: React.FC = () => {
   )
 }
 
-export {AccountHeader}
+export { AccountHeader }

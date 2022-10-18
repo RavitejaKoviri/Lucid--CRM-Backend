@@ -1,6 +1,6 @@
-import {FC} from 'react'
+import { FC } from 'react'
 import clsx from 'clsx'
-import {KTSVG, toAbsoluteUrl} from '../../../helpers'
+import { KTSVG, toAbsoluteUrl } from '../../../helpers'
 import {
   HeaderNotificationsMenu,
   HeaderUserMenu,
@@ -8,14 +8,14 @@ import {
   Search,
   ThemeModeSwitcher,
 } from '../../../partials'
-import {useLayout} from '../../core'
+import { useLayout } from '../../core'
 
 const itemClass = 'ms-1 ms-lg-3',
   btnClass = 'btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px',
   userAvatarClass = 'symbol-30px symbol-md-40px'
 
 const Topbar: FC = () => {
-  const {config} = useLayout()
+  const { config } = useLayout()
 
   return (
     <div className='d-flex align-items-stretch flex-shrink-0'>
@@ -34,8 +34,8 @@ const Topbar: FC = () => {
       </div>
 
       {/* Quick links */}
-      <div className={clsx('d-flex align-items-center', itemClass)}>
-        {/* begin::Menu wrapper */}
+      {/* <div className={clsx('d-flex align-items-center', itemClass)}>
+      
         <div
           className={btnClass}
           data-kt-menu-trigger='click'
@@ -45,12 +45,12 @@ const Topbar: FC = () => {
           <i className='bi bi-clipboard-check fs-2' />
         </div>
         <QuickLinks />
-        {/* end::Menu wrapper */}
-      </div>
+     
+      </div> */}
 
       {/* CHAT */}
-      <div className={clsx('d-flex align-items-center', itemClass)}>
-        {/* begin::Menu wrapper */}
+      {/* <div className={clsx('d-flex align-items-center', itemClass)}>
+       
         <div
           className={clsx(
             'btn btn-icon btn-active-light-primary btn-custom position-relative',
@@ -62,12 +62,11 @@ const Topbar: FC = () => {
           <i className='bi bi-app-indicator fs-2' />
           <span className='pulse-ring w-45px h-45px' />
         </div>
-        {/* end::Menu wrapper */}
-      </div>
+     
+      </div> */}
 
       {/* NOTIFICATIONS */}
-      <div className={clsx('d-flex align-items-center', itemClass)}>
-        {/* begin::Menu- wrapper */}
+      {/* <div className={clsx('d-flex align-items-center', itemClass)}>
         <div
           className={clsx(btnClass, 'position-relative')}
           data-kt-menu-trigger='click'
@@ -77,8 +76,7 @@ const Topbar: FC = () => {
           <i className='bi bi-grid fs-2' />
         </div>
         <HeaderNotificationsMenu />
-        {/* end::Menu wrapper */}
-      </div>
+      </div> */}
 
       {/* begin::Theme mode */}
       <div className={clsx('d-flex align-items-center', itemClass)}>
@@ -117,4 +115,4 @@ const Topbar: FC = () => {
   )
 }
 
-export {Topbar}
+export { Topbar }

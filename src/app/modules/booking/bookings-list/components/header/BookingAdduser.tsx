@@ -30,14 +30,14 @@ export default function BookingAdduser() {
   const [booking, setBooking] = useState(false);
   const location = useLocation();
   const id = location?.state
-  console.log(id,"id");
-  
+  console.log(id, "id");
+
 
   const [healthPackages, setHealthPackages] = useState([]);
   const [healthScans, setHealthScans] = useState([]);
   const [userID, setUserID] = useState([]);
   const [mobilenumber, setMobilenumber] = useState("");
-  const[ patient,setPatient]=useState("");
+  const [patient, setPatient] = useState("");
   console.log(healthScans, "healthScans");
 
   const [startDate, setStartDate] = useState(new Date());
@@ -59,7 +59,7 @@ export default function BookingAdduser() {
   newdate?.setDate(newdate?.getDate() + 9);
   // const user = useSelector((state: any) => state?.auth?.user);
   // const token = useSelector((state: any) => state?.auth?.authToken);
-  const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
   const doctor = useSelector((state: any) => state?.booking?.doctors);
   const city = useSelector((state: any) => state?.booking?.city);
   const branch = useSelector(
@@ -80,7 +80,7 @@ export default function BookingAdduser() {
   const bookingById = useSelector(
     (state: any) => state?.booking?.BookingById
   );
-  
+
 
   // console.log(PatientData, "healthScan");
   const totalAmount = [
@@ -90,7 +90,7 @@ export default function BookingAdduser() {
   ]
     .reduce((a, b) => a + b, 0)
     .toString();
-  console.log(bookingById,"bookingById");
+  console.log(bookingById, "bookingById");
   useEffect(() => {
     setData({
       fullName: bookingById?.fullName,
@@ -110,9 +110,9 @@ export default function BookingAdduser() {
       gender: bookingById?.gender,
       patient: bookingById?.patient,
       branchwisetests: bookingById?.branchwisetests,
-      totalAmount:bookingById?.totalAmount,
-      address:bookingById?.address,
-      age:bookingById?.age,
+      totalAmount: bookingById?.totalAmount,
+      address: bookingById?.address,
+      age: bookingById?.age,
       user: userID,
     })
     setBooking(false);
@@ -142,10 +142,10 @@ export default function BookingAdduser() {
     age: "",
     user: userID,
   });
-console.log(data,"userID");
-const FindPatient = PatientData?.length > 0 &&  PatientData?.filter(
-  (item:any) => item?.mobileNumber === data.mobileNumber
-);
+  console.log(data, "userID");
+  const FindPatient = PatientData?.length > 0 && PatientData?.filter(
+    (item: any) => item?.mobileNumber === data.mobileNumber
+  );
   const handleChange = (e: any) => {
     setData({
       ...data,
@@ -154,57 +154,59 @@ const FindPatient = PatientData?.length > 0 &&  PatientData?.filter(
       healthPackages: healthPackages,
       healthScans: healthScans,
       totalAmount: totalAmount,
-      dateOfAppointment:startDate,
+      dateOfAppointment: startDate,
       user: userID[0],
-      patient:patient,
+      patient: patient,
     });
   };
-const FindPatientDetails = ()=>{
-  type Patientdetails = {
-    gender?: string;
-    patientName?: string;
-    user ?: string;
-    mobileNumber?: string;
-    city ?: string;
-    branch ?: string;
-   };
-   const obj: Patientdetails = {};
-  obj.gender = data.gender;
-  obj.patientName = data.fullName;
-  obj.user = userID[0];
-  obj.mobileNumber = mobilenumber;
-  obj.city = data.city;
-  obj.branch = data.branch;
- 
-  if (FindPatient.length === 0 &&  data.mobileNumber.length === 10 ) {
-   axios
-     .post("http://43.205.49.41:5377/patients", obj, {
-       headers: {
-         "content-type": "application/json",
-         Authorization: `Bearer ${token}`,
-       },
-     })
-     .then(({ data }) => {
-       console.log(data, "data");
-       handleSubmit(data);
-     })
-     .catch(() => {});
- } else {
-  if(data.mobileNumber.length === 10){
-    handleSubmit(FindPatient[0]);
-  }
- }
+  const FindPatientDetails = () => {
+    type Patientdetails = {
+      gender?: string;
+      patientName?: string;
+      user?: string;
+      mobileNumber?: string;
+      city?: string;
+      branch?: string;
+    };
+    const obj: Patientdetails = {};
+    obj.gender = data.gender;
+    obj.patientName = data.fullName;
+    obj.user = userID[0];
+    obj.mobileNumber = mobilenumber;
+    obj.city = data.city;
+    obj.branch = data.branch;
 
-}
+    if (FindPatient.length === 0 && data.mobileNumber.length === 10) {
+      axios
+        .post("http://43.205.49.41:5377/patients", obj, {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => {
+          console.log(data, "data");
+          handleSubmit(data);
+        })
+        .catch(() => { });
+    } else {
+      if (data.mobileNumber.length === 10) {
+        handleSubmit(FindPatient[0]);
+      }
+    }
+
+  }
   useEffect(() => {
     dispatch(fetchDoctors());
     dispatch(fetchCity());
     dispatch(fetchPatients());
-    if (id !== null) {
-      dispatch(getbookingsById(id, token))
-      setBooking(true);
-    }
   }, []);
+
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getbookingsById(id, token))
+    setBooking(true);
+  }, [bookingById?.id])
   useEffect(() => {
     dispatch(fetchBranchwisetestByBranch(data?.branch));
     dispatch(fetchHealthScansByBranch(data?.branch));
@@ -215,49 +217,49 @@ const FindPatientDetails = ()=>{
   }, [data?.city]);
 
 
-  const handleSubmit = (i:any) => {  
+  const handleSubmit = (i: any) => {
     if (id !== null) {
       dispatch(Updatebooking(id, data, token));
     }
     else {
-      const AppointData = {...data,patient:i}
+      const AppointData = { ...data, patient: i }
       axios
-     .post("http://43.205.49.41:5377/appointments", AppointData, {
-       headers: {
-         "content-type": "application/json",
-         Authorization: `Bearer ${token}`,
-       },
-     })
-     .then(({ data }) => {
-       console.log(data, "data");
-     })
-     .catch(() => {});
+        .post("http://43.205.49.41:5377/appointments", AppointData, {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(({ data }) => {
+          console.log(data, "data");
+        })
+        .catch(() => { });
     }
 
-  setData({
-    fullName: " ",
-    email: " ",
-    mobileNumber: " ",
-    dateOfAppointment: new Date(),
-    branch: " ",
-    message: " ",
-    doctor: " ",
-    type: " ",
-    // appointmentStatus: "",
-    healthPackages: [],
-    healthScans: [],
-    paymentId: " ",
-    paymentStatus: " ",
-    paymentMode: "",
-    city: "",
-    gender: "",
-    patient: "",
-    branchwisetests: [],
-    totalAmount: "",
-    address: "",
-    age: "",
-    user: [],
-  });
+    setData({
+      fullName: " ",
+      email: " ",
+      mobileNumber: " ",
+      dateOfAppointment: new Date(),
+      branch: " ",
+      message: " ",
+      doctor: " ",
+      type: " ",
+      // appointmentStatus: "",
+      healthPackages: [],
+      healthScans: [],
+      paymentId: " ",
+      paymentStatus: " ",
+      paymentMode: "",
+      city: "",
+      gender: "",
+      patient: "",
+      branchwisetests: [],
+      totalAmount: "",
+      address: "",
+      age: "",
+      user: [],
+    });
   };
   console.log(data.branchwisetests, "branchwisetests");
   useEffect(() => {
@@ -270,8 +272,8 @@ const FindPatientDetails = ()=>{
           params: {
             mobile: data.mobileNumber,
           },
-            headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
-          
+          headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+
         })
         .then((response) => {
           console.log(response, "response");
@@ -279,7 +281,7 @@ const FindPatientDetails = ()=>{
             // dispatch(fetchUsersByMobile(mobilenumber));
             data.mobileNumber.length === 10 &&
               axios
-                .get(`http://43.205.49.41:5377/users?mobile=${data.mobileNumber}`,{
+                .get(`http://43.205.49.41:5377/users?mobile=${data.mobileNumber}`, {
                   headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
                 })
                 .then((response) => {
@@ -293,7 +295,7 @@ const FindPatientDetails = ()=>{
                   console.log("llkkk--------------------", data);
                   setUserID(data);
                 })
-                .catch(() => {});
+                .catch(() => { });
           } else {
             data.mobileNumber.length === 10 &&
               axios
@@ -302,7 +304,7 @@ const FindPatientDetails = ()=>{
                   username: data.mobileNumber,
                   password: "123456",
                   email: `${data.mobileNumber}@gmail.com`,
-                },{
+                }, {
                   headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
                 })
                 .then((response) => {
@@ -316,10 +318,10 @@ const FindPatientDetails = ()=>{
                   console.log("llkkk--------------------", data);
                   setUserID(data?.user);
                 })
-                .catch(() => {});
+                .catch(() => { });
           }
         })
-        .catch(() => {});
+        .catch(() => { });
   };
 
   return (
@@ -383,7 +385,7 @@ const FindPatientDetails = ()=>{
                         {/*begin::Input group*/}
                         <div className="form">
                           <div className="form-group row mb-4">
-                          <div className="col-lg-5">
+                            <div className="col-lg-5">
                               {/* <label> Age:</label> */}
                               <input
                                 type="text"
