@@ -23,8 +23,10 @@ const LeadActionsCell: FC<Props> = ({ id }) => {
   }, [])
 
   const openEditModal = () => {
+    console.log(id,"TestId");
     navigation('leadadduser', { state: { id } })
   }
+
 
   const deleteItem = () =>
     dispatch(DeleteLead(id, token))

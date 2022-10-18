@@ -35,8 +35,9 @@ const Card3: FC<Props> = ({
     (state: any) => state?.auth?.authToken
   );
   const openEditModal = () => {
+    console.log(id,"TestId");
     navigation('contactaddcontact', { state: { id } })
-    dispatch(getContactById(id, token))
+    // dispatch(getContactById(id, token))
   }
 
   const deleteItem = () =>

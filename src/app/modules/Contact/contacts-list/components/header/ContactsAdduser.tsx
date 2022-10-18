@@ -1,8 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { any } from "prop-types";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateContact, getcampaigns, getcompanies, getsource, UpdateContact } from "../../_redux/contactAction";
+import { CreateContact, getcampaigns, getcompanies, getContactById, getsource, UpdateContact } from "../../_redux/contactAction";
 // import { FC, useState } from 'react'
 // import * as Yup from 'yup'
 // import { useFormik } from 'formik'
@@ -18,7 +19,9 @@ export default function ContactsAdduser() {
   const navigation = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const id = location?.state
+  const id: any = location?.state
+  const [contact, setContact] = useState(false);
+  
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
@@ -37,7 +40,7 @@ export default function ContactsAdduser() {
   const ContactById = useSelector(
     (state: any) => state?.ContactData?.ContactById
   );
-  const [contact, setContact] = useState(false);
+ 
   useEffect(() => {
     dispatch(getsource(token))
     dispatch(getcampaigns(token))
@@ -72,7 +75,15 @@ export default function ContactsAdduser() {
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
+  useEffect(()=>{
+    console.log(id?.id,"Testid");
+    
+    dispatch(getContactById(id?.id, token));
+    setContact(true);
+  },[ContactById?.id])
+  console.log(ContactById,"ContactByIdId");
+  
+  
   useEffect(() => {
     setData({
       company: ContactById?.company,
@@ -139,7 +150,6 @@ export default function ContactsAdduser() {
       campaignSource: " ",
     });
   };
-
 
 
   return (

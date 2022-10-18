@@ -8,7 +8,9 @@ export default function LeadAdduser() {
   const location = useLocation();
   const [lead, setLead] = useState(false);
   const id = location?.state
-  console.log(id, "location")
+
+  
+  console.log( "location")
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector(
@@ -33,17 +35,19 @@ export default function LeadAdduser() {
     (state: any) => state?.LeadData?.LeadsById
   );
   console.log(leadById, "leadById");
+  console.log(leadById?.id, "leadById1");
 
   useEffect(() => {
     dispatch(getsource(token))
     dispatch(getcampaigns(token))
     dispatch(getcompanies(token))
     dispatch(getleadStatuses(token))
-    if (id !== null) {
+  }, [])
+  useEffect(()=>{
+    console.log(id,"TestId");
       dispatch(getLeadsById(id, token))
       setLead(true);
-    }
-  }, [])
+  },[leadById?.id])
 
   useEffect(() => {
     setData({
@@ -113,6 +117,7 @@ export default function LeadAdduser() {
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+  console.log(data, "TEST");
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
