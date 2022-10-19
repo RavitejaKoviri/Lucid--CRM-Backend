@@ -24,19 +24,19 @@ export function DealsReport() {
 
   const [search, setSearch] = useState(' ');
   const [searchData, setSearchData] = useState([]);
-  useEffect(() => {
-    if (deals) {
-      const data = deals;
-      const filteredData = data.filter((element: any) => {
-        const searchtext = search.toLowerCase();
-        const name = element.dealName.toLowerCase();
-        if (name.includes(searchtext)) {
-          return true;
-        } else return false;
-      });
-      setSearchData(filteredData);
-    }
-  }, [search]);
+  // useEffect(() => {
+  //   if (deals) {
+  //     const data = deals;
+  //     const filteredData = data.filter((element: any) => {
+  //       const searchtext = search.toLowerCase();
+  //       const name = element.dealName.toLowerCase();
+  //       if (name.includes(searchtext)) {
+  //         return true;
+  //       } else return false;
+  //     });
+  //     setSearchData(filteredData);
+  //   }
+  // }, [search]);
   const [date, setDate] = useState("");
 
   return (
@@ -68,7 +68,7 @@ export function DealsReport() {
 
             <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
 
-              <input className="form-control form-control-solid w-100 mw-250px" type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
+              <input className="form-control form-control-solid w-100 mw-250px" type="date" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
 
               <div className="w-150px">
 
@@ -140,7 +140,21 @@ export function DealsReport() {
 
               </thead>
 
-              {search?.length > 1 ? searchData?.map((item: any) => (
+              {deals?.length > 0 ? deals?.filter((val: any) => {
+                if (search === "") {
+                  return val;
+                }
+                if (val?.dealName?.toLowerCase()?.includes(search?.toLowerCase())) {
+                  return val;
+                }
+              }).filter((val: any) => {
+                if (date === "") {
+                  return val;
+                }
+                if (val?.createdAt?.slice(0, 10)?.toLowerCase()?.includes(date?.toLowerCase())) {
+                  return val;
+                }
+              }).map((item: any) => (
                 <tbody className="fw-semibold text-gray-600">
 
                   <tr>
@@ -172,39 +186,7 @@ export function DealsReport() {
                   </tr>
 
                 </tbody>
-              )) : (deals?.length > 0 ? deals?.map((item: any) => (
-                <tbody className="fw-semibold text-gray-600">
-
-                  <tr>
-
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.dealName ? item?.dealName : "Nill"}</a>
-                    </td>
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.dealContactPersonName ? item?.dealContactPersonName : "Nill"}</a>
-                    </td>
-
-                    <td>
-                      <a href="#" className="text-dark text-hover-primary">{item?.dealOwner?.email ? item?.dealOwner?.email : 'Nill'}</a>
-                    </td>
-
-                    <td>
-                      <div className="badge badge-light-success">{item?.dealStatus?.dealStatusName ? item?.dealStatus?.dealStatusName : 'Nill'}</div>
-                    </td>
-                    <td className=" pe-0">{item?.dealType ? item?.dealType : 'Nill'}</td>
-                    <td>{item?.createdAt ? item?.createdAt?.slice(0, 10) : 'Nill'}</td>
-
-                    <td className=" pe-0">{item?.dealContactPersonPhoneNumber ? item?.dealContactPersonPhoneNumber : "Nill"}</td>
-
-                    <td className=" pe-0">{item?.dealOwner?.username ? item?.dealOwner?.username : 'Nill'}</td>
-                    <td className=" pe-0">{item?.dealOwner?.role ? item?.dealOwner?.role : 'Nill'}</td>
-                    <td className=" pe-0">{item?.dealOwner?.provider ? item?.dealOwner?.provider : 'Nill'}</td>
-                    <td className=" pe-0">{item?.dealSource?.SourceName ? item?.dealSource?.SourceName : 'Nill'}</td>
-                    <td className=" pe-0">{item?.campaignSource?.campaignName ? item?.campaignSource?.campaignName : 'Nill'}</td>
-                  </tr>
-
-                </tbody>
-              )) : (<h1>No Deals</h1>))}
+              )) : (<h1>No Deals</h1>)}
 
 
             </table>

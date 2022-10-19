@@ -21,20 +21,20 @@ export function TasksReport() {
   console.log(tasks, "tasks");
 
   const [search, setSearch] = useState(' ');
-  const [searchData, setSearchData] = useState([]);
-  useEffect(() => {
-    if (tasks) {
-      const data = tasks;
-      const filteredData = data.filter((element: any) => {
-        const searchtext = search.toLowerCase();
-        const name = element.subject.toLowerCase();
-        if (name.includes(searchtext)) {
-          return true;
-        } else return false;
-      });
-      setSearchData(filteredData);
-    }
-  }, [search]);
+  // const [searchData, setSearchData] = useState([]);
+  // useEffect(() => {
+  //   if (tasks) {
+  //     const data = tasks;
+  //     const filteredData = data.filter((element: any) => {
+  //       const searchtext = search.toLowerCase();
+  //       const name = element.subject.toLowerCase();
+  //       if (name.includes(searchtext)) {
+  //         return true;
+  //       } else return false;
+  //     });
+  //     setSearchData(filteredData);
+  //   }
+  // }, [search]);
   const [date, setDate] = useState("");
 
   return (
@@ -66,7 +66,7 @@ export function TasksReport() {
 
             <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
 
-              <input type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-solid w-100 mw-250px" placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
+              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-solid w-100 mw-250px" placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
 
               <div className="w-150px">
 
@@ -141,7 +141,21 @@ export function TasksReport() {
                 </tr>
 
               </thead>
-              {search?.length > 1 ? searchData?.map((item: any) => (
+              {tasks?.length > 0 ? tasks?.filter((val: any) => {
+                if (search === "") {
+                  return val;
+                }
+                if (val?.subject?.toLowerCase()?.includes(search?.toLowerCase())) {
+                  return val;
+                }
+              }).filter((val: any) => {
+                if (date === "") {
+                  return val;
+                }
+                if (val?.createdAt?.slice(0, 10)?.toLowerCase()?.includes(date?.toLowerCase())) {
+                  return val;
+                }
+              }).map((item: any) => (
                 <tbody className="fw-semibold text-gray-600">
 
                   <tr>
@@ -178,44 +192,7 @@ export function TasksReport() {
                   </tr>
 
                 </tbody>
-              )) : (tasks?.length > 0 ? tasks?.map((item: any) => (
-                <tbody className="fw-semibold text-gray-600">
-
-                  <tr>
-
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.taskOwner?.username ? item?.taskOwner?.username : "Nill"}</a>
-                    </td>
-
-                    <td>
-                      <a href="#" className="text-dark text-hover-primary">{item?.taskOwner?.email ? item?.taskOwner?.email : "Nill"}</a>
-                    </td>
-
-                    <td>
-                      <div className="badge badge-light-success">{item?.taskPriority ? item?.taskPriority : "Nill"}</div>
-                    </td>
-                    <td>
-                      <div className="badge badge-light-success">{item?.taskStatus?.taskStatusName ? item?.taskStatus?.taskStatusName : "Nill"}</div>
-                    </td>
-
-                    <td>{item?.createdAt ? item?.createdAt?.slice(0, 10) : "Nill"}</td>
-
-                    <td className=" pe-0">{item?.subject ? item?.subject : "Nill"}</td>
-                    <td className=" pe-0">{item?.contact?.contactName ? item?.contact?.contactTitle + " " + item?.contact?.contactFirstName + " " + item?.contact?.contactLastName : "Nill"}</td>
-                    <td className=" pe-0">{item?.contact?.contactEmail ? item?.contact?.contactEmail : "Nill"}</td>
-                    <td className=" pe-0">{item?.contact?.contactMobile ? item?.contact?.contactMobile : "Nill"}</td>
-                    <td className=" pe-0">{item?.contact?.contactCity ? item?.contact?.contactCity : "Nill"}</td>
-                    <td className=" pe-0">{item?.contact?.contactCompanyName ? item?.contact?.contactCompanyName : "Nill"}</td>
-                    <td className=" pe-0">{item?.contact?.contactJobTitle ? item?.contact?.contactJobTitle : "Nill"}</td>
-
-                    <td className=" pe-0">{item?.taskOwner?.mobile ? item?.taskOwner?.mobile : "Nill"}</td>
-                    <td className=" pe-0">{item?.taskOwner?.provider ? item?.taskOwner?.provider : "Nill"}</td>
-                    <td className=" pe-0">{item?.taskOwner?.role ? item?.taskOwner?.role : "Nill"}</td>
-
-                  </tr>
-
-                </tbody>
-              )) : (<h1>No Tasks</h1>))}
+              )) : (<h1>No Tasks</h1>)}
 
             </table>
 

@@ -19,7 +19,7 @@ export const getAllBookings = () => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllTasks = (token:any) => (dispatch: any) => {
+export const getAllTasks = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .fetchAllTasks(token)
@@ -32,7 +32,7 @@ export const getAllTasks = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllDeals = (token:any) => (dispatch: any) => {
+export const getAllDeals = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .fetchAllDeals(token)
@@ -45,7 +45,7 @@ export const getAllDeals = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllContacts = (token:any) => (dispatch: any) => {
+export const getAllContacts = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .fetchAllContacts(token)
@@ -58,7 +58,7 @@ export const getAllContacts = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllCampaigns = (token:any) => (dispatch: any) => {
+export const getAllCampaigns = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .fetchAllCampaigns(token)
@@ -71,7 +71,7 @@ export const getAllCampaigns = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllLeads = (token:any) => (dispatch: any) => {
+export const getAllLeads = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .fetchAllLeads(token)
@@ -84,6 +84,7 @@ export const getAllLeads = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
+
 export const getAllTargets = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
@@ -110,3 +111,16 @@ export const getAllTickets = (token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
+
+export const LeadsByDate = (date: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .getLeadsByDate(date, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedLeadsByDate({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });

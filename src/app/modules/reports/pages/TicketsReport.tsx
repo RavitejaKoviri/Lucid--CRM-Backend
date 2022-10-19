@@ -21,20 +21,20 @@ export function TicketsReport() {
   console.log(tickets, "tickets");
 
   const [search, setSearch] = useState(' ');
-  const [searchData, setSearchData] = useState([]);
-  useEffect(() => {
-    if (tickets) {
-      const data = tickets;
-      const filteredData = data.filter((element: any) => {
-        const searchtext = search.toLowerCase();
-        const name = element.ticketName.toLowerCase();
-        if (name.includes(searchtext)) {
-          return true;
-        } else return false;
-      });
-      setSearchData(filteredData);
-    }
-  }, [search]);
+  // const [searchData, setSearchData] = useState([]);
+  // useEffect(() => {
+  //   if (tickets) {
+  //     const data = tickets;
+  //     const filteredData = data.filter((element: any) => {
+  //       const searchtext = search.toLowerCase();
+  //       const name = element.ticketName.toLowerCase();
+  //       if (name.includes(searchtext)) {
+  //         return true;
+  //       } else return false;
+  //     });
+  //     setSearchData(filteredData);
+  //   }
+  // }, [search]);
   const [date, setDate] = useState("");
   return (
     <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -65,7 +65,7 @@ export function TicketsReport() {
 
             <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
 
-              <input type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-solid w-100 mw-250px" placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
+              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-solid w-100 mw-250px" placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
 
               <div className="w-150px">
 
@@ -145,7 +145,21 @@ export function TicketsReport() {
                 </tr>
 
               </thead>
-              {search?.length > 1 ? searchData?.map((item: any) => (
+              {tickets?.length > 0 ? tickets?.filter((val: any) => {
+                if (search === "") {
+                  return val;
+                }
+                if (val?.ticketName?.toLowerCase()?.includes(search?.toLowerCase())) {
+                  return val;
+                }
+              }).filter((val: any) => {
+                if (date === "") {
+                  return val;
+                }
+                if (val?.createdAt?.slice(0, 10)?.toLowerCase()?.includes(date?.toLowerCase())) {
+                  return val;
+                }
+              }).map((item: any) => (
                 <tbody className="fw-semibold text-gray-600">
 
                   <tr>
@@ -187,49 +201,7 @@ export function TicketsReport() {
                   </tr>
 
                 </tbody>
-              )) : (tickets?.length > 0 ? tickets?.map((item: any) => (
-                <tbody className="fw-semibold text-gray-600">
-
-                  <tr>
-
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.ticketName ? item?.ticketName : "Nill"}</a>
-                    </td>
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.id ? item?.id : "Nill"}</a>
-                    </td>
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.ticketPriority ? item?.ticketPriority : "Nill"}</a>
-                    </td>
-
-                    <td>
-                      <div className="badge badge-light-success">{item?.ticketStatus?.ticketStatusName ? item?.ticketStatus?.ticketStatusName : 'Nill'}</div>
-                    </td>
-                    <td>{item?.createdAt ? item?.createdAt?.slice(0, 10) : 'Nill'}</td>
-                    <td className=" pe-0">{item?.ticketAssignedTo?.username ? item?.ticketAssignedTo?.username : 'Nill'}</td>
-                    <td>
-                      <a href="#" className="text-dark text-hover-primary">{item?.ticketAssignedTo?.email ? item?.ticketAssignedTo?.email : 'Nill'}</a>
-                    </td>
-
-
-                    <td className=" pe-0">{item?.ticketAssignedTo?.mobile ? item?.ticketAssignedTo?.mobile : "Nill"}</td>
-
-                    <td className=" pe-0">{item?.ticketAssignedTo?.company ? item?.ticketAssignedTo?.company : 'Nill'}</td>
-                    <td className=" pe-0">{item?.ticketAssignedTo?.role ? item?.ticketAssignedTo?.role : 'Nill'}</td>
-                    <td className=" pe-0">{item?.ticketAssignedTo?.provider ? item?.ticketAssignedTo?.provider : 'Nill'}</td>
-                    <td className=" pe-0">{item?.customer?.customerName ? item?.customer?.customerName : 'Nill'}</td>
-                    <td className=" pe-0">{item?.customer?.customerPhoneNumber ? item?.customer?.customerPhoneNumber : 'Nill'}</td>
-                    <td className=" pe-0">{item?.customer?.customerEmail ? item?.customer?.customerEmail : 'Nill'}</td>
-                    <td className=" pe-0">{item?.customer?.customerAge ? item?.customer?.customerAge : 'Nill'}</td>
-                    <td className=" pe-0">{item?.customer?.customerGender ? item?.customer?.customerGender : 'Nill'}</td>
-                    <td className=" pe-0">{item?.customer?.customerAddress ? item?.customer?.customerAddress : 'Nill'}</td>
-                    <td className=" pe-0">{item?.customer?.company ? item?.customer?.company : 'Nill'}</td>
-                    <td className=" pe-0">{item?.customer?.customerIndustry ? item?.customer?.customerIndustry : 'Nill'}</td>
-                    <td className=" pe-0">{item?.customer?.campaignSource ? item?.customer?.campaignSource : 'Nill'}</td>
-                  </tr>
-
-                </tbody>
-              )) : (<h1>No Tickets</h1>))}
+              )) : (<h1>No Tickets</h1>)}
 
             </table>
           </div>

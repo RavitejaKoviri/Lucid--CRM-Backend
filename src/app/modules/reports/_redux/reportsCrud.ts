@@ -7,9 +7,9 @@ export const TARGETS = "targets";
 export const TICKETS = "tickets";
 const campaigns = "campaigns"
 
-const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
 
-export function fetchAllCampaigns(token:any) {
+export function fetchAllCampaigns(token: any) {
   return axios.get(campaigns, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
@@ -60,6 +60,13 @@ export function fetchAllTargets(token: any) {
 export function getAllUsers(token: any) {
 
   return axios.get(TICKETS, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function getLeadsByDate(date: any, token: any) {
+  // console.log(date, "date");
+  return axios.get(`${LEADS}?date=${date}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

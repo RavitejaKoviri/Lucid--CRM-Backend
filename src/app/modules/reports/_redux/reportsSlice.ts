@@ -8,8 +8,9 @@ const initialProductsState = {
   Leads: [],
   campaigns: [],
   deals: [],
-  Targets:[],
-  Tickets:[]
+  Targets: [],
+  Tickets: [],
+  LeadsByDate: [],
 };
 
 export const callTypes = {
@@ -70,6 +71,10 @@ export const ReportsSlice = createSlice({
     fetchedAllTickets: (state, action) => {
       const { data } = action.payload;
       state.Tickets = data;
-    }
+    },
+    fetchedLeadsByDate: (state, action) => {
+      const { data } = action.payload;
+      state.LeadsByDate = data;
+    },
   },
 });

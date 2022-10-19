@@ -23,20 +23,20 @@ export function ContactsReport() {
   console.log('contacts', contacts);
 
   const [search, setSearch] = useState(' ');
-  const [searchData, setSearchData] = useState([]);
-  useEffect(() => {
-    if (contacts) {
-      const data = contacts;
-      const filteredData = data.filter((element: any) => {
-        const searchtext = search.toLowerCase();
-        const name = element.contactName.toLowerCase();
-        if (name.includes(searchtext)) {
-          return true;
-        } else return false;
-      });
-      setSearchData(filteredData);
-    }
-  }, [search]);
+  // const [searchData, setSearchData] = useState([]);
+  // useEffect(() => {
+  //   if (contacts) {
+  //     const data = contacts;
+  //     const filteredData = data.filter((element: any) => {
+  //       const searchtext = search.toLowerCase();
+  //       const name = element.contactName.toLowerCase();
+  //       if (name.includes(searchtext)) {
+  //         return true;
+  //       } else return false;
+  //     });
+  //     setSearchData(filteredData);
+  //   }
+  // }, [search]);
   const [date, setDate] = useState("");
 
   return (
@@ -67,7 +67,7 @@ export function ContactsReport() {
 
             <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
 
-              <input className="form-control form-control-solid w-100 mw-250px" type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
+              <input className="form-control form-control-solid w-100 mw-250px" type="date" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
 
               <div className="w-150px">
 
@@ -138,39 +138,21 @@ export function ContactsReport() {
                 </tr>
 
               </thead>
-              {search?.length > 1 ? searchData?.map((item: any) => (
-                <tbody className="fw-semibold text-gray-600">
-
-                  <tr>
-
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.contactTitle && item?.contactName ? item?.contactTitle + ". " + item?.contactName : "Nill"}</a>
-                    </td>
-
-                    <td>
-                      <a href="#" className="text-dark text-hover-primary">{item?.contactEmail ? item?.contactEmail : "Nill"}</a>
-                    </td>
-                    <td>
-                      <a href="#" className="text-dark text-hover-primary">{item?.contactCity ? item?.contactCity : "Nill"}</a>
-                    </td>
-
-                    {/* <td>
-													<div className="badge badge-light-success">Active</div>
-												</td> */}
-
-                    <td>{item ? item?.createdAt?.slice(0, 10) + " , " + item?.createdAt?.slice(11, 16) : " "}</td>
-                    <td >{item?.contactJobTitle ? item?.contactJobTitle : 'Nill'}</td>
-                    <td >{item?.contactCompanyName ? item?.contactCompanyName : 'Nill'}</td>
-                    <td >{item?.contactMobile ? item?.contactMobile : 'Nill'}</td>
-                    <td >{item?.contactSource?.SourceName ? item?.contactSource?.SourceName : 'Nill'}</td>
-                    <td >{item?.campaignSource?.campaignName ? item?.campaignSource?.campaignName : 'Nill'}</td>
-                    {/* <td >{item ? item?.leadWebsite : ' '}</td>
-												<td >{item ? item?.leadAnnualRevenueContribution : ' '}</td> */}
-
-                  </tr>
-
-                </tbody>
-              )) : (contacts?.length > 0 ? contacts?.map((item: any) => (
+              {contacts?.length > 0 ? contacts?.filter((val: any) => {
+                if (search === "") {
+                  return val;
+                }
+                if (val?.contactName?.toLowerCase()?.includes(search?.toLowerCase())) {
+                  return val;
+                }
+              }).filter((val: any) => {
+                if (date === "") {
+                  return val;
+                }
+                if (val?.createdAt?.slice(0, 10)?.toLowerCase()?.includes(date?.toLowerCase())) {
+                  return val;
+                }
+              }).map((item: any) => (
                 <tbody className="fw-semibold text-gray-600">
 
                   <tr>
@@ -202,7 +184,7 @@ export function ContactsReport() {
                   </tr>
 
                 </tbody>
-              )) : (<h1>No Contacs</h1>))}
+              )) : (<h1>No Contacs</h1>)}
 
 
             </table>

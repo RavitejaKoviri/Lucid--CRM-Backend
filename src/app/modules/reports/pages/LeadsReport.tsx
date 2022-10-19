@@ -4,13 +4,14 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { KTSVG } from '../../../../_metronic/helpers'
+import moment from "moment";
 import {
   ChartsWidget1,
   TablesWidget1,
   ListsWidget5,
   TablesWidget5,
 } from '../../../../_metronic/partials/widgets'
-import { getAllLeads } from '../_redux/reportsAction'
+import { getAllLeads, LeadsByDate } from '../_redux/reportsAction'
 
 export function LeadsReport() {
   const dispatch = useDispatch();
@@ -18,29 +19,24 @@ export function LeadsReport() {
     (state: any) => state?.auth?.authToken);
   useEffect(() => {
     dispatch(getAllLeads(token))
-  }, [dispatch])
+  }, [])
+
   const leads = useSelector(
     (state: any) => state?.Reports?.Leads);
-  console.log('leads', leads);
+  // const leadsByDate = useSelector(
+  //   (state: any) => state?.Reports?.LeadsByDate);
+  console.log('leadsByDate', leads);
 
-  const [search, setSearch] = useState(' ');
-  const [searchData, setSearchData] = useState([]);
-  const [date, setDate] = useState("");
+  const [search, setSearch] = useState('');
+  // const utc = new Date().toJSON().slice(0, 16).replace(/-/g, "-");
+  // const [searchData, setSearchData] = useState([]);
+  const [date, setDate] = useState('');
   console.log(date, "date");
+  // console.log(dates, "date");
 
-  useEffect(() => {
-    if (leads) {
-      const data = leads;
-      const filteredData = data.filter((element: any) => {
-        const searchtext = search.toLowerCase();
-        const name = element.leadFirstName.toLowerCase();
-        if (name.includes(searchtext)) {
-          return true;
-        } else return false;
-      });
-      setSearchData(filteredData);
-    }
-  }, [search]);
+  // useEffect(() => {
+  //   dispatch(LeadsByDate(dates, token))
+  // }, [dates])
 
   return (
     <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -71,7 +67,7 @@ export function LeadsReport() {
 
             <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
 
-              <input type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-solid w-100 mw-250px" placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
+              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="form-control form-control-solid w-100 mw-250px" placeholder="Pick date range" />
 
               <div className="w-150px">
 
@@ -143,61 +139,52 @@ export function LeadsReport() {
 
               </thead>
 
-              {search?.length > 1 ? searchData?.map((item: any) => (
+              {leads?.length > 0 ?
+                leads?.filter((val: any) => {
+                  if (search === "") {
+                    return val;
+                  }
+                  if (val?.leadFirstName?.toLowerCase()?.includes(search?.toLowerCase())) {
+                    return val;
+                  }
+                  if (val?.leadPhonenumber?.toLowerCase()?.includes(search?.toLowerCase())) {
+                    return val;
+                  }
+                }).filter((val: any) => {
+                  if (date === "") {
+                    return val;
+                  }
+                  if (val?.createdAt?.slice(0, 10)?.toLowerCase()?.includes(date?.toLowerCase())) {
+                    return val;
+                  }
+                }).map((item: any) => (
 
-                <tbody className="fw-semibold text-gray-600">
+                  <tbody className="fw-semibold text-gray-600">
 
-                  <tr>
+                    <tr>
 
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.leadFirstName || item?.leadLastName ? item?.leadFirstName + item?.leadLastName : "Nill"}</a>
-                    </td>
-                    <td>
-                      <a href="#" className="text-dark text-hover-primary">{item?.leadEmail ? item?.leadEmail : "Nill"}</a>
-                    </td>
-                    <td>
-                      <div className="badge badge-light-success">{item?.leadStatus?.leadStatusName ? item?.leadStatus?.leadStatusName : "Nill"}</div>
-                    </td>
-                    <td>{item ? item?.createdAt?.slice(0, 10) + " , " + item?.createdAt?.slice(11, 16) : " "}</td>
-                    <td >{item?.leadCompanyName ? item?.leadCompanyName : 'Nill'}</td>
-                    <td >{item?.leadIndustry ? item?.leadIndustry : 'Nill'}</td>
-                    <td >{item?.leadPhonenumber ? item?.leadPhonenumber : 'Nill'}</td>
-                    <td >{item?.leadSource?.SourceName ? item?.leadSource?.SourceName : 'Nill'}</td>
-                    <td >{item?.campaignSource?.campaignName ? item?.campaignSource?.campaignName : 'Nill'}</td>
-                    <td >{item?.leadWebsite ? item?.leadWebsite : 'Nill'}</td>
-                    <td >{item?.leadAnnualRevenueContribution ? item?.leadAnnualRevenueContribution : 'Nill'}</td>
+                      <td>
+                        <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.leadFirstName || item?.leadLastName ? item?.leadFirstName + item?.leadLastName : "Nill"}</a>
+                      </td>
+                      <td>
+                        <a href="#" className="text-dark text-hover-primary">{item?.leadEmail ? item?.leadEmail : "Nill"}</a>
+                      </td>
+                      <td>
+                        <div className="badge badge-light-success">{item?.leadStatus?.leadStatusName ? item?.leadStatus?.leadStatusName : "Nill"}</div>
+                      </td>
+                      <td>{item ? item?.createdAt?.slice(0, 10) + " , " + item?.createdAt?.slice(11, 16) : " "}</td>
+                      <td >{item?.leadCompanyName ? item?.leadCompanyName : 'Nill'}</td>
+                      <td >{item?.leadIndustry ? item?.leadIndustry : 'Nill'}</td>
+                      <td >{item?.leadPhonenumber ? item?.leadPhonenumber : 'Nill'}</td>
+                      <td >{item?.leadSource?.SourceName ? item?.leadSource?.SourceName : 'Nill'}</td>
+                      <td >{item?.campaignSource?.campaignName ? item?.campaignSource?.campaignName : 'Nill'}</td>
+                      <td >{item?.leadWebsite ? item?.leadWebsite : 'Nill'}</td>
+                      <td >{item?.leadAnnualRevenueContribution ? item?.leadAnnualRevenueContribution : 'Nill'}</td>
 
-                  </tr>
+                    </tr>
 
-                </tbody>
-              )) : leads?.length > 0 ? leads?.map((item: any) => (
-
-                <tbody className="fw-semibold text-gray-600">
-
-                  <tr>
-
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.leadFirstName || item?.leadLastName ? item?.leadFirstName + item?.leadLastName : "Nill"}</a>
-                    </td>
-                    <td>
-                      <a href="#" className="text-dark text-hover-primary">{item?.leadEmail ? item?.leadEmail : "Nill"}</a>
-                    </td>
-                    <td>
-                      <div className="badge badge-light-success">{item?.leadStatus?.leadStatusName ? item?.leadStatus?.leadStatusName : "Nill"}</div>
-                    </td>
-                    <td>{item ? item?.createdAt?.slice(0, 10) + " , " + item?.createdAt?.slice(11, 16) : " "}</td>
-                    <td >{item?.leadCompanyName ? item?.leadCompanyName : 'Nill'}</td>
-                    <td >{item?.leadIndustry ? item?.leadIndustry : 'Nill'}</td>
-                    <td >{item?.leadPhonenumber ? item?.leadPhonenumber : 'Nill'}</td>
-                    <td >{item?.leadSource?.SourceName ? item?.leadSource?.SourceName : 'Nill'}</td>
-                    <td >{item?.campaignSource?.campaignName ? item?.campaignSource?.campaignName : 'Nill'}</td>
-                    <td >{item?.leadWebsite ? item?.leadWebsite : 'Nill'}</td>
-                    <td >{item?.leadAnnualRevenueContribution ? item?.leadAnnualRevenueContribution : 'Nill'}</td>
-
-                  </tr>
-
-                </tbody>
-              )) : <h1>No Leads</h1>}
+                  </tbody>
+                )) : <h1>No Leads</h1>}
             </table>
 
           </div>

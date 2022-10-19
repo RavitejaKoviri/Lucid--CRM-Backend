@@ -23,20 +23,20 @@ export function BookingsReport() {
   console.log('bookings', bookings);
 
   const [search, setSearch] = useState(' ');
-  const [searchData, setSearchData] = useState([]);
-  useEffect(() => {
-    if (bookings) {
-      const data = bookings;
-      const filteredData = data.filter((element: any) => {
-        const searchtext = search.toLowerCase();
-        const name = element.fullName.toLowerCase();
-        if (name.includes(searchtext)) {
-          return true;
-        } else return false;
-      });
-      setSearchData(filteredData);
-    }
-  }, [search]);
+  // const [searchData, setSearchData] = useState([]);
+  // useEffect(() => {
+  //   if (bookings) {
+  //     const data = bookings;
+  //     const filteredData = data.filter((element: any) => {
+  //       const searchtext = search.toLowerCase();
+  //       const name = element.fullName.toLowerCase();
+  //       if (name.includes(searchtext)) {
+  //         return true;
+  //       } else return false;
+  //     });
+  //     setSearchData(filteredData);
+  //   }
+  // }, [search]);
   const [date, setDate] = useState("");
 
   return (
@@ -68,7 +68,7 @@ export function BookingsReport() {
 
             <div className="card-toolbar flex-row-fluid justify-content-end gap-5">
 
-              <input className="form-control form-control-solid w-100 mw-250px" type="datetime-local" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
+              <input className="form-control form-control-solid w-100 mw-250px" type="date" value={date} onChange={(e) => setDate(e.target.value)} placeholder="Pick date range" id="kt_ecommerce_report_customer_orders_daterangepicker" />
 
               <div className="w-150px">
 
@@ -142,7 +142,21 @@ export function BookingsReport() {
                 </tr>
 
               </thead>
-              {search?.length > 1 ? searchData?.map((item: any) => (
+              {bookings?.length > 0 ? bookings?.filter((val: any) => {
+                if (search === "") {
+                  return val;
+                }
+                if (val?.fullName?.toLowerCase()?.includes(search?.toLowerCase())) {
+                  return val;
+                }
+              }).filter((val: any) => {
+                if (date === "") {
+                  return val;
+                }
+                if (val?.createdAt?.slice(0, 10)?.toLowerCase()?.includes(date?.toLowerCase())) {
+                  return val;
+                }
+              }).map((item: any) => (
                 <tbody className="fw-semibold text-gray-600">
 
                   <tr>
@@ -181,46 +195,7 @@ export function BookingsReport() {
                   </tr>
 
                 </tbody>
-              )) : (bookings?.length > 0 ? bookings?.map((item: any) => (
-                <tbody className="fw-semibold text-gray-600">
-
-                  <tr>
-
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.fullName ? item?.fullName : "Nill"}</a>
-                    </td>
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.orderitem?.appointment ? item?.orderitem?.appointment : "Nill"}</a>
-                    </td>
-                    <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.gender ? item?.gender : "Nill"}</a>
-                    </td>
-
-                    <td>
-                      <a href="#" className="text-dark text-hover-primary">{item?.email ? item?.email : "Nill"}</a>
-                    </td>
-
-                    <td>
-                      <div className="badge badge-light-success">{item?.dateOfAppointment ? item?.dateOfAppointment : "Nill"}</div>
-                    </td>
-
-                    <td>{item?.branch ? item?.branch : "Nill"}</td>
-                    <td>{item?.city ? item?.city : "Nill"}</td>
-                    <td className=" pe-0">{item?.mobileNumber ? item?.mobileNumber : "Nill"}</td>
-
-                    <td className=" pe-0">{item?.healthPackages ? item?.healthPackages?.length : 0}</td>
-
-                    <td className="pe-0">{item?.healthScans ? item?.healthScans?.length : 0}</td>
-                    <td className=" pe-0">{item?.branchwisetests ? item?.branchwisetests?.length : 0}</td>
-
-                    <td >{item?.paymentMode ? item?.paymentMode : "Nill"}</td>
-                    <td>{item?.paymentStatus ? item?.paymentStatus : "Nill"}</td>
-                    <td >{item?.totalAmount ? item?.totalAmount : "Nill"}</td>
-
-                  </tr>
-
-                </tbody>
-              )) : (<h1>No Bookings</h1>))}
+              )) : (<h1>No Bookings</h1>)}
 
 
             </table>
