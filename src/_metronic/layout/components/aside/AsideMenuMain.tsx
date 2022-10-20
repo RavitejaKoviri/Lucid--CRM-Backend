@@ -20,7 +20,7 @@ export function AsideMenuMain() {
         bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         className='py-2'
       /> */}
-      
+
       <AsideMenuItemWithSubMain
         to='/leads'
         title='CRM'
@@ -46,24 +46,27 @@ export function AsideMenuMain() {
           fontIcon='bi-card-text fs-3'
         /> */}
       </AsideMenuItemWithSubMain>
-      <AsideMenuItemWithSubMain
+      {/* <AsideMenuItemWithSubMain
         to='/campaigns'
         title="Campaigns"
         fontIcon='bi-house fs-2'
-      >
-        <AsideMenuItem to='/campaigns' title=' Campaigns' fontIcon='bi-layers fs-3' />
+      > */}
+        <AsideMenuItem 
+            to='/campaigns' 
+            title=' Campaigns' 
+            fontIcon='bi-gear fs-3' 
+           />
         {/* <AsideMenuItem to='/leads/forms' title='Forms' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/automation' title='Automation' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/social' title='Social Media Campaigns' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/landingPages' title='Landing Page Campaigns' fontIcon='bi-layers fs-3' /> */}
-      </AsideMenuItemWithSubMain>
+      {/* </AsideMenuItemWithSubMain> */}
 
-      <AsideMenuItemWithSubMain to='/CDR' title='CDR' fontIcon='bi-gear'>
-          
-          <AsideMenuItem to='/cdr' title='CDR' fontIcon='bi-layers fs-3'/>
-
-      </AsideMenuItemWithSubMain>
-        
+      <AsideMenuItem
+        to='/cdr'
+        title='CDR'
+        fontIcon='bi-gear fs-3'
+      />
 
       {/* <AsideMenuItem
         to='/forms'
