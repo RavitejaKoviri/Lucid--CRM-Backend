@@ -60,3 +60,46 @@ export const getAllCampaigns = (token:any) => (dispatch: any) => {
       error.clientMessage = "Can't find";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
+
+    export const getCampaignById = (id: any, token: any) => (dispatch: any) => {
+      dispatch(actions.startCall({ callType: callTypes.action }));
+      return requestFromServer
+        .getCampaignsById(id, token)
+        .then((response) => {
+          const { data } = response;
+          dispatch(actions.fetchedAllCampaignDetailsById({ data }));
+        })
+        .catch((error) => {
+          error.clientMessage = "Can't find patient test reports";;
+          dispatch(actions.catchError({ error, callType: callTypes.action }));
+        });
+    };
+
+    export const UpdateCampaign = (id: any, data: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .UpdateCampaign(id, data, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.UpdatedCampaign({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+
+export const DeleteCampaign = (id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .DeleteCampaign(id, token)
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+
+export const deleteSelectedCampaigns = (id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .deleteSelectedCampaign(id, token)

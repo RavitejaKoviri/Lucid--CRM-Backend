@@ -2,12 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  campaign: [],
-  campaignStatus: [],
-  Comapnies : [],
-  Createcampaign : [],
-  UpdatedCampaign:[],
-  CampaignById:[],
+  Leads: [],
+  Createlead: [],
+  Source: [],
+  campaigns: [],
+  Comapnies: [],
+  leadStatus: [],
+  LeadsById: null,
+  UpdatedLead: null,
 };
 
 export const callTypes = {
@@ -15,8 +17,8 @@ export const callTypes = {
   action: "action",
 };
 
-export const CampaignSlice = createSlice({
-  name: "CampaignSlice",
+export const LeadSlice = createSlice({
+  name: "LeadSlice",
   initialState: initialProductsState,
 
   reducers: {
@@ -37,29 +39,37 @@ export const CampaignSlice = createSlice({
       }
     },
 
-    fetchedAllCampaign: (state, action) => {
+    fetchedAllLeadsDetails: (state, action) => {
       const { data } = action.payload;
-      state.campaign = data;
+      state.Leads = data;
     },
-    fetchedcampaignsStatusesDetails: (state, action) => {
+    fetchedAllLeadsDetailsById: (state, action) => {
       const { data } = action.payload;
-      state.campaignStatus = data;
+      state.LeadsById = data;
+    },
+    fetchedAllSourceDetails: (state, action) => {
+      const { data } = action.payload;
+      state.Source = data;
+    },
+    fetchedcampaignsDetails: (state, action) => {
+      const { data } = action.payload;
+      state.campaigns = data;
     },
     fetchedAllComapniesDetails: (state, action) => {
       const { data } = action.payload;
       state.Comapnies = data;
     },
-    fetchedCampaign: (state, action) => {
+    fetchedAllleadStatusesDetails: (state, action) => {
       const { data } = action.payload;
-      state.Createcampaign = data;
+      state.leadStatus = data;
     },
-    UpdatedCampaign: (state, action) => {
+    fetchedLead: (state, action) => {
       const { data } = action.payload;
-      state.UpdatedCampaign = data;
+      state.Createlead = data;
     },
-    fetchedAllCampaignDetailsById: (state, action) => {
+    UpdatedLead: (state, action) => {
       const { data } = action.payload;
-      state.CampaignById = data;
+      state.UpdatedLead = data;
     },
   },
 });

@@ -30,6 +30,8 @@ import SourceAdduser from '../modules/sources/sources-list/components/header/Sou
 
 import AddDepartment from '../modules/Department/Department-list/components/header/AddDepartment'
 import AddBrands from '../modules/Brand/Brands-list/components/header/AddBrands'
+import CdrsPage from '../modules/cdrs/CdrsPage'
+import CdrAdduser from '../modules/cdrs/cdrs-list/components/header/CdrAdduser'
 // import AddBrand from '../modules/Brand/Brands-list/components/header/AddBrand'
 import ReportsPage from '../modules/reports/ReportsPage'
 
@@ -92,6 +94,8 @@ const PrivateRoutes = () => {
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
 
         <Route path='sources/source/addsource' element={<SourceAdduser/>}/>
+
+        <Route path='cdr/cdr/cdradduser' element={<CdrAdduser/>}/>
 
         {/* <Route path='sourcesadduser' element={<SourcesPage/>}/> */}
 
@@ -278,6 +282,14 @@ const PrivateRoutes = () => {
         </SuspensedView>
       }
     />
+            <Route
+               path='cdr/*'
+               element={
+                <SuspensedView>
+                  <CdrsPage/>
+                </SuspensedView>
+               }/>
+
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>

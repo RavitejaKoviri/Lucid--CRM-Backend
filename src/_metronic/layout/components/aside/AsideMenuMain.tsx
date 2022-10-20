@@ -1,8 +1,13 @@
 /* eslint-disable react/jsx-no-target-blank */
-import {useIntl} from 'react-intl'
-import {AsideMenuItemWithSubMain} from './AsideMenuItemWithSubMain'
-import {AsideMenuItemWithSub} from './AsideMenuItemWithSub'
-import {AsideMenuItem} from './AsideMenuItem'
+import { useIntl } from 'react-intl'
+import { AsideMenuItemWithSubMain } from './AsideMenuItemWithSubMain'
+import { AsideMenuItemWithSub } from './AsideMenuItemWithSub'
+import { AsideMenuItem } from './AsideMenuItem'
+import { LEADS } from '../../../../app/modules/leads/leads-list/_redux/leadCrud'
+import LeadsPage from '../../../../app/modules/leads/LeadsPage'
+import { LeadsListWrapper } from '../../../../app/modules/leads/leads-list/LeadsList'
+import LeadAdduser from '../../../../app/modules/leads/leads-list/components/header/LeadAdduser'
+import { LeadsListToolbar } from '../../../../app/modules/leads/leads-list/components/header/LeadsListToolbar'
 
 export function AsideMenuMain() {
   const intl = useIntl()
@@ -15,6 +20,7 @@ export function AsideMenuMain() {
         bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         className='py-2'
       /> */}
+      
       <AsideMenuItemWithSubMain
         to='/leads'
         title='CRM'
@@ -25,8 +31,8 @@ export function AsideMenuMain() {
         <AsideMenuItem to='contacts' title='Contacts' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/bookings' title='Bookings' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/deals' title='Deals' fontIcon='bi-layers fs-3' />
-      
-        
+
+
         {/* <AsideMenuItem to='/leads/tickets' title='Tickets' fontIcon='bi-layers fs-3' /> */}
         <AsideMenuItem to='/target' title='Targets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/ticket' title='Tickets' fontIcon='bi-layers fs-3' />
@@ -41,18 +47,25 @@ export function AsideMenuMain() {
         /> */}
       </AsideMenuItemWithSubMain>
       <AsideMenuItemWithSubMain
-          to='/campaigns'
+        to='/campaigns'
         title="Campaigns"
         fontIcon='bi-house fs-2'
       >
-         <AsideMenuItem to='/campaigns' title=' Campaigns' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/campaigns' title=' Campaigns' fontIcon='bi-layers fs-3' />
         {/* <AsideMenuItem to='/leads/forms' title='Forms' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/automation' title='Automation' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/leads/social' title='Social Media Campaigns' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/leads/landingPages' title='Landing Page Campaigns' fontIcon='bi-layers fs-3' /> */} 
+        <AsideMenuItem to='/leads/landingPages' title='Landing Page Campaigns' fontIcon='bi-layers fs-3' /> */}
       </AsideMenuItemWithSubMain>
-     
-       {/* <AsideMenuItem
+
+      <AsideMenuItemWithSubMain to='/CDR' title='CDR' fontIcon='bi-gear'>
+          
+          <AsideMenuItem to='/cdr' title='CDR' fontIcon='bi-layers fs-3'/>
+
+      </AsideMenuItemWithSubMain>
+        
+
+      {/* <AsideMenuItem
         to='/forms'
         title="Forms"
         fontIcon='bi-card-text fs-3'
@@ -66,21 +79,23 @@ export function AsideMenuMain() {
         // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         className='py-2'
       /> */}
-      
-       <AsideMenuItem
+
+      <AsideMenuItem
         to='/reports'
         title="Reports"
         fontIcon='bi-house fs-2'
         // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         className='py-2'
       />
+
+
       <AsideMenuItemWithSubMain
         to='/inbox'
         title='Inbox'
         fontIcon='bi-file-text'
         bsTitle={"E-Mail"}
       >
-       
+
         <AsideMenuItem
           to='/inbox/messages'
           title='Messages'
@@ -99,7 +114,7 @@ export function AsideMenuMain() {
           bsTitle='View & Reply'
           fontIcon='bi-card-text fs-3'
         />
-       
+
       </AsideMenuItemWithSubMain>
       <AsideMenuItemWithSubMain
         to='/settings'
@@ -117,7 +132,7 @@ export function AsideMenuMain() {
         {/* <AsideMenuItem to='/settings/contacts' title='Targets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/contacts' title='Contacts' fontIcon='bi-layers fs-3' /> */}
 
-       
+
       </AsideMenuItemWithSubMain>
       {/* settings should have sources config, team members  */}
       {/* <AsideMenuItem

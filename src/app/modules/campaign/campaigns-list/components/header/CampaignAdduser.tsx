@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { getCampaignStatuses } from "../../_redux/campaignAction";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getCampaignById, getCampaignStatuses, UpdateCampaign } from "../../_redux/campaignAction";
 import {  getCompanies,    } from "../../_redux/campaignAction";
 import { CreateCampaign } from "../../_redux/campaignCrud";
 
@@ -18,8 +18,13 @@ import { CreateCampaign } from "../../_redux/campaignCrud";
 
 export default function CampaignAdduser() {
   const navigation = useNavigate();
-  
+  const location = useLocation();
+
   const dispatch = useDispatch();
+  const id = location?.state
+  console.log(id, "location")
+  const [campaign, setCampaign] = useState(false);
+  
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
@@ -31,20 +36,41 @@ export default function CampaignAdduser() {
   // const campaign = useSelector(
   //   (state: any) => state?.TargetData?.campaigns
   // );
-  const company = useSelector(
-    (state: any) => state?.campaignData?.Comapnies
-  );
+  // const company = useSelector(
+  //   (state: any) => state?.campaignData?.Comapnies
+  // );
   const status = useSelector(
     (state: any) => state?.campaignData?.campaignStatus
   );
- 
+  const CampaignByIds = useSelector(
+    (state: any) => state?.campaignData?.CampaignById
+  );
   console.log(status,"status");
   
+  useEffect(() => {
+    setData({
+      campaignName: CampaignByIds?.campaignName,
+      campaignStatus: CampaignByIds?.campaignStatus,
+      company: user?.company?.id,     
+    })
+    setCampaign(false);
+    console.log("hello")
+  }, [campaign])
+
+
+
+
+
   useEffect(() => {
     
     dispatch(getCompanies(token))
     dispatch(getCampaignStatuses(token))
   }, [])
+
+  useEffect(() => {
+      dispatch(getCampaignById(id, token))
+      setCampaign(true);
+  }, [CampaignByIds?.id])
 
   const [data, setData] = useState({
     campaignName: " ",
@@ -61,7 +87,12 @@ export default function CampaignAdduser() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(CreateCampaign(data, token));
+    if (id !== null) {
+      dispatch(UpdateCampaign(id, data, token));
+    }
+    else {
+      dispatch(CreateCampaign(data, token));
+    }
     setData({
       campaignName: " ",
       campaignStatus: " ",

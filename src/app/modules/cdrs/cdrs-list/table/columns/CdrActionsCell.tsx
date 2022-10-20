@@ -1,46 +1,33 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { FC, useEffect } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
-import { ID, KTSVG, QUERIES } from '../../../../../../_metronic/helpers'
-import { useListView } from '../../core/ListViewProvider'
-import { useQueryResponse } from '../../core/QueryResponseProvider'
-import { deleteUser } from '../../core/_requests'
-import { DeleteCampaign } from '../../_redux/campaignAction'
+import { ID, KTSVG, } from '../../../../../../_metronic/helpers'
+
+import { DeleteLead } from '../../_redux/leadAction'
 
 type Props = {
   id: ID
 }
 
-const CampaignActionsCell: FC<Props> = ({ id }) => {
-  console.log("edit check", id);
-  const { setItemIdForUpdate } = useListView()
-  const { query } = useQueryResponse()
-  const queryClient = useQueryClient()
-
-  useEffect(() => {
-    MenuComponent.reinitialization()
-  }, [])
+const CdrActionsCell: FC<Props> = ({ id }) => {
   const navigation = useNavigate()
-  const openEditModal = () => {
-    navigation('campaignadduser', { state: { id } })
-  }
+  const dispatch = useDispatch();
 
-  // const deleteItem = useMutation(() => deleteUser(id), {
-  //   // 💡 response of the mutation is passed to onSuccess
-  //   onSuccess: () => {
-  //     // ✅ update detail view directly
-  //     queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
-  //   },
-  // })
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
-  const dispatch = useDispatch();
+  useEffect(() => {
+    MenuComponent.reinitialization()
+  }, [])
+
+  const openEditModal = () => {
+    navigation('leadadduser', { state: { id } })
+  }
+
   const deleteItem = () =>
-  dispatch(DeleteCampaign(id, token))
+    dispatch(DeleteLead(id, token))
 
   return (
     <>
@@ -71,9 +58,7 @@ const CampaignActionsCell: FC<Props> = ({ id }) => {
           <a
             className='menu-link px-3'
             data-kt-users-table-filter='delete_row'
-            // onClick={async () => await deleteItem.mutateAsync()}
             onClick={deleteItem}
-
           >
             Delete
           </a>
@@ -85,4 +70,4 @@ const CampaignActionsCell: FC<Props> = ({ id }) => {
   )
 }
 
-export { CampaignActionsCell }
+export { CdrActionsCell }
