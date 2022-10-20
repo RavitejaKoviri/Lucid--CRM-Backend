@@ -18,7 +18,21 @@ export const getAlldeals = (token: any) => (dispatch: any) => {
       error.clientMessage = "Can't find patient test reports";;
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
-    
+
+};
+export const getdealsById = (id: any, token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getdealsById(id, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetcheddealsById({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+
 };
 //get source details
 export const getsource = (token: any) => (dispatch: any) => {
@@ -84,6 +98,19 @@ export const CreateDeal = (data: any, token: any) => (dispatch: any) =>
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetcheddeal({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+
+export const UpdateDeal = (data: any, id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .UpdateDeal(data, id, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.Updateddeal({ data }));
     })
     .catch((error) => {
       // eslint-disable-next-line no-param-reassign

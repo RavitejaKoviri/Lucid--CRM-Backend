@@ -15,7 +15,16 @@ export function getAlldeal(token: any) {
   });
 }
 
-export function getSource (token: any) {
+export function getdealsById(id: any, token: any) {
+  return axios.get(`${DEALS}/${id}`, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export function getSource(token: any) {
   return axios.get(sources, {
     headers: {
       "content-type": "application/json",
@@ -52,6 +61,12 @@ export function getdealStatuses(token: any) {
 }
 export function CreateDeal(data: any, token: any) {
   return axios.post(DEALS, data, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function UpdateDeal(data: any, id: any, token: any) {
+  return axios.put(`${DEALS}/${id}`, data, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

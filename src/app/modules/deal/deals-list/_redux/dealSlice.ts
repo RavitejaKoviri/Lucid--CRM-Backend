@@ -6,7 +6,9 @@ const initialProductsState = {
   Source: [],
   campaigns: [],
   Comapnies: [],
-  dealStatus: []
+  dealStatus: [],
+  Updateddeals: [],
+  dealsById: [],
 };
 
 export const callTypes = {
@@ -35,11 +37,15 @@ export const dealsSlice = createSlice({
         state.actionsLoading = true;
       }
     },
-    
+
 
     fetchedalldeals: (state, action) => {
       const { data } = action.payload;
       state.deals = data;
+    },
+    fetcheddealsById: (state, action) => {
+      const { data } = action.payload;
+      state.dealsById = data;
     },
     fetchedAllSourceDetails: (state, action) => {
       const { data } = action.payload;
@@ -60,6 +66,10 @@ export const dealsSlice = createSlice({
     fetcheddeal: (state, action) => {
       const { data } = action.payload;
       state.deals = data;
+    },
+    Updateddeal: (state, action) => {
+      const { data } = action.payload;
+      state.Updateddeals = data;
     },
   },
 });
