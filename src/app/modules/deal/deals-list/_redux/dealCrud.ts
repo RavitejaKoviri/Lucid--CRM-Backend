@@ -66,7 +66,14 @@ export function CreateDeal(data: any, token: any) {
 }
 
 export function UpdateDeal(data: any, id: any, token: any) {
+  console.log(data, id, "UpdateDeal")
   return axios.put(`${DEALS}/${id}`, data, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function DeleteDeal(id: any, token: any) {
+  return axios.delete(`${DEALS}/${id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

@@ -1,23 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CreateDeal,
   getcampaigns,
   getcompanies,
+  getdealsById,
   getdealStatuses,
   getsource,
+  UpdateDeal,
 } from "../../_redux/dealAction";
 
 export default function DealsAdduser() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const id: any = location?.state
+  console.log(id, "dealid");
+
+  const [deal, setDeal] = useState(false);
   const token = useSelector((state: any) => state?.auth?.authToken);
   const user = useSelector((state: any) => state?.auth?.user);
   const source = useSelector((state: any) => state?.deal?.Source);
   const campaign = useSelector((state: any) => state?.deal?.campaigns);
-  const company = useSelector((state: any) => state?.deal?.Comapnies);
+  const company = useSelector((state: any) => state?.deal?.Companies);
   const status = useSelector((state: any) => state?.deal?.dealStatus);
+  const dealById = useSelector((state: any) => state?.deal?.dealsById);
   console.log(status, "status");
 
   useEffect(() => {
@@ -44,10 +53,38 @@ export default function DealsAdduser() {
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getdealsById(id?.id, token))
+    setDeal(true);
+  }, [dealById?.id])
 
+  useEffect(() => {
+    setData({
+      dealName: dealById?.dealName,
+      dealContactPersonName: dealById?.dealContactPersonName,
+      dealContactPersonPhoneNumber: dealById?.dealContactPersonPhoneNumber,
+      dealContactPersonEmail: dealById?.dealContactPersonEmail,
+      dealContactPersonAlternateEmail: dealById?.dealContactPersonAlternateEmail,
+      dealContactPersonAlternatePhoneNumber: dealById?.dealContactPersonAlternatePhoneNumber,
+      dealType: dealById?.dealType,
+      dealSource: dealById?.dealSource?.id,
+      campaignSource: dealById?.campaignSource?.id,
+      company: user?.company?.id,
+      dealStatus: dealById?.dealStatus?.id,
+      dealOwner: user?.id,
+    })
+    setDeal(false);
+  }, [deal])
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(CreateDeal(data, token));
+
+    if (id !== null) {
+      dispatch(UpdateDeal(data, id?.id, token));
+    }
+    else {
+      dispatch(CreateDeal(data, token));
+    }
     setData({
       dealName: " ",
       dealContactPersonName: " ",
@@ -67,16 +104,16 @@ export default function DealsAdduser() {
     <>
       <div
         className="content d-flex flex-column flex-column-fluid"
-        // id="kt_content"
+      // id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
           <div
             // id="kt_ecommerce_add_product_form"
             className="form d-flex flex-column flex-lg-row"
-            // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
+          // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-              
+
               {/*end::Thumbnail settings*/}
               {/*begin::Status*/}
               <div className="card card-flush py-4">
@@ -355,7 +392,7 @@ export default function DealsAdduser() {
                                 onChange={handleChange}
                                 name="dealContactPersonAlternateEmail"
                                 className="form-control"
-                                // placeholder="Enter EmailOptOut"
+                              // placeholder="Enter EmailOptOut"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -397,9 +434,9 @@ export default function DealsAdduser() {
                             </div>
                           </div>
                           <div className="form-group row mb-2">
-                           
+
                             <div className="col-lg-6">
-                            <label>Deal Type:</label>
+                              <label>Deal Type:</label>
                               <select
                                 data-control="select2"
                                 data-hide-search="true"
@@ -490,7 +527,7 @@ export default function DealsAdduser() {
                       </div>
                      
                     </div> */}
-                  
+
                   </div>
                 </div>
               </div>

@@ -117,3 +117,16 @@ export const UpdateDeal = (data: any, id: any, token: any) => (dispatch: any) =>
       error.clientMessage = "Can't find";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
+
+export const DeleteDeal = (id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .DeleteDeal(id, token)
+    .then((response) => {
+      const { data } = response;
+      console.log(data);
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
