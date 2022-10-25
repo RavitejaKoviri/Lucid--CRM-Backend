@@ -10,7 +10,7 @@ import { CdrsListLoading } from '../components/loading/CdrsListLoading'
 import { CdrsListPagination } from '../components/pagination/CdrsListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLeads } from '../_redux/leadAction'
+import { getLeads, PostCdr } from '../_redux/leadAction'
 import LeadContext from './columns/context'
 
 const CdrsTable = () => {
@@ -34,6 +34,7 @@ const CdrsTable = () => {
 
   console.log(data);
   useEffect(() => {
+    dispatch(PostCdr(token))
     dispatch(getLeads(token))
   }, [])
   console.log(user, "users")
@@ -59,16 +60,7 @@ const CdrsTable = () => {
                 if (searchTerm === "") {
                   return val;
                 }
-                if (val?.original?.leadFirstName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
-                  return val;
-                }
-                if (val?.original?.leadLastName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
-                  return val;
-                }
-                if (val?.original?.leadCompanyName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
-                  return val;
-                }
-                if (val?.original?.leadPhonenumber?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                if (val?.original?.agent_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
                   return val;
                 }
               }).map((row: Row<Lead>, i) => {

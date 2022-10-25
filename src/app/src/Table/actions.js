@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-axios.defaults.headers = {
-  Authorization: 'aKbUDekFAKiWP0Rx4wGY3HdNU7wrbWJvhkrefgyW6pdiWuVCry8izvNHkpFhfG9B'
-}
+// axios.defaults.headers = {
+//   Authorization: 'aKbUDekFAKiWP0Rx4wGY3HdNU7wrbWJvhkrefgyW6pdiWuVCry8izvNHkpFhfG9B'
+// }
 
 const APP_URL = 'http://173.249.14.149:3001/api'
 //http://173.249.14.149:3001/api/Dashboards/5ef370de14213070188a41eb?access_Token=B6IES26pZSvpX4J8c8q4wmseASpRtmBOtvXzztH57NDDJXxO94qE7VbtJ7y718GZ
@@ -19,7 +19,7 @@ export const updatedash = async (dashboardId, widgetData) => {
   return axios
     .put(
       `${APP_URL}/Dashboards/${dashboardId}`,
-      {grapes: widgetData}
+      { grapes: widgetData }
     )
 }
 

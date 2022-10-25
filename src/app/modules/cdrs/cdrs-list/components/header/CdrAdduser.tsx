@@ -654,13 +654,14 @@ export default function CdrAdduser() {
                 {/*end::Tab pane*/}
               </div>
               <div className="d-flex justify-content-end">
-                <a
-                  href="../../demo6/dist/apps/ecommerce/catalog/products.html"
-                  id="kt_ecommerce_add_product_cancel"
+                <button
                   className="btn btn-light me-5"
+                  onClick={() => {
+                    navigation('/cdr/cdr')
+                  }}
                 >
-                  Cancel
-                </a>
+                  Back
+                </button>
                 <button
                   onClick={() => {
                     handleSubmit()

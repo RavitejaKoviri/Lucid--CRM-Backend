@@ -9,8 +9,8 @@ export default function LeadAdduser() {
   const [lead, setLead] = useState(false);
   const id = location?.state
 
-  
-  console.log( "location")
+
+  console.log("location")
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector(
@@ -43,11 +43,11 @@ export default function LeadAdduser() {
     dispatch(getcompanies(token))
     dispatch(getleadStatuses(token))
   }, [])
-  useEffect(()=>{
-    console.log(id,"TestId");
-      dispatch(getLeadsById(id, token))
-      setLead(true);
-  },[leadById?.id])
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getLeadsById(id, token))
+    setLead(true);
+  }, [leadById?.id])
 
   useEffect(() => {
     setData({
@@ -495,7 +495,7 @@ export default function LeadAdduser() {
                                 onChange={handleChange}
                                 name="leadId"
                                 className="form-control"
-                              // placeholder="Enter LeadId"
+                                placeholder="Enter LeadId"
                               />
                             </div>
                           </div>

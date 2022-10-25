@@ -730,9 +730,6 @@ const DealIndex = () => {
                     placeholder='Company name'
                     value={deal?.dealContactPersonName}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -747,9 +744,6 @@ const DealIndex = () => {
                     placeholder='Phone number'
                     value={deal?.dealContactPersonPhoneNumber}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -764,9 +758,6 @@ const DealIndex = () => {
                     placeholder='Company website'
                     value={deal?.dealContactPersonAlternatePhoneNumber}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -781,9 +772,6 @@ const DealIndex = () => {
                     placeholder='Company website'
                     value={deal?.dealContactPersonEmail}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -798,9 +786,6 @@ const DealIndex = () => {
                     placeholder='Company website'
                     value={deal?.dealContactPersonAlternateEmail}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -815,9 +800,6 @@ const DealIndex = () => {
                     placeholder='Company website'
                     value={deal?.dealOwner?.username}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -832,9 +814,6 @@ const DealIndex = () => {
                     placeholder='Company website'
                     value={deal?.dealSource?.SourceName}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -849,9 +828,6 @@ const DealIndex = () => {
                     placeholder='Company website'
                     value={deal?.dealStatus?.dealStatusName}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -866,9 +842,6 @@ const DealIndex = () => {
                     placeholder='Company website'
                     value={deal?.dealType}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -883,9 +856,6 @@ const DealIndex = () => {
                     placeholder='Company website'
                     value={deal?.company?.companyName}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
               <div className='row mb-6'>
@@ -900,9 +870,6 @@ const DealIndex = () => {
                     placeholder='Company website'
                     value={deal?.campaignSource?.campaignName}
                   />
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'></div>
-                  </div>
                 </div>
               </div>
             </div>

@@ -134,3 +134,16 @@ export const DeleteLead = (id: any, token: any) => (dispatch: any) =>
 export const deleteSelectedLeads = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
     .deleteSelectedLead(id, token)
+
+
+export const PostCdr = (token: any) => (dispatch: any) =>
+  requestFromServer
+    .PostCdr(token)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });

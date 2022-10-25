@@ -5,18 +5,19 @@ export const companies = "companies";
 export const campaigns = "campaigns";
 export const leadstatuses = "lead-statuses";
 export const sources = "sources";
+export const cdrPost = "leadFromCalls"
 
 
 export function getAllLeads(token: any) {
 
-  return axios.get(LEADS, {
+  return axios.get(`cdrs`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 
 export function getAllLeadsById(id: any, token: any) {
 
-  return axios.get(`${LEADS}/${id?.id}`, {
+  return axios.get(`cdrs`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
@@ -45,7 +46,7 @@ export function getAllcompanies(token: any) {
 export function getleadStatuses(token: any) {
 
   return axios.get(leadstatuses, {
-    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+    headers: { Accept: "*/*" },
   });
 }
 
@@ -74,4 +75,10 @@ export function deleteSelectedLead(Usersid: any, token: any) {
     });
   })
 
+}
+
+export function PostCdr(token: any) {
+  return axios.post(cdrPost, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
 }

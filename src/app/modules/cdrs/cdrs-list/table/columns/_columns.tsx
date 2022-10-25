@@ -20,40 +20,38 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
   //   Cell: ({ ...props }) => <LeadInfoCell lead={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <CdrCustomHeader tableProps={props} title='FirstName' className='min-w-125px' />,
-    accessor: 'leadFirstName',
+    Header: (props) => <CdrCustomHeader tableProps={props} title='Agent Name' className='min-w-125px' />,
+    accessor: 'agent_name',
   },
   {
-    Header: (props) => <CdrCustomHeader tableProps={props} title='LastName' className='min-w-125px' />,
-    accessor: 'leadLastName',
+    Header: (props) => <CdrCustomHeader tableProps={props} title='Agent Number' className='min-w-125px' />,
+    accessor: 'agent_number',
   },
   {
-    Header: (props) => <CdrCustomHeader tableProps={props} title='Email' className='min-w-125px' />,
-    accessor: 'leadEmail',
+    Header: (props) => <CdrCustomHeader tableProps={props} title='Client Number' className='min-w-125px' />,
+    accessor: 'client_number',
   },
   {
-    Header: (props) => <CdrCustomHeader tableProps={props} title='Company' className='min-w-125px' />,
-    accessor: 'leadCompanyName',
+    Header: (props) => <CdrCustomHeader tableProps={props} title='Description' className='min-w-125px' />,
+    accessor: 'description',
   },
   {
-    Header: (props) => <CdrCustomHeader tableProps={props} title='AnnualRevenue' className='min-w-125px' />,
-    accessor: 'leadAnnualRevenueContribution',
+    Header: (props) => <CdrCustomHeader tableProps={props} title='Status' className='min-w-125px' />,
+    accessor: 'status',
   },
   {
-    Header: (props) => <CdrCustomHeader tableProps={props} title='Industry' className='min-w-125px' />,
-    accessor: 'leadIndustry',
+    Header: (props) => <CdrCustomHeader tableProps={props} title='Call Duration' className='min-w-125px' />,
+    accessor: 'call_duration',
   },
   {
-    Header: (props) => <CdrCustomHeader tableProps={props} title='Phonenumber' className='min-w-125px' />,
-    accessor: 'leadPhonenumber',
+    Header: (props) => <CdrCustomHeader tableProps={props} title='Date' className='min-w-125px' />,
+    accessor: 'date',
   },
   {
-    Header: (props) => (
-      <CdrCustomHeader tableProps={props} title='campaignSource' className='min-w-125px' />
-    ),
-    id: 'campaignSource',
-    Cell: ({ ...props }) => <CdrLastLoginCell campaignSource={props.data[props.row.index].campaignName} />,
+    Header: (props) => <CdrCustomHeader tableProps={props} title='Time' className='min-w-125px' />,
+    accessor: 'time',
   },
+
   // {
   //   Header: (props) => (
   //     <LeadCustomHeader tableProps={props} title='Owner' className='min-w-125px' />
