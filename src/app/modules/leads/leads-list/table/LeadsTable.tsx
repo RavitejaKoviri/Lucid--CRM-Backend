@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -12,14 +12,29 @@ import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLeads } from '../_redux/leadAction'
 import LeadContext from './columns/context'
+import { Pagination } from '@mui/material'
 
 const LeadsTable = () => {
   const users = useQueryResponseData()
-  const user = useSelector(
+  const [perPage, setPerPage] = useState([]);
+  const [lead, setLead] = useState([]);
+  const leads = useSelector(
     (state: any) => state?.LeadData?.Leads
   );
   const isLoading = useQueryResponseLoading()
-  const data = useMemo(() => user, [user])
+
+  const data = useMemo(() => perPage, [perPage])
+  useEffect(() => {
+    setLead(leads);
+    setPerPage(leads.slice(0, 10));
+  }, [leads])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(lead.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(lead.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
   const columns = useMemo(() => LeadsColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -36,7 +51,6 @@ const LeadsTable = () => {
   useEffect(() => {
     dispatch(getLeads(token))
   }, [])
-  console.log(user, "users")
   const { searchTerm } = useContext(LeadContext);
   return (
     <KTCardBody className='py-4'>
@@ -87,7 +101,15 @@ const LeadsTable = () => {
           </tbody>
         </table>
       </div>
-      <LeadsListPagination />
+      {/* <LeadsListPagination /> */}
+      <div className='d-flex flex-end'>
+        <Pagination
+          // justifyContent="center"
+          count={pageNumbers.length}
+          onChange={(e, value) => pageHandler(value)}
+          color="primary"
+        />
+      </div>
       {isLoading && <LeadsListLoading />}
     </KTCardBody>
   )

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -10,17 +10,31 @@ import { CampaignsListPagination } from '../components/pagination/CampaignsListP
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllCampaigns } from '../_redux/campaignAction'
+import { Pagination } from '@mui/material'
 
 const CampaignsTable = () => {
-  const campaign = useSelector(
+  const campaigns = useSelector(
     (state: any) => state?.campaignData?.campaign
   );
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
   const isLoading = useQueryResponseLoading()
+  const [perPage, setPerPage] = useState([]);
+  const [campaign, setCampaign] = useState([]);
   const dispatch = useDispatch()
-  const data = useMemo(() => campaign, [campaign])
+  const data = useMemo(() => perPage, [perPage])
+  useEffect(() => {
+    setCampaign(campaigns);
+    setPerPage(campaigns.slice(0, 10));
+  }, [campaigns])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(campaign.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(campaign.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
   const columns = useMemo(() => usersColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -30,7 +44,7 @@ const CampaignsTable = () => {
   useEffect(() => {
     dispatch(getAllCampaigns(token))
   }, [])
-  console.log(campaign, "users")
+  // console.log(campaign, "users")
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>
@@ -64,7 +78,15 @@ const CampaignsTable = () => {
           </tbody>
         </table>
       </div>
-      <CampaignsListPagination />
+      {/* <CampaignsListPagination /> */}
+      <div className='d-flex flex-end'>
+        <Pagination
+          // justifyContent="center"
+          count={pageNumbers.length}
+          onChange={(e, value) => pageHandler(value)}
+          color="primary"
+        />
+      </div>
       {isLoading && <CampaignsListLoading />}
     </KTCardBody>
   )

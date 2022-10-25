@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -12,14 +12,30 @@ import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLeads, PostCdr } from '../_redux/leadAction'
 import LeadContext from './columns/context'
+import { Pagination } from '@mui/material'
 
 const CdrsTable = () => {
   const users = useQueryResponseData()
-  const user = useSelector(
+  const cdrs = useSelector(
     (state: any) => state?.LeadData?.Leads
   );
+  const [perPage, setPerPage] = useState([]);
+  const [cdr, setCdr] = useState([]);
   const isLoading = useQueryResponseLoading()
-  const data = useMemo(() => user, [user])
+  const data = useMemo(() => perPage, [perPage])
+
+  useEffect(() => {
+    setCdr(cdrs);
+    setPerPage(cdrs.slice(0, 10));
+  }, [cdrs])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(cdr.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(cdr.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
+
   const columns = useMemo(() => LeadsColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -37,7 +53,6 @@ const CdrsTable = () => {
     dispatch(PostCdr(token))
     dispatch(getLeads(token))
   }, [])
-  console.log(user, "users")
   const { searchTerm } = useContext(LeadContext);
   return (
     <KTCardBody className='py-4'>
@@ -79,7 +94,15 @@ const CdrsTable = () => {
           </tbody>
         </table>
       </div>
-      <CdrsListPagination />
+      {/* <CdrsListPagination /> */}
+      <div className='d-flex flex-end'>
+        <Pagination
+          // justifyContent="center"
+          count={pageNumbers.length}
+          onChange={(e, value) => pageHandler(value)}
+          color="primary"
+        />
+      </div>
       {isLoading && <CdrsListLoading />}
     </KTCardBody>
   )

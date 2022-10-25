@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useContext, useEffect } from 'react'
+import { Pagination } from '@mui/material';
+import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card3 } from '../../../../../_metronic/partials/content/cards/Card3'
 import { getAllContacts } from '../_redux/contactAction'
@@ -13,10 +14,23 @@ export function ContactsData() {
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
+  const [perPage, setPerPage] = useState([]);
+  const [contact, setContact] = useState([]);
+  useEffect(() => {
+    setContact(Contacts);
+    setPerPage(Contacts.slice(0, 10));
+  }, [Contacts])
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllContacts(token))
   }, [])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(contact.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(contact.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
   console.log(Contacts, "Contacts")
   const { searchTerm } = useContext(ContactContext);
   return (
@@ -44,7 +58,7 @@ export function ContactsData() {
       </div>
 
       <div className='row g-6 g-xl-4'>
-        {Contacts?.filter((val: any) => {
+        {perPage?.filter((val: any) => {
           if (searchTerm === "") {
             return val;
           }
@@ -73,58 +87,13 @@ export function ContactsData() {
       </div>
 
 
-      <div className='d-flex flex-stack flex-wrap pt-10'>
-        <div className='fs-6 fw-bold text-gray-700'>Showing 1 to 10 of 50 entries</div>
-
-        <ul className='pagination'>
-          <li className='page-item previous'>
-            <a href='#' className='page-link'>
-              <i className='previous'></i>
-            </a>
-          </li>
-
-          <li className='page-item active'>
-            <a href='#' className='page-link'>
-              1
-            </a>
-          </li>
-
-          <li className='page-item'>
-            <a href='#' className='page-link'>
-              2
-            </a>
-          </li>
-
-          <li className='page-item'>
-            <a href='#' className='page-link'>
-              3
-            </a>
-          </li>
-
-          <li className='page-item'>
-            <a href='#' className='page-link'>
-              4
-            </a>
-          </li>
-
-          <li className='page-item'>
-            <a href='#' className='page-link'>
-              5
-            </a>
-          </li>
-
-          <li className='page-item'>
-            <a href='#' className='page-link'>
-              6
-            </a>
-          </li>
-
-          <li className='page-item next'>
-            <a href='#' className='page-link'>
-              <i className='next'></i>
-            </a>
-          </li>
-        </ul>
+      <div className='d-flex flex-end'>
+        <Pagination
+          // justifyContent="center"
+          count={pageNumbers.length}
+          onChange={(e, value) => pageHandler(value)}
+          color="primary"
+        />
       </div>
     </>
   )

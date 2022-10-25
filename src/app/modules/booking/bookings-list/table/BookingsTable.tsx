@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -11,17 +11,31 @@ import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllBookings } from '../_redux/bookingAction'
 import BookingContext from './columns/context'
+import { Pagination } from '@mui/material'
 
 const BookingsTable = () => {
-  const user = useSelector(
+  const Bookings = useSelector(
     (state: any) => state?.booking?.booking
   );
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
+  const [perPage, setPerPage] = useState([]);
+  const [booking, setBooking] = useState([]);
   const isLoading = useQueryResponseLoading()
   const dispatch = useDispatch()
-  const data = useMemo(() => user, [user])
+  const data = useMemo(() => perPage, [perPage])
+  useEffect(() => {
+    setBooking(Bookings);
+    setPerPage(Bookings.slice(0, 10));
+  }, [Bookings])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(booking.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(booking.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
   const columns = useMemo(() => usersColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -31,7 +45,6 @@ const BookingsTable = () => {
   useEffect(() => {
     dispatch(getAllBookings())
   }, [])
-  console.log(user, "users")
   const { searchTerm } = useContext(BookingContext);
   return (
     <KTCardBody className='py-4'>
@@ -76,7 +89,15 @@ const BookingsTable = () => {
           </tbody>
         </table>
       </div>
-      <BookingsListPagination />
+      {/* <BookingsListPagination /> */}
+      <div className='d-flex flex-end'>
+        <Pagination
+          // justifyContent="center"
+          count={pageNumbers.length}
+          onChange={(e, value) => pageHandler(value)}
+          color="primary"
+        />
+      </div>
       {isLoading && <BookingsListLoading />}
     </KTCardBody>
   )

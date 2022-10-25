@@ -707,7 +707,7 @@ const DealIndex = () => {
             data-bs-target='#kt_account_profile_details'
             aria-expanded='true'
             aria-controls='kt_account_profile_details'
-            style={{width:"100%"}}
+            style={{ width: "100%" }}
           >
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>DEALS DATA</h3>
@@ -718,7 +718,7 @@ const DealIndex = () => {
               <div className='form-group row mb-2'>
 
                 <div className='col-lg-6'>
-                <label className='col-lg-8 col-form-label required fw-bold fs-6'>Deal Name</label>
+                  <label className='col-lg-8 col-form-label required fw-bold fs-6'>Deal Name</label>
 
                   <input
                     type='text'
@@ -729,7 +729,7 @@ const DealIndex = () => {
                 </div>
 
                 <div className='col-lg-6'>
-                <label className='col-lg-8 col-form-label required fw-bold fs-6'>Person Name</label>
+                  <label className='col-lg-8 col-form-label required fw-bold fs-6'>Person Name</label>
 
                   <input
                     type='text'
@@ -744,9 +744,9 @@ const DealIndex = () => {
               </div>
               <div className='form-group row mb-2'>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-12 col-form-label fw-bold fs-6'>
-                  <span className='required'>Person PhoneNumber</span>
-                </label>
+                  <label className='col-lg-12 col-form-label fw-bold fs-6'>
+                    <span className='required'>Person PhoneNumber</span>
+                  </label>
                   <input
                     type='tel'
                     className='form-control form-control-lg form-control-solid'
@@ -758,9 +758,9 @@ const DealIndex = () => {
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-12 col-form-label fw-bold fs-6'>
-                  <span className='required'>Aternate PhoneNumber</span>
-                </label>
+                  <label className='col-lg-12 col-form-label fw-bold fs-6'>
+                    <span className='required'>Aternate PhoneNumber</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -772,14 +772,14 @@ const DealIndex = () => {
                   </div>
                 </div>
               </div>
-             
+
               <div className='form-group row mb-2'>
-               
+
 
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Email</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Email</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -791,9 +791,9 @@ const DealIndex = () => {
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Alternate Email</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Alternate Email</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -805,14 +805,14 @@ const DealIndex = () => {
                   </div>
                 </div>
               </div>
-             
+
               <div className='form-group row mb-2'>
-               
+
 
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>dealOwner</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>dealOwner</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -824,9 +824,9 @@ const DealIndex = () => {
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Source</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Source</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -838,14 +838,14 @@ const DealIndex = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className='form-group row mb-2'>
-               
+
 
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Status</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Status</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -857,9 +857,9 @@ const DealIndex = () => {
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Deal Type</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Deal Type</span>
+                  </label>
 
                   <input
                     type='text'
@@ -872,14 +872,14 @@ const DealIndex = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className='form-group row mb-2'>
-             
+
 
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Company</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Company</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -891,9 +891,9 @@ const DealIndex = () => {
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>campaign Source</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>campaign Source</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -905,7 +905,7 @@ const DealIndex = () => {
                   </div>
                 </div>
               </div>
-              
+
             </div>
 
 
@@ -913,9 +913,8 @@ const DealIndex = () => {
         </div>
 
         <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
           <Button onClick={handleClose} autoFocus>
-            Agree
+            close
           </Button>
         </DialogActions>
       </Dialog>

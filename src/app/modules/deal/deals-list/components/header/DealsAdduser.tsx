@@ -286,7 +286,7 @@ export default function DealsAdduser() {
                   {/*begin::Card body*/}
                   <div className="card-body pt-0">
                     {/*begin::Input group*/}
-                    <form className="form">
+                    <div className="form">
                       <div className="form-group row mb-2">
                         <div className="col-lg-6">
                           <label>Deal Name:</label>
@@ -383,80 +383,9 @@ export default function DealsAdduser() {
                           </select>
                         </div>
                       </div>
-                      {/* <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>CampaignSource:</label>
-                              <input
-                                type="text"
-                                value={data.campaignSource}
-                                onChange={handleChange}
-                                name="campaignSource"
-                                className="form-control"
-                                placeholder="Enter CampaignSource"
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label>Company:</label>
-                              <input
-                                type="text"
-                                value={data.company}
-                                onChange={handleChange}
-                                name="company"
-                                className="form-control"
-                                placeholder="Enter Company"
-                              />
-                            </div>
-                          </div> */}
-                      {/* <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Status:</label>
-                              <input
-                                type="text"
-                                value={data.leadStatus}
-                                onChange={handleChange}
-                                name="leadStatus"
-                                className="form-control"
-                                placeholder="Enter Status"
-                              />
-                            </div>
-                          </div> */}
-                    </form>
+                    </div>
                   </div>
                 </div>
-                {/* START:MEDIA */}
-                {/* <div className="card card-flush py-4">
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Media</h2>
-                        </div>
-                      </div>
-
-                      <div className="card-body pt-0">
-                        <div className="fv-row mb-2">
-                          <div className="dropzone">
-                            <div className="dz-message needsclick">
-                              <i className="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-
-                              <div className="ms-4">
-                                <h3 className="fs-5 fw-bold text-gray-900 mb-1">
-                                  Drop files here or click to upload.
-                                </h3>
-                                <span className="fs-7 fw-semibold text-gray-400">
-                                  Upload up to 10 files
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                    
-                        <div className="text-muted fs-7">
-                          Set the product media gallery.
-                        </div>
-                   
-                      </div>
-                     
-                    </div> */}
-
               </div>
               <div className="d-flex justify-content-end">
                 <a
