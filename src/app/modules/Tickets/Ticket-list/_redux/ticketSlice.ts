@@ -7,6 +7,8 @@ const initialProductsState = {
   ticketStatus:[],
   posttickets:[],
   assignedTo: [],
+  ticketsById:[],
+  customerTo:[],
 };
 
 export const callTypes = {
@@ -58,6 +60,16 @@ export const TicketSlice = createSlice({
     fetchedassignedToDetails: (state, action) => {
       const { data } = action.payload;
       state.assignedTo = data;
+    },
+
+    fetchedcustomerToDetails: (state, action) => {
+      const { data } = action.payload;
+      state.customerTo = data;
+    },
+
+    fetchedticketsById: (state, action) => {
+      const { data } = action.payload;
+      state.ticketsById = data;
     },
   },
 

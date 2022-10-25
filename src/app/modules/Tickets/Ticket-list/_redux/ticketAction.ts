@@ -58,6 +58,19 @@ requestFromServer
         dispatch(actions.catchError({ error, callType: callTypes.action }));
       });
   };
+  export const getcustomerTo = (token: any) => (dispatch: any) => {
+    dispatch(actions.startCall({ callType: callTypes.action }));
+    return requestFromServer
+      .getcustomerto(token)
+      .then((response) => {
+        const { data } = response;
+        dispatch(actions.fetchedcustomerToDetails({ data }));
+      })
+      .catch((error) => {
+        error.clientMessage = "Can't find patient test reports";;
+        dispatch(actions.catchError({ error, callType: callTypes.action }));
+      });
+  };
 
   export const CreateTicket = (data: any, token: any) => (dispatch: any) =>
   requestFromServer
@@ -65,6 +78,33 @@ requestFromServer
     .then((response) => {
       const { data } = response;
       dispatch(actions.postticket({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+
+    export const getticketsById = (id: any, token: any) => (dispatch: any) => {
+      dispatch(actions.startCall({ callType: callTypes.action }));
+      return requestFromServer
+        .getticketsById(id, token)
+        .then((response) => {
+          const { data } = response;
+          dispatch(actions.fetchedticketsById({ data }));
+        })
+        .catch((error) => {
+          error.clientMessage = "Can't find patient test reports";;
+          dispatch(actions.catchError({ error, callType: callTypes.action }));
+        });
+    
+    };
+    export const DeleteTickets = (id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .DeleteTicket(id, token)
+    .then((response) => {
+      const { data } = response;
+      console.log(data);
     })
     .catch((error) => {
       // eslint-disable-next-line no-param-reassign

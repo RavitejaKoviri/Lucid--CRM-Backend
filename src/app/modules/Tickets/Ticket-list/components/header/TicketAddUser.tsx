@@ -1,37 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import {  
+import { useLocation, useNavigate } from "react-router-dom";
+import {
   getticketStatuses,
   CreateTicket,
   getassignedTo,
- } from "../../_redux/ticketAction";
+  getcustomerTo,
+  getticketsById,
+  UpdateTickets,
+} from "../../_redux/ticketAction";
 
 
 export default function TicketAdduser() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const id: any = location?.state
+  console.log(id, "dealid");
+  const [tickets, setTickets] = useState(false);
+
   const token = useSelector((state: any) => state?.auth?.authToken);
   const user = useSelector((state: any) => state?.auth?.user);
   const userassign = useSelector(
     (state: any) => state?.TicketData?.assignedTo
   );
+  const customer = useSelector(
+    (state: any) => state?.TicketData?.customerTo
+  );
+  const ticketsById = useSelector((state: any) => state?.TicketData?.ticketsById);
+
   const status = useSelector((state: any) => state?.TicketData?.ticketStatus);
   console.log(status, "status");
 
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(getticketStatuses(token));
-    dispatch(getassignedTo(token))
-  },[]);
+    dispatch(getassignedTo(token));
+    dispatch(getcustomerTo(token));
 
-  const [data,setData] = useState({
-    ticketStatus:'',
-    ticketName:'',
-    ticketPriority:'',
-    ticketAssignedTo:'',
-    ticketcustomer:'',
-    ticketStartDate:'',
-    ticketEndDate:'',
+  }, []);
+
+  const [data, setData] = useState({
+    ticketStatus: '',
+    ticketName: '',
+    ticketPriority: '',
+    ticketAssignedTo: '',
+    customer: '',
+    ticketStartDate: '',
+    ticketEndDate: '',
     company: user?.company?.id,
   });
 
@@ -39,22 +54,49 @@ export default function TicketAdduser() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getticketsById(id?.id, token))
+    setTickets(true);
+  }, [ticketsById?.id])
+
+  useEffect(() => {
+    setData({
+      ticketName: ticketsById?.ticketName,
+      ticketStartDate: ticketsById?.ticketStartDate,
+      ticketEndDate:ticketsById?.ticketEndDate,
+      customer: ticketsById?.customer?.id,
+      ticketAssignedTo: ticketsById?.ticketAssignedTo?.id,
+      company: user?.company?.id,
+      ticketStatus: ticketsById?.ticketStatus?.id,
+      ticketPriority: ticketsById?.ticketPriority,
+    })
+    setTickets(false);
+  }, [tickets])
+
+
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(CreateTicket(data, token));
+    
+    if (id !== null) {
+      dispatch(UpdateTickets(data, id?.id, token));
+    }
+    else {
+      dispatch(CreateTicket(data, token));
+    }
     setData({
-      ticketStatus:'',
-      ticketName:'',
-      ticketPriority:'',
-      ticketAssignedTo:'',
-      ticketcustomer:'',
-      ticketStartDate:'',
-      ticketEndDate:'',
-      company:'',
+      ticketStatus: '',
+      ticketName: '',
+      ticketPriority: '',
+      ticketAssignedTo: '',
+      customer: '',
+      ticketStartDate: '',
+      ticketEndDate: '',
+      company: '',
     });
   };
 
-  
+
 
   return (
     <>
@@ -65,10 +107,10 @@ export default function TicketAdduser() {
         <div id="kt_content_container" className="container-xxl">
           <div
             className="form d-flex flex-column flex-lg-row"
-         
+
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-             
+
               {/*begin::Status*/}
               <div className="card card-flush py-4">
                 {/*begin::Card header*/}
@@ -111,7 +153,7 @@ export default function TicketAdduser() {
                     <option value="inactive">Inactive</option> */}
                   </select>
                   {/*end::Select2*/}
-                  
+
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
                     <label className="form-label">
@@ -128,14 +170,14 @@ export default function TicketAdduser() {
                 {/*end::Card body*/}
               </div>
               {/*end::Status*/}
-              
-              
-              
+
+
+
             </div>
             {/*end::Aside column*/}
             {/*begin::Main column*/}
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-              
+
               {/*begin::Tab content*/}
               <div className="tab-content">
                 {/*begin::Tab pane*/}
@@ -172,48 +214,66 @@ export default function TicketAdduser() {
                             </div>
                             <div className="col-lg-6">
                               <label>Priority</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Ticket priority"
+                              <select
+                                className="form-select mb-3"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
                                 value={data.ticketPriority}
                                 onChange={handleChange}
                                 name="ticketPriority"
-                              />
+                              >
+                                <option >
+                                  --Select --
+                                </option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                              </select>
                             </div>
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>AssignedTo</label>
                               <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    value={data.ticketAssignedTo}
-                    onChange={handleChange}
-                    name="ticketAssignedTo"
-                  ><option></option>
-                  
-                    
-                    {
-                      userassign?.map((item: any) => (
-                        <option value={item?.id}>{item?.username}</option>
-                      ))
-                    }
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                value={data.ticketAssignedTo}
+                                onChange={handleChange}
+                                name="ticketAssignedTo"
+                              ><option></option>
 
-                  </select>
+
+                                {
+                                  userassign?.map((item: any) => (
+                                    <option value={item?.id}>{item?.username}</option>
+                                  ))
+                                }
+
+                              </select>
                             </div>
                             <div className="col-lg-6">
-                              <label>customer</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter ticketcustomer"
-                                value={data.ticketcustomer}
+                              <label>Customer</label>
+                              <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                value={data.customer}
                                 onChange={handleChange}
-                                name="ticketcustomer"
-                              />
+                                name="customer"
+                              ><option></option>
+
+
+                                {
+                                  customer?.map((item: any) => (
+                                    <option value={item?.id}>{item?.customerName}</option>
+                                  ))
+                                }
+
+                              </select>
                             </div>
                           </div>
                           <div className="form-group row mb-2">
@@ -240,7 +300,7 @@ export default function TicketAdduser() {
                               />
                             </div>
                           </div>
-                          
+
                           {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>Website:</label>
@@ -299,8 +359,8 @@ export default function TicketAdduser() {
 
                       </div>
                     </div>
-                    
-                    
+
+
                   </div>
                 </div>
                 {/*end::Tab pane*/}
@@ -756,8 +816,8 @@ export default function TicketAdduser() {
                 {/*end::Tab pane*/}
               </div>
               <div className="d-flex justify-content-end">
-              <button
-                  className="btn btn-light me-5"
+                <button
+                  className="btn btn-dark me-5"
                   onClick={() => {
                     navigation('/ticket/ticket')
                   }}

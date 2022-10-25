@@ -3,6 +3,9 @@ import axios from "axios";
 export const TICKETS = "tickets";
 export const ticketstatuses = "ticket-statuses";
 export const user = "users";
+export const customer = "customers";
+
+
 
 
 
@@ -27,6 +30,15 @@ export function getticketStatuses(token: any) {
   });
 }
 
+export function getticketsById(id: any, token: any) {
+  return axios.get(`${TICKETS}/${id}`, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 export function CreateTicket(data: any, token: any) {
   return axios.post(TICKETS, data, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
@@ -35,6 +47,19 @@ export function CreateTicket(data: any, token: any) {
 export function getassignedto(token: any) {
 
   return axios.get(user, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function getcustomerto(token: any) {
+
+  return axios.get(customer, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function DeleteTicket(id: any, token: any) {
+  return axios.delete(`${TICKETS}/${id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
