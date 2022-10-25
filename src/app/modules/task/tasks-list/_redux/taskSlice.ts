@@ -7,7 +7,7 @@ const initialProductsState = {
   Comapnies:[],
   taskcontact:[],
   CreateTask: [],
-
+  Updatetask:[],
 };
 
 export const callTypes = {
@@ -56,6 +56,10 @@ export const TaskSlice = createSlice({
     createdtask: (state, action) => {
       const { data } = action.payload;
       state.CreateTask = data;
+    },
+    Updatedtask: (state, action) => {
+      const { data } = action.payload;
+      state.Updatetask = data;
     },
   },
 });

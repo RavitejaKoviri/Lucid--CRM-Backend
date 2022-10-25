@@ -12,8 +12,9 @@ import { v4 as uuidv4 } from "uuid";
 // html-react-parser components
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTargets } from "../_redux/targetAction";
+import { getAllTargets, UpdateTarget } from "../_redux/targetAction";
 import TargetContext from "../table/columns/context";
+import axios from "axios";
 
 const TargetIndex = () => {
   // const [controller] = useArgonController();
@@ -69,17 +70,17 @@ const TargetIndex = () => {
   const boards = {
     columns: [
       {
-        id: uuidv4(),
+        id: "Yet to start",
         title: "Yet to start",
         cards: bucketListedTargets ? bucketListedTargets : [],
       },
       {
-        id: uuidv4(),
+        id: "In Progress",
         title: "In Progress",
         cards: inProgressTargets ? inProgressTargets : [],
       },
       {
-        id: uuidv4(),
+        id: "Completed",
         title: "Completed",
         cards: completedTargets ? completedTargets : [],
       },
@@ -100,7 +101,19 @@ const TargetIndex = () => {
       // },
     ],
   };
+  function handleCardMove(board, card, source, destination) {
 
+    axios.get(`http://65.2.10.157:5377/target-statuses?targetStatusName=${destination?.toColumnId}`, {
+      headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+    }).then(({ data }) => {
+      const targetStatus = data[0]
+      const targetdata = { ...card, targetStatus }
+      dispatch(UpdateTarget(targetdata, card?.id, token))
+      console.log(targetdata, "targetdata");
+    })
+      .catch(() => { });
+
+  }
   return (
     <>
       <div className="tab-content">
@@ -108,6 +121,7 @@ const TargetIndex = () => {
           initialBoard={boards}
           allowAddCard
           allowAddColumn
+          onCardDragEnd={handleCardMove}
           renderColumnHeader={({ id, title }, { addCard }) => (
             <>
               <div className="mb-9" key={id} style={{ margin: 15 }}>

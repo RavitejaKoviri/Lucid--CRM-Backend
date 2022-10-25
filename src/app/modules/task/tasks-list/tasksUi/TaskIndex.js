@@ -12,8 +12,9 @@ import { v4 as uuidv4 } from "uuid";
 // html-react-parser components
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTasks } from "../_redux/taskAction";
+import { getAllTasks, UpdateTask } from "../_redux/taskAction";
 import TaskContext from "../table/columns/context";
+import axios from "axios";
 
 const TaskIndex = () => {
   // const [controller] = useArgonController();
@@ -70,38 +71,50 @@ const TaskIndex = () => {
   const boards = {
     columns: [
       {
-        id: uuidv4(),
+        id: "Bucket List",
         title: "Bucket List",
         cards: bucketListedTasks,
       },
       {
-        id: uuidv4(),
+        id: "To-Do",
         title: "ToDo",
         cards: toDoTasks,
       },
       {
-        id: uuidv4(),
+        id: "Assigned",
         title: "Assigned",
         cards: delegatedTasks,
       },
       {
-        id: uuidv4(),
+        id: "In-Progress",
         title: "In progress",
         cards: inProgressTasks,
       },
       {
-        id: uuidv4(),
+        id: "Done",
         title: "Done",
         cards: doneTasks,
       },
       {
-        id: uuidv4(),
+        id:"Verification",
         title: "Verified/Closed",
         cards: verificationTasks,
       },
     ],
   };
+  function handleCardMove(board, card, source, destination) {
 
+    axios.get(`http://65.2.10.157:5377/task-statuses?taskStatusName=${destination?.toColumnId}`, {
+      headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+    }).then(({ data }) => {
+      const taskStatus = data[0]
+      const taskdata = { ...card, taskStatus }
+      dispatch(UpdateTask(taskdata, card?.id, token))
+      console.log(taskStatus, "taskStatus");
+    })
+      .catch(() => { });
+
+  }
   return (
     <>
       <div className="tab-content">
@@ -109,6 +122,7 @@ const TaskIndex = () => {
           initialBoard={boards}
           allowAddCard
           allowAddColumn
+          onCardDragEnd={handleCardMove}
           renderColumnHeader={({ id, title }, { addCard }) => (
             <>
               <div className="mb-9" key={id} style={{ margin: 15 }}>

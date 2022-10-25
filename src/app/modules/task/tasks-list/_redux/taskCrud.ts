@@ -42,3 +42,8 @@ export function CreateTask(data: any, token: any) {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
+export function UpdateTasks(data: any, id: any, token: any) {
+  return axios.put(`${TASKS}/${id}`, data, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}

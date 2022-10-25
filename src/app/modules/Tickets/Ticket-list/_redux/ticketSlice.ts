@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Tickets: []
+  Tickets: [],
+  UpdateTicket:[],
 };
 
 export const callTypes = {
@@ -35,6 +36,11 @@ export const TicketSlice = createSlice({
     getedAllUsersDetails: (state, action) => {
       const { data } = action.payload;
       state.Tickets = data;
+    },
+    UpdatedTickets: (state, action) => {
+      const { data } = action.payload;
+      state.UpdateTicket = data;
     }
+
   },
 });

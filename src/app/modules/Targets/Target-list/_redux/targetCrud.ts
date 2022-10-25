@@ -2,7 +2,7 @@ import axios from "axios";
 export const TARGET = "targets";
 export const user = "users";
 export const companies = "companies";
-export const targetstatuses = "Target-statuses";
+export const targetstatuses = "target-statuses";
 
 
 export function getTargets(token: any) {
@@ -43,6 +43,11 @@ export function getassignedto(token: any) {
 }
 export function CreateTarget(data: any, token: any) {
   return axios.post(TARGET, data, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+export function UpdateTarget(data: any, id: any, token: any) {
+  return axios.put(`${TARGET}/${id}`, data, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

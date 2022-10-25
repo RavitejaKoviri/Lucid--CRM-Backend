@@ -71,3 +71,16 @@ export const CreateTask = (data: any, token: any) => (dispatch: any) =>
       error.clientMessage = "Can't find";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
+
+    export const UpdateTask = (data: any, id: any, token: any) => (dispatch: any) =>
+    requestFromServer
+      .UpdateTasks(data, id, token)
+      .then((response) => {
+        const { data } = response;
+        dispatch(actions.Updatedtask({ data }));
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-param-reassign
+        error.clientMessage = "Can't find";
+        dispatch(actions.catchError({ error, callType: callTypes.list }));
+      });

@@ -12,8 +12,9 @@ import { v4 as uuidv4 } from "uuid";
 // html-react-parser components
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTickets } from "../_redux/ticketAction";
+import { getAllTickets, UpdateTickets } from "../_redux/ticketAction";
 import TicketContext from "../table/columns/context";
+import axios from "axios";
 
 const TicketIndex = () => {
   // const [controller] = useArgonController();
@@ -41,20 +42,20 @@ const TicketIndex = () => {
     }
   })
   console.log(Tickets, "Tickets");
-  const bucketListedTargets = Tickets?.filter(
+  const bucketListedTickets = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "Open"
   );
 
-  const inProgressTargets = Tickets?.filter(
+  const inProgressTickets = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "In-Progress"
   );
-  const delegatedTasks = Tickets?.filter(
+  const EscalatedTickets = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "Escalated"
   );
-  const completedTargets = Tickets?.filter(
+  const ClosedTickets = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "Closed"
   );
-  const doneTasks = Tickets?.filter(
+  const CustomerHappy = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "Customer Happy"
   );
   // const verificationTasks = targets?.filter(
@@ -70,29 +71,29 @@ const TicketIndex = () => {
   const boards = {
     columns: [
       {
-        id: uuidv4(),
+        id: "Open",
         title: "Open",
-        cards: bucketListedTargets ? bucketListedTargets : [],
+        cards: bucketListedTickets ? bucketListedTickets : [],
       },
       {
-        id: uuidv4(),
+        id:"In Progress",
         title: "In Progress",
-        cards: inProgressTargets ? inProgressTargets : [],
+        cards: inProgressTickets ? inProgressTickets : [],
       },
       {
-        id: uuidv4(),
+        id:"Escalated",
         title: "Escalated",
-        cards: completedTargets ? completedTargets : [],
+        cards: EscalatedTickets ? EscalatedTickets : [],
       },
       {
-        id: uuidv4(),
+        id:"Closed",
         title: "Closed",
-        cards: inProgressTargets ? inProgressTargets : [],
+        cards: ClosedTickets ? ClosedTickets : [],
       },
       {
-        id: uuidv4(),
+        id:"Customer Happy",
         title: "Customer Happy",
-        cards: doneTasks ? doneTasks : [],
+        cards: CustomerHappy ? CustomerHappy : [],
       },
       // {
       //   id: uuidv4(),
@@ -101,7 +102,19 @@ const TicketIndex = () => {
       // },
     ],
   };
+  function handleCardMove(board, card, source, destination) {
 
+    axios.get(`http://65.2.10.157:5377/ticket-statuses?ticketStatusName=${destination?.toColumnId}`, {
+      headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+    }).then(({ data }) => {
+      const ticketStatus = data[0]
+      const ticketdata = { ...card, ticketStatus }
+      dispatch(UpdateTickets(ticketdata, card?.id, token))
+      console.log(ticketdata, "ticketdata");
+    })
+      .catch(() => { });
+
+  }
   return (
     <>
       <div className="tab-content">
@@ -109,6 +122,7 @@ const TicketIndex = () => {
           initialBoard={boards}
           allowAddCard
           allowAddColumn
+          onCardDragEnd={handleCardMove}
           renderColumnHeader={({ id, title }, { addCard }) => (
             <>
               <div className="mb-9" key={id} style={{ margin: 15 }}>

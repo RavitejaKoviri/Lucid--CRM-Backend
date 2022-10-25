@@ -9,8 +9,8 @@ const initialProductsState = {
   campaigns: [],
   Comapnies: [],
   targetStatus: [],
-  assignedTo: []
-
+  assignedTo: [],
+  Updatetarget:[],
 };
 
 export const callTypes = {
@@ -64,7 +64,11 @@ export const TargetSlice = createSlice({
     getedAllUsersDetails: (state, action) => {
       const { data } = action.payload;
       state.Targets = data;
-    }
+    },
+    Updatedtarget: (state, action) => {
+      const { data } = action.payload;
+      state.Updatetarget = data;
+    },
   },
 });
 
