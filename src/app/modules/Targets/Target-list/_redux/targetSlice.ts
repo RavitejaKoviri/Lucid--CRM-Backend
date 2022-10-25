@@ -5,7 +5,7 @@ const initialProductsState = {
   target: [],
   Targets:[],
   Createtarget:[],
-  
+  targetById:[],
   campaigns: [],
   Comapnies: [],
   targetStatus: [],
@@ -69,6 +69,10 @@ export const TargetSlice = createSlice({
       const { data } = action.payload;
       state.Updatetarget = data;
     },
+    fetchedtargetsById: (state, action) => {
+      const { data } = action.payload;
+      state.targetById = data;
+    }, 
   },
 });
 

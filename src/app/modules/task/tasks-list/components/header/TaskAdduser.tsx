@@ -11,7 +11,7 @@ import { CreateTask, gettaskcompanies, gettaskcontact, gettaskStatus } from "../
 // } from "../../_redux/taskAction";
 
 export default function TaskAdduser() {
-  // const navigation = useNavigate();
+  const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state?.auth?.authToken);
   const user = useSelector((state: any) => state?.auth?.user);
@@ -69,31 +69,22 @@ export default function TaskAdduser() {
       >
         <div id="kt_content_container" className="container-xxl">
           <div
-            // id="kt_ecommerce_add_product_form"
             className="form d-flex flex-column flex-lg-row"
-            // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-              {/*end::Thumbnail settings*/}
-              {/*begin::Status*/}
+            
               <div className="card card-flush py-4">
-                {/*begin::Card header*/}
                 <div className="card-header">
-                  {/*begin::Card title*/}
                   <div className="card-title">
                     <h2>Status</h2>
                   </div>
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
+                  
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
-                  {/*begin::Card toolbar*/}
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+                
                 <div className="card-body pt-0">
-                  {/*begin::Select2*/}
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -108,11 +99,7 @@ export default function TaskAdduser() {
                       <option value={item?.id}>{item?.taskStatusName}</option>
                     ))}
                   </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
-                  {/*end::Description*/}
-                  {/*begin::Datepicker*/}
+                
                   <div className="d-none mt-10">
                     <label className="form-label">
                       Select publishing date and time
@@ -123,12 +110,9 @@ export default function TaskAdduser() {
                       placeholder="Pick date & time"
                     />
                   </div>
-                  {/*end::Datepicker*/}
                 </div>
-                {/*end::Card body*/}
               </div>
-              {/*end::Status*/}
-              {/*begin::Status*/}
+              
               <div className="card card-flush py-4">
                 {/*begin::Card header*/}
                 <div className="card-header">
@@ -243,13 +227,11 @@ export default function TaskAdduser() {
               </div> */}
               {/*end::Status*/}
             </div>
-            {/*end::Aside column*/}
-            {/*begin::Main column*/}
+           
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-              {/*begin:::Tabs*/}
               <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
                 {/*begin:::Tab item*/}
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a
                     className="nav-link text-active-primary pb-4 active"
                     data-bs-toggle="tab"
@@ -257,7 +239,7 @@ export default function TaskAdduser() {
                   >
                     General
                   </a>
-                </li>
+                </li> */}
                 {/*end:::Tab item*/}
               </ul>
               {/*end:::Tabs*/}
@@ -271,7 +253,7 @@ export default function TaskAdduser() {
                       {/*begin::Card header*/}
                       <div className="card-header">
                         <div className="card-title">
-                          <h2>General</h2>
+                          <h2>Task Details</h2>
                         </div>
                       </div>
                       {/*end::Card header*/}
@@ -281,15 +263,15 @@ export default function TaskAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>subject:</label>
+                              <label>Subject:</label>
                               <input
                                 type="text"
                                 value={data.subject}
                                 onChange={handleChange}
                                 name="subject"
-                                className="form-control"
-                                placeholder="Enter subject"
-                              />
+                                className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
+                                placeholder='Subject'
+                                />
                             </div>
                             <div className="col-lg-6">
                               <label>Task DueDate:</label>
@@ -298,7 +280,7 @@ export default function TaskAdduser() {
                                 value={data.taskDueDate}
                                 onChange={handleChange}
                                 name="taskDueDate"
-                                className="form-control"
+                                className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
                                 // placeholder="Enter EmailOptOut"
                               />
                             </div>
@@ -402,7 +384,7 @@ export default function TaskAdduser() {
                                 }
                                 onChange={handleChange}
                                 name="taskDescription"
-                                className="form-control"
+                                className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
                                 placeholder="Enter CompanyName"
                               />
                             </div>
@@ -511,13 +493,14 @@ export default function TaskAdduser() {
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-                <a
-                  href="../../demo6/dist/apps/ecommerce/catalog/products.html"
-                  id="kt_ecommerce_add_product_cancel"
-                  className="btn btn-light me-5"
+              <button
+                  className="btn btn-dark me-5"
+                  onClick={() => {
+                    navigation('/tasks/tasks')
+                  }}
                 >
-                  Cancel
-                </a>
+                  Back
+                </button>
                 <button
                   onClick={() => {
                     handleSubmit();

@@ -699,7 +699,7 @@ const DealIndex = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <div className='card mb-5 mb-xl-10'>
+        <div className='card mb-5 mb-xl-19'>
           <div
             className='card-header border-0 cursor-pointer'
             role='button'
@@ -707,6 +707,7 @@ const DealIndex = () => {
             data-bs-target='#kt_account_profile_details'
             aria-expanded='true'
             aria-controls='kt_account_profile_details'
+            style={{width:"100%"}}
           >
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>DEALS DATA</h3>
@@ -714,10 +715,11 @@ const DealIndex = () => {
           </div>
           <div className='form'>
             <div className='card-body border-top p-9'>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label required fw-bold fs-6'>Deal Name</label>
+              <div className='form-group row mb-2'>
 
-                <div className='col-lg-8'>
+                <div className='col-lg-6'>
+                <label className='col-lg-8 col-form-label required fw-bold fs-6'>Deal Name</label>
+
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
@@ -725,160 +727,185 @@ const DealIndex = () => {
                     value={deal?.dealName}
                   />
                 </div>
-              </div>
 
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label required fw-bold fs-6'>Person Name</label>
+                <div className='col-lg-6'>
+                <label className='col-lg-8 col-form-label required fw-bold fs-6'>Person Name</label>
 
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company name'
                     value={deal?.dealContactPersonName}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
               </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+              <div className='form-group row mb-2'>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-12 col-form-label fw-bold fs-6'>
                   <span className='required'>Person PhoneNumber</span>
                 </label>
-
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='tel'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Phone number'
                     value={deal?.dealContactPersonPhoneNumber}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
-              </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-12 col-form-label fw-bold fs-6'>
                   <span className='required'>Aternate PhoneNumber</span>
                 </label>
-
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company website'
                     value={deal?.dealContactPersonAlternatePhoneNumber}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
               </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+             
+              <div className='form-group row mb-2'>
+               
+
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
                   <span className='required'>Email</span>
                 </label>
-
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company website'
                     value={deal?.dealContactPersonEmail}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
-              </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
                   <span className='required'>Alternate Email</span>
                 </label>
-
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company website'
                     value={deal?.dealContactPersonAlternateEmail}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
               </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+             
+              <div className='form-group row mb-2'>
+               
+
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
                   <span className='required'>dealOwner</span>
                 </label>
-
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company website'
                     value={deal?.dealOwner?.username}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
-              </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
                   <span className='required'>Source</span>
                 </label>
-
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company website'
                     value={deal?.dealSource?.SourceName}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
               </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+              
+              <div className='form-group row mb-2'>
+               
+
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
                   <span className='required'>Status</span>
                 </label>
-
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company website'
                     value={deal?.dealStatus?.dealStatusName}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
-              </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
                   <span className='required'>Deal Type</span>
                 </label>
 
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company website'
                     value={deal?.dealType}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
               </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+              
+              <div className='form-group row mb-2'>
+             
+
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
                   <span className='required'>Company</span>
                 </label>
-
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company website'
                     value={deal?.company?.companyName}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
-              </div>
-              <div className='row mb-6'>
-                <label className='col-lg-4 col-form-label fw-bold fs-6'>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
                   <span className='required'>campaign Source</span>
                 </label>
-
-                <div className='col-lg-8 fv-row'>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
                     placeholder='Company website'
                     value={deal?.campaignSource?.campaignName}
                   />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
                 </div>
               </div>
+              
             </div>
 
 

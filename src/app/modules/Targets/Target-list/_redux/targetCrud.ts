@@ -12,12 +12,9 @@ export function getTargets(token: any) {
   });
 }
 
-export const TARGETS = "targets";
-
-
 export function fetchAllTargets(token: any) {
 
-  return axios.get(TARGETS, {
+  return axios.get(TARGET, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
@@ -49,5 +46,13 @@ export function CreateTarget(data: any, token: any) {
 export function UpdateTarget(data: any, id: any, token: any) {
   return axios.put(`${TARGET}/${id}`, data, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+export function gettargetById(id: any, token: any) {
+  return axios.get(`${TARGET}/${id}`, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
 }

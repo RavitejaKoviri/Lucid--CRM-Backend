@@ -8,6 +8,7 @@ const initialProductsState = {
   taskcontact:[],
   CreateTask: [],
   Updatetask:[],
+  tasksById: [],
 };
 
 export const callTypes = {
@@ -60,6 +61,10 @@ export const TaskSlice = createSlice({
     Updatedtask: (state, action) => {
       const { data } = action.payload;
       state.Updatetask = data;
+    },
+    fetchedtasksById: (state, action) => {
+      const { data } = action.payload;
+      state.tasksById = data;
     },
   },
 });

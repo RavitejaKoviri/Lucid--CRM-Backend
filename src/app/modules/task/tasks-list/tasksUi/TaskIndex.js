@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 // import "@lourenci/react-kanban/dist/styles.css";
 // @asseinfo/react-kanban components
 import Board from "@asseinfo/react-kanban";
+import DialogActions from '@mui/material/DialogActions';
 // import boards from "./data";
 import { toAbsoluteUrl } from "../../../../../_metronic/helpers";
 // @mui material components
@@ -12,9 +13,11 @@ import { v4 as uuidv4 } from "uuid";
 // html-react-parser components
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTasks, UpdateTask } from "../_redux/taskAction";
+import { getAllTasks, gettasksById, UpdateTask } from "../_redux/taskAction";
 import TaskContext from "../table/columns/context";
 import axios from "axios";
+import Dialog from '@mui/material/Dialog';
+import { Button } from "@mui/material";
 
 const TaskIndex = () => {
   // const [controller] = useArgonController();
@@ -30,6 +33,8 @@ const TaskIndex = () => {
   const { searchTerm } = useContext(TaskContext);
   const taskData = useSelector((state) => state?.tasks?.Tasks);
   const token = useSelector((state) => state?.auth?.authToken);
+  const tasks = useSelector((state) => state?.tasks?.tasksById);
+console.log(tasks,"task");
   useEffect(() => {
     dispatch(getAllTasks(token));
   }, []);
@@ -115,6 +120,15 @@ const TaskIndex = () => {
       .catch(() => { });
 
   }
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = (id) => {
+    dispatch(gettasksById(id, token))
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
       <div className="tab-content">
@@ -315,19 +329,18 @@ const TaskIndex = () => {
                 {/* begin::Card body */}
                 <div className="card-body">
                   {/* begin::Header */}
-                  <div className="d-flex flex-stack mb-3">
+                  <div className="d-flex flex-end mb-3">
                     {/* begin::Badge */}
-                    <div className="badge badge-light">Development</div>
+                    {/* <div className="badge badge-light">Development</div> */}
                     {/* end::Badge */}
                     {/* begin::Menu */}
-                    <div>
+                    {/* <div>
                       <button
                         type="button"
                         className="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
                         data-kt-menu-trigger="click"
                         data-kt-menu-placement="bottom-end"
                       >
-                        {/* begin::Svg Icon | path: icons/duotune/general/gen024.svg */}
                         <span className="svg-icon svg-icon-2">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -379,28 +392,23 @@ const TaskIndex = () => {
                             </g>
                           </svg>
                         </span>
-                        {/* end::Svg Icon */}
                       </button>
-                      {/* begin::Menu 3 */}
                       <div
                         className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg-light-primary fw-semibold w-200px py-3"
                         data-kt-menu="true"
                       >
-                        {/* begin::Heading */}
                         <div className="menu-item px-3">
                           <div className="menu-content text-muted pb-2 px-3 fs-7 text-uppercase">
                             Payments
                           </div>
                         </div>
-                        {/* end::Heading */}
-                        {/* begin::Menu item */}
+                      
                         <div className="menu-item px-3">
                           <a href="#" className="menu-link px-3">
                             Create Invoice
                           </a>
                         </div>
-                        {/* end::Menu item */}
-                        {/* begin::Menu item */}
+                        
                         <div className="menu-item px-3">
                           <a href="#" className="menu-link flex-stack px-3">
                             Create Payment
@@ -411,15 +419,13 @@ const TaskIndex = () => {
                             ></i>
                           </a>
                         </div>
-                        {/* end::Menu item */}
-                        {/* begin::Menu item */}
+                        
                         <div className="menu-item px-3">
                           <a href="#" className="menu-link px-3">
                             Generate Bill
                           </a>
                         </div>
-                        {/* end::Menu item */}
-                        {/* begin::Menu item */}
+                      
                         <div
                           className="menu-item px-3"
                           data-kt-menu-trigger="hover"
@@ -429,38 +435,30 @@ const TaskIndex = () => {
                             <span className="menu-title">Subscription</span>
                             <span className="menu-arrow"></span>
                           </a>
-                          {/* begin::Menu sub */}
                           <div className="menu-sub menu-sub-dropdown w-175px py-4">
-                            {/* begin::Menu item */}
                             <div className="menu-item px-3">
                               <a href="#" className="menu-link px-3">
                                 Plans
                               </a>
                             </div>
-                            {/* end::Menu item */}
-                            {/* begin::Menu item */}
+                           
                             <div className="menu-item px-3">
                               <a href="#" className="menu-link px-3">
                                 Billing
                               </a>
                             </div>
-                            {/* end::Menu item */}
-                            {/* begin::Menu item */}
+                           
                             <div className="menu-item px-3">
                               <a href="#" className="menu-link px-3">
                                 Statements
                               </a>
                             </div>
-                            {/* end::Menu item */}
-                            {/* begin::Menu separator */}
+                           
                             <div className="separator my-2"></div>
-                            {/* end::Menu separator */}
-                            {/* begin::Menu item */}
+                        
                             <div className="menu-item px-3">
                               <div className="menu-content px-3">
-                                {/* begin::Switch */}
                                 <label className="form-check form-switch form-check-custom form-check-solid">
-                                  {/* begin::Input */}
                                   <input
                                     className="form-check-input w-30px h-20px"
                                     type="checkbox"
@@ -468,31 +466,40 @@ const TaskIndex = () => {
                                     checked="checked"
                                     name="notifications"
                                   />
-                                  {/* end::Input */}
-                                  {/* end::Label */}
+                                
                                   <span className="form-check-label text-muted fs-6">
                                     Recuring
                                   </span>
-                                  {/* end::Label */}
                                 </label>
-                                {/* end::Switch */}
                               </div>
                             </div>
-                            {/* end::Menu item */}
                           </div>
-                          {/* end::Menu sub */}
                         </div>
-                        {/* end::Menu item */}
-                        {/* begin::Menu item */}
                         <div className="menu-item px-3 my-1">
                           <a href="#" className="menu-link px-3">
                             Settings
                           </a>
                         </div>
-                        {/* end::Menu item */}
                       </div>
-                      {/* end::Menu 3 */}
-                    </div>
+                    </div> */}
+                    <button
+                        type="button"
+                        className="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
+                        onClick={() => { handleClickOpen(id) }}
+                      >
+                        {/* begin::Svg Icon | path: icons/duotune/general/gen024.svg */}
+                        <svg width="16" height="14" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <g clip-path="url(#clip0_2944_960)">
+                            <path d="M13.4184 5.65781C12.1474 3.17789 9.63116 1.5 6.74999 1.5C3.86882 1.5 1.35186 3.17906 0.0815497 5.65805C0.0279345 5.7641 0 5.88128 0 6.00012C0 6.11896 0.0279345 6.23613 0.0815497 6.34219C1.35257 8.82211 3.86882 10.5 6.74999 10.5C9.63116 10.5 12.1481 8.82094 13.4184 6.34195C13.472 6.2359 13.5 6.11872 13.5 5.99988C13.5 5.88104 13.472 5.76387 13.4184 5.65781V5.65781ZM6.74999 9.375C6.08248 9.375 5.42995 9.17706 4.87494 8.80621C4.31992 8.43536 3.88734 7.90826 3.63189 7.29156C3.37645 6.67486 3.30961 5.99626 3.43984 5.34157C3.57006 4.68688 3.8915 4.08552 4.3635 3.61351C4.8355 3.14151 5.43687 2.82007 6.09156 2.68985C6.74624 2.55962 7.42484 2.62646 8.04154 2.88191C8.65824 3.13735 9.18535 3.56993 9.5562 4.12495C9.92705 4.67997 10.125 5.33249 10.125 6C10.1252 6.44327 10.0381 6.88224 9.86852 7.29181C9.69899 7.70138 9.45039 8.07353 9.13695 8.38697C8.82351 8.70041 8.45137 8.949 8.0418 9.11853C7.63223 9.28807 7.19326 9.37522 6.74999 9.375V9.375ZM6.74999 3.75C6.54916 3.75281 6.34963 3.78269 6.15678 3.83883C6.31574 4.05485 6.39202 4.32068 6.37179 4.58811C6.35156 4.85555 6.23616 5.10688 6.04651 5.29652C5.85686 5.48617 5.60553 5.60157 5.3381 5.6218C5.07066 5.64203 4.80483 5.56575 4.58882 5.4068C4.46581 5.85998 4.48801 6.34033 4.6523 6.78023C4.81659 7.22014 5.1147 7.59745 5.50466 7.85905C5.89462 8.12066 6.3568 8.25339 6.82615 8.23856C7.2955 8.22374 7.74838 8.0621 8.12105 7.7764C8.49372 7.4907 8.76742 7.09533 8.90362 6.64593C9.03982 6.19654 9.03166 5.71575 8.88029 5.27123C8.72893 4.82671 8.44197 4.44085 8.05982 4.16796C7.67767 3.89507 7.21957 3.74889 6.74999 3.75V3.75Z" fill="black" />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_2944_960">
+                              <rect width="13.5" height="12" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        {/* end::Svg Icon */}
+                      </button>
                     {/* end::Menu */}
                   </div>
                   {/* end::Header */}
@@ -618,6 +625,231 @@ const TaskIndex = () => {
           onCardNew={() => null}
         />
       </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className='card mb-5 mb-xl-19'>
+          <div
+            className='card-header border-0 cursor-pointer'
+            role='button'
+            data-bs-toggle='collapse'
+            data-bs-target='#kt_account_profile_details'
+            aria-expanded='true'
+            aria-controls='kt_account_profile_details'
+            style={{width:"100%"}}
+          >
+            <div className='card-title m-0'>
+              <h3 className='fw-bolder m-0'>Task DATA</h3>
+            </div>
+          </div>
+          <div className='form'>
+            <div className='card-body border-top p-9'>
+              <div className='form-group row mb-2'>
+
+                <div className='col-lg-6'>
+                <label className='col-lg-8 col-form-label required fw-bold fs-6'>Subject</label>
+
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
+                    placeholder='subject'
+                    value={tasks?.subject}
+                  />
+                </div>
+
+                <div className='col-lg-6'>
+                <label className='col-lg-8 col-form-label required fw-bold fs-6'>Contact</label>
+
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='contact'
+                    value={tasks?.contact?.contactMobile}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+              </div>
+              <div className='form-group row mb-2'>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-12 col-form-label fw-bold fs-6'>
+                  <span className='required'>Task Repeat</span>
+                </label>
+                  <input
+                    type='tel'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='taskRepeat'
+                    value={tasks?.taskRepeat}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-12 col-form-label fw-bold fs-6'>
+                  <span className='required'>Task Remainder</span>
+                </label>
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='taskRemainder'
+                    value={tasks?.taskRemainder}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+              </div>
+             
+              <div className='form-group row mb-2'>
+               
+
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                  <span className='required'>Task Priority</span>
+                </label>
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='taskPriority'
+                    value={tasks?.taskPriority}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                  <span className='required'>company </span>
+                </label>
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='Company'
+                    value={tasks?.company?.companyName}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+              </div>
+             
+              <div className='form-group row mb-2'>
+               
+
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                  <span className='required'>Task Owner</span>
+                </label>
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='taskOwner'
+                    value={tasks?.taskOwner?.username}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                  <span className='required'>Task DueDate</span>
+                </label>
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='taskDueDate'
+                    value={tasks?.taskDueDate}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className='form-group row mb-2'>
+               
+
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                  <span className='required'>Task Status</span>
+                </label>
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='Task Status'
+                    value={tasks?.taskStatus?.taskStatusName}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                  <span className='required'>Task Description</span>
+                </label>
+
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='Task Description'
+                    value={tasks?.taskDescription}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className='form-group row mb-2'>
+             
+
+                {/* <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                  <span className='required'>Company</span>
+                </label>
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='Company website'
+                    value={task?.company?.companyName}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div>
+                <div className='col-lg-6 fv-row'>
+                <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                  <span className='required'>campaign Source</span>
+                </label>
+                  <input
+                    type='text'
+                    className='form-control form-control-lg form-control-solid'
+                    placeholder='Company website'
+                    value={task?.campaignSource?.campaignName}
+                  />
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'></div>
+                  </div>
+                </div> */}
+              </div>
+              
+            </div>
+
+
+          </div>
+        </div>
+        <DialogActions>
+          <Button className="btn btn-primary mb-2" onClick={handleClose}>Close</Button>
+          {/* <Button onClick={handleClose} autoFocus>
+            Agree
+          </Button> */}
+        </DialogActions>
+      </Dialog>
     </>
   );
 };

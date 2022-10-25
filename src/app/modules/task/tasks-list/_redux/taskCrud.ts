@@ -47,3 +47,11 @@ export function UpdateTasks(data: any, id: any, token: any) {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
+export function gettaskById(id: any, token: any) {
+  return axios.get(`${TASKS}/${id}`, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
