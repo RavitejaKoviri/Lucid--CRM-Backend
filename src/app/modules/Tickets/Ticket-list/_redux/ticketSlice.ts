@@ -4,6 +4,9 @@ import storage from "redux-persist/lib/storage";
 const initialProductsState = {
   Tickets: [],
   UpdateTicket:[],
+  ticketStatus:[],
+  posttickets:[],
+  assignedTo: [],
 };
 
 export const callTypes = {
@@ -40,7 +43,24 @@ export const TicketSlice = createSlice({
     UpdatedTickets: (state, action) => {
       const { data } = action.payload;
       state.UpdateTicket = data;
-    }
+    },
 
+    fetchedAllticketStatusesDetails: (state, action) => {
+      const { data } = action.payload;
+      state.ticketStatus = data;
+    },
+
+    postticket: (state, action) => {
+      const { data } = action.payload;
+      state.posttickets = data;
+    },
+    
+    fetchedassignedToDetails: (state, action) => {
+      const { data } = action.payload;
+      state.assignedTo = data;
+    },
   },
+
+  
 });
+

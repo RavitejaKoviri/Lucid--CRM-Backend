@@ -31,3 +31,43 @@ requestFromServer
     error.clientMessage = "Can't find";
     dispatch(actions.catchError({ error, callType: callTypes.list }));
   });
+
+  export const getticketStatuses = (token: any) => (dispatch: any) => {
+    dispatch(actions.startCall({ callType: callTypes.action }));
+    return requestFromServer
+      .getticketStatuses(token)
+      .then((response) => {
+        const { data } = response;
+        dispatch(actions.fetchedAllticketStatusesDetails({ data }));
+      })
+      .catch((error) => {
+        error.clientMessage = "Can't find patient test reports";;
+        dispatch(actions.catchError({ error, callType: callTypes.action }));
+      });
+  };
+  export const getassignedTo = (token: any) => (dispatch: any) => {
+    dispatch(actions.startCall({ callType: callTypes.action }));
+    return requestFromServer
+      .getassignedto(token)
+      .then((response) => {
+        const { data } = response;
+        dispatch(actions.fetchedassignedToDetails({ data }));
+      })
+      .catch((error) => {
+        error.clientMessage = "Can't find patient test reports";;
+        dispatch(actions.catchError({ error, callType: callTypes.action }));
+      });
+  };
+
+  export const CreateTicket = (data: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .CreateTicket(data, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.postticket({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });

@@ -1,18 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { FC, useState } from 'react'
-// import * as Yup from 'yup'
-// import { useFormik } from 'formik'
-// import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers'
-// import { initialUser, User } from '../core/_models'
-// import clsx from 'clsx'
-// import { useListView } from '../core/ListViewProvider'
-// import { UsersListLoading } from '../components/loading/UsersListLoading'
-// import { createUser, updateUser } from '../core/_requests'
-// import { useQueryResponse } from '../core/QueryResponseProvider'
+import {  
+  getticketStatuses,
+  CreateTicket,
+  getassignedTo,
+ } from "../../_redux/ticketAction";
+
 
 export default function TicketAdduser() {
   const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const user = useSelector((state: any) => state?.auth?.user);
+  const userassign = useSelector(
+    (state: any) => state?.TicketData?.assignedTo
+  );
+  const status = useSelector((state: any) => state?.TicketData?.ticketStatus);
+  console.log(status, "status");
+
+  useEffect(()=> {
+    dispatch(getticketStatuses(token));
+    dispatch(getassignedTo(token))
+  },[]);
+
+  const [data,setData] = useState({
+    ticketStatus:'',
+    ticketName:'',
+    ticketPriority:'',
+    ticketAssignedTo:'',
+    ticketcustomer:'',
+    ticketStartDate:'',
+    ticketEndDate:'',
+    company: user?.company?.id,
+  });
+
+  const handleChange = (e: any) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = () => {
+    console.log(data, "EDIT_PROFILE");
+    dispatch(CreateTicket(data, token));
+    setData({
+      ticketStatus:'',
+      ticketName:'',
+      ticketPriority:'',
+      ticketAssignedTo:'',
+      ticketcustomer:'',
+      ticketStartDate:'',
+      ticketEndDate:'',
+      company:'',
+    });
+  };
+
+  
+
   return (
     <>
       <div
@@ -20,86 +63,12 @@ export default function TicketAdduser() {
         id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
-          <form
-            id="kt_ecommerce_add_product_form"
+          <div
             className="form d-flex flex-column flex-lg-row"
-            data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
+         
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-              {/*begin::Thumbnail settings*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Thumbnail</h2>
-                  </div>
-                  {/*end::Card title*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body text-center pt-0">
-                  {/*begin::Image input*/}
-                  {/*begin::Image input placeholder*/}
-                  {/* <style>.image-input-placeholder [data-th</style> */}
-                  {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                    data-kt-image-input="true"
-                  >
-                    {/*begin::Preview existing avatar*/}
-                    <div className="image-input-wrapper w-150px h-150px"></div>
-                    {/*end::Preview existing avatar*/}
-                    {/*begin::Label*/}
-                    <label
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="change"
-                      data-bs-toggle="tooltip"
-                      title="Change avatar"
-                    >
-                      <i className="bi bi-pencil-fill fs-7"></i>
-                      {/*begin::Inputs*/}
-                      <input
-                        type="file"
-                        name="avatar"
-                        accept=".png, .jpg, .jpeg"
-                      />
-                      <input type="hidden" name="avatar_remove" />
-                      {/*end::Inputs*/}
-                    </label>
-                    {/*end::Label*/}
-                    {/*begin::Cancel*/}
-                    <span
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="cancel"
-                      data-bs-toggle="tooltip"
-                      title="Cancel avatar"
-                    >
-                      <i className="bi bi-x fs-2"></i>
-                    </span>
-                    {/*end::Cancel*/}
-                    {/*begin::Remove*/}
-                    <span
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="remove"
-                      data-bs-toggle="tooltip"
-                      title="Remove avatar"
-                    >
-                      <i className="bi bi-x fs-2"></i>
-                    </span>
-                    {/*end::Remove*/}
-                  </div>
-                  {/*end::Image input*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7">
-                    Set the product thumbnail image. Only *.png, *.jpg and
-                    *.jpeg image files are accepted
-                  </div>
-                  {/*end::Description*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
-              {/*end::Thumbnail settings*/}
+             
               {/*begin::Status*/}
               <div className="card card-flush py-4">
                 {/*begin::Card header*/}
@@ -128,17 +97,21 @@ export default function TicketAdduser() {
                     data-hide-search="true"
                     data-placeholder="Select an option"
                     id="kt_ecommerce_add_product_status_select"
+                    value={data.ticketStatus}
+                    onChange={handleChange}
+                    name="ticketStatus"
                   >
                     <option></option>
-                    <option value="published">Published</option>
+                    {status?.map((item: any) => (
+                      <option value={item?.id}>{item?.ticketStatusName}</option>
+                    ))}
+                    {/* <option value="published">Published</option>
                     <option value="draft">Draft</option>
                     <option value="scheduled">Scheduled</option>
-                    <option value="inactive">Inactive</option>
+                    <option value="inactive">Inactive</option> */}
                   </select>
                   {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7">Set the product status.</div>
-                  {/*end::Description*/}
+                  
                   {/*begin::Datepicker*/}
                   <div className="d-none mt-10">
                     <label className="form-label">
@@ -155,197 +128,14 @@ export default function TicketAdduser() {
                 {/*end::Card body*/}
               </div>
               {/*end::Status*/}
-              {/*begin::Category & tags*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Product Details</h2>
-                  </div>
-                  {/*end::Card title*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body pt-0">
-                  {/*begin::Input group*/}
-                  {/*begin::Label*/}
-                  <label className="form-label">Categories</label>
-                  {/*end::Label*/}
-                  {/*begin::Select2*/}
-                  <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-placeholder="Select an option"
-                    data-allow-clear="true"
-                  >
-                    <option></option>
-                    <option value="Computers">Computers</option>
-                    <option value="Watches">Watches</option>
-                    <option value="Headphones">Headphones</option>
-                    <option value="Footwear">Footwear</option>
-                    <option value="Cameras">Cameras</option>
-                    <option value="Shirts">Shirts</option>
-                    <option value="Household">Household</option>
-                    <option value="Handbags">Handbags</option>
-                    <option value="Wines">Wines</option>
-                    <option value="Sandals">Sandals</option>
-                  </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7 mb-7">
-                    Add product to a category.
-                  </div>
-                  {/*end::Description*/}
-                  {/*end::Input group*/}
-                  {/*begin::Button*/}
-                  <a
-                    href="../../demo6/dist/apps/ecommerce/catalog/add-category.html"
-                    className="btn btn-light-primary btn-sm mb-10"
-                  >
-                    {/*begin::Svg Icon | path: icons/duotune/arrows/arr087.svg*/}
-                    <span className="svg-icon svg-icon-2">
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <rect
-                          opacity="0.5"
-                          x="11"
-                          y="18"
-                          width="12"
-                          height="2"
-                          rx="1"
-                          transform="rotate(-90 11 18)"
-                          fill="currentColor"
-                        />
-                        <rect
-                          x="6"
-                          y="11"
-                          width="12"
-                          height="2"
-                          rx="1"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </span>
-                    {/*end::Svg Icon*/}Create new category
-                  </a>
-                  {/*end::Button*/}
-                  {/*begin::Input group*/}
-                  {/*begin::Label*/}
-                  <label className="form-label d-block">Tags</label>
-                  {/*end::Label*/}
-                  {/*begin::Input*/}
-                  <input
-                    id="kt_ecommerce_add_product_tags"
-                    name="kt_ecommerce_add_product_tags"
-                    className="form-control mb-2"
-                    value=""
-                  />
-                  {/*end::Input*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7">Add tags to a product.</div>
-                  {/*end::Description*/}
-                  {/*end::Input group*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
-              {/*end::Category & tags*/}
-              {/*begin::Weekly sales*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Weekly Sales</h2>
-                  </div>
-                  {/*end::Card title*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body pt-0">
-                  <span className="text-muted">
-                    No data available. Sales data will begin capturing once
-                    product has been published.
-                  </span>
-                </div>
-                {/*end::Card body*/}
-              </div>
-              {/*end::Weekly sales*/}
-              {/*begin::Template settings*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Product Template</h2>
-                  </div>
-                  {/*end::Card title*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body pt-0">
-                  {/*begin::Select store template*/}
-                  {/*end::Select store template*/}
-                  {/*begin::Select2*/}
-                  <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    id="kt_ecommerce_add_product_store_template"
-                  >
-                    <option></option>
-                    <option value="default">Default template</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="office">Office stationary</option>
-                    <option value="fashion">Fashion</option>
-                  </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  <div className="text-muted fs-7">
-                    Assign a template from your current theme to define how a
-                    single product is displayed.
-                  </div>
-                  {/*end::Description*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
-              {/*end::Template settings*/}
+              
+              
+              
             </div>
             {/*end::Aside column*/}
             {/*begin::Main column*/}
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-              {/*begin:::Tabs*/}
-              <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
-                {/*begin:::Tab item*/}
-                <li className="nav-item">
-                  <a
-                    className="nav-link text-active-primary pb-4 active"
-                    data-bs-toggle="tab"
-                    href="#kt_ecommerce_add_product_general"
-                  >
-                    General
-                  </a>
-                </li>
-                {/*end:::Tab item*/}
-                {/*begin:::Tab item*/}
-                <li className="nav-item">
-                  <a
-                    className="nav-link text-active-primary pb-4"
-                    data-bs-toggle="tab"
-                    href="#kt_ecommerce_add_product_advanced"
-                  >
-                    Advanced
-                  </a>
-                </li>
-                {/*end:::Tab item*/}
-              </ul>
-              {/*end:::Tabs*/}
+              
               {/*begin::Tab content*/}
               <div className="tab-content">
                 {/*begin::Tab pane*/}
@@ -360,7 +150,7 @@ export default function TicketAdduser() {
                       {/*begin::Card header*/}
                       <div className="card-header">
                         <div className="card-title">
-                          <h2>General</h2>
+                          <h2>Ticket Details</h2>
                         </div>
                       </div>
                       {/*end::Card header*/}
@@ -370,76 +160,87 @@ export default function TicketAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Ticket Name</label>
+                              <label>Name</label>
                               <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Enter TicketName"
+                                value={data.ticketName}
+                                onChange={handleChange}
+                                name="ticketName"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>Ticket Priority</label>
+                              <label>Priority</label>
                               <input
                                 type="text"
                                 className="form-control"
                                 placeholder="Enter Ticket priority"
+                                value={data.ticketPriority}
+                                onChange={handleChange}
+                                name="ticketPriority"
                               />
                             </div>
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Ticket Assigned To</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Ticket Assigned To"
-                              />
+                              <label>AssignedTo</label>
+                              <select
+                    className="form-select mb-2"
+                    data-control="select2"
+                    data-hide-search="true"
+                    data-placeholder="Select an option"
+                    value={data.ticketAssignedTo}
+                    onChange={handleChange}
+                    name="ticketAssignedTo"
+                  ><option></option>
+                  
+                    
+                    {
+                      userassign?.map((item: any) => (
+                        <option value={item?.id}>{item?.username}</option>
+                      ))
+                    }
+
+                  </select>
                             </div>
                             <div className="col-lg-6">
-                              <label> Ticket Status</label>
+                              <label>customer</label>
                               <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Enter TicketStatus"
+                                placeholder="Enter ticketcustomer"
+                                value={data.ticketcustomer}
+                                onChange={handleChange}
+                                name="ticketcustomer"
                               />
                             </div>
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Customer</label>
+                              <label>StartDate</label>
                               <input
-                                type="text"
+                                type="date"
                                 className="form-control"
                                 placeholder="Enter customer"
+                                value={data.ticketStartDate}
+                                onChange={handleChange}
+                                name="ticketStartDate"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>Company</label>
+                              <label>EndDate</label>
                               <input
-                                type="text"
+                                type="date"
                                 className="form-control"
                                 placeholder="Enter Company"
+                                value={data.ticketEndDate}
+                                onChange={handleChange}
+                                name="ticketEndDate"
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Ticket StartDate</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Ticket StartDate"
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label>Ticket EndDate</label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Enter Ticket EndDate"
-                              />
-                            </div>
-                          </div>
+                          
                           {/* <div className="form-group row mb-2">
                             <div className="col-lg-6">
                               <label>Website:</label>
@@ -498,301 +299,8 @@ export default function TicketAdduser() {
 
                       </div>
                     </div>
-                    <div className="card card-flush py-4">
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Media</h2>
-                        </div>
-                      </div>
-                     
-                      <div className="card-body pt-0">
-                        <div className="fv-row mb-2">
-                          <div
-                            className="dropzone"
-                            id="kt_ecommerce_add_product_media"
-                          >
-                            <div className="dz-message needsclick">
-                              <i className="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-                              
-                              <div className="ms-4">
-                                <h3 className="fs-5 fw-bold text-gray-900 mb-1">
-                                  Drop files here or click to upload.
-                                </h3>
-                                <span className="fs-7 fw-semibold text-gray-400">
-                                  Upload up to 10 files
-                                </span>
-                              </div>
-                              {/*end::Info*/}
-                            </div>
-                          </div>
-                          {/*end::Dropzone*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Description*/}
-                        <div className="text-muted fs-7">
-                          Set the product media gallery.
-                        </div>
-                        {/*end::Description*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Media*/}
-                    {/*begin::Pricing*/}
-                    <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Pricing</h2>
-                        </div>
-                      </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
-                      <div className="card-body pt-0">
-                        {/*begin::Input group*/}
-                        <div className="mb-10 fv-row">
-                          {/*begin::Label*/}
-                          <label className="required form-label">
-                            Base Price
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            name="price"
-                            className="form-control mb-2"
-                            placeholder="Product price"
-                            value=""
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set the product price.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div className="fv-row mb-10">
-                          {/*begin::Label*/}
-                          <label className="fs-6 fw-semibold mb-2">
-                            Discount Type
-                            <i
-                              className="fas fa-exclamation-circle ms-2 fs-7"
-                              data-bs-toggle="tooltip"
-                              title="Select a discount type that will be applied to this product"
-                            ></i>
-                          </label>
-                          {/*End::Label*/}
-                          {/*begin::Row*/}
-                          <div
-                            className="row row-cols-1 row-cols-md-3 row-cols-lg-1 row-cols-xl-3 g-9"
-                            data-kt-buttons="true"
-                            data-kt-buttons-target="[data-kt-button='true']"
-                          >
-                            {/*begin::Col*/}
-                            <div className="col">
-                              {/*begin::Option*/}
-                              <label
-                                className="btn btn-outline btn-outline-dashed btn-active-light-primary active d-flex text-start p-6"
-                                data-kt-button="true"
-                              >
-                                {/*begin::Radio*/}
-                                <span className="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="discount_option"
-                                    value="1"
-                                  />
-                                </span>
-                                {/*end::Radio*/}
-                                {/*begin::Info*/}
-                                <span className="ms-5">
-                                  <span className="fs-4 fw-bold text-gray-800 d-block">
-                                    No Discount
-                                  </span>
-                                </span>
-                                {/*end::Info*/}
-                              </label>
-                              {/*end::Option*/}
-                            </div>
-                            {/*end::Col*/}
-                            {/*begin::Col*/}
-                            <div className="col">
-                              {/*begin::Option*/}
-                              <label
-                                className="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6"
-                                data-kt-button="true"
-                              >
-                                {/*begin::Radio*/}
-                                <span className="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="discount_option"
-                                    value="2"
-                                  />
-                                </span>
-                                {/*end::Radio*/}
-                                {/*begin::Info*/}
-                                <span className="ms-5">
-                                  <span className="fs-4 fw-bold text-gray-800 d-block">
-                                    Percentage %
-                                  </span>
-                                </span>
-                                {/*end::Info*/}
-                              </label>
-                              {/*end::Option*/}
-                            </div>
-                            {/*end::Col*/}
-                            {/*begin::Col*/}
-                            <div className="col">
-                              {/*begin::Option*/}
-                              <label
-                                className="btn btn-outline btn-outline-dashed btn-active-light-primary d-flex text-start p-6"
-                                data-kt-button="true"
-                              >
-                                {/*begin::Radio*/}
-                                <span className="form-check form-check-custom form-check-solid form-check-sm align-items-start mt-1">
-                                  <input
-                                    className="form-check-input"
-                                    type="radio"
-                                    name="discount_option"
-                                    value="3"
-                                  />
-                                </span>
-                                {/*end::Radio*/}
-                                {/*begin::Info*/}
-                                <span className="ms-5">
-                                  <span className="fs-4 fw-bold text-gray-800 d-block">
-                                    Fixed Price
-                                  </span>
-                                </span>
-                                {/*end::Info*/}
-                              </label>
-                              {/*end::Option*/}
-                            </div>
-                            {/*end::Col*/}
-                          </div>
-                          {/*end::Row*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div
-                          className="d-none mb-10 fv-row"
-                          id="kt_ecommerce_add_product_discount_percentage"
-                        >
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Set Discount Percentage
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Slider*/}
-                          <div className="d-flex flex-column text-center mb-5">
-                            <div className="d-flex align-items-start justify-content-center mb-7">
-                              <span
-                                className="fw-bold fs-3x"
-                                id="kt_ecommerce_add_product_discount_label"
-                              >
-                                0
-                              </span>
-                              <span className="fw-bold fs-4 mt-1 ms-2">%</span>
-                            </div>
-                            <div
-                              id="kt_ecommerce_add_product_discount_slider"
-                              className="noUi-sm"
-                            ></div>
-                          </div>
-                          {/*end::Slider*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set a percentage discount to be applied on this
-                            product.
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Input group*/}
-                        <div
-                          className="d-none mb-10 fv-row"
-                          id="kt_ecommerce_add_product_discount_fixed"
-                        >
-                          {/*begin::Label*/}
-                          <label className="form-label">
-                            Fixed Discounted Price
-                          </label>
-                          {/*end::Label*/}
-                          {/*begin::Input*/}
-                          <input
-                            type="text"
-                            name="dicsounted_price"
-                            className="form-control mb-2"
-                            placeholder="Discounted price"
-                          />
-                          {/*end::Input*/}
-                          {/*begin::Description*/}
-                          <div className="text-muted fs-7">
-                            Set the discounted product price. The product will
-                            be reduced at the determined fixed price
-                          </div>
-                          {/*end::Description*/}
-                        </div>
-                        {/*end::Input group*/}
-                        {/*begin::Tax*/}
-                        <div className="d-flex flex-wrap gap-5">
-                          {/*begin::Input group*/}
-                          <div className="fv-row w-100 flex-md-root">
-                            {/*begin::Label*/}
-                            <label className="required form-label">
-                              Tax className
-                            </label>
-                            {/*end::Label*/}
-                            {/*begin::Select2*/}
-                            <select
-                              className="form-select mb-2"
-                              name="tax"
-                              data-control="select2"
-                              data-hide-search="true"
-                              data-placeholder="Select an option"
-                            >
-                              <option></option>
-                              <option value="0">Tax Free</option>
-                              <option value="1">Taxable Goods</option>
-                              <option value="2">Downloadable Product</option>
-                            </select>
-                            {/*end::Select2*/}
-                            {/*begin::Description*/}
-                            <div className="text-muted fs-7">
-                              Set the product tax className.
-                            </div>
-                            {/*end::Description*/}
-                          </div>
-                          {/*end::Input group*/}
-                          {/*begin::Input group*/}
-                          <div className="fv-row w-100 flex-md-root">
-                            {/*begin::Label*/}
-                            <label className="form-label">VAT Amount (%)</label>
-                            {/*end::Label*/}
-                            {/*begin::Input*/}
-                            <input
-                              type="text"
-                              className="form-control mb-2"
-                              value=""
-                            />
-                            {/*end::Input*/}
-                            {/*begin::Description*/}
-                            <div className="text-muted fs-7">
-                              Set the product VAT about.
-                            </div>
-                            {/*end::Description*/}
-                          </div>
-                          {/*end::Input group*/}
-                        </div>
-                        {/*end:Tax*/}
-                      </div>
-                      {/*end::Card header*/}
-                    </div>
-                    {/*end::Pricing*/}
+                    
+                    
                   </div>
                 </div>
                 {/*end::Tab pane*/}
@@ -1248,18 +756,20 @@ export default function TicketAdduser() {
                 {/*end::Tab pane*/}
               </div>
               <div className="d-flex justify-content-end">
-                <a
-                  href="../../demo6/dist/apps/ecommerce/catalog/products.html"
-                  id="kt_ecommerce_add_product_cancel"
+              <button
                   className="btn btn-light me-5"
+                  onClick={() => {
+                    navigation('/ticket/ticket')
+                  }}
                 >
-                  Cancel
-                </a>
+                  Back
+                </button>
                 <button
                   type="submit"
                   id="kt_ecommerce_add_product_submit"
                   onClick={() => {
-                    navigation("users");
+                    handleSubmit();
+                    // navigation("users");
                   }}
                   className="btn btn-primary"
                 >
@@ -1271,7 +781,7 @@ export default function TicketAdduser() {
                 </button>
               </div>
             </div>
-          </form>
+          </div>
           {/*end::Form*/}
         </div>
       </div>

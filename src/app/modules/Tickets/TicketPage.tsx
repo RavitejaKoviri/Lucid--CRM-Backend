@@ -4,7 +4,7 @@ import { TicketListWrapper } from './Ticket-list/TicketList'
 
 const TicketsBreadcrumbs: Array<PageLink> = [
   {
-    title: 'Ticket Management',
+    title: '',
     path: 'target',
     isSeparator: false,
     isActive: false,
@@ -25,7 +25,8 @@ const TicketPage = () => {
           path='ticket'
           element={
             <>
-              <PageTitle breadcrumbs={TicketsBreadcrumbs}>Ticket list</PageTitle>
+              {/* <PageTitle breadcrumbs={TicketsBreadcrumbs}>Ticket list</PageTitle> */}
+              <PageTitle>Ticket list</PageTitle>
               <TicketListWrapper />
             </>
           }
