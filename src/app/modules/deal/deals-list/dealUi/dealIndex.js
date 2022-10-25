@@ -49,6 +49,14 @@ const DealIndex = () => {
     if (val?.dealContactPersonName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
       return val;
     }
+    if (val?.dealType?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+      console.log(val, "val");
+      return val;
+    }
+    if (val?.campaignSource?.campaignName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+      console.log(val, "val");
+      return val;
+    }
   });
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
