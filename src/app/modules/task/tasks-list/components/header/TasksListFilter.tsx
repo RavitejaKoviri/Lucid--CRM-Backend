@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
 import { initialQueryState, KTSVG } from '../../../../../../_metronic/helpers'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
+import TaskContext from '../../table/columns/context'
 
 const TasksListFilter = () => {
   const { updateState } = useQueryRequest()
@@ -10,21 +11,22 @@ const TasksListFilter = () => {
   const [role, setRole] = useState<string | undefined>()
   const [lastLogin, setLastLogin] = useState<string | undefined>()
 
-  useEffect(() => {
-    MenuComponent.reinitialization()
-  }, [])
+  // useEffect(() => {
+  //   MenuComponent.reinitialization()
+  // }, [])
 
-  const resetData = () => {
-    updateState({ filter: undefined, ...initialQueryState })
-  }
+  // const resetData = () => {
+  //   updateState({ filter: undefined, ...initialQueryState })
+  // }
 
-  const filterData = () => {
-    updateState({
-      filter: { role, last_login: lastLogin },
-      ...initialQueryState,
-    })
-  }
+  // const filterData = () => {
+  //   updateState({
+  //     filter: { role, last_login: lastLogin },
+  //     ...initialQueryState,
+  //   })
+  // }
 
+  const { searchTerm, setSearchTerm } = useContext(TaskContext);
   return (
     <>
       {/* begin::Filter Button */}
@@ -55,7 +57,7 @@ const TasksListFilter = () => {
         <div className='px-7 py-5' data-kt-user-table-filter='form'>
           {/* begin::Input group */}
           <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>Role:</label>
+            <label className='form-label fs-6 fw-bold'>Task Type:</label>
             <select
               className='form-select form-select-solid fw-bolder'
               data-kt-select2='true'
@@ -63,21 +65,19 @@ const TasksListFilter = () => {
               data-allow-clear='true'
               data-kt-user-table-filter='role'
               data-hide-search='true'
-              onChange={(e) => setRole(e.target.value)}
-              value={role}
+              onChange={(e) =>  setSearchTerm(e.target.value)}
+              value={ searchTerm}
             >
               <option value=''></option>
-              <option value='Administrator'>Administrator</option>
-              <option value='Analyst'>Analyst</option>
-              <option value='Developer'>Developer</option>
-              <option value='Support'>Support</option>
-              <option value='Trial'>Trial</option>
+              <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
             </select>
           </div>
           {/* end::Input group */}
 
           {/* begin::Input group */}
-          <div className='mb-10'>
+          {/* <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>Last login:</label>
             <select
               className='form-select form-select-solid fw-bolder'
@@ -95,7 +95,7 @@ const TasksListFilter = () => {
               <option value='5 hours ago'>5 hours ago</option>
               <option value='2 days ago'>2 days ago</option>
             </select>
-          </div>
+          </div> */}
           {/* end::Input group */}
 
           {/* begin::Actions */}
@@ -103,7 +103,7 @@ const TasksListFilter = () => {
             <button
               type='button'
               disabled={isLoading}
-              onClick={filterData}
+              // onClick={filterData}
               className='btn btn-light btn-active-light-primary fw-bold me-2 px-6'
               data-kt-menu-dismiss='true'
               data-kt-user-table-filter='reset'
@@ -113,7 +113,7 @@ const TasksListFilter = () => {
             <button
               disabled={isLoading}
               type='button'
-              onClick={resetData}
+              // onClick={resetData}
               className='btn btn-primary fw-bold px-6'
               data-kt-menu-dismiss='true'
               data-kt-user-table-filter='filter'

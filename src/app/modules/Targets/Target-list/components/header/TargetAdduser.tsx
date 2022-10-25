@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CreateTarget,
   getassignedTo,
   getCompanies,
+  gettargetsById,
   getTargetStatuses,
+  UpdateTarget,
 } from "../../_redux/targetAction";
 
 // import { FC, useState } from 'react'
@@ -21,17 +23,19 @@ import {
 
 export default function TargetAdduser() {
   const navigation = useNavigate();
-
+  const location = useLocation();
+  const id: any = location?.state
+  console.log(id, "dealid");
   const dispatch = useDispatch();
+  const [target, setTarget] = useState(false);
+
   const token = useSelector((state: any) => state?.auth?.authToken);
 
   const userData = useSelector((state: any) => state?.auth?.user);
-  // const campaign = useSelector(
-  //   (state: any) => state?.TargetData?.campaigns
-  // );
-  const company = useSelector((state: any) => state?.TargetData?.Comapnies);
+  // const company = useSelector((state: any) => state?.TargetData?.Comapnies);
   const status = useSelector((state: any) => state?.TargetData?.targetStatus);
   const user = useSelector((state: any) => state?.TargetData?.assignedTo);
+  const targetsById = useSelector((state: any) => state?.TargetData?.targetById);
   console.log(status, "status");
 
   useEffect(() => {
@@ -53,9 +57,33 @@ export default function TargetAdduser() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(gettargetsById(id?.id, token))
+    setTarget(true);
+  }, [targetsById?.id])
+
+  useEffect(() => {
+    setData({
+      targetName: targetsById?.targetName,
+      targetDescription: targetsById?.targetDescription,
+      targetDueDate: targetsById?.targetDueDate,
+      assignedTo: targetsById?.assignedTo?.id,
+      company: user?.company?.id,
+      targetStatus: targetsById?.targetStatus?.id,
+      // taskOwner: user?.id,
+    })
+    setTarget(false);
+  }, [target]);
+
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(CreateTarget(data, token));
+    if (id !== null) {
+      dispatch(UpdateTarget(data, id?.id, token));
+    }
+    else {
+      dispatch(CreateTarget(data, token));
+    }
     setData({
       targetName: " ",
       assignedTo: " ",

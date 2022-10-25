@@ -85,6 +85,12 @@ const LeadsTable = () => {
                 if (val?.original?.leadPhonenumber?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
                   return val;
                 }
+                if (val?.original?.campaignSource?.campaignName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
+                if (val?.original?.leadSource?.SourceName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
               }).map((row: Row<Lead>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />

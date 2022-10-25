@@ -55,3 +55,8 @@ export function gettaskById(id: any, token: any) {
     },
   });
 }
+export function DeleteTasks(id: any, token: any) {
+  return axios.delete(`${TASKS}/${id}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}

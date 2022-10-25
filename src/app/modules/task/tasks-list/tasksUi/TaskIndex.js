@@ -13,16 +13,19 @@ import { v4 as uuidv4 } from "uuid";
 // html-react-parser components
 import parse from "html-react-parser";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTasks, gettasksById, UpdateTask } from "../_redux/taskAction";
+import { DeleteTask, getAllTasks, gettasksById, UpdateTask } from "../_redux/taskAction";
 import TaskContext from "../table/columns/context";
 import axios from "axios";
 import Dialog from '@mui/material/Dialog';
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const TaskIndex = () => {
   // const [controller] = useArgonController();
   // const { darkMode } = controller;
   const dispatch = useDispatch();
+  const navigation = useNavigate();
+
   // const [newCardForm, setNewCardForm] = useState(false);
   // const [formValue, setFormValue] = useState("");
 
@@ -43,6 +46,9 @@ console.log(tasks,"task");
       return val;
     }
     if (val?.contact?.contactFirstName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+      return val;
+    }
+    if (val?.taskPriority?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
       return val;
     }
   })
@@ -207,6 +213,7 @@ console.log(tasks,"task");
                       </span>
                       {/* end::Svg Icon */}
                     </button>
+
                     {/* begin::Menu 1 */}
                     <div
                       className="menu menu-sub menu-sub-dropdown w-250px w-md-300px"
@@ -333,7 +340,7 @@ console.log(tasks,"task");
                     {/* begin::Badge */}
                     {/* <div className="badge badge-light">Development</div> */}
                     {/* end::Badge */}
-                    {/* begin::Menu */}
+
                     {/* <div>
                       <button
                         type="button"
@@ -402,13 +409,11 @@ console.log(tasks,"task");
                             Payments
                           </div>
                         </div>
-                      
                         <div className="menu-item px-3">
                           <a href="#" className="menu-link px-3">
                             Create Invoice
                           </a>
                         </div>
-                        
                         <div className="menu-item px-3">
                           <a href="#" className="menu-link flex-stack px-3">
                             Create Payment
@@ -419,13 +424,11 @@ console.log(tasks,"task");
                             ></i>
                           </a>
                         </div>
-                        
                         <div className="menu-item px-3">
                           <a href="#" className="menu-link px-3">
                             Generate Bill
                           </a>
                         </div>
-                      
                         <div
                           className="menu-item px-3"
                           data-kt-menu-trigger="hover"
@@ -441,21 +444,17 @@ console.log(tasks,"task");
                                 Plans
                               </a>
                             </div>
-                           
                             <div className="menu-item px-3">
                               <a href="#" className="menu-link px-3">
                                 Billing
                               </a>
                             </div>
-                           
                             <div className="menu-item px-3">
                               <a href="#" className="menu-link px-3">
                                 Statements
                               </a>
                             </div>
-                           
                             <div className="separator my-2"></div>
-                        
                             <div className="menu-item px-3">
                               <div className="menu-content px-3">
                                 <label className="form-check form-switch form-check-custom form-check-solid">
@@ -466,7 +465,6 @@ console.log(tasks,"task");
                                     checked="checked"
                                     name="notifications"
                                   />
-                                
                                   <span className="form-check-label text-muted fs-6">
                                     Recuring
                                   </span>
@@ -482,7 +480,9 @@ console.log(tasks,"task");
                         </div>
                       </div>
                     </div> */}
-                    <button
+
+                    <div>
+                      <button
                         type="button"
                         className="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
                         onClick={() => { handleClickOpen(id) }}
@@ -500,7 +500,43 @@ console.log(tasks,"task");
                         </svg>
                         {/* end::Svg Icon */}
                       </button>
-                    {/* end::Menu */}
+                      {/* begin::Menu 3 */}
+
+                      {/* end::Menu 3 */}
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
+                        onClick={() => { navigation('taskAdduser', { state: { id } }) }}
+                      >
+                        {/* begin::Svg Icon | path: icons/duotune/general/gen024.svg */}
+                        <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M1.20902 9.2895C1.13965 9.28938 1.07106 9.27483 1.00762 9.24677C0.944181 9.2187 0.887274 9.17775 0.840518 9.1265C0.792918 9.07569 0.756595 9.01539 0.733933 8.94956C0.71127 8.88373 0.70278 8.81385 0.709018 8.7445L0.831518 7.3975L6.49052 1.7405L8.25902 3.5085L2.60152 9.165L1.25452 9.2875C1.23939 9.2889 1.22421 9.28956 1.20902 9.2895V9.2895ZM8.61202 3.155L6.84402 1.387L7.90452 0.326501C7.95096 0.280012 8.0061 0.243133 8.0668 0.217971C8.1275 0.192809 8.19256 0.179857 8.25827 0.179857C8.32398 0.179857 8.38904 0.192809 8.44974 0.217971C8.51044 0.243133 8.56558 0.280012 8.61202 0.326501L9.67252 1.387C9.71901 1.43344 9.75589 1.48858 9.78105 1.54928C9.80621 1.60998 9.81916 1.67504 9.81916 1.74075C9.81916 1.80646 9.80621 1.87152 9.78105 1.93222C9.75589 1.99292 9.71901 2.04806 9.67252 2.0945L8.61252 3.1545L8.61202 3.155V3.155Z" fill="black" />
+                        </svg>
+                        {/* end::Svg Icon */}
+                      </button>
+                      {/* begin::Menu 3 */}
+
+                      {/* end::Menu 3 */}
+                    </div>
+
+                    <div>
+                      <button
+                        type="button"
+                        className="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
+                        onClick={() => { dispatch(DeleteTask(id, token)); }}
+                      >
+                        {/* begin::Svg Icon | path: icons/duotune/general/gen024.svg */}
+                        <svg width="10" height="12" viewBox="0 0 10 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M0.875 0.75C0.676088 0.75 0.485322 0.829018 0.34467 0.96967C0.204018 1.11032 0.125 1.30109 0.125 1.5V2.25C0.125 2.44891 0.204018 2.63968 0.34467 2.78033C0.485322 2.92098 0.676088 3 0.875 3H1.25V9.75C1.25 10.1478 1.40804 10.5294 1.68934 10.8107C1.97064 11.092 2.35218 11.25 2.75 11.25H7.25C7.64782 11.25 8.02936 11.092 8.31066 10.8107C8.59196 10.5294 8.75 10.1478 8.75 9.75V3H9.125C9.32391 3 9.51468 2.92098 9.65533 2.78033C9.79598 2.63968 9.875 2.44891 9.875 2.25V1.5C9.875 1.30109 9.79598 1.11032 9.65533 0.96967C9.51468 0.829018 9.32391 0.75 9.125 0.75H6.5C6.5 0.551088 6.42098 0.360322 6.28033 0.21967C6.13968 0.0790176 5.94891 0 5.75 0L4.25 0C4.05109 0 3.86032 0.0790176 3.71967 0.21967C3.57902 0.360322 3.5 0.551088 3.5 0.75H0.875ZM3.125 3.75C3.22446 3.75 3.31984 3.78951 3.39016 3.85984C3.46049 3.93016 3.5 4.02554 3.5 4.125V9.375C3.5 9.47446 3.46049 9.56984 3.39016 9.64017C3.31984 9.71049 3.22446 9.75 3.125 9.75C3.02554 9.75 2.93016 9.71049 2.85984 9.64017C2.78951 9.56984 2.75 9.47446 2.75 9.375V4.125C2.75 4.02554 2.78951 3.93016 2.85984 3.85984C2.93016 3.78951 3.02554 3.75 3.125 3.75V3.75ZM5 3.75C5.09946 3.75 5.19484 3.78951 5.26517 3.85984C5.33549 3.93016 5.375 4.02554 5.375 4.125V9.375C5.375 9.47446 5.33549 9.56984 5.26517 9.64017C5.19484 9.71049 5.09946 9.75 5 9.75C4.90054 9.75 4.80516 9.71049 4.73484 9.64017C4.66451 9.56984 4.625 9.47446 4.625 9.375V4.125C4.625 4.02554 4.66451 3.93016 4.73484 3.85984C4.80516 3.78951 4.90054 3.75 5 3.75V3.75ZM7.25 4.125V9.375C7.25 9.47446 7.21049 9.56984 7.14017 9.64017C7.06984 9.71049 6.97446 9.75 6.875 9.75C6.77554 9.75 6.68016 9.71049 6.60983 9.64017C6.53951 9.56984 6.5 9.47446 6.5 9.375V4.125C6.5 4.02554 6.53951 3.93016 6.60983 3.85984C6.68016 3.78951 6.77554 3.75 6.875 3.75C6.97446 3.75 7.06984 3.78951 7.14017 3.85984C7.21049 3.93016 7.25 4.02554 7.25 4.125V4.125Z" fill="black" />
+                        </svg>
+                        {/* end::Svg Icon */}
+                      </button>
+                      {/* begin::Menu 3 */}
+
+                      {/* end::Menu 3 */}
+                    </div>
                   </div>
                   {/* end::Header */}
                   {/* begin::Title */}

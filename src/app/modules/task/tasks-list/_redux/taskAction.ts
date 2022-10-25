@@ -98,3 +98,15 @@ export const CreateTask = (data: any, token: any) => (dispatch: any) =>
           });
       
       };
+      export const DeleteTask = (id: any, token: any) => (dispatch: any) =>
+      requestFromServer
+        .DeleteTasks(id, token)
+        .then((response) => {
+          const { data } = response;
+          console.log(data);
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-param-reassign
+          error.clientMessage = "Can't find";
+          dispatch(actions.catchError({ error, callType: callTypes.list }));
+        });  

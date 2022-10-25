@@ -46,6 +46,9 @@ const TicketIndex = () => {
     if (val?.ticketName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
       return val;
     }
+    if (val?.ticketPriority?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+      return val;
+    }
   })
   console.log(Tickets, "Tickets");
   const bucketListedTickets = Tickets?.filter(

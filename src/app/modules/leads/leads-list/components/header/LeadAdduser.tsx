@@ -453,7 +453,7 @@ export default function LeadAdduser() {
               {/*begin:::Tabs*/}
               <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
                 {/*begin:::Tab item*/}
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a
                     className="nav-link text-active-primary pb-4 active"
                     data-bs-toggle="tab"
@@ -461,7 +461,7 @@ export default function LeadAdduser() {
                   >
                     General
                   </a>
-                </li>
+                </li> */}
                 {/*end:::Tab item*/}
               </ul>
               {/*end:::Tabs*/}
@@ -478,7 +478,7 @@ export default function LeadAdduser() {
                       {/*begin::Card header*/}
                       <div className="card-header">
                         <div className="card-title">
-                          <h2>General</h2>
+                          <h2>Lead Details</h2>
                         </div>
                       </div>
                       {/*end::Card header*/}
@@ -855,13 +855,14 @@ export default function LeadAdduser() {
                 {/*end::Tab pane*/}
               </div>
               <div className="d-flex justify-content-end">
-                <a
-                  href="../../demo6/dist/apps/ecommerce/catalog/products.html"
-                  id="kt_ecommerce_add_product_cancel"
-                  className="btn btn-light me-5"
+              <button
+                  className="btn btn-dark me-5"
+                  onClick={() => {
+                    navigation('/leads/list')
+                  }}
                 >
-                  Cancel
-                </a>
+                  Back
+                </button>
                 <button
                   onClick={() => {
                     handleSubmit()

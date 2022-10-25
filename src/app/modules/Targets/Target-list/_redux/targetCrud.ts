@@ -56,3 +56,8 @@ export function gettargetById(id: any, token: any) {
     },
   });
 }
+export function DeleteTargets(id: any, token: any) {
+  return axios.delete(`${TARGET}/${id}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
