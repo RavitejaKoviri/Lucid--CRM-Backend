@@ -12,6 +12,7 @@ import {
   TablesWidget5,
 } from '../../../../_metronic/partials/widgets'
 import { getAllLeads, LeadsByDate } from '../_redux/reportsAction'
+import { Pagination } from '@mui/material';
 
 export function LeadsReport() {
   const dispatch = useDispatch();
@@ -23,20 +24,27 @@ export function LeadsReport() {
 
   const leads = useSelector(
     (state: any) => state?.Reports?.Leads);
-  // const leadsByDate = useSelector(
-  //   (state: any) => state?.Reports?.LeadsByDate);
-  console.log('leadsByDate', leads);
 
   const [search, setSearch] = useState('');
-  // const utc = new Date().toJSON().slice(0, 16).replace(/-/g, "-");
-  // const [searchData, setSearchData] = useState([]);
   const [date, setDate] = useState('');
-  console.log(date, "date");
-  // console.log(dates, "date");
 
-  // useEffect(() => {
-  //   dispatch(LeadsByDate(dates, token))
-  // }, [dates])
+  const [perPage, setPerPage] = useState([]);
+  const [lead, setLead] = useState([]);
+
+  console.log(perPage, "perPage");
+
+  useEffect(() => {
+    setLead(leads);
+    setPerPage(leads.slice(0, 10));
+  }, [leads])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(lead.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(lead.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
+
 
   return (
     <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -139,8 +147,8 @@ export function LeadsReport() {
 
               </thead>
 
-              {leads?.length > 0 ?
-                leads?.filter((val: any) => {
+              {perPage?.length > 0 ?
+                perPage?.filter((val: any) => {
                   if (search === "") {
                     return val;
                   }
@@ -188,7 +196,14 @@ export function LeadsReport() {
             </table>
 
           </div>
-
+          <div className='d-flex flex-end'>
+            <Pagination
+              // justifyContent="center"
+              count={pageNumbers.length}
+              onChange={(e, value) => pageHandler(value)}
+              color="primary"
+            />
+          </div>
         </div>
 
       </div>

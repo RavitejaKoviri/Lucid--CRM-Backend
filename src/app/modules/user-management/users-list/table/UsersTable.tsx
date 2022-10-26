@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from '../table/columns/CustomHeaderColumn'
 import { CustomRow } from '../table/columns/CustomRow'
@@ -11,9 +11,10 @@ import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllUsers } from '../_redux/userAction'
 import UserContext from './columns/context'
+import { Pagination } from '@mui/material'
 
 const UsersTable = () => {
-  const user = useSelector(
+  const users = useSelector(
     (state: any) => state?.ManageUserData?.Users
   );
   const token = useSelector(
@@ -21,7 +22,25 @@ const UsersTable = () => {
   );
   const isLoading = useQueryResponseLoading()
   const dispatch = useDispatch()
-  const data = useMemo(() => user, [user])
+
+  const [perPage, setPerPage] = useState([]);
+  const [user, setUser] = useState([]);
+
+  console.log(perPage, "perPage");
+
+  useEffect(() => {
+    setUser(users);
+    setPerPage(users.slice(0, 10));
+  }, [users])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(user.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(user.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
+
+  const data = useMemo(() => perPage, [perPage])
   const columns = useMemo(() => usersColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -79,7 +98,15 @@ const UsersTable = () => {
           </tbody>
         </table>
       </div>
-      <UsersListPagination />
+      {/* <UsersListPagination /> */}
+      <div className='d-flex flex-end'>
+        <Pagination
+          // justifyContent="center"
+          count={pageNumbers.length}
+          onChange={(e, value) => pageHandler(value)}
+          color="primary"
+        />
+      </div>
       {isLoading && <UsersListLoading />}
     </KTCardBody>
   )

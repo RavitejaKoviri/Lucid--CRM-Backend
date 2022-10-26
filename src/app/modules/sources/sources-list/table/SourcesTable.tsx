@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -11,15 +11,34 @@ import { SourcesListPagination } from '../components/pagination/SourcesListPagin
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSources } from '../_redux/sourceAction'
-import UserContext from './columns/context'
+import { Pagination } from '@mui/material'
+import SourceContext from './columns/context'
 
 const SourcesTable = () => {
   const users = useQueryResponseData()
-  const user = useSelector(
+  const sources = useSelector(
     (state: any) => state?.Sources?.Sources
   );
   const isLoading = useQueryResponseLoading()
-  const data = useMemo(() => user, [user])
+
+  const [perPage, setPerPage] = useState([]);
+  const [source, setSource] = useState([]);
+
+  console.log(perPage, "perPage");
+
+  useEffect(() => {
+    setSource(sources);
+    setPerPage(sources.slice(0, 10));
+  }, [sources])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(source.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(source.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
+
+  const data = useMemo(() => perPage, [perPage])
   const columns = useMemo(() => LeadsColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -36,8 +55,7 @@ const SourcesTable = () => {
   useEffect(() => {
     dispatch(getSources(token))
   }, [])
-  console.log(user, "users")
-  const { searchTerm } = useContext(UserContext);
+  const { searchTerm } = useContext(SourceContext);
 
   return (
     <KTCardBody className='py-4'>
@@ -81,7 +99,14 @@ const SourcesTable = () => {
           </tbody>
         </table>
       </div>
-      <SourcesListPagination />
+      <div className='d-flex flex-end'>
+        <Pagination
+          // justifyContent="center"
+          count={pageNumbers.length}
+          onChange={(e, value) => pageHandler(value)}
+          color="primary"
+        />
+      </div>
       {isLoading && <SourcesListLoading />}
     </KTCardBody>
   )

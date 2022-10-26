@@ -6,7 +6,7 @@ import { DepartmentTable } from './table/DepartmentTable'
 import { DepartmentEditModal } from './Department-edit-modal/DepartmentEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 import { useState } from 'react'
-import UserContext from './table/columns/context'
+import DepartmentContext from './table/columns/context'
 
 
 
@@ -20,10 +20,10 @@ const DepartmentList = () => {
   return (
     <>
       <KTCard>
-        <UserContext.Provider value={{ searchTerm, setSearchTerm }}>
+        <DepartmentContext.Provider value={{ searchTerm, setSearchTerm }}>
           <DepartmentListHeader />
           <DepartmentTable />
-        </UserContext.Provider>
+        </DepartmentContext.Provider>
 
       </KTCard>
       {itemIdForUpdate !== undefined && <DepartmentEditModal />}

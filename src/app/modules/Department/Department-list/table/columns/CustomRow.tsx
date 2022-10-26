@@ -1,8 +1,8 @@
 import clsx from 'clsx'
-import { FC, useContext } from 'react'
+import { FC } from 'react'
 import { Row } from 'react-table'
 import { Lead } from '../../core/_models'
-import UserContext from './context'
+
 
 type Props = {
   row: Row<Lead>
@@ -11,20 +11,10 @@ type Props = {
 
 
 const CustomRow: FC<Props> = ({ row }) => {
-  const { searchTerm } = useContext(UserContext);
   return (
 
     <tr {...row.getRowProps()}>
-      {row.cells.filter((val: any) => {
-        if (searchTerm === "") {
-          return val;
-        }
-        console.log(val, "val")
-        if (val?.value?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
-          console.log(val, "useC");
-          return val;
-        }
-      }).map((cell) => {
+      {row.cells.map((cell) => {
         return (
           <td
             {...cell.getCellProps()}

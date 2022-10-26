@@ -1,13 +1,13 @@
 import { createContext } from "react"
 
-type UserContextType = {
+type SourceContextType = {
     searchTerm: string,
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>
 }
 
-const iUserContextState = {
+const iSourceContextState = {
     searchTerm: '',
     setSearchTerm: () => { }
 }
-const UserContext = createContext<UserContextType>(iUserContextState)
-export default UserContext
+const SourceContext = createContext<SourceContextType>(iSourceContextState)
+export default SourceContext

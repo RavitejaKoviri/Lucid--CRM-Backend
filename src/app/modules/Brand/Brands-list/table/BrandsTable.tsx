@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -11,16 +11,35 @@ import { BrandsListPagination } from '../components/pagination/BrandsListPaginat
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBrands } from '../_redux/brandsAction'
-import UserContext from './columns/context'
+import { Pagination } from '@mui/material'
+import BrandContext from './columns/context'
 
 const BrandsTable = () => {
   const users = useQueryResponseData()
   const dispatch = useDispatch()
-  const user = useSelector(
+  const Brands = useSelector(
     (state: any) => state?.BrandsData?.Brands
   );
   const isLoading = useQueryResponseLoading()
-  const data = useMemo(() => user, [user])
+
+  const [perPage, setPerPage] = useState([]);
+  const [brand, setBrand] = useState([]);
+
+  console.log(perPage, "perPage");
+
+  useEffect(() => {
+    setBrand(Brands);
+    setPerPage(Brands.slice(0, 10));
+  }, [Brands])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(brand.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(brand.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
+  const { searchTerm } = useContext(BrandContext);
+  const data = useMemo(() => perPage, [perPage])
   const columns = useMemo(() => BrandsColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -31,13 +50,12 @@ const BrandsTable = () => {
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
-  
+
 
   console.log(data);
   useEffect(() => {
     dispatch(getBrands(token))
   }, [])
-  console.log(user, "users")
 
   return (
     <KTCardBody className='py-4'>
@@ -56,7 +74,16 @@ const BrandsTable = () => {
           </thead>
           <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>
             {rows.length > 0 ? (
-              rows.map((row: Row<Lead>, i) => {
+              rows.filter((val: any) => {
+                if (searchTerm === "") {
+                  return val;
+                }
+                console.log(val, "val")
+                if (val?.original?.brandName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  console.log(val, "useC");
+                  return val;
+                }
+              }).map((row: Row<Lead>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />
               })
@@ -72,7 +99,15 @@ const BrandsTable = () => {
           </tbody>
         </table>
       </div>
-      <BrandsListPagination />
+      {/* <BrandsListPagination /> */}
+      <div className='d-flex flex-end'>
+        <Pagination
+          // justifyContent="center"
+          count={pageNumbers.length}
+          onChange={(e, value) => pageHandler(value)}
+          color="primary"
+        />
+      </div>
       {isLoading && <BrandsListLoading />}
     </KTCardBody>
   )

@@ -1,5 +1,5 @@
 /* eslint-disable array-callback-return */
-import { useContext, useEffect, useMemo } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -12,15 +12,35 @@ import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getDepartment } from '../_redux/departmentAction'
 import UserContext from './columns/context'
+import { Pagination } from '@mui/material'
+import DepartmentContext from './columns/context'
 
 const DepartmentTable = () => {
   const users = useQueryResponseData()
   const dispatch = useDispatch()
-  const user = useSelector(
+  const departments = useSelector(
     (state: any) => state?.DepartmentData?.Department
   );
   const isLoading = useQueryResponseLoading()
-  const data = useMemo(() => user, [user])
+
+  const [perPage, setPerPage] = useState([]);
+  const [department, setDepartment] = useState([]);
+
+  console.log(perPage, "perPage");
+
+  useEffect(() => {
+    setDepartment(departments);
+    setPerPage(departments.slice(0, 10));
+  }, [departments])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(department.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(department.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
+
+  const data = useMemo(() => perPage, [perPage])
   const columns = useMemo(() => DepartmentColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -31,14 +51,13 @@ const DepartmentTable = () => {
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
-  
+
 
   console.log(data);
   useEffect(() => {
     dispatch(getDepartment(token))
   }, [])
-  console.log(user, "users")
-
+  const { searchTerm } = useContext(DepartmentContext);
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>
@@ -56,7 +75,15 @@ const DepartmentTable = () => {
           </thead>
           <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>
             {rows.length > 0 ? (
-              rows.map((row: Row<Lead>, i) => {
+              rows.filter((val: any) => {
+                if (searchTerm === "") {
+                  return val;
+                }
+                console.log(val, "val")
+                if (val?.original?.departmentName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
+              }).map((row: Row<Lead>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />
               })
@@ -72,7 +99,15 @@ const DepartmentTable = () => {
           </tbody>
         </table>
       </div>
-      <DepartmentListPagination />
+      {/* <DepartmentListPagination /> */}
+      <div className='d-flex flex-end'>
+        <Pagination
+          // justifyContent="center"
+          count={pageNumbers.length}
+          onChange={(e, value) => pageHandler(value)}
+          color="primary"
+        />
+      </div>
       {isLoading && <DepartmentListLoading />}
     </KTCardBody>
   )

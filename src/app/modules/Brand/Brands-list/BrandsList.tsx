@@ -6,7 +6,7 @@ import { BrandsTable } from './table/BrandsTable'
 import { BrandEditModal } from './Brand-edit-modal/BrandEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 import { useState } from 'react'
-import UserContext from './table/columns/context'
+import BrandContext from './table/columns/context'
 
 
 
@@ -20,10 +20,10 @@ const BrandsList = () => {
   return (
     <>
       <KTCard>
-        <UserContext.Provider value={{ searchTerm, setSearchTerm }}>
+        <BrandContext.Provider value={{ searchTerm, setSearchTerm }}>
           <BrandsListHeader />
           <BrandsTable />
-        </UserContext.Provider>
+        </BrandContext.Provider>
 
       </KTCard>
       {itemIdForUpdate !== undefined && <BrandEditModal />}

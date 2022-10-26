@@ -144,7 +144,7 @@ export function BookingsReport() {
                 </tr>
 
               </thead>
-              {perPage?.length > 0 ? bookings?.filter((val: any) => {
+              {perPage?.length > 0 ? perPage?.filter((val: any) => {
                 if (search === "") {
                   return val;
                 }

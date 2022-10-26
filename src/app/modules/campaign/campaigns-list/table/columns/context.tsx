@@ -1,13 +1,13 @@
 import { createContext } from "react"
 
-type BrandContextType = {
+type campgineContextType = {
     searchTerm: string,
     setSearchTerm: React.Dispatch<React.SetStateAction<string>>
 }
 
-const iBrandContextState = {
+const icampgineContextState = {
     searchTerm: '',
     setSearchTerm: () => { }
 }
-const BrandContext = createContext<BrandContextType>(iBrandContextState)
-export default BrandContext
+const campgineContext = createContext<campgineContextType>(icampgineContextState)
+export default campgineContext

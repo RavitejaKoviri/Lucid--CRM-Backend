@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext } from 'react'
 import { KTSVG } from '../../../../../../_metronic/helpers'
-import UserContext from '../../table/columns/context';
+import BrandContext from '../../table/columns/context';
 // import { useQueryRequest } from '../../core/QueryRequestProvider'
 
 const BrandsListSearchComponent = () => {
@@ -22,7 +22,7 @@ const BrandsListSearchComponent = () => {
   //   // More details about useDebounce: https://usehooks.com/useDebounce/
   // )
 
-  const { searchTerm, setSearchTerm } = useContext(UserContext);
+  const { searchTerm, setSearchTerm } = useContext(BrandContext);
 
   return (
     <div className='card-title'>

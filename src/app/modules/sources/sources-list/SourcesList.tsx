@@ -6,7 +6,7 @@ import { SourcesTable } from './table/SourcesTable'
 import { SourceEditModal } from './source-edit-modal/SourceEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 import { useState } from 'react'
-import UserContext from './table/columns/context'
+import SourceContext from './table/columns/context'
 
 
 
@@ -20,10 +20,10 @@ const SourcesList = () => {
   return (
     <>
       <KTCard>
-        <UserContext.Provider value={{ searchTerm, setSearchTerm }}>
+        <SourceContext.Provider value={{ searchTerm, setSearchTerm }}>
           <SourcesListHeader />
           <SourcesTable />
-        </UserContext.Provider>
+        </SourceContext.Provider>
 
       </KTCard>
       {itemIdForUpdate !== undefined && <SourceEditModal />}

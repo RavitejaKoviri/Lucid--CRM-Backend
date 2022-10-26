@@ -5,14 +5,20 @@ import { CampaignsListHeader } from './components/header/CampaignsListHeader'
 import { CampaignsTable } from './table/CampaignsTable'
 import { CampaignEditModal } from './campaign-edit-modal/CampaignEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
+import campgineContext from './table/columns/context'
+import { useState } from 'react'
 
 const CampaignsList = () => {
   const { itemIdForUpdate } = useListView()
+  const [searchTerm, setSearchTerm] = useState<string>('')
   return (
     <>
       <KTCard>
-        <CampaignsListHeader />
-        <CampaignsTable />
+        <campgineContext.Provider value={{ searchTerm, setSearchTerm }}>
+          <CampaignsListHeader />
+          <CampaignsTable />
+        </campgineContext.Provider>
+
       </KTCard>
       {itemIdForUpdate !== undefined && <CampaignEditModal />}
     </>

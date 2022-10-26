@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
 import { CustomRow } from './columns/CustomRow'
@@ -11,6 +11,7 @@ import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import { getAllCampaigns } from '../_redux/campaignAction'
 import { Pagination } from '@mui/material'
+import campgineContext from './columns/context'
 
 const CampaignsTable = () => {
   const campaigns = useSelector(
@@ -44,7 +45,7 @@ const CampaignsTable = () => {
   useEffect(() => {
     dispatch(getAllCampaigns(token))
   }, [])
-  // console.log(campaign, "users")
+  const { searchTerm } = useContext(campgineContext);
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>
@@ -62,7 +63,16 @@ const CampaignsTable = () => {
           </thead>
           <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>
             {rows.length > 0 ? (
-              rows.map((row: Row<Campaign>, i) => {
+              rows.filter((val: any) => {
+                if (searchTerm === "") {
+                  return val;
+                }
+                console.log(val, "val")
+                if (val?.original?.campaignName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  console.log(val, "useC");
+                  return val;
+                }
+              }).map((row: Row<Campaign>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />
               })

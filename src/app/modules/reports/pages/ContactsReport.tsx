@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import { Pagination } from '@mui/material';
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
@@ -23,21 +24,24 @@ export function ContactsReport() {
   console.log('contacts', contacts);
 
   const [search, setSearch] = useState(' ');
-  // const [searchData, setSearchData] = useState([]);
-  // useEffect(() => {
-  //   if (contacts) {
-  //     const data = contacts;
-  //     const filteredData = data.filter((element: any) => {
-  //       const searchtext = search.toLowerCase();
-  //       const name = element.contactName.toLowerCase();
-  //       if (name.includes(searchtext)) {
-  //         return true;
-  //       } else return false;
-  //     });
-  //     setSearchData(filteredData);
-  //   }
-  // }, [search]);
   const [date, setDate] = useState("");
+
+  const [perPage, setPerPage] = useState([]);
+  const [contact, setContact] = useState([]);
+
+  console.log(perPage, "perPage");
+
+  useEffect(() => {
+    setContact(contacts);
+    setPerPage(contacts.slice(0, 10));
+  }, [contacts])
+  const pageHandler = (pageNumber: any) => {
+    setPerPage(contact.slice(pageNumber * 10 - 10, pageNumber * 10));
+  };
+  const pageNumbers = [];
+  for (let i = 1; i < Math.ceil(contact.length / 10) + 1; i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -138,7 +142,7 @@ export function ContactsReport() {
                 </tr>
 
               </thead>
-              {contacts?.length > 0 ? contacts?.filter((val: any) => {
+              {perPage?.length > 0 ? perPage?.filter((val: any) => {
                 if (search === "") {
                   return val;
                 }
@@ -190,7 +194,14 @@ export function ContactsReport() {
             </table>
 
           </div>
-
+          <div className='d-flex flex-end'>
+            <Pagination
+              // justifyContent="center"
+              count={pageNumbers.length}
+              onChange={(e, value) => pageHandler(value)}
+              color="primary"
+            />
+          </div>
         </div>
 
       </div>
