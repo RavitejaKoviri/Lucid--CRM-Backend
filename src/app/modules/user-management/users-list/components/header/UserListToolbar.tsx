@@ -12,7 +12,7 @@ const UsersListToolbar = () => {
 //editor
   return (
     <div className='d-flex justify-content-end' data-kt-user-table-toolbar='base'>
-      <UsersListFilter />
+      {/* <UsersListFilter /> */}
 
       {/* begin::Export */}
       <button type='button' className='btn btn-light-primary me-3'>

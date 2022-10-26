@@ -1,8 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
 import { initialQueryState, KTSVG } from '../../../../../../_metronic/helpers'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
+import CDRContext from '../../table/columns/context'
+import { getsource,getcampaigns } from '../../_redux/cdrAction'
 
 const CdrsListFilter = () => {
   const { updateState } = useQueryRequest()
@@ -14,17 +17,29 @@ const CdrsListFilter = () => {
     MenuComponent.reinitialization()
   }, [])
 
-  const resetData = () => {
-    updateState({ filter: undefined, ...initialQueryState })
-  }
+  // const resetData = () => {
+  //   updateState({ filter: undefined, ...initialQueryState })
+  // }
 
-  const filterData = () => {
-    updateState({
-      filter: { role, last_login: lastLogin },
-      ...initialQueryState,
-    })
-  }
-
+  // const filterData = () => {
+  //   updateState({
+  //     filter: { role, last_login: lastLogin },
+  //     ...initialQueryState,
+  //   })
+  // }
+  const dispatch = useDispatch();
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const source = useSelector(
+    (state: any) => state?.cdr?.Source
+  );
+  const campaign = useSelector(
+    (state: any) => state?.cdr?.campaigns
+  );
+  const { searchTerm, setSearchTerm } = useContext(CDRContext);
+  useEffect(() => {
+    dispatch(getsource(token));
+    dispatch(getcampaigns(token));
+  }, []);
   return (
     <>
       {/* begin::Filter Button */}
@@ -55,7 +70,7 @@ const CdrsListFilter = () => {
         <div className='px-7 py-5' data-kt-user-table-filter='form'>
           {/* begin::Input group */}
           <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>Role:</label>
+            <label className='form-label fs-6 fw-bold'>CDR Source :</label>
             <select
               className='form-select form-select-solid fw-bolder'
               data-kt-select2='true'
@@ -63,22 +78,22 @@ const CdrsListFilter = () => {
               data-allow-clear='true'
               data-kt-user-table-filter='role'
               data-hide-search='true'
-              onChange={(e) => setRole(e.target.value)}
-              value={role}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm}
             >
               <option value=''></option>
-              <option value='Administrator'>Administrator</option>
-              <option value='Analyst'>Analyst</option>
-              <option value='Developer'>Developer</option>
-              <option value='Support'>Support</option>
-              <option value='Trial'>Trial</option>
+              {
+                      source?.map((item: any) => (
+                        <option value={item?.SourceName}>{item?.SourceName}</option>
+                      ))
+                    }
             </select>
           </div>
           {/* end::Input group */}
 
           {/* begin::Input group */}
           <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>Last login:</label>
+            <label className='form-label fs-6 fw-bold'>CDR campaign :</label>
             <select
               className='form-select form-select-solid fw-bolder'
               data-kt-select2='true'
@@ -86,14 +101,15 @@ const CdrsListFilter = () => {
               data-allow-clear='true'
               data-kt-user-table-filter='two-step'
               data-hide-search='true'
-              onChange={(e) => setLastLogin(e.target.value)}
-              value={lastLogin}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              value={searchTerm}
             >
               <option value=''></option>
-              <option value='Yesterday'>Yesterday</option>
-              <option value='20 mins ago'>20 mins ago</option>
-              <option value='5 hours ago'>5 hours ago</option>
-              <option value='2 days ago'>2 days ago</option>
+              {
+                      campaign?.map((item: any) => (
+                        <option value={item?.campaignName}>{item?.campaignName}</option>
+                      ))
+                    }
             </select>
           </div>
           {/* end::Input group */}
@@ -103,7 +119,7 @@ const CdrsListFilter = () => {
             <button
               type='button'
               disabled={isLoading}
-              onClick={filterData}
+              // onClick={filterData}
               className='btn btn-light btn-active-light-primary fw-bold me-2 px-6'
               data-kt-menu-dismiss='true'
               data-kt-user-table-filter='reset'
@@ -113,7 +129,7 @@ const CdrsListFilter = () => {
             <button
               disabled={isLoading}
               type='button'
-              onClick={resetData}
+              // onClick={resetData}
               className='btn btn-primary fw-bold px-6'
               data-kt-menu-dismiss='true'
               data-kt-user-table-filter='filter'

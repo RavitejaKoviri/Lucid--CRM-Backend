@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
 import { ID, KTSVG, } from '../../../../../../_metronic/helpers'
 
-import { DeleteLead } from '../../_redux/leadAction'
+import { DeleteLead } from '../../_redux/cdrAction'
 
 type Props = {
   id: ID

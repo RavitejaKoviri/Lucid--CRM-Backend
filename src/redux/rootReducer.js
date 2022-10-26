@@ -18,6 +18,7 @@ import { BrandsSlice } from "../app/modules/Brand/Brands-list/_redux/brandsSlice
 import { sourceSlice } from "../app/modules/sources/sources-list/_redux/sourceSlice";
 
 import { ReportsSlice } from "../app/modules/reports/_redux/reportsSlice";
+import { CDRSlice } from "../app/modules/cdrs/cdrs-list/_redux/cdrSlice";
 // import { bookingSlice } from "../app/modules/booking/bookings-list/_redux/bookingSlice";
 
 // import { dashboardSlice } from "../app/modules/DashboardAPI/dashboardSlice";
@@ -79,7 +80,7 @@ export const rootReducer = combineReducers({
   Dashboard: DashboardSlice.reducer,
   BrandsData: BrandsSlice.reducer,
   DepartmentData: DepartmentSlice.reducer,
-
+cdr:CDRSlice.reducer,
   Sources: sourceSlice.reducer,
 
   Reports: ReportsSlice.reducer,

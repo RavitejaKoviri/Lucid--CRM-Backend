@@ -1,7 +1,7 @@
-import * as requestFromServer from "./leadCrud";
-import { LeadSlice, callTypes } from "./leadSlice";
+import * as requestFromServer from "./cdrCrud";
+import { CDRSlice, callTypes } from "./cdrSlice";
 
-const { actions } = LeadSlice;
+const { actions } = CDRSlice;
 
 
 

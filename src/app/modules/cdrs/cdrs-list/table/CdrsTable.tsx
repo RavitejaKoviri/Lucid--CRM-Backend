@@ -10,14 +10,14 @@ import { CdrsListLoading } from '../components/loading/CdrsListLoading'
 import { CdrsListPagination } from '../components/pagination/CdrsListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getLeads, PostCdr } from '../_redux/leadAction'
-import LeadContext from './columns/context'
+import { getLeads, PostCdr } from '../_redux/cdrAction'
 import { Pagination } from '@mui/material'
+import CDRContext from './columns/context'
 
 const CdrsTable = () => {
   const users = useQueryResponseData()
   const cdrs = useSelector(
-    (state: any) => state?.LeadData?.Leads
+    (state: any) => state?.cdr?.Leads
   );
   const [perPage, setPerPage] = useState([]);
   const [cdr, setCdr] = useState([]);
@@ -53,7 +53,7 @@ const CdrsTable = () => {
     dispatch(PostCdr(token))
     dispatch(getLeads(token))
   }, [])
-  const { searchTerm } = useContext(LeadContext);
+  const { searchTerm } = useContext(CDRContext);
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>
@@ -76,6 +76,14 @@ const CdrsTable = () => {
                   return val;
                 }
                 if (val?.original?.agent_name?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  return val;
+                }
+                if (val?.original?.campaignSource?.campaignName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  console.log(val,"val");
+                  
+                  return val;
+                }
+                if (val?.original?.leadSource?.SourceName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
                   return val;
                 }
               }).map((row: Row<Lead>, i) => {

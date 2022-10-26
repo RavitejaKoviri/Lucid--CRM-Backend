@@ -104,36 +104,26 @@ export default function DealsAdduser() {
     <>
       <div
         className="content d-flex flex-column flex-column-fluid"
-      // id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
           <div
-            // id="kt_ecommerce_add_product_form"
             className="form d-flex flex-column flex-lg-row"
-          // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
 
-              {/*end::Thumbnail settings*/}
-              {/*begin::Status*/}
+             
               <div className="card card-flush py-4">
-                {/*begin::Card header*/}
                 <div className="card-header">
-                  {/*begin::Card title*/}
                   <div className="card-title">
                     <h2>Status</h2>
                   </div>
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
+               
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
-                  {/*begin::Card toolbar*/}
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+               
                 <div className="card-body pt-0">
-                  {/*begin::Select2*/}
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -148,11 +138,7 @@ export default function DealsAdduser() {
                       <option value={item?.id}>{item?.dealStatusName}</option>
                     ))}
                   </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
-                  {/*end::Description*/}
-                  {/*begin::Datepicker*/}
+                 
                   <div className="d-none mt-10">
                     <label className="form-label">
                       Select publishing date and time
@@ -163,30 +149,21 @@ export default function DealsAdduser() {
                       placeholder="Pick date & time"
                     />
                   </div>
-                  {/*end::Datepicker*/}
                 </div>
-                {/*end::Card body*/}
               </div>
-              {/*end::Status*/}
-              {/*begin::Status*/}
+              
               <div className="card card-flush py-4">
-                {/*begin::Card header*/}
                 <div className="card-header">
-                  {/*begin::Card title*/}
                   <div className="card-title">
                     <h2>Campaign</h2>
                   </div>
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
+                 
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
-                  {/*begin::Card toolbar*/}
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+               
                 <div className="card-body pt-0">
-                  {/*begin::Select2*/}
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -201,45 +178,22 @@ export default function DealsAdduser() {
                       <option value={item?.id}>{item?.campaignName}</option>
                     ))}
                   </select>
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
-                  {/*end::Description*/}
-                  {/*begin::Datepicker*/}
-                  <div className="d-none mt-10">
-                    <label className="form-label">
-                      Select publishing date and time
-                    </label>
-                    <input
-                      className="form-control"
-                      id="kt_ecommerce_add_product_status_datepicker"
-                      placeholder="Pick date & time"
-                    />
-                  </div>
-                  {/*end::Datepicker*/}
+                  
+                  
                 </div>
-                {/*end::Card body*/}
               </div>
-              {/*end::Status*/}
-              {/*begin::Status*/}
               <div className="card card-flush py-4">
-                {/*begin::Card header*/}
                 <div className="card-header">
-                  {/*begin::Card title*/}
                   <div className="card-title">
                     <h2>Source</h2>
                   </div>
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
+                 
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
-                  {/*begin::Card toolbar*/}
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+              
                 <div className="card-body pt-0">
-                  {/*begin::Select2*/}
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -254,40 +208,23 @@ export default function DealsAdduser() {
                       <option value={item?.id}>{item?.SourceName}</option>
                     ))}
                   </select>
-                  <div className="d-none mt-10">
-                    <label className="form-label">
-                      Select publishing date and time
-                    </label>
-                    <input
-                      className="form-control"
-                      id="kt_ecommerce_add_product_status_datepicker"
-                      placeholder="Pick date & time"
-                    />
-                  </div>
-                  {/*end::Datepicker*/}
+                 
                 </div>
-                {/*end::Card body*/}
               </div>
             </div>
-            {/*end::Aside column*/}
-            {/*begin::Main column*/}
+           
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-              {/*begin::Tab content*/}
               <div className="d-flex flex-column gap-7 gap-lg-10">
-                {/*begin::General options*/}
                 <div className="card card-flush py-4">
-                  {/*begin::Card header*/}
                   <div className="card-header">
                     <div className="card-title">
-                      <h2>DEAL DETAILS</h2>
+                      <h2>Deal Detials</h2>
                     </div>
                   </div>
-                  {/*end::Card header*/}
-                  {/*begin::Card body*/}
+                 
                   <div className="card-body pt-0">
-                    {/*begin::Input group*/}
                     <div className="form">
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           <label>Deal Name:</label>
                           <input
@@ -312,9 +249,9 @@ export default function DealsAdduser() {
                         </div>
                       </div>
 
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
-                          <label>AlternateEmail:</label>
+                          <label>Alternate Email:</label>
                           <input
                             type="email"
                             value={data.dealContactPersonAlternateEmail}
@@ -325,7 +262,7 @@ export default function DealsAdduser() {
                           />
                         </div>
                         <div className="col-lg-6">
-                          <label> PhoneNumber:</label>
+                          <label> Phone Number:</label>
                           <input
                             type="text"
                             value={data.dealContactPersonPhoneNumber}
@@ -336,9 +273,9 @@ export default function DealsAdduser() {
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
-                          <label> PersonEmail:</label>
+                          <label> Person Email:</label>
                           <input
                             type="text"
                             value={data.dealContactPersonEmail}
@@ -349,7 +286,7 @@ export default function DealsAdduser() {
                           />
                         </div>
                         <div className="col-lg-6">
-                          <label>AlternatePhoneNumber:</label>
+                          <label>Alternate PhoneNumber:</label>
                           <input
                             type="text"
                             value={
@@ -362,7 +299,7 @@ export default function DealsAdduser() {
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
 
                         <div className="col-lg-6">
                           <label>Deal Type:</label>
@@ -388,13 +325,14 @@ export default function DealsAdduser() {
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-                <a
-                  href="../../demo6/dist/apps/ecommerce/catalog/products.html"
-                  id="kt_ecommerce_add_product_cancel"
-                  className="btn btn-light me-5"
+              <button
+                  className="btn btn-dark me-5"
+                  onClick={() => {
+                    navigation('/deals/deals')
+                  }}
                 >
-                  Cancel
-                </a>
+                  Back
+                </button>
                 <button
                   onClick={() => {
                     handleSubmit();

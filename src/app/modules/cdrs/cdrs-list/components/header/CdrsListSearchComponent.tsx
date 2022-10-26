@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext } from 'react'
 import { KTSVG } from '../../../../../../_metronic/helpers'
+import CDRContext from '../../table/columns/context';
 import UserContext from '../../table/columns/context';
 // import { useQueryRequest } from '../../core/QueryRequestProvider'
 
@@ -22,7 +23,7 @@ const CdrsListSearchComponent = () => {
   //   // More details about useDebounce: https://usehooks.com/useDebounce/
   // )
 
-  const { searchTerm, setSearchTerm } = useContext(UserContext);
+  const { searchTerm, setSearchTerm } = useContext(CDRContext);
 
   return (
     <div className='card-title'>

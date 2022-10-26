@@ -6,7 +6,8 @@ import { LeadsTable } from './table/LeadsTable'
 import { LeadEditModal } from './lead-edit-modal/LeadEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 import { useState } from 'react'
-import UserContext from './table/columns/context'
+import LeadContext from './table/columns/context'
+// import UserContext from './table/columns/context'
 
 
 
@@ -21,10 +22,10 @@ const LeadsList = () => {
   return (
     <>
       <KTCard>
-        <UserContext.Provider value={{ searchTerm, setSearchTerm }}>
+        <LeadContext.Provider value={{ searchTerm, setSearchTerm }}>
           <LeadsListHeader />
           <LeadsTable />
-        </UserContext.Provider>
+        </LeadContext.Provider>
 
       </KTCard>
       {itemIdForUpdate !== undefined && <LeadEditModal />}

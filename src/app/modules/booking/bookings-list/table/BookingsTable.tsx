@@ -73,6 +73,11 @@ const BookingsTable = () => {
                 if (val?.original?.mobileNumber?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
                   return val;
                 }
+                if (val?.original?.gender?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  console.log(val,"val");
+                  
+                  return val;
+                }
               }).map((row: Row<Booking>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />

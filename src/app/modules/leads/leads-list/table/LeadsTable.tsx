@@ -86,6 +86,8 @@ const LeadsTable = () => {
                   return val;
                 }
                 if (val?.original?.campaignSource?.campaignName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                  console.log(val,"val");
+                  
                   return val;
                 }
                 if (val?.original?.leadSource?.SourceName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {

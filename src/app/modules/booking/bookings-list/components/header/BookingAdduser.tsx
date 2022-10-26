@@ -337,52 +337,22 @@ export default function BookingAdduser() {
             data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-              {/*begin:::Tabs*/}
-              <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
-                {/*begin:::Tab item*/}
-                <li className="nav-item">
-                  <a
-                    className="nav-link text-active-primary pb-4 active"
-                    data-bs-toggle="tab"
-                    href="#kt_ecommerce_add_product_general"
-                  >
-                    General
-                  </a>
-                </li>
-                {/*end:::Tab item*/}
-                {/*begin:::Tab item*/}
-                {/* <li className="nav-item">
-                  <a
-                    className="nav-link text-active-primary pb-4"
-                    data-bs-toggle="tab"
-                    href="#kt_ecommerce_add_product_advanced"
-                  >
-                    Advanced
-                  </a>
-                </li> */}
-                {/*end:::Tab item*/}
-              </ul>
-              {/*end:::Tabs*/}
-              {/*begin::Tab content*/}
+             
               <div className="tab-content">
-                {/*begin::Tab pane*/}
+               
                 <div
                   className="tab-pane fade show active"
                   id="kt_ecommerce_add_product_general"
                 >
                   <div className="d-flex flex-column gap-7 gap-lg-10">
-                    {/*begin::General options*/}
                     <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
                       <div className="card-header">
                         <div className="card-title">
-                          <h2>General</h2>
+                          <h2>Booking Details</h2>
                         </div>
                       </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
+                     
                       <div className="card-body pt-0">
-                        {/*begin::Input group*/}
                         <div className="form">
                           <div className="form-group row mb-4">
                             <div className="col-lg-5">
@@ -773,13 +743,14 @@ export default function BookingAdduser() {
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-                <a
-                  href="../../demo6/dist/apps/ecommerce/catalog/products.html"
-                  id="kt_ecommerce_add_product_cancel"
-                  className="btn btn-light me-5"
+              <button
+                  className="btn btn-dark me-5"
+                  onClick={() => {
+                    navigation('/bookings/bookings')
+                  }}
                 >
-                  Cancel
-                </a>
+                  Back
+                </button>
                 <button
                   type="submit"
                   id="kt_ecommerce_add_product_submit"

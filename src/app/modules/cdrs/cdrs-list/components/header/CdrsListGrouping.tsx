@@ -4,7 +4,7 @@ import { QUERIES } from '../../../../../../_metronic/helpers'
 import { useListView } from '../../core/ListViewProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
 import { deleteSelectedUsers } from '../../core/_requests'
-import { deleteSelectedLeads } from '../../_redux/leadAction'
+import { deleteSelectedLeads } from '../../_redux/cdrAction'
 
 const CdrsListGrouping = () => {
   const dispatch = useDispatch();

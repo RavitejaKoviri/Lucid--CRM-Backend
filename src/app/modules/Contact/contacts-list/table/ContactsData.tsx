@@ -71,6 +71,14 @@ export function ContactsData() {
           if (val?.contactCompanyName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
             return val;
           }
+          if (val?.campaignSource?.campaignName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+            console.log(val,"source");
+            
+            return val;
+          }
+          if (val?.contactSource?.SourceName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+            return val;
+          }
         }).map((item: any) => (
           <div className='col-md-6 col-xxl-4'>
             <Card3

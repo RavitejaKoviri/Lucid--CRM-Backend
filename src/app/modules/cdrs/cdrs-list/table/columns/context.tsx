@@ -9,5 +9,5 @@ const iLeadContextState = {
     searchTerm: '',
     setSearchTerm: () => { }
 }
-const LeadContext = createContext<LeadContextType>(iLeadContextState)
-export default LeadContext
+const CDRContext = createContext<LeadContextType>(iLeadContextState)
+export default CDRContext

@@ -17,8 +17,8 @@ export const callTypes = {
   action: "action",
 };
 
-export const LeadSlice = createSlice({
-  name: "LeadSlice",
+export const CDRSlice = createSlice({
+  name: "CDRSlice",
   initialState: initialProductsState,
 
   reducers: {

@@ -6,7 +6,8 @@ import { initialQueryState, KTSVG } from '../../../../../../_metronic/helpers'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
 import { getsource,getcampaigns } from '../../_redux/leadAction'
-import UserContext from '../../table/columns/context';
+// import UserContext from '../../table/columns/context';
+import LeadContext from '../../table/columns/context'
 
 const LeadsListFilter = () => {
   const { updateState } = useQueryRequest()
@@ -35,7 +36,7 @@ const LeadsListFilter = () => {
   //     ...initialQueryState,
   //   })
   // }
-  const { searchTerm, setSearchTerm } = useContext(UserContext);
+  const { searchTerm, setSearchTerm } = useContext(LeadContext);
   useEffect(() => {
     dispatch(getsource(token));
     dispatch(getcampaigns(token));
@@ -82,12 +83,13 @@ const LeadsListFilter = () => {
               value={searchTerm}
 
             >
-              <option value=''></option>
-              {
+            <option></option>
+                    {
                       source?.map((item: any) => (
-                        <option value={item?.SourceName}>{item?.SourceName}</option>
+                        <option value={item?.id}>{item?.SourceName}</option>
                       ))
                     }
+             
             </select>
           </div>
           {/* end::Input group */}

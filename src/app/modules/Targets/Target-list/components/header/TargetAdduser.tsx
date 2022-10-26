@@ -108,26 +108,20 @@ export default function TargetAdduser() {
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
               <div className="card card-flush py-4">
-                {/*begin::Card header*/}
                 <div className="card-header">
-                  {/*begin::Card title*/}
                   <div className="card-title">
                     <h2>Status</h2>
                   </div>
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
+                 
                   <div className="card-toolbar">
                     <div
                       className="rounded-circle bg-success w-15px h-15px"
                       id="kt_ecommerce_add_product_status"
                     ></div>
                   </div>
-                  {/*begin::Card toolbar*/}
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
+            
                 <div className="card-body pt-0">
-                  {/*begin::Select2*/}
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -162,12 +156,9 @@ export default function TargetAdduser() {
                 <div
                   className="tab-pane fade show active"
                   id="kt_ecommerce_add_product_general"
-                  role="tab-panel"
                 >
                   <div className="d-flex flex-column gap-7 gap-lg-10">
-                    {/*begin::General options*/}
                     <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
                       <div className="card-header">
                         <div className="card-title">
                           <h2>Target Details</h2>

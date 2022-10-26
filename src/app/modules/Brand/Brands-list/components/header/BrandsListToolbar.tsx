@@ -29,7 +29,7 @@ const BrandsListToolbar = () => {
 
   return (
     <div className='d-flex justify-content-end' data-kt-user-table-toolbar='base'>
-      <BrandsListFilter />
+      {/* <BrandsListFilter /> */}
 
       {/* begin::Export */}
       <button type='button' className='btn btn-light-primary me-3' onClick={() => {
