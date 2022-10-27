@@ -6,10 +6,10 @@ const { actions } = LeadSlice;
 
 
 //get leads details
-export const getLeads = (token: any) => (dispatch: any) => {
+export const getLeads = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllLeads(token)
+    .getAllLeads(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllLeadsDetails({ data }));

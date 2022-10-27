@@ -6,10 +6,10 @@ const { actions } = dealsSlice;
 
 
 //getAll user details
-export const getAlldeals = (token: any) => (dispatch: any) => {
+export const getAlldeals = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAlldeal(token)
+    .getAlldeal(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedalldeals({ data }));

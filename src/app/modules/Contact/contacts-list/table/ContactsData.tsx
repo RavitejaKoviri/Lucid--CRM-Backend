@@ -14,6 +14,9 @@ export function ContactsData() {
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   const [perPage, setPerPage] = useState([]);
   const [contact, setContact] = useState([]);
   useEffect(() => {
@@ -22,7 +25,7 @@ export function ContactsData() {
   }, [Contacts])
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(getAllContacts(token))
+    dispatch(getAllContacts(token, companyId))
   }, [])
   const pageHandler = (pageNumber: any) => {
     setPerPage(contact.slice(pageNumber * 10 - 10, pageNumber * 10));
@@ -38,7 +41,7 @@ export function ContactsData() {
       <div className='d-flex flex-wrap flex-stack mb-6'>
         <h3 className='fw-bolder my-2'>
           My Contacts
-          <span className='fs-6 text-gray-400 fw-bold ms-1'>(59)</span>
+          <span className='fs-6 text-gray-400 fw-bold ms-1'>({Contacts?.length})</span>
         </h3>
 
         <div className='d-flex my-2'>

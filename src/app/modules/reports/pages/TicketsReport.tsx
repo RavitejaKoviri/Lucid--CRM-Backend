@@ -16,8 +16,11 @@ export function TicketsReport() {
   const dispatch = useDispatch();
   const tickets = useSelector((state: any) => state?.Reports?.Tickets);
   const token = useSelector((state: any) => state?.auth?.authToken);
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   useEffect(() => {
-    dispatch(getAllTickets(token));
+    dispatch(getAllTickets(token, companyId));
   }, [dispatch]);
   console.log(tickets, "tickets");
 

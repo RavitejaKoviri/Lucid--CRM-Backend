@@ -45,11 +45,14 @@ const LeadsTable = () => {
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   const dispatch = useDispatch()
 
   console.log(data);
   useEffect(() => {
-    dispatch(getLeads(token))
+    dispatch(getLeads(token, companyId))
   }, [])
   const { searchTerm } = useContext(LeadContext);
   return (

@@ -7,10 +7,10 @@ const { actions } = ContactSlice;
 
 
 //getAll user details
-export const getAllContacts = (token: any) => (dispatch: any) => {
+export const getAllContacts = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllContacts(token)
+    .getAllContacts(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.getedAllContactsDetails({ data }));

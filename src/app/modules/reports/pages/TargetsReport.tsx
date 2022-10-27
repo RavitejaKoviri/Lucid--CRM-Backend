@@ -16,8 +16,11 @@ export function TargetsReport() {
   const dispatch = useDispatch();
   const targets = useSelector((state: any) => state?.Reports?.Targets);
   const token = useSelector((state: any) => state?.auth?.authToken);
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   useEffect(() => {
-    dispatch(getAllTargets(token));
+    dispatch(getAllTargets(token, companyId));
   }, []);
   console.log(targets, "targets");
 

@@ -19,10 +19,10 @@ export const getAllBookings = () => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllTasks = (token: any) => (dispatch: any) => {
+export const getAllTasks = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .fetchAllTasks(token)
+    .fetchAllTasks(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllTasks({ data }));
@@ -32,10 +32,10 @@ export const getAllTasks = (token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllDeals = (token: any) => (dispatch: any) => {
+export const getAllDeals = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .fetchAllDeals(token)
+    .fetchAllDeals(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllDeals({ data }));
@@ -45,10 +45,10 @@ export const getAllDeals = (token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllContacts = (token: any) => (dispatch: any) => {
+export const getAllContacts = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .fetchAllContacts(token)
+    .fetchAllContacts(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllContacts({ data }));
@@ -58,10 +58,10 @@ export const getAllContacts = (token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllCampaigns = (token: any) => (dispatch: any) => {
+export const getAllCampaigns = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .fetchAllCampaigns(token)
+    .fetchAllCampaigns(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllCampaigns({ data }));
@@ -71,10 +71,10 @@ export const getAllCampaigns = (token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllLeads = (token: any) => (dispatch: any) => {
+export const getAllLeads = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .fetchAllLeads(token)
+    .fetchAllLeads(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllLeads({ data }));
@@ -85,10 +85,10 @@ export const getAllLeads = (token: any) => (dispatch: any) => {
     });
 };
 
-export const getAllTargets = (token: any) => (dispatch: any) => {
+export const getAllTargets = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .fetchAllTargets(token)
+    .fetchAllTargets(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllTargets({ data }));
@@ -98,10 +98,10 @@ export const getAllTargets = (token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllTickets = (token: any) => (dispatch: any) => {
+export const getAllTickets = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllUsers(token)
+    .getAllTickets(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllTickets({ data }));

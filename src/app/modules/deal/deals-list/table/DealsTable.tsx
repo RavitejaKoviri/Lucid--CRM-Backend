@@ -26,9 +26,12 @@ const DealsTable = () => {
     columns,
     data,
   })
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   console.log(data);
   useEffect(() => {
-    dispatch(getAlldeals(token))
+    dispatch(getAlldeals(token, companyId))
   }, [])
   console.log(user, "users")
   return (

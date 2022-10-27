@@ -40,8 +40,11 @@ const TargetIndex = () => {
   const target = useSelector((state) => state?.TargetData?.targetById);
 
   const token = useSelector((state) => state?.auth?.authToken);
+  const companyId = useSelector(
+    (state) => state?.auth?.user?.company?.id
+  );
   useEffect(() => {
-    dispatch(getAllTargets(token));
+    dispatch(getAllTargets(token, companyId));
   }, []);
   const targets = targetsData.filter((val) => {
     if (searchTerm === "") {
@@ -128,7 +131,7 @@ const TargetIndex = () => {
         dispatch(UpdateTarget(targetdata, card?.id, token));
         console.log(targetdata, "targetdata");
       })
-      .catch(() => {});
+      .catch(() => { });
   }
   const [open, setOpen] = React.useState(false);
 

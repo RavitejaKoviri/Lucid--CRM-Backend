@@ -12,9 +12,9 @@ export function getTargets(token: any) {
   });
 }
 
-export function fetchAllTargets(token: any) {
+export function fetchAllTargets(token: any, companyId: any) {
 
-  return axios.get(TARGET, {
+  return axios.get(`${TARGET}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

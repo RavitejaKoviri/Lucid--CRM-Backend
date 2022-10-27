@@ -37,9 +37,12 @@ const TaskIndex = () => {
   const taskData = useSelector((state) => state?.tasks?.Tasks);
   const token = useSelector((state) => state?.auth?.authToken);
   const tasks = useSelector((state) => state?.tasks?.tasksById);
-console.log(tasks,"task");
+  const companyId = useSelector(
+    (state) => state?.auth?.user?.company?.id
+  );
+  console.log(tasks, "task");
   useEffect(() => {
-    dispatch(getAllTasks(token));
+    dispatch(getAllTasks(token, companyId));
   }, []);
   const task = taskData.filter((val) => {
     if (searchTerm === "") {
@@ -107,7 +110,7 @@ console.log(tasks,"task");
         cards: doneTasks,
       },
       {
-        id:"Verification",
+        id: "Verification",
         title: "Verified/Closed",
         cards: verificationTasks,
       },
@@ -675,7 +678,7 @@ console.log(tasks,"task");
             data-bs-target='#kt_account_profile_details'
             aria-expanded='true'
             aria-controls='kt_account_profile_details'
-            style={{width:"100%"}}
+            style={{ width: "100%" }}
           >
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>Task DATA</h3>
@@ -686,7 +689,7 @@ console.log(tasks,"task");
               <div className='form-group row mb-2'>
 
                 <div className='col-lg-6'>
-                <label className='col-lg-8 col-form-label required fw-bold fs-6'>Subject</label>
+                  <label className='col-lg-8 col-form-label required fw-bold fs-6'>Subject</label>
 
                   <input
                     type='text'
@@ -697,7 +700,7 @@ console.log(tasks,"task");
                 </div>
 
                 <div className='col-lg-6'>
-                <label className='col-lg-8 col-form-label required fw-bold fs-6'>Contact</label>
+                  <label className='col-lg-8 col-form-label required fw-bold fs-6'>Contact</label>
 
                   <input
                     type='text'
@@ -712,9 +715,9 @@ console.log(tasks,"task");
               </div>
               <div className='form-group row mb-2'>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-12 col-form-label fw-bold fs-6'>
-                  <span className='required'>Task Repeat</span>
-                </label>
+                  <label className='col-lg-12 col-form-label fw-bold fs-6'>
+                    <span className='required'>Task Repeat</span>
+                  </label>
                   <input
                     type='tel'
                     className='form-control form-control-lg form-control-solid'
@@ -726,9 +729,9 @@ console.log(tasks,"task");
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-12 col-form-label fw-bold fs-6'>
-                  <span className='required'>Task Remainder</span>
-                </label>
+                  <label className='col-lg-12 col-form-label fw-bold fs-6'>
+                    <span className='required'>Task Remainder</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -740,14 +743,14 @@ console.log(tasks,"task");
                   </div>
                 </div>
               </div>
-             
+
               <div className='form-group row mb-2'>
-               
+
 
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Task Priority</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Task Priority</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -759,9 +762,9 @@ console.log(tasks,"task");
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>company </span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>company </span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -773,14 +776,14 @@ console.log(tasks,"task");
                   </div>
                 </div>
               </div>
-             
+
               <div className='form-group row mb-2'>
-               
+
 
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Task Owner</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Task Owner</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -792,9 +795,9 @@ console.log(tasks,"task");
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Task DueDate</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Task DueDate</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -806,14 +809,14 @@ console.log(tasks,"task");
                   </div>
                 </div>
               </div>
-              
+
               <div className='form-group row mb-2'>
-               
+
 
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Task Status</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Task Status</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -825,9 +828,9 @@ console.log(tasks,"task");
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Task Description</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Task Description</span>
+                  </label>
 
                   <input
                     type='text'
@@ -840,9 +843,9 @@ console.log(tasks,"task");
                   </div>
                 </div>
               </div>
-              
+
               <div className='form-group row mb-2'>
-             
+
 
                 {/* <div className='col-lg-6 fv-row'>
                 <label className='col-lg-8 col-form-label fw-bold fs-6'>
@@ -873,7 +876,7 @@ console.log(tasks,"task");
                   </div>
                 </div> */}
               </div>
-              
+
             </div>
 
 

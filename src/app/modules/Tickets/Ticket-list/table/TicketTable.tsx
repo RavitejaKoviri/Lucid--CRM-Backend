@@ -27,8 +27,11 @@ const TicketTable = () => {
     data,
   })
   console.log(data);
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   useEffect(() => {
-    dispatch(getAllTickets(token))
+    dispatch(getAllTickets(token, companyId))
   }, [])
   console.log(user, "users")
   return (

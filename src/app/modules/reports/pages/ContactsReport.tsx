@@ -16,8 +16,11 @@ export function ContactsReport() {
   const dispatch = useDispatch();
   const token = useSelector(
     (state: any) => state?.auth?.authToken);
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   useEffect(() => {
-    dispatch(getAllContacts(token))
+    dispatch(getAllContacts(token, companyId))
   }, [dispatch])
   const contacts = useSelector(
     (state: any) => state?.Reports?.Contacts);

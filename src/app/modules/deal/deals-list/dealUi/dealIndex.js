@@ -58,9 +58,12 @@ const DealIndex = () => {
       return val;
     }
   });
+  const companyId = useSelector(
+    (state) => state?.auth?.user?.company?.id
+  );
   const token = useSelector((state) => state?.auth?.authToken);
   useEffect(() => {
-    dispatch(getAlldeals(token));
+    dispatch(getAlldeals(token, companyId));
   }, []);
   console.log(deals, "deals");
 

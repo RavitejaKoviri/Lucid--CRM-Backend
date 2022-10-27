@@ -1,16 +1,16 @@
 import axios from "axios";
 // import { campaigns, companies, sources } from "../../../leads/leads-list/_redux/leadCrud";
 
-export const USER = "contacts";
+export const CONTACT = "contacts";
 export const CONTACTS = "contacts";
 
 export const sources = "sources";
 export const companies = "companies";
 export const campaigns = "campaigns";
 
-export function getAllContacts(token: any) {
+export function getAllContacts(token: any, companyId: any) {
 
-  return axios.get(USER, {
+  return axios.get(`${CONTACT}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

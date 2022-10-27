@@ -6,9 +6,9 @@ export const contact = "contacts";
 export const taskstatuses = "task-statuses";
 
 
-export function fetchAllTasks(token: any) {
+export function fetchAllTasks(token: any, companyId: any) {
 
-  return axios.get(TASKS, {
+  return axios.get(`${TASKS}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

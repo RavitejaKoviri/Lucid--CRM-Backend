@@ -28,9 +28,12 @@ const ContactsTable = () => {
     columns,
     data,
   })
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   console.log(data);
   useEffect(() => {
-    dispatch(getAllContacts(token))
+    dispatch(getAllContacts(token, companyId))
   }, [])
   console.log(user, "users")
   return (

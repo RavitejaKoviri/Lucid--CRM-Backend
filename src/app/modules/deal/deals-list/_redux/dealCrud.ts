@@ -6,8 +6,8 @@ export const campaigns = "campaigns";
 export const dealstatuses = "deal-statuses";
 export const sources = "sources";
 
-export function getAlldeal(token: any) {
-  return axios.get(DEALS, {
+export function getAlldeal(token: any, companyId: any) {
+  return axios.get(`${DEALS}?company=${companyId}`, {
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,

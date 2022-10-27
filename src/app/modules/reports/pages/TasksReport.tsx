@@ -16,8 +16,11 @@ export function TasksReport() {
   const dispatch = useDispatch();
   const tasks = useSelector((state: any) => state?.Reports?.Tasks);
   const token = useSelector((state: any) => state?.auth?.authToken);
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   useEffect(() => {
-    dispatch(getAllTasks(token));
+    dispatch(getAllTasks(token, companyId));
   }, [dispatch]);
   console.log(tasks, "tasks");
 

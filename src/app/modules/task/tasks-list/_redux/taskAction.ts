@@ -6,10 +6,10 @@ const { actions } = TaskSlice;
 
 
 //getAll user details
-export const getAllTasks = (token: any) => (dispatch: any) => {
+export const getAllTasks = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .fetchAllTasks(token)
+    .fetchAllTasks(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllUsersDetails({ data }));
@@ -72,41 +72,41 @@ export const CreateTask = (data: any, token: any) => (dispatch: any) =>
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 
-    export const UpdateTask = (data: any, id: any, token: any) => (dispatch: any) =>
-    requestFromServer
-      .UpdateTasks(data, id, token)
-      .then((response) => {
-        const { data } = response;
-        dispatch(actions.Updatedtask({ data }));
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-param-reassign
-        error.clientMessage = "Can't find";
-        dispatch(actions.catchError({ error, callType: callTypes.list }));
-      });
-      export const gettasksById = (id: any, token: any) => (dispatch: any) => {
-        dispatch(actions.startCall({ callType: callTypes.action }));
-        return requestFromServer
-          .gettaskById(id, token)
-          .then((response) => {
-            const { data } = response;
-            dispatch(actions.fetchedtasksById({ data }));
-          })
-          .catch((error) => {
-            error.clientMessage = "Can't find patient test reports";;
-            dispatch(actions.catchError({ error, callType: callTypes.action }));
-          });
-      
-      };
-      export const DeleteTask = (id: any, token: any) => (dispatch: any) =>
-      requestFromServer
-        .DeleteTasks(id, token)
-        .then((response) => {
-          const { data } = response;
-          console.log(data);
-        })
-        .catch((error) => {
-          // eslint-disable-next-line no-param-reassign
-          error.clientMessage = "Can't find";
-          dispatch(actions.catchError({ error, callType: callTypes.list }));
-        });  
+export const UpdateTask = (data: any, id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .UpdateTasks(data, id, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.Updatedtask({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+export const gettasksById = (id: any, token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .gettaskById(id, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedtasksById({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+
+};
+export const DeleteTask = (id: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .DeleteTasks(id, token)
+    .then((response) => {
+      const { data } = response;
+      console.log(data);
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });  

@@ -7,9 +7,9 @@ export const leadstatuses = "lead-statuses";
 export const sources = "sources";
 
 
-export function getAllLeads(token: any) {
+export function getAllLeads(token: any, companyId: any) {
 
-  return axios.get(LEADS, {
+  return axios.get(`${LEADS}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

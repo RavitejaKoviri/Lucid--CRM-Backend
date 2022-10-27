@@ -9,9 +9,9 @@ export const customer = "customers";
 
 
 
-export function getAllUsers(token: any) {
+export function getAllTickets(token: any, companyId: any) {
 
-  return axios.get(TICKETS, {
+  return axios.get(`${TICKETS}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

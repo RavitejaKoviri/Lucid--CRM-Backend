@@ -34,9 +34,11 @@ const TicketIndex = () => {
   const TicketsData = useSelector((state) => state?.TicketData?.Tickets);
   const token = useSelector((state) => state?.auth?.authToken);
   const ticket = useSelector((state) => state?.TicketData?.ticketsById);
-
+  const companyId = useSelector(
+    (state) => state?.auth?.user?.company?.id
+  );
   useEffect(() => {
-    dispatch(getAllTickets(token));
+    dispatch(getAllTickets(token, companyId));
   }, []);
   const { searchTerm } = useContext(TicketContext);
   const Tickets = TicketsData.filter((val) => {
@@ -56,7 +58,7 @@ const TicketIndex = () => {
   );
 
   const inProgressTickets = Tickets?.filter(
-    (item) => item?.ticketStatus?.ticketStatusName === "In-Progress"
+    (item) => item?.ticketStatus?.ticketStatusName === "In Progress"
   );
   const EscalatedTickets = Tickets?.filter(
     (item) => item?.ticketStatus?.ticketStatusName === "Escalated"
@@ -85,22 +87,22 @@ const TicketIndex = () => {
         cards: bucketListedTickets ? bucketListedTickets : [],
       },
       {
-        id:"In Progress",
+        id: "In Progress",
         title: "In Progress",
         cards: inProgressTickets ? inProgressTickets : [],
       },
       {
-        id:"Escalated",
+        id: "Escalated",
         title: "Escalated",
         cards: EscalatedTickets ? EscalatedTickets : [],
       },
       {
-        id:"Closed",
+        id: "Closed",
         title: "Closed",
         cards: ClosedTickets ? ClosedTickets : [],
       },
       {
-        id:"Customer Happy",
+        id: "Customer Happy",
         title: "Customer Happy",
         cards: CustomerHappy ? CustomerHappy : [],
       },
@@ -336,7 +338,7 @@ const TicketIndex = () => {
               <div className="card mb-6 mb-xl-9">
                 {/* begin::Card body */}
                 <div className="card-body">
-      
+
                   {/* begin::Header */}
                   <div className="d-flex flex-end mb-3">
                     {/* begin::Badge */}
@@ -678,7 +680,7 @@ const TicketIndex = () => {
             data-bs-target='#kt_account_profile_details'
             aria-expanded='true'
             aria-controls='kt_account_profile_details'
-            style={{width:"100%"}}
+            style={{ width: "100%" }}
           >
             <div className='card-title m-0'>
               <h3 className='fw-bolder m-0'>Tickets DATA</h3>
@@ -689,7 +691,7 @@ const TicketIndex = () => {
               <div className='form-group row mb-2'>
 
                 <div className='col-lg-6'>
-                <label className='col-lg-8 col-form-label required fw-bold fs-6'>Ticket Name</label>
+                  <label className='col-lg-8 col-form-label required fw-bold fs-6'>Ticket Name</label>
 
                   <input
                     type='text'
@@ -700,7 +702,7 @@ const TicketIndex = () => {
                 </div>
 
                 <div className='col-lg-6'>
-                <label className='col-lg-8 col-form-label required fw-bold fs-6'> Ticket Priority</label>
+                  <label className='col-lg-8 col-form-label required fw-bold fs-6'> Ticket Priority</label>
 
                   <input
                     type='text'
@@ -715,9 +717,9 @@ const TicketIndex = () => {
               </div>
               <div className='form-group row mb-2'>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-12 col-form-label fw-bold fs-6'>
-                  <span className='required'>Ticket AssignedTo</span>
-                </label>
+                  <label className='col-lg-12 col-form-label fw-bold fs-6'>
+                    <span className='required'>Ticket AssignedTo</span>
+                  </label>
                   <input
                     type='tel'
                     className='form-control form-control-lg form-control-solid'
@@ -729,9 +731,9 @@ const TicketIndex = () => {
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-12 col-form-label fw-bold fs-6'>
-                  <span className='required'>Customer</span>
-                </label>
+                  <label className='col-lg-12 col-form-label fw-bold fs-6'>
+                    <span className='required'>Customer</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -743,14 +745,14 @@ const TicketIndex = () => {
                   </div>
                 </div>
               </div>
-             
+
               <div className='form-group row mb-2'>
-               
+
 
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Ticket StartDate</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Ticket StartDate</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -762,9 +764,9 @@ const TicketIndex = () => {
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Ticket EndDate</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Ticket EndDate</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -776,15 +778,15 @@ const TicketIndex = () => {
                   </div>
                 </div>
               </div>
-             
-              <div className='form-group row mb-2'>
-               
 
-              
+              <div className='form-group row mb-2'>
+
+
+
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Company</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Company</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -796,9 +798,9 @@ const TicketIndex = () => {
                   </div>
                 </div>
                 <div className='col-lg-6 fv-row'>
-                <label className='col-lg-8 col-form-label fw-bold fs-6'>
-                  <span className='required'>Status</span>
-                </label>
+                  <label className='col-lg-8 col-form-label fw-bold fs-6'>
+                    <span className='required'>Status</span>
+                  </label>
                   <input
                     type='text'
                     className='form-control form-control-lg form-control-solid'
@@ -810,11 +812,11 @@ const TicketIndex = () => {
                   </div>
                 </div>
               </div>
-              
-            
-              
-              
-              
+
+
+
+
+
             </div>
 
 
@@ -822,7 +824,7 @@ const TicketIndex = () => {
         </div>
 
         <DialogActions>
-          <Button className="btn btn-primary mb-2"  onClick={handleClose}>Close</Button>
+          <Button className="btn btn-primary mb-2" onClick={handleClose}>Close</Button>
           {/* <Button onClick={handleClose} autoFocus>
             Agree
           </Button> */}

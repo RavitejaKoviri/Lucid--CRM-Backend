@@ -26,9 +26,12 @@ const TasksTable = () => {
     columns,
     data,
   })
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
   console.log(data);
   useEffect(() => {
-    dispatch(getAllTasks(token))
+    dispatch(getAllTasks(token, companyId))
   }, [])
   console.log(task, "tasks")
   return (
