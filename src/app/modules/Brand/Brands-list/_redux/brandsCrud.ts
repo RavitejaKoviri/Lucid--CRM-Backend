@@ -14,9 +14,15 @@ export function getAllBrands(token: any) {
   });
 }
 
-export function getAllBrandsById(id: any, token: any) {
+// export function getAllBrandsById(id: any, token: any) {
 
-  return axios.get(`${BRAND}/${id?.id}`, {
+//   return axios.get(`${BRAND}/${id?.id}`, {
+//     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+//   });
+// }
+export function getAllBrandsById(token: any, companyId: any) {
+
+  return axios.get(`${BRAND}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

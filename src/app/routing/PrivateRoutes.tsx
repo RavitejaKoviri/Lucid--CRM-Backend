@@ -34,6 +34,8 @@ import CdrsPage from '../modules/cdrs/CdrsPage'
 import CdrAdduser from '../modules/cdrs/cdrs-list/components/header/CdrAdduser'
 // import AddBrand from '../modules/Brand/Brands-list/components/header/AddBrand'
 import ReportsPage from '../modules/reports/ReportsPage'
+import RolesList from '../modules/Roles/rolesList.js'
+import ViewRoles from '../modules/Roles/viewRoles'
 
 
 
@@ -96,6 +98,10 @@ const PrivateRoutes = () => {
         <Route path='sources/source/addsource' element={<SourceAdduser />} />
 
         <Route path='cdr/cdr/cdradduser' element={<CdrAdduser />} />
+        <Route path='cdr/cdr/cdradduser' element={<CdrAdduser/>}/>
+        
+        <Route path='/apps/user-management/roles/list' element={<RolesList/>}/>
+        <Route path='/apps/user-management/roles/view' element={<ViewRoles/>}/>
 
         {/* <Route path='sourcesadduser' element={<SourcesPage/>}/> */}
 

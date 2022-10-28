@@ -14,9 +14,9 @@ export function getAllDepartment(token: any) {
   });
 }
 
-export function getAllDepartmentById(id: any, token: any) {
+export function getAllDepartmentById(token: any,companyId:any) {
 
-  return axios.get(`${DEPARTMENT}/${id?.id}`, {
+  return axios.get(`${DEPARTMENT}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

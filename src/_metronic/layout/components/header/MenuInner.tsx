@@ -9,6 +9,29 @@ export function MenuInner() {
   return (
     <>
       <MenuItem title={intl.formatMessage({id: 'MENU.DASHBOARD'})} to='/dashboard' />
+      <MenuInnerWithSub title='Apps' to='/apps' menuPlacement='bottom-start' menuTrigger='click'>
+      <MenuInnerWithSub
+        title='User Management'
+        to='/apps/user-management'
+        icon='/media/icons/duotune/communication/com012.svg'
+        hasArrow={true}
+        menuPlacement='right-start'
+        menuTrigger={`{default:'click', lg: 'hover'}`}
+      >
+        <MenuInnerWithSub
+        title='Roles'
+        to='/apps/user-management/roles'
+        icon='/media/icons/duotune/communication/com012.svg'
+        hasArrow={true}
+        menuPlacement='right-start'
+        menuTrigger={`{default:'click', lg: 'hover'}`}
+      >
+         <MenuItem to='/apps/user-management/roles/list' title='Roles List' hasBullet={true} />
+        <MenuItem to='/apps/user-management/roles/view' title='View Roles' hasBullet={true} />
+      </MenuInnerWithSub>
+      </MenuInnerWithSub>
+   
+    </MenuInnerWithSub>
   {/*  */}
     </>
   )

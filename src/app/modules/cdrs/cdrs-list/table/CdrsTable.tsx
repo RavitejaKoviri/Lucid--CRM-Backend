@@ -54,6 +54,8 @@ const CdrsTable = () => {
     dispatch(getLeads(token))
   }, [])
   const { searchTerm } = useContext(CDRContext);
+  console.log(token,"asd");
+  
   return (
     <KTCardBody className='py-4'>
       <div className='table-responsive'>

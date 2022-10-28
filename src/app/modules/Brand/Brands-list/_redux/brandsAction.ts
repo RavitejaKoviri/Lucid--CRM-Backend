@@ -20,10 +20,10 @@ export const getBrands = (token: any) => (dispatch: any) => {
     });
 };
 
-export const getBrandsById = (id: any, token: any) => (dispatch: any) => {
+export const getBrandsById = (token: any,companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllBrandsById(id, token)
+    .getAllBrandsById(token,companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllBrandsDetailsById({ data }));

@@ -20,10 +20,14 @@ export default function AddBrands() {
   const BrandsById = useSelector(
     (state: any) => state?.BrandsData?.BrandsById
   );
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
+  console.log(companyId, "DepartmentById");
   console.log(BrandsById, "BrandsById");
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getBrandsById(id, token))
+    dispatch(getBrandsById(token, companyId))
     setBrands(true);
   }, [BrandsById?.id])
   useEffect(() => {

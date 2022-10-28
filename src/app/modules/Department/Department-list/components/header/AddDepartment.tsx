@@ -25,7 +25,10 @@ export default function AddDepartment() {
   const DepartmentById = useSelector(
     (state: any) => state?.DepartmentData?.DepartmentById
   );
-  console.log(DepartmentById, "DepartmentById");
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
+
 
   useEffect(() => {
 
@@ -34,7 +37,7 @@ export default function AddDepartment() {
   }, [])
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getDepartmentById(id, token))
+    dispatch(getDepartmentById( token,companyId))
     setDepartment(true);
   }, [DepartmentById?.id])
 

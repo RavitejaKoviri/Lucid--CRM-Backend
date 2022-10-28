@@ -20,10 +20,10 @@ export const getDepartment = (token: any) => (dispatch: any) => {
     });
 };
 
-export const getDepartmentById = (id: any, token: any) => (dispatch: any) => {
+export const getDepartmentById = (token: any,companyId:any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllDepartmentById(id, token)
+    .getAllDepartmentById(token,companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllDepartmentDetailsById({ data }));

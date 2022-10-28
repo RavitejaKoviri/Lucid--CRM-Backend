@@ -286,6 +286,26 @@ export function AsideMenuMain() {
           bsTitle='User management'
         />
       </AsideMenuItemWithSubMain>
+      <AsideMenuItemWithSubMain
+        to='/Roles'
+        title='Roles'
+        fontIcon='bi-file-text'
+        bsTitle='Crafted'
+      >
+        
+          <AsideMenuItem
+            to='/apps/user-management/roles/list'
+            title='Roles List'
+            bsTitle='Roles list'
+            hasBullet={true}
+          />
+          <AsideMenuItem
+            to='/apps/user-management/roles/view'
+            title='View Roles'
+            bsTitle='View Roles'
+            hasBullet={true}
+          />
+      </AsideMenuItemWithSubMain>
     </>
   )
 }
