@@ -10,24 +10,21 @@ import {
   UpdateTickets,
 } from "../../_redux/ticketAction";
 
-
 export default function TicketAdduser() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const id: any = location?.state
+  const id: any = location?.state;
   console.log(id, "dealid");
   const [tickets, setTickets] = useState(false);
 
   const token = useSelector((state: any) => state?.auth?.authToken);
   const user = useSelector((state: any) => state?.auth?.user);
-  const userassign = useSelector(
-    (state: any) => state?.TicketData?.assignedTo
+  const userassign = useSelector((state: any) => state?.TicketData?.assignedTo);
+  const customer = useSelector((state: any) => state?.TicketData?.customerTo);
+  const ticketsById = useSelector(
+    (state: any) => state?.TicketData?.ticketsById
   );
-  const customer = useSelector(
-    (state: any) => state?.TicketData?.customerTo
-  );
-  const ticketsById = useSelector((state: any) => state?.TicketData?.ticketsById);
 
   const status = useSelector((state: any) => state?.TicketData?.ticketStatus);
   console.log(status, "status");
@@ -36,17 +33,16 @@ export default function TicketAdduser() {
     dispatch(getticketStatuses(token));
     dispatch(getassignedTo(token));
     dispatch(getcustomerTo(token));
-
   }, []);
 
   const [data, setData] = useState({
-    ticketStatus: '',
-    ticketName: '',
-    ticketPriority: '',
-    ticketAssignedTo: '',
-    customer: '',
-    ticketStartDate: '',
-    ticketEndDate: '',
+    ticketStatus: "",
+    ticketName: "",
+    ticketPriority: "",
+    ticketAssignedTo: "",
+    customer: "",
+    ticketStartDate: "",
+    ticketEndDate: "",
     company: user?.company?.id,
   });
 
@@ -56,47 +52,43 @@ export default function TicketAdduser() {
 
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getticketsById(id?.id, token))
+    dispatch(getticketsById(id?.id, token));
     setTickets(true);
-  }, [ticketsById?.id])
+  }, [ticketsById?.id]);
 
   useEffect(() => {
     setData({
       ticketName: ticketsById?.ticketName,
       ticketStartDate: ticketsById?.ticketStartDate,
-      ticketEndDate:ticketsById?.ticketEndDate,
+      ticketEndDate: ticketsById?.ticketEndDate,
       customer: ticketsById?.customer?.id,
       ticketAssignedTo: ticketsById?.ticketAssignedTo?.id,
       company: user?.company?.id,
       ticketStatus: ticketsById?.ticketStatus?.id,
       ticketPriority: ticketsById?.ticketPriority,
-    })
+    });
     setTickets(false);
-  }, [tickets])
-
+  }, [tickets]);
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    
+
     if (id !== null) {
       dispatch(UpdateTickets(data, id?.id, token));
-    }
-    else {
+    } else {
       dispatch(CreateTicket(data, token));
     }
     setData({
-      ticketStatus: '',
-      ticketName: '',
-      ticketPriority: '',
-      ticketAssignedTo: '',
-      customer: '',
-      ticketStartDate: '',
-      ticketEndDate: '',
-      company: '',
+      ticketStatus: "",
+      ticketName: "",
+      ticketPriority: "",
+      ticketAssignedTo: "",
+      customer: "",
+      ticketStartDate: "",
+      ticketEndDate: "",
+      company: "",
     });
   };
-
-
 
   return (
     <>
@@ -105,18 +97,14 @@ export default function TicketAdduser() {
         id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
-          <div
-            className="form d-flex flex-column flex-lg-row"
-
-          >
+          <div className="form d-flex flex-column flex-lg-row">
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-
               <div className="card card-flush py-4">
                 <div className="card-header">
                   <div className="card-title">
                     <h2>Status</h2>
                   </div>
-                  
+
                   <div className="card-toolbar">
                     <div
                       className="rounded-circle bg-success w-15px h-15px"
@@ -124,11 +112,11 @@ export default function TicketAdduser() {
                     ></div>
                   </div>
                 </div>
-              
+
                 <div className="card-body pt-0">
                   <select
-                    className="form-select mb-2"
-                    data-control="select2"
+                                className="form-control form-control-lg form-control-solid"
+                                data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
                     id="kt_ecommerce_add_product_status_select"
@@ -136,7 +124,7 @@ export default function TicketAdduser() {
                     onChange={handleChange}
                     name="ticketStatus"
                   >
-                    <option></option>
+                    <option>--Select Status --</option>
                     {status?.map((item: any) => (
                       <option value={item?.id}>{item?.ticketStatusName}</option>
                     ))}
@@ -145,7 +133,7 @@ export default function TicketAdduser() {
                     <option value="scheduled">Scheduled</option>
                     <option value="inactive">Inactive</option> */}
                   </select>
-                 
+
                   <div className="d-none mt-10">
                     <label className="form-label">
                       Select publishing date and time
@@ -158,13 +146,9 @@ export default function TicketAdduser() {
                   </div>
                 </div>
               </div>
-
-
-
             </div>
-           
-            <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
 
+            <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
               <div className="tab-content">
                 <div
                   className="tab-pane fade show active"
@@ -178,25 +162,25 @@ export default function TicketAdduser() {
                           <h2>Ticket Details</h2>
                         </div>
                       </div>
-                     
+
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Name</label>
+                            <div className="col-lg-6 mb-4">
+                              {/* <label>Name</label> */}
                               <input
                                 type="text"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter TicketName"
                                 value={data.ticketName}
                                 onChange={handleChange}
                                 name="ticketName"
                               />
                             </div>
-                            <div className="col-lg-6">
-                              <label>Priority</label>
+                            <div className="col-lg-6 mb-4">
+                              {/* <label>Priority</label> */}
                               <select
-                                className="form-select mb-3"
+                                className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -204,9 +188,7 @@ export default function TicketAdduser() {
                                 onChange={handleChange}
                                 name="ticketPriority"
                               >
-                                <option >
-                                  --Select --
-                                </option>
+                                <option>--Select Priority --</option>
                                 <option value="High">High</option>
                                 <option value="Medium">Medium</option>
                                 <option value="Low">Low</option>
@@ -214,55 +196,53 @@ export default function TicketAdduser() {
                             </div>
                           </div>
                           <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>AssignedTo</label>
+                            <div className="col-lg-6 mb-4">
+                              {/* <label>AssignedTo</label> */}
                               <select
-                                className="form-select mb-2"
+                                className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
                                 value={data.ticketAssignedTo}
                                 onChange={handleChange}
                                 name="ticketAssignedTo"
-                              ><option></option>
+                              >
+                                <option>--Select AssignedTo --</option>
 
-
-                                {
-                                  userassign?.map((item: any) => (
-                                    <option value={item?.id}>{item?.username}</option>
-                                  ))
-                                }
-
+                                {userassign?.map((item: any) => (
+                                  <option value={item?.id}>
+                                    {item?.username}
+                                  </option>
+                                ))}
                               </select>
                             </div>
-                            <div className="col-lg-6">
-                              <label>Customer</label>
+                            <div className="col-lg-6 mb-4">
+                              {/* <label>Customer</label> */}
                               <select
-                                className="form-select mb-2"
+                                className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
                                 value={data.customer}
                                 onChange={handleChange}
                                 name="customer"
-                              ><option></option>
+                              >
+                                <option>--Select customer --</option>
 
-
-                                {
-                                  customer?.map((item: any) => (
-                                    <option value={item?.id}>{item?.customerName}</option>
-                                  ))
-                                }
-
+                                {customer?.map((item: any) => (
+                                  <option value={item?.id}>
+                                    {item?.customerName}
+                                  </option>
+                                ))}
                               </select>
                             </div>
                           </div>
                           <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Start Date</label>
+                            <div className="col-lg-6 mb-4">
+                              {/* <label>Start Date</label> */}
                               <input
                                 type="date"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter customer"
                                 value={data.ticketStartDate}
                                 onChange={handleChange}
@@ -270,10 +250,10 @@ export default function TicketAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>End Date</label>
+                              {/* <label>End Date</label> */}
                               <input
                                 type="date"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Company"
                                 value={data.ticketEndDate}
                                 onChange={handleChange}
@@ -337,20 +317,16 @@ export default function TicketAdduser() {
                             </div>
                           </div> */}
                         </form>
-
                       </div>
                     </div>
-
-
                   </div>
                 </div>
-               
               </div>
               <div className="d-flex justify-content-end">
                 <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation('/ticket/ticket')
+                    navigation("/ticket/ticket");
                   }}
                 >
                   Back
