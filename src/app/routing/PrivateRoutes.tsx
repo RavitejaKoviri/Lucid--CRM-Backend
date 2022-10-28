@@ -36,6 +36,7 @@ import CdrAdduser from '../modules/cdrs/cdrs-list/components/header/CdrAdduser'
 import ReportsPage from '../modules/reports/ReportsPage'
 import RolesList from '../modules/Roles/rolesList.js'
 import ViewRoles from '../modules/Roles/viewRoles'
+import UserAdduser from '../modules/user-management/users-list/components/header/UserAddUser'
 
 
 
@@ -81,7 +82,7 @@ const PrivateRoutes = () => {
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* <Route path='targets' element={<TargetsWrapper />} /> */}
         <Route path='editer' element={<EditerPage />} />
-        <Route path='apps/user-management/users/adduser' element={<Adduser />} />
+        <Route path='team-members/team-members/adduser' element={<UserAdduser />} />
         <Route path='leads/list/leadadduser' element={<LeadAdduser />} />
         <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser />} />
         <Route path='target/target/targetadduser' element={<TargetAdduser />} />

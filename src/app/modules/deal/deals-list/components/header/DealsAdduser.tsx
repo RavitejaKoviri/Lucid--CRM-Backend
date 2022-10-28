@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -35,6 +36,10 @@ export default function DealsAdduser() {
     dispatch(getcompanies(token));
     dispatch(getdealStatuses(token));
   }, []);
+
+  const [imageUrl, setImageUrl] = React.useState<any[]>([]);
+  const [selectedPreviewFile, setSelectedPreviewFile] = useState();
+  const [preview, setPreview] = useState();
   const [data, setData] = useState({
     dealName: " ",
     dealContactPersonName: " ",
@@ -48,6 +53,8 @@ export default function DealsAdduser() {
     company: user?.company?.id,
     dealStatus: " ",
     dealOwner: user?.id,
+    image:imageUrl,
+    description: "",
   });
 
   const handleChange = (e: any) => {
@@ -58,6 +65,44 @@ export default function DealsAdduser() {
     dispatch(getdealsById(id?.id, token))
     setDeal(true);
   }, [dealById?.id])
+  useEffect(() => {
+    if (!selectedPreviewFile) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl: any = URL.createObjectURL(selectedPreviewFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedPreviewFile]);
+  const handleUploadImage = (document: any) => {
+    setSelectedPreviewFile(document);
+    const selectedFile = document;
+    var formdata = new FormData();
+    formdata.append("files", selectedFile, selectedFile.name);
+    console.log("iamges ---", formdata);
+    // console.log(blog?.image?.id, "blog?.image[0]?.id");
+    // axios
+    //   .delete(
+    //     blog?.image &&
+    //       `http://43.205.49.41:5377/upload/files/${blog?.image[0]?.id}`
+    //   )
+    //   .then(({ data }) => {
+    //     console.log(data[0].url);
+    //   })
+    //   .catch(() => {});
+    axios
+      .post("http://65.2.10.157:5377/upload/", formdata, {
+        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      })
+      .then(({ data }) => {
+        console.log(data[0].url, "imageupload");
+        setImageUrl(data[0].id);
+      })
+      .catch(() => { });
+  };
 
   useEffect(() => {
     setData({
@@ -73,6 +118,8 @@ export default function DealsAdduser() {
       company: user?.company?.id,
       dealStatus: dealById?.dealStatus?.id,
       dealOwner: user?.id,
+      image: dealById?.image,
+      description: dealById?.description,
     })
     setDeal(false);
   }, [deal])
@@ -98,6 +145,8 @@ export default function DealsAdduser() {
       company: " ",
       dealStatus: " ",
       dealOwner: " ",
+      description: "",
+      image: [],
     });
   };
   return (
@@ -110,7 +159,138 @@ export default function DealsAdduser() {
             className="form d-flex flex-column flex-lg-row"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+            <div className="card card-flush py-4">
+                {/*begin::Card header*/}
+                <div className="card-header">
+                  {/*begin::Card title*/}
+                  <div className="card-title">
+                    <h2>Image</h2>
+                  </div>
+                  {/*end::Card title*/}
+                </div>
+                {/*end::Card header*/}
+                {/*begin::Card body*/}
+                <div className="card-body text-center pt-0">
+                  {/*begin::Image input*/}
+                  {/*begin::Image input placeholder*/}
+                  {/* <style>.image-input-placeholder [data-th</style> */}
+                  {/*end::Image input placeholder*/}
+                  <div
+                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
+                  >
+                    {selectedPreviewFile ? (
+                      <div className="image-input-wrapper w-150px h-150px">
+                        <label
+                          // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                          // data-kt-image-input-action="change"
+                          data-bs-toggle="tooltip"
+                          title="Remove avatar"
+                        >
+                          <i className="bi bi-x fs-2"></i>
+                          {/*begin::Inputs*/}
+                          <img
+                            src={preview}
+                            alt="no image is selected"
+                            style={{
+                              height: "150px",
+                              width: "150px",
+                              // marginTop: "20px",
+                            }}
+                          />
+                          {/*end::Inputs*/}
+                        </label>
+                      </div>
+                    ) : (
 
+                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                        <label
+                          // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                          // data-kt-image-input-action="change"
+                          data-bs-toggle="tooltip"
+                          title="Remove avatar"
+                        >
+                          {/* <i className="bi bi-x fs-7"></i> */}
+                          {/*begin::Inputs*/}
+                          <img
+                            src={`http://65.2.10.157:5377${data?.image[0]?.url}`}
+                            alt="no image to preview"
+                            style={{
+                              height: "150px",
+                              width: "150px",
+                              // marginTop: "20px",
+                            }}
+                          />
+                          {/*end::Inputs*/}
+                        </label>
+                        <label
+                          className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                          data-kt-image-input-action="change"
+                          data-bs-toggle="tooltip"
+                          title="Change avatar"
+                        >
+                          <i className="bi bi-pencil-fill fs-7"></i>
+                          {/*begin::Inputs*/}
+                          <input
+                            type="file"
+                            multiple
+                            // name="avatar"
+                            accept=".png, .jpg, .jpeg"
+                            onChange={(event: any) => {
+                              handleUploadImage(event.currentTarget.files[0]);
+                            }}
+                          />
+                          {/*end::Inputs*/}
+                        </label>
+                      </div>) : (
+                        <>
+                          <div
+                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
+                          >
+                            <div className="image-input-wrapper w-150px h-150px">
+                              <label
+                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                data-kt-image-input-action="change"
+                                data-bs-toggle="tooltip"
+                                title="Change avatar"
+                              >
+                                <i className="bi bi-pencil-fill fs-7"></i>
+                                {/*begin::Inputs*/}
+                                <input
+                                  type="file"
+                                  multiple
+                                  // name="avatar"
+                                  accept=".png, .jpg, .jpeg"
+                                  onChange={(event: any) => {
+                                    handleUploadImage(event.currentTarget.files[0]);
+                                  }}
+                                />
+                                {/*end::Inputs*/}
+                              </label>
+                            </div>
+
+                          </div>
+                          <div className="text-muted fs-7">
+                            Set the product thumbnail image. Only *.png, *.jpg and
+                            *.jpeg image files are accepted
+                          </div>
+                        </>
+                      )
+                    )
+                    }
+                  </div>
+                  {/*end::Image input*/}
+                </div>
+                {/*end::Card body*/}
+              </div>
+              {/*end::Thumbnail settings*/}
+              <input
+                type="text"
+                value={data.description}
+                onChange={handleChange}
+                name="description"
+                className="form-control"
+                placeholder="Enter Image description"
+              />
              
               <div className="card card-flush py-4">
                 <div className="card-header">
