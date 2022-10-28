@@ -1,4 +1,6 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import axios from 'axios';
 import React, { FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { KTSVG, toAbsoluteUrl } from '../../../../../_metronic/helpers'
@@ -13,23 +15,68 @@ const Compose: FC = () => {
   const user = useSelector(
     (state: any) => state?.auth?.user
   );
+  const [imageUrl, setImageUrl] = React.useState<any[]>([]);
+  const [selectedPreviewFile, setSelectedPreviewFile] = useState();
+
+  const handleUploadImage = (document: any) => {
+    setSelectedPreviewFile(document);
+    const selectedFile = document;
+    var formdata = new FormData();
+    formdata.append("files", selectedFile, selectedFile.name);
+    console.log("iamges ---", formdata);
+    // console.log(blog?.image?.id, "blog?.image[0]?.id");
+    // axios
+    //   .delete(
+    //     blog?.image &&
+    //       `http://43.205.49.41:5377/upload/files/${blog?.image[0]?.id}`
+    //   )
+    //   .then(({ data }) => {
+    //     console.log(data[0].url);
+    //   })
+    //   .catch(() => {});
+    axios
+      .post("http://65.2.10.157:5377/upload/", formdata, {
+        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      })
+      .then(({ data }) => {
+        console.log(data[0].url, "imageupload");
+        setImageUrl(data[0]);
+      })
+      .catch(() => { });
+  };
+
   const [data, setData] = useState(
     {
-
-
+      to: "",
+      subject: "",
+      message: "",
+      attachments: imageUrl,
+      from: user?.email
     })
 
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.value, from: user?.email, attachments: imageUrl });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    // dispatch(CreateEmail(data, token));
+    dispatch(CreateEmail(data, token));
     setData({
-
+      to: "",
+      subject: "",
+      message: "",
+      attachments: [],
+      from: user?.email
     })
   };
+  const RemoveFiles = (item: any) => {
+    const files = imageUrl.filter((x: any) => {
+      return x.id !== item;
+      setImageUrl(files)
+    })
+
+  }
+
   return (
 
     <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
@@ -241,7 +288,11 @@ const Compose: FC = () => {
 
                       <div className="text-dark fw-bold w-75px">To:</div>
 
-                      <input type="text" className="form-control form-control-transparent border-0" name="compose_to" value="" data-kt-inbox-form="tagify" />
+                      <input type="text" className="form-control form-control-transparent border-0"
+                        value={data.to}
+                        onChange={handleChange}
+                        name="to"
+                        data-kt-inbox-form="tagify" />
 
                       <div className="ms-auto w-75px text-end">
                         <span className="text-muted fs-bold cursor-pointer text-hover-primary me-2" data-kt-inbox-form="cc_button">Cc</span>
@@ -266,7 +317,8 @@ const Compose: FC = () => {
 
                       <div className="text-dark fw-bold w-75px">Bcc:</div>
 
-                      <input type="text" className="form-control form-control-transparent border-0" name="compose_bcc" value="" data-kt-inbox-form="tagify" />
+                      <input type="text" className="form-control form-control-transparent border-0"
+                        data-kt-inbox-form="tagify" />
 
                       <span className="btn btn-clean btn-xs btn-icon" data-kt-inbox-form="bcc_close">
                         <i className="la la-close"></i>
@@ -275,42 +327,53 @@ const Compose: FC = () => {
                     </div>
 
                     <div className="border-bottom">
-                      <input className="form-control form-control-transparent border-0 px-8 min-h-45px" name="compose_subject" placeholder="Subject" />
+                      <input className="form-control form-control-transparent border-0 px-8 min-h-45px" value={data.subject}
+                        onChange={handleChange}
+                        name="subject" placeholder="Subject" />
                     </div>
 
-                    <div id="kt_inbox_form_editor" className="bg-transparent border-0 h-350px px-3"></div>
+                    <div id="kt_inbox_form_editor" className="bg-transparent border-0 h-350px px-3">
+                      <textarea className="form-control form-control-transparent border-0 px-8 min-h-45px" value={data.message}
+                        onChange={handleChange}
+                        name="message" placeholder="Message" rows={15} cols={20} style={{
+                          overflow: "hidden"
+                        }} />
+                    </div>
+                    {imageUrl?.length > 0 && imageUrl?.map((item) => (
+                      <div className="dropzone dropzone-queue px-8 py-4" id="kt_inbox_reply_attachments" data-kt-inbox-form="dropzone">
+                        <div className="dropzone-items">
+                          <div className="dropzone-item"
+                          // style="display:none"
+                          >
 
-                    <div className="dropzone dropzone-queue px-8 py-4" id="kt_inbox_reply_attachments" data-kt-inbox-form="dropzone">
-                      <div className="dropzone-items">
-                        <div className="dropzone-item"
-                        // style="display:none"
-                        >
-
-                          <div className="dropzone-file">
-                            <div className="dropzone-filename" title="some_image_file_name.jpg">
-                              <span data-dz-name="">some_image_file_name.jpg</span>
-                              <strong>(
-                                <span data-dz-size="">340kb</span>)</strong>
+                            <div className="dropzone-file">
+                              <div className="dropzone-filename" title="some_image_file_name.jpg">
+                                <span data-dz-name="">{item?.name}</span>
+                                <strong>(
+                                  <span data-dz-size="">{item?.size}kb</span>)</strong>
+                              </div>
+                              <div className="dropzone-error" data-dz-errormessage=""></div>
                             </div>
-                            <div className="dropzone-error" data-dz-errormessage=""></div>
-                          </div>
-
-                          <div className="dropzone-progress">
-                            <div className="progress">
-                              {/* <div className="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" ></div> */}
+                            <div className="dropzone-progress">
+                              <div className="progress">
+                                {/* <div className="progress-bar bg-primary" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" ></div> */}
+                              </div>
                             </div>
-                          </div>
 
-                          <div className="dropzone-toolbar">
-                            <span className="dropzone-delete" data-dz-remove="">
-                              <i className="bi bi-x fs-1"></i>
-                            </span>
-                          </div>
+                            <div className="dropzone-toolbar">
+                              <span className="dropzone-delete" data-dz-remove="" onClick={() => RemoveFiles(item?.id)} >
+                                <i className="bi bi-x fs-1"></i>
+                              </span>
+                            </div>
 
+
+
+
+
+                          </div>
                         </div>
                       </div>
-                    </div>
-
+                    ))}
                   </div>
 
                   <div className="d-flex flex-stack flex-wrap gap-2 py-5 ps-8 pe-5 border-top">
@@ -320,7 +383,7 @@ const Compose: FC = () => {
                       <div className="btn-group me-4">
 
                         <span className="btn btn-primary fs-bold px-6" data-kt-inbox-form="send">
-                          <span className="indicator-label">Send</span>
+                          <span className="indicator-label" onClick={() => handleSubmit()}>Send</span>
                           <span className="indicator-progress">Please wait...
                             <span className="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                         </span>
@@ -356,15 +419,19 @@ const Compose: FC = () => {
 
                       </div>
 
-                      <span className="btn btn-icon btn-sm btn-clean btn-active-light-primary me-2" id="kt_inbox_reply_attachments_select" data-kt-inbox-form="dropzone_upload">
+                      <span className="btn btn-icon btn-sm btn-clean btn-active-light-primary me-2" data-kt-inbox-form="dropzone_upload">
 
-                        <span className="svg-icon svg-icon-2 m-0">
+                        <label htmlFor='files' className="svg-icon svg-icon-2 m-0">
                           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path opacity="0.3" d="M4.425 20.525C2.525 18.625 2.525 15.525 4.425 13.525L14.825 3.125C16.325 1.625 18.825 1.625 20.425 3.125C20.825 3.525 20.825 4.12502 20.425 4.52502C20.025 4.92502 19.425 4.92502 19.025 4.52502C18.225 3.72502 17.025 3.72502 16.225 4.52502L5.82499 14.925C4.62499 16.125 4.62499 17.925 5.82499 19.125C7.02499 20.325 8.82501 20.325 10.025 19.125L18.425 10.725C18.825 10.325 19.425 10.325 19.825 10.725C20.225 11.125 20.225 11.725 19.825 12.125L11.425 20.525C9.525 22.425 6.425 22.425 4.425 20.525Z" fill="currentColor" />
                             <path d="M9.32499 15.625C8.12499 14.425 8.12499 12.625 9.32499 11.425L14.225 6.52498C14.625 6.12498 15.225 6.12498 15.625 6.52498C16.025 6.92498 16.025 7.525 15.625 7.925L10.725 12.8249C10.325 13.2249 10.325 13.8249 10.725 14.2249C11.125 14.6249 11.725 14.6249 12.125 14.2249L19.125 7.22493C19.525 6.82493 19.725 6.425 19.725 5.925C19.725 5.325 19.525 4.825 19.125 4.425C18.725 4.025 18.725 3.42498 19.125 3.02498C19.525 2.62498 20.125 2.62498 20.525 3.02498C21.325 3.82498 21.725 4.825 21.725 5.925C21.725 6.925 21.325 7.82498 20.525 8.52498L13.525 15.525C12.325 16.725 10.525 16.725 9.32499 15.625Z" fill="currentColor" />
                           </svg>
-                        </span>
-
+                        </label>
+                        <input type="file" id="files"
+                          onChange={(event: any) => {
+                            handleUploadImage(event.currentTarget.files[0]);
+                          }}
+                          style={{ visibility: "hidden" }} />
                       </span>
 
                       <span className="btn btn-icon btn-sm btn-clean btn-active-light-primary">
