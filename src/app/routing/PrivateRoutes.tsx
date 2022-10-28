@@ -32,6 +32,8 @@ import AddDepartment from '../modules/Department/Department-list/components/head
 import AddBrands from '../modules/Brand/Brands-list/components/header/AddBrands'
 import CdrsPage from '../modules/cdrs/CdrsPage'
 import CdrAdduser from '../modules/cdrs/cdrs-list/components/header/CdrAdduser'
+import CompanyPage from '../modules/Company/CompanyPage'
+import AddCompany from '../modules/Company/Company-list/components/header/AddCompany'
 // import AddBrand from '../modules/Brand/Brands-list/components/header/AddBrand'
 import ReportsPage from '../modules/reports/ReportsPage'
 import RolesList from '../modules/Roles/rolesList.js'
@@ -62,6 +64,7 @@ const PrivateRoutes = () => {
   const BrandsPage = lazy(() => import('../modules/Brand/BrandsPage'))
   const DepartmentPage = lazy(() => import('../modules/Department/DepartmentPage'))
   const SourcesPage = lazy(() => import('../modules/sources/SourcesPage'))
+  const CompanyPage = lazy(() => import('../modules/Company/CompanyPage'))
 
 
   return (

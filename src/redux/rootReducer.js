@@ -16,6 +16,8 @@ import { DepartmentSlice } from "../app/modules/Department/Department-list/_redu
 import { BrandsSlice } from "../app/modules/Brand/Brands-list/_redux/brandsSlice";
 // import { BrandSlice } from "../app/modules/Brand/Brands-list/_redux/brandSlice";
 import { sourceSlice } from "../app/modules/sources/sources-list/_redux/sourceSlice";
+import {  sourceSlice } from "../app/modules/sources/sources-list/_redux/sourceSlice";
+import { CompanySlice } from "../app/modules/Company/Company-list/_redux/companySlice";
 
 import { ReportsSlice } from "../app/modules/reports/_redux/reportsSlice";
 import { CDRSlice } from "../app/modules/cdrs/cdrs-list/_redux/cdrSlice";
@@ -84,6 +86,7 @@ cdr:CDRSlice.reducer,
   Sources: sourceSlice.reducer,
 
   Reports: ReportsSlice.reducer,
+  Company: CompanySlice.reducer,
   // dashboardData: dashboardSlice.reducer,
   // manageUsers: manageUsersSlice.reducer,
   // manageVerificationRequests: manageVerificationRequestsSlice.reducer,

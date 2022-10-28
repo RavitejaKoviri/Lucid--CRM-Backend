@@ -48,6 +48,9 @@ export function AsideMenuMain() {
       </AsideMenuItemWithSubMain>
       {/* <AsideMenuItemWithSubMain
         to='/campaigns'
+      
+      <AsideMenuItemWithSubMain
+          to='/campaigns'
         title="Campaigns"
         fontIcon='bi-house fs-2'
       > */}
@@ -82,8 +85,15 @@ export function AsideMenuMain() {
         // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
         className='py-2'
       /> */}
-
       <AsideMenuItem
+        to='/company'
+        title="Company"
+        fontIcon="bi bi-building"
+        // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
+        className='py-2'
+      />
+      
+       <AsideMenuItem
         to='/reports'
         title="Reports"
         fontIcon='bi-house fs-2'
