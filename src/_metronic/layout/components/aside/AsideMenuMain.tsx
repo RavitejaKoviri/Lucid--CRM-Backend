@@ -125,9 +125,9 @@ export function AsideMenuMain() {
         // bsTitle='Leads'
         fontIcon='bi-gear'
       >
-        <AsideMenuItem to='/settings/sources' title='Sources' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/settings/brands' title='Brands' fontIcon='bi-layers fs-3' />
-        <AsideMenuItem to='/settings/departments' title='Departments' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/sources' title='Sources' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/brands' title='Brands' fontIcon='bi-layers fs-3' />
+        <AsideMenuItem to='/department' title='Departments' fontIcon='bi-layers fs-3' />
           
         <AsideMenuItem to='/team-members' title='Team Members' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/roles' title='Tickets' fontIcon='bi-layers fs-3' />

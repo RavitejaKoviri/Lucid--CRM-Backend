@@ -24,7 +24,7 @@ const CampaignsListSearchComponent = () => {
   // )
   const { searchTerm, setSearchTerm } = useContext(campgineContext);
   return (
-    <div className='card-title'>
+    <div  className='card-title'>
       {/* begin::Search */}
       <div className='d-flex align-items-center position-relative my-1'>
         <KTSVG
