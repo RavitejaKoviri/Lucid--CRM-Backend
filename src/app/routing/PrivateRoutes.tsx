@@ -57,7 +57,7 @@ const PrivateRoutes = () => {
 
   const BrandsPage = lazy(() => import('../modules/Brand/BrandsPage'))
   const DepartmentPage = lazy(() => import('../modules/Department/DepartmentPage'))
-  const SourcesPage = lazy (() => import('../modules/sources/SourcesPage'))
+  const SourcesPage = lazy(() => import('../modules/sources/SourcesPage'))
 
 
   return (
@@ -93,9 +93,9 @@ const PrivateRoutes = () => {
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
 
-        <Route path='sources/source/addsource' element={<SourceAdduser/>}/>
+        <Route path='sources/source/addsource' element={<SourceAdduser />} />
 
-        <Route path='cdr/cdr/cdradduser' element={<CdrAdduser/>}/>
+        <Route path='cdr/cdr/cdradduser' element={<CdrAdduser />} />
 
         {/* <Route path='sourcesadduser' element={<SourcesPage/>}/> */}
 
@@ -250,45 +250,45 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
-        <Route 
-            path='sources/*'
-            element={
-              <SuspensedView>
-                <SourcesPage/>
-              </SuspensedView>
-            }/>
+        <Route
+          path='sources/*'
+          element={
+            <SuspensedView>
+              <SourcesPage />
+            </SuspensedView>
+          } />
 
         <Route
-        path='brands/*'
-        element={
-          <SuspensedView>
-            <LeadsPage />
-          </SuspensedView>
-        }
-      />  
-       <Route
-      path='departments/*'
-      element={
-        <SuspensedView>
-          <LeadsPage />
-        </SuspensedView>
-      }
-    />
-       <Route
-      path='reports/*'
-      element={
-        <SuspensedView>
-          <ReportsPage />
-        </SuspensedView>
-      }
-    />
-            <Route
-               path='cdr/*'
-               element={
-                <SuspensedView>
-                  <CdrsPage/>
-                </SuspensedView>
-               }/>
+          path='brands/*'
+          element={
+            <SuspensedView>
+              <LeadsPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='departments/*'
+          element={
+            <SuspensedView>
+              <LeadsPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='reports/*'
+          element={
+            <SuspensedView>
+              <ReportsPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='cdr/*'
+          element={
+            <SuspensedView>
+              <CdrsPage />
+            </SuspensedView>
+          } />
 
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />

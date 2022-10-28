@@ -1,22 +1,22 @@
 import { Route, Routes, Outlet, Navigate } from 'react-router-dom'
 import { PageLink, PageTitle } from '../../../_metronic/layout/core'
 import { LeadsListWrapper } from './leads-list/LeadsList'
-import { UsersList } from './users-list/UsersList'
+// import { UsersList } from './users-list/UsersList'
 
-const leadsBreadcrumbs: Array<PageLink> = [
-  {
-    title: '',
-    path: 'list',
-    isSeparator: false,
-    isActive: false,
-  },
-  {
-    title: '',
-    path: '',
-    isSeparator: true,
-    isActive: false,
-  },
-]
+// const leadsBreadcrumbs: Array<PageLink> = [
+//   {
+//     title: '',
+//     path: 'list',
+//     isSeparator: false,
+//     isActive: false,
+//   },
+//   {
+//     title: '',
+//     path: '',
+//     isSeparator: true,
+//     isActive: false,
+//   },
+// ]
 
 const LeadsPage = () => {
   return (
