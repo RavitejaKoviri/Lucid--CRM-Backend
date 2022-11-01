@@ -6,19 +6,19 @@ const { actions } = CompanySlice;
 
 
 //get leads details
-export const getCompanies = (token: any) => (dispatch: any) => {
-  dispatch(actions.startCall({ callType: callTypes.action }));
-  return requestFromServer
-    .getAllCompanies(token)
-    .then((response) => {
-      const { data } = response;
-      dispatch(actions.fetchedAllCompaniesDetails({ data }));
-    })
-    .catch((error) => {
-      error.clientMessage = "Can't find patient test reports";;
-      dispatch(actions.catchError({ error, callType: callTypes.action }));
-    });
-};
+// export const getCompanies = (token: any) => (dispatch: any) => {
+//   dispatch(actions.startCall({ callType: callTypes.action }));
+//   return requestFromServer
+//     .getAllCompanies(token)
+//     .then((response) => {
+//       const { data } = response;
+//       dispatch(actions.fetchedAllCompaniesDetails({ data }));
+//     })
+//     .catch((error) => {
+//       error.clientMessage = "Can't find patient test reports";;
+//       dispatch(actions.catchError({ error, callType: callTypes.action }));
+//     });
+// };
 
 export const getCompaniesById = (id: any, token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
@@ -34,14 +34,30 @@ export const getCompaniesById = (id: any, token: any) => (dispatch: any) => {
     });
 };
 
-//get source details
-export const getsource = (token: any) => (dispatch: any) => {
+//get brand details
+
+export const getbrand = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getSource(token)
+    .getbrand(token)
     .then((response) => {
       const { data } = response;
-      dispatch(actions.fetchedAllSourceDetails({ data }));
+      dispatch(actions.fetchedAllbrandDetails({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
+//get users details
+
+export const getusers = (token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getuser(token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedAlluserDetails({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;
@@ -50,46 +66,33 @@ export const getsource = (token: any) => (dispatch: any) => {
 };
 
 
-export const getcampaigns = (token: any) => (dispatch: any) => {
-  dispatch(actions.startCall({ callType: callTypes.action }));
-  return requestFromServer
-    .getcampaigns(token)
-    .then((response) => {
-      const { data } = response;
-      dispatch(actions.fetchedcampaignsDetails({ data }));
-    })
-    .catch((error) => {
-      error.clientMessage = "Can't find patient test reports";;
-      dispatch(actions.catchError({ error, callType: callTypes.action }));
-    });
-};
 
-export const getcompanies = (token: any) => (dispatch: any) => {
-  dispatch(actions.startCall({ callType: callTypes.action }));
-  return requestFromServer
-    .getAllcompanies(token)
-    .then((response) => {
-      const { data } = response;
-      dispatch(actions.fetchedAllComapniesDetails({ data }));
-    })
-    .catch((error) => {
-      error.clientMessage = "Can't find patient test reports";;
-      dispatch(actions.catchError({ error, callType: callTypes.action }));
-    });
-};
-export const getCompanyStatuses = (token: any) => (dispatch: any) => {
-  dispatch(actions.startCall({ callType: callTypes.action }));
-  return requestFromServer
-    .getCompanyStatuses(token)
-    .then((response) => {
-      const { data } = response;
-      dispatch(actions.fetchedAllcompanyStatusesDetails({ data }));
-    })
-    .catch((error) => {
-      error.clientMessage = "Can't find patient test reports";;
-      dispatch(actions.catchError({ error, callType: callTypes.action }));
-    });
-};
+// export const getcompanies = (token: any) => (dispatch: any) => {
+//   dispatch(actions.startCall({ callType: callTypes.action }));
+//   return requestFromServer
+//     .getAllcompanies(token)
+//     .then((response) => {
+//       const { data } = response;
+//       dispatch(actions.fetchedAllComapniesDetails({ data }));
+//     })
+//     .catch((error) => {
+//       error.clientMessage = "Can't find patient test reports";;
+//       dispatch(actions.catchError({ error, callType: callTypes.action }));
+//     });
+// };
+// export const getCompanyStatuses = (token: any) => (dispatch: any) => {
+//   dispatch(actions.startCall({ callType: callTypes.action }));
+//   return requestFromServer
+//     .getCompanyStatuses(token)
+//     .then((response) => {
+//       const { data } = response;
+//       dispatch(actions.fetchedAllcompanyStatusesDetails({ data }));
+//     })
+//     .catch((error) => {
+//       error.clientMessage = "Can't find patient test reports";;
+//       dispatch(actions.catchError({ error, callType: callTypes.action }));
+//     });
+// };
 
 
 export const CreateCompany = (data: any, token: any) => (dispatch: any) =>
@@ -97,7 +100,7 @@ export const CreateCompany = (data: any, token: any) => (dispatch: any) =>
     .CreateCompany(data, token)
     .then((response) => {
       const { data } = response;
-      dispatch(actions.fetchedCompany({ data }));
+      dispatch(actions.postCompany({ data }));
     })
     .catch((error) => {
       // eslint-disable-next-line no-param-reassign

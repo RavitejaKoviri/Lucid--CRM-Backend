@@ -32,8 +32,8 @@ import AddDepartment from '../modules/Department/Department-list/components/head
 import AddBrands from '../modules/Brand/Brands-list/components/header/AddBrands'
 import CdrsPage from '../modules/cdrs/CdrsPage'
 import CdrAdduser from '../modules/cdrs/cdrs-list/components/header/CdrAdduser'
-import CompanyPage from '../modules/Company/CompanyPage'
-import AddCompany from '../modules/Company/Company-list/components/header/AddCompany'
+// import CompanyPage from '../modules/Company/CompanyPage'
+// import AddCompany from '../modules/Company/Company-list/components/header/AddCompany'
 // import AddBrand from '../modules/Brand/Brands-list/components/header/AddBrand'
 import ReportsPage from '../modules/reports/ReportsPage'
 import RolesList from '../modules/Roles/rolesList.js'
@@ -65,6 +65,7 @@ const PrivateRoutes = () => {
   const DepartmentPage = lazy(() => import('../modules/Department/DepartmentPage'))
   const SourcesPage = lazy(() => import('../modules/sources/SourcesPage'))
   const CompanyPage = lazy(() => import('../modules/Company/CompanyPage'))
+  const AddCompany = lazy(() => import('../modules/Company/Company-list/components/header/AddCompany'))
 
 
   return (
@@ -103,10 +104,13 @@ const PrivateRoutes = () => {
         <Route path='sources/source/addsource' element={<SourceAdduser />} />
 
         <Route path='cdr/cdr/cdradduser' element={<CdrAdduser />} />
-        <Route path='cdr/cdr/cdradduser' element={<CdrAdduser/>}/>
-        
-        <Route path='/apps/user-management/roles/list' element={<RolesList/>}/>
-        <Route path='/apps/user-management/roles/view' element={<ViewRoles/>}/>
+        <Route path='cdr/cdr/cdradduser' element={<CdrAdduser />} />
+
+        <Route path='/apps/user-management/roles/list' element={<RolesList />} />
+        <Route path='/apps/user-management/roles/view' element={<ViewRoles />} />
+
+        <Route path='/company' element={<CompanyPage />} />
+        <Route path='/company/company/AddCompany' element={<AddCompany />} />
 
         {/* <Route path='sourcesadduser' element={<SourcesPage/>}/> */}
 
@@ -301,6 +305,13 @@ const PrivateRoutes = () => {
             </SuspensedView>
           } />
 
+        <Route
+          path='company/*'
+          element={
+            <SuspensedView>
+              <CompanyPage />
+            </SuspensedView>
+          } />
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>

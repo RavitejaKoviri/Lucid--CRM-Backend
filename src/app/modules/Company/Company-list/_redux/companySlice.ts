@@ -4,9 +4,8 @@ import storage from "redux-persist/lib/storage";
 const initialProductsState = {
   Companies: [],
   Createcompany: [],
-  Source: [],
-  campaigns: [],
-  Comapnies: [],
+  brand:[],
+  getusers:[],
   companyStatus: [],
   CompanyById: null,
   UpdatedCompany: null,
@@ -39,33 +38,31 @@ export const CompanySlice = createSlice({
       }
     },
 
-    fetchedAllCompaniesDetails: (state, action) => {
-      const { data } = action.payload;
-      state.Companies = data;
-    },
+    // fetchedAllCompaniesDetails: (state, action) => {
+    //   const { data } = action.payload;
+    //   state.Companies = data;
+    // },
     fetchedAllCompaniesDetailsById: (state, action) => {
       const { data } = action.payload;
       state.CompanyById = data;
     },
-    fetchedAllSourceDetails: (state, action) => {
-      const { data } = action.payload;
-      state.Source = data;
-    },
-    fetchedcampaignsDetails: (state, action) => {
-      const { data } = action.payload;
-      state.campaigns = data;
-    },
-    fetchedAllComapniesDetails: (state, action) => {
-      const { data } = action.payload;
-      state.Comapnies = data;
-    },
-    fetchedAllcompanyStatusesDetails: (state, action) => {
-      const { data } = action.payload;
-      state.companyStatus = data;
-    },
-    fetchedCompany: (state, action) => {
+   
+    // fetchedAllcompanyStatusesDetails: (state, action) => {
+    //   const { data } = action.payload;
+    //   state.companyStatus = data;
+    // },
+    
+    postCompany: (state, action) => {
       const { data } = action.payload;
       state.Createcompany = data;
+    },
+    fetchedAllbrandDetails: (state, action) => {
+      const { data } = action.payload;
+      state.brand = data;
+    },
+    fetchedAlluserDetails: (state, action) => {
+      const { data } = action.payload;
+      state.getusers = data;
     },
     UpdatedCompany: (state, action) => {
       const { data } = action.payload;

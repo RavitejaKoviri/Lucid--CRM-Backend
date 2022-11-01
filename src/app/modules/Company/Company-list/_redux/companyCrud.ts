@@ -2,9 +2,8 @@ import axios from "axios";
 
 // export const COMPANY = "company";
 export const COMPANIES = "companies";
-export const campaigns = "campaigns";
-export const companystatuses = "company-statuses";
-export const sources = "sources";
+export const Brand = "brands";
+export const USER = "users";
 
 
 export function getAllCompanies(token: any) {
@@ -29,30 +28,17 @@ export function getAllCompaniesById(id: any, token: any) {
   });
 }
 
-export function getSource(token: any) {
 
-  return axios.get(sources, {
+
+export function getbrand(token: any) {
+
+  return axios.get(Brand, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
+export function getuser(token: any) {
 
-export function getcampaigns(token: any) {
-
-  return axios.get(campaigns, {
-    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
-  });
-}
-
-export function getAllcompanies(token: any) {
-
-  return axios.get(COMPANIES, {
-    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
-  });
-}
-
-export function getCompanyStatuses(token: any) {
-
-  return axios.get(companystatuses, {
+  return axios.get(USER, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

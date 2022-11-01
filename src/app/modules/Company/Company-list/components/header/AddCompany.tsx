@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateCompany, getcampaigns, getcompanies, getCompaniesById, getCompanyStatuses, getsource, UpdateCompany } from "../../_redux/companyAction";
+import { CreateCompany, getbrand, getusers, UpdateCompany } from "../../_redux/companyAction";
 
 export default function AddCompany() {
   const location = useLocation();
@@ -17,50 +17,47 @@ export default function AddCompany() {
   const user = useSelector(
     (state: any) => state?.auth?.user
   );
-  const source = useSelector(
-    (state: any) => state?.CompanyData?.Source
+  
+  
+  // const company = useSelector(
+  //   (state: any) => state?.CompanyData?.Comapnies
+  // );
+  const brand = useSelector(
+    (state: any) => state?.Company?.brand
   );
-  const campaign = useSelector(
-    (state: any) => state?.CompanyData?.campaigns
+  const users = useSelector(
+    (state: any) => state?.Company?.getusers
   );
-  const company = useSelector(
-    (state: any) => state?.CompanyData?.Comapnies
-  );
-  const status = useSelector(
-    (state: any) => state?.CompanyData?.CompanyStatus
-  );
+ 
   const companyById = useSelector(
-    (state: any) => state?.CompanyData?.CompanyById
+    (state: any) => state?.Company?.CompanyById
   );
-  console.log(companyById, "companyById");
 
   useEffect(() => {
-    dispatch(getsource(token))
-    dispatch(getcampaigns(token))
-    dispatch(getcompanies(token))
-    dispatch(getCompanyStatuses(token))
-    if (id !== "") {
-      dispatch(getCompaniesById(id, token))
-      setCompany(true);
-    }
+    dispatch(getbrand(token))
+    dispatch(getusers(token))
+
   }, [])
+  // useEffect(() => {
+   
+  //   dispatch(getcompanies(token))
+   
+  //   if (id !== "") {
+  //     dispatch(getCompaniesById(id, token))
+  //     setCompany(true);
+  //   }
+  // }, [])
 
   useEffect(() => {
     setData({
       companyName: companyById?.companyName,
       companyPANNumber: companyById?.companyPANNumber,
       companyIndustry: companyById?.companyIndustry,
-      leadAnnualRevenueContribution: companyById?.leadAnnualRevenueContribution,
-      companyWebsocCRMUniqueID: companyById?.companyWebsocCRMUniqueID,
-      leadCompanyName: companyById?.leadCompanyName,
+      // companyWebsocCRMUniqueID: companyById?.companyWebsocCRMUniqueID,
       companyGSTNumber: companyById?.companyGSTNumber,
-      companyTANNumber: companyById?.companyTANNumber,
-      leadWebsite: companyById?.leadWebsite,
-      leadSource: companyById?.leadSource,
-      campaignSource: companyById?.campaignSource,
-      company: companyById?.company,
-      leadStatus: companyById?.leadStatus,
-      leadOwner: companyById?.leadOwner,
+      companyTANNumber: companyById?.companyTANNumber,    
+      users:"",
+      brands:"", 
     })
     setCompany(false);
     console.log("hello")
@@ -71,17 +68,11 @@ export default function AddCompany() {
       companyName: " ",
       companyPANNumber: " ",
       companyIndustry: " ",
-      leadAnnualRevenueContribution: " ",
-      companyWebsocCRMUniqueID: "",
-      leadCompanyName: " ",
+      // companyWebsocCRMUniqueID: "",
       companyGSTNumber: " ",
-      companyTANNumber: " ",
-      leadWebsite: " ",
-      leadSource: " ",
-      campaignSource: " ",
-      company: user?.company?.id,
-      leadStatus: " ",
-      leadOwner: user?.id,
+      companyTANNumber: " ",   
+      users:"",
+      brands:"", 
     })
 
   const handleChange = (e: any) => {
@@ -100,567 +91,176 @@ export default function AddCompany() {
       companyName: " ",
       companyPANNumber: " ",
       companyIndustry : " ",
-      leadAnnualRevenueContribution: " ",
-      companyWebsocCRMUniqueID: "",
-      leadCompanyName: " ",
+      // companyWebsocCRMUniqueID: "",
       companyGSTNumber: " ",
       companyTANNumber: " ",
-      leadWebsite: " ",
-      leadSource: " ",
-      campaignSource: " ",
-      company: " ",
-      leadStatus: " ",
-      leadOwner: " ",
+      users:"",
+      brands:"", 
+     
     })
   };
   return (
     <>
       <div
         className="content d-flex flex-column flex-column-fluid"
-      // id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
           <div
-            // id="kt_ecommerce_add_product_form"
             className="form d-flex flex-column flex-lg-row"
-          // data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
-            <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-              {/*begin::Thumbnail settings*/}
-              {/* <div className="card card-flush py-4">
-                <div className="card-header">
-                  <div className="card-title">
-                    <h2>Thumbnail</h2>
-                  </div>
+            <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">     
                 </div>
-
-                <div className="card-body text-center pt-0">
-
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                    data-kt-image-input="true"
-                  >
-                    <div className="image-input-wrapper w-150px h-150px"></div>
-
-                    <label
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="change"
-                      data-bs-toggle="tooltip"
-                      title="Change avatar"
-                    >
-                      <i className="bi bi-pencil-fill fs-7"></i>
-                      <input
-                        type="file"
-                        name="avatar"
-                        accept=".png, .jpg, .jpeg"
-                      />
-                      <input type="hidden" name="avatar_remove" />
-                    </label>
-
-                    <span
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="cancel"
-                      data-bs-toggle="tooltip"
-                      title="Cancel avatar"
-                    >
-                      <i className="bi bi-x fs-2"></i>
-                    </span>
-                    <span
-                      className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                      data-kt-image-input-action="remove"
-                      data-bs-toggle="tooltip"
-                      title="Remove avatar"
-                    >
-                      <i className="bi bi-x fs-2"></i>
-                    </span>
-                  </div>
-
-                  <div className="text-muted fs-7">
-                    Set the product thumbnail image. Only *.png, *.jpg and
-                    *.jpeg image files are accepted
-                  </div>
-                </div>
-              </div> */}
-              {/* <div className="card card-flush py-4">
-                <div className="card-header">
-                  <div className="card-title">
-                    <h2>Status</h2>
-                  </div>
-
-                  <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
-                  </div>
-                </div>
-
-                <div className="card-body pt-0">
-                  <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    value={data.leadStatus}
-                    onChange={handleChange}
-                    name="leadStatus"
-                  >
-                    <option></option>
-                    {
-                      status?.map((item: any) => (
-                        <option value={item?.id}>{item?.leadStatusName}</option>
-                      ))
-                    }
-
-                  </select> */}
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
-                  {/*end::Description*/}
-                  {/*begin::Datepicker*/}
-                  {/* <div className="d-none mt-10">
-                    <label className="form-label">
-                      Select publishing date and time
-                    </label>
-                    <input
-                      className="form-control"
-                      id="kt_ecommerce_add_product_status_datepicker"
-                      placeholder="Pick date & time"
-                    />
-                  </div> */}
-                  {/*end::Datepicker*/}
-                </div>
-                {/*end::Card body*/}
               </div>
-              {/*end::Status*/}
-              {/*begin::Status*/}
-              {/* <div className="card card-flush py-4"> */}
-                {/*begin::Card header*/}
-                {/* <div className="card-header"> */}
-                  {/*begin::Card title*/}
-                  {/* <div className="card-title"> */}
-                    {/* <h2>Campaign</h2> */}
-                  {/* </div> */}
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
-                  {/* <div className="card-toolbar"> */}
-                    {/* <div */}
-                      {/* className="rounded-circle bg-success w-15px h-15px" */}
-                    {/* ></div> */}
-                  {/* </div> */}
-                  {/*begin::Card toolbar*/}
                 </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                {/* <div className="card-body pt-0"> */}
-                  {/*begin::Select2*/}
-                  {/* <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    value={data.campaignSource}
-                    onChange={handleChange}
-                    name="campaignSource"
-                  >
-                    <option></option>
-                    {
-                      campaign?.map((item: any) => (
-                        <option value={item?.id}>{item?.campaignName}</option>
-                      ))
-                    }
-
-                  </select> */}
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
-                  {/*end::Description*/}
-                  {/*begin::Datepicker*/}
-                  {/* <div className="d-none mt-10">
-                    <label className="form-label">
-                      Select publishing date and time
-                    </label>
-                    <input
-                      className="form-control"
-                      id="kt_ecommerce_add_product_status_datepicker"
-                      placeholder="Pick date & time"
-                    />
-                  </div> */}
-                  {/*end::Datepicker*/}
                 </div>
-                {/*end::Card body*/}
-              {/* </div> */}
-              {/*end::Status*/}
-              {/*begin::Status*/}
-              {/* <div className="card card-flush py-4"> */}
-                {/*begin::Card header*/}
-                {/* <div className="card-header"> */}
-                  {/*begin::Card title*/}
-                  {/* <div className="card-title">
-                    <h2>Source</h2>
-                  </div> */}
-                  {/*end::Card title*/}
-                  {/*begin::Card toolbar*/}
-                  {/* <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
-                  </div> */}
-                  {/*begin::Card toolbar*/}
-                {/* </div> */}
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                {/* <div className="card-body pt-0"> */}
-                  {/*begin::Select2*/}
-                  {/* <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    value={data.leadSource}
-                    onChange={handleChange}
-                    name="leadSource"
-                  >
-                    <option></option>
-                    {
-                      source?.map((item: any) => (
-                        <option value={item?.id}>{item?.SourceName}</option>
-                      ))
-                    }
-
-                  </select> */}
-                  {/*end::Select2*/}
-                  {/*begin::Description*/}
-                  {/* <div className="text-muted fs-7">Set the product status.</div> */}
-                  {/*end::Description*/}
-                  {/*begin::Datepicker*/}
-                  {/* <div className="d-none mt-10">
-                    <label className="form-label">
-                      Select publishing date and time
-                    </label>
-                    <input
-                      className="form-control"
-                      id="kt_ecommerce_add_product_status_datepicker"
-                      placeholder="Pick date & time"
-                    />
-                  </div> */}
-                  {/*end::Datepicker*/}
-                {/* </div> */}
-                {/*end::Card body*/}
-              {/* </div> */}
-              {/*end::Status*/}
-              {/*begin::Status*/}
-              {/* <div className="card card-flush py-4">
+                <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
               
-                <div className="card-header">
-           
-                  <div className="card-title">
-                    <h2>Company</h2>
-                  </div>
-               
-                  <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
-                  </div>
-              
-                </div>
-            
-                <div className="card-body pt-0">
-               
-                  <select
-                    className="form-select mb-2"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    value={data.company}
-                    onChange={handleChange}
-                    name="company"
-                  >
-                    <option></option>
-                    {
-                      company?.map((item: any) => (
-                        <option value={item?.id}>{item?.companyName}</option>
-                      ))
-                    }
-
-                  </select>
-                
-                  <div className="d-none mt-10">
-                    <label className="form-label">
-                      Select publishing date and time
-                    </label>
-                    <input
-                      className="form-control"
-                      id="kt_ecommerce_add_product_status_datepicker"
-                      placeholder="Pick date & time"
-                    />
-                  </div>
-              
-                </div>
-              
-              </div> */}
-
-
-
-            {/* </div> */}
-            {/*end::Aside column*/}
-            {/*begin::Main column*/}
-            <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-              {/*begin:::Tabs*/}
-              <ul className="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-n2">
-                {/*begin:::Tab item*/}
-                <li className="nav-item">
-                  <a
-                    className="nav-link text-active-primary pb-4 active"
-                    data-bs-toggle="tab"
-                    href="#kt_ecommerce_add_product_general"
-                  >
-                    General
-                  </a>
-                </li>
-                {/*end:::Tab item*/}
-              </ul>
-              {/*end:::Tabs*/}
-              {/*begin::Tab content*/}
               <div className="tab-content">
-                {/*begin::Tab pane*/}
                 <div
                   className="tab-pane fade show active"
                   role="tab-panel"
                 >
                   <div className="d-flex flex-column gap-7 gap-lg-10">
-                    {/*begin::General options*/}
                     <div className="card card-flush py-4">
-                      {/*begin::Card header*/}
                       <div className="card-header">
                         <div className="card-title">
-                          <h2>General</h2>
+                          <h2>Company Details</h2>
                         </div>
                       </div>
-                      {/*end::Card header*/}
-                      {/*begin::Card body*/}
                       <div className="card-body pt-0">
-                        {/*begin::Input group*/}
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Company Name:</label>
+                              <label> Name:</label>
                               <input
                                 type="text"
                                 value={data.companyName}
                                 onChange={handleChange}
                                 name="companyName"
-                                className="form-control"
-                                placeholder="companyName"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Name"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>Company GST Number:</label>
+                              <label> GST Number:</label>
                               <input
                                 type="text"
                                 value={data.companyGSTNumber}
                                 onChange={handleChange}
                                 name="companyGSTNumber"
-                                className="form-control"
-                                placeholder="companyGSTNumber"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="GST Number"
                               />
                             </div>
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Company PAN Number:</label>
+                              <label> PAN Number:</label>
                               <input
                                 type="text"
                                 value={data.companyPANNumber}
                                 onChange={handleChange}
                                 name="companyPANNumber"
-                                className="form-control"
-                                placeholder=" companyPANNumber"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder=" PAN Number"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label> Company TAN Number:</label>
+                              <label>  TAN Number:</label>
                               <input
-                                type="email"
+                                type="text"
                                 value={data.companyTANNumber}
                                 onChange={handleChange}
                                 name="companyTANNumber"
-                                className="form-control"
-                                placeholder=""
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="TAN number"
                               />
                             </div>
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Company Websoc CRM Unique ID:</label>
+                              <label> Websoc CRM Unique ID:</label>
                               <input
-                                type="email"
-                                value={data.companyWebsocCRMUniqueID}
+                                type="text"
+                                // value={data.companyWebsocCRMUniqueID}
                                 onChange={handleChange}
                                 name="companyWebsocCRMUniqueID"
-                                className="form-control"
-                                placeholder=""
+                                className="form-control form-control-lg form-control-solid"
+                                // placeholder="WebScoc CRM Unique ID"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>Company Industry:</label>
+                              <label> Industry:</label>
                               <input
                                 type="text"
                                 value={data.companyIndustry}
                                 onChange={handleChange}
                                 name="companyIndustry"
-                                className="form-control"
-                                placeholder=" "
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Industry "
                               />
                             </div>
                           </div>
-                          {/* <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>AnnualRevenue:</label>
-                              <input
-                                type="text"
-                                value={data.leadAnnualRevenueContribution}
-                                onChange={handleChange}
-                                name="leadAnnualRevenueContribution"
-                                className="form-control"
-                                placeholder="Enter AnnualRevenue"
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label>CompanyName:</label>
-                              <input
-                                type="text"
-                                value={data.leadCompanyName}
-                                onChange={handleChange}
-                                name="leadCompanyName"
-                                className="form-control"
-                                placeholder="Enter CompanyName"
-                              />
-                            </div>
-                          </div> */}
-                          {/* <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Website:</label>
-                              <input
-                                type="text"
-                                value={data.leadWebsite}
-                                onChange={handleChange}
-                                name="leadWebsite"
-                                className="form-control"
-                                placeholder="Enter Website"
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label>Source:</label>
-                              <input
-                                type="text"
-                                value={data.leadSource}
-                                onChange={handleChange}
-                                name="leadSource"
-                                className="form-control"
-                                placeholder="Source"
-                              />
-                            </div>
-                          </div> */}
-                          {/* <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>CampaignSource:</label>
-                              <input
-                                type="text"
-                                value={data.campaignSource}
-                                onChange={handleChange}
-                                name="campaignSource"
-                                className="form-control"
-                                placeholder="Enter CampaignSource"
-                              />
-                            </div>
-                            <div className="col-lg-6">
-                              <label>Company:</label>
-                              <input
-                                type="text"
-                                value={data.company}
-                                onChange={handleChange}
-                                name="company"
-                                className="form-control"
-                                placeholder="Enter Company"
-                              />
-                            </div>
-                          </div> */}
-                          {/* <div className="form-group row mb-2">
-                            <div className="col-lg-6">
-                              <label>Status:</label>
-                              <input
-                                type="text"
-                                value={data.leadStatus}
-                                onChange={handleChange}
-                                name="leadStatus"
-                                className="form-control"
-                                placeholder="Enter Status"
-                              />
-                            </div>
-                          </div> */}
+                          <div className="form-group row mb-2">
+                          <div className="col-lg-6">
+                              <label> Brands:</label>
+                              <select
+                                className="form-control form-control-lg form-control-solid"
+                                data-control="select2"
+                    data-hide-search="true"
+                    data-placeholder="Select an option"
+                    value={data.brands}
+                    onChange={handleChange}
+                    name="brands"
+                  >
+                    <option></option>
+                    {
+                      brand?.map((item: any) => (
+                        <option value={item?.id}>{item?.brandName}</option>
+                      ))
+                    }
+
+                  </select>
+</div>
+<div className="col-lg-6">
+                              <label> users:</label>
+                              <select
+                                className="form-control form-control-lg form-control-solid"
+                                data-control="select2"
+                    data-hide-search="true"
+                    data-placeholder="Select an option"
+                    value={data.users}
+                    onChange={handleChange}
+                    name="users"
+                  >
+                    <option></option>
+                    {
+                      users?.map((item: any) => (
+                        <option value={item?.id}>{item?.name}</option>
+                      ))
+                    }
+
+                  </select>
+</div>
+
+</div>
                         </form>
                       </div>
                     </div>
-                    {/* START:MEDIA */}
-                    {/* <div className="card card-flush py-4">
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Media</h2>
-                        </div>
-                      </div>
-
-                      <div className="card-body pt-0">
-                        <div className="fv-row mb-2">
-                          <div
-                            className="dropzone"
-                          >
-                            <div className="dz-message needsclick">
-                              <i className="bi bi-file-earmark-arrow-up text-primary fs-3x"></i>
-
-                              <div className="ms-4">
-                                <h3 className="fs-5 fw-bold text-gray-900 mb-1">
-                                  Drop files here or click to upload.
-                                </h3>
-                                <span className="fs-7 fw-semibold text-gray-400">
-                                  Upload up to 10 files
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                     
-                        <div className="text-muted fs-7">
-                          Set the product media gallery.
-                        </div>
-                      </div>
-                    </div> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    {/*end::Media*/}
+                
                   </div>
                 </div>
-                {/*end::Tab pane*/}
+                
               </div>
               <div className="d-flex justify-content-end">
-                <a
-                  href="../../demo6/dist/apps/ecommerce/catalog/products.html"
-                  id="kt_ecommerce_add_product_cancel"
-                  className="btn btn-light me-5"
+              <button
+                  className="btn btn-dark me-5"
+                  onClick={() => {
+                    navigation("/company/company");
+                  }}
                 >
-                  Cancel
-                </a>
+                  Back
+                </button>
                 <button
                   onClick={() => {
                     handleSubmit()
@@ -676,10 +276,7 @@ export default function AddCompany() {
                 </button>
               </div>
             </div>
-          {/* </div> */}
-          {/*end::Form*/}
-        {/* </div> */}
-      {/* </div> */}
+         
     </>
   );
 }

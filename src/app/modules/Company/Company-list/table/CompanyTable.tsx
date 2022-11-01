@@ -10,7 +10,7 @@ import { CompanyListLoading } from '../components/loading/CompanyListLoading'
 import { CompanyListPagination } from '../components/pagination/CompanyListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCompanies } from '../_redux/companyAction'
+// import { getCompanies } from '../_redux/companyAction'
 import LeadContext from './columns/context'
 
 const CompanyTable = () => {
@@ -34,7 +34,7 @@ const CompanyTable = () => {
 
   console.log(data);
   useEffect(() => {
-    dispatch(getCompanies(token))
+    // dispatch(getCompanies(token))
   }, [])
   console.log(user, "users")
   const { searchTerm } = useContext(LeadContext);
