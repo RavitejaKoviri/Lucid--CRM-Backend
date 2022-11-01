@@ -6,6 +6,7 @@ const initialProductsState = {
   Createcompany: [],
   brand:[],
   getusers:[],
+  industries:[],
   companyStatus: [],
   CompanyById: null,
   UpdatedCompany: null,
@@ -38,10 +39,10 @@ export const CompanySlice = createSlice({
       }
     },
 
-    // fetchedAllCompaniesDetails: (state, action) => {
-    //   const { data } = action.payload;
-    //   state.Companies = data;
-    // },
+    fetchedAllCompaniesDetails: (state, action) => {
+      const { data } = action.payload;
+      state.Companies = data;
+    },
     fetchedAllCompaniesDetailsById: (state, action) => {
       const { data } = action.payload;
       state.CompanyById = data;
@@ -59,6 +60,10 @@ export const CompanySlice = createSlice({
     fetchedAllbrandDetails: (state, action) => {
       const { data } = action.payload;
       state.brand = data;
+    },
+    fetchedAllindustry: (state, action) => {
+      const { data } = action.payload;
+      state.industries = data;
     },
     fetchedAlluserDetails: (state, action) => {
       const { data } = action.payload;

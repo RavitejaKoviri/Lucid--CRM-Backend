@@ -10,16 +10,18 @@ import { CompanyListLoading } from '../components/loading/CompanyListLoading'
 import { CompanyListPagination } from '../components/pagination/CompanyListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-// import { getCompanies } from '../_redux/companyAction'
 import LeadContext from './columns/context'
+import { getCompanies } from '../_redux/companyAction'
 
 const CompanyTable = () => {
   const users = useQueryResponseData()
-  const user = useSelector(
-    (state: any) => state?.LeadData?.Leads
+  const company = useSelector(
+    (state: any) => state?.Company?.Companies
   );
+  console.log(company,"company");
+  
   const isLoading = useQueryResponseLoading()
-  const data = useMemo(() => user, [user])
+  const data = useMemo(() => company, [company])
   const columns = useMemo(() => CompanyColumns, [])
   const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
     columns,
@@ -34,9 +36,8 @@ const CompanyTable = () => {
 
   console.log(data);
   useEffect(() => {
-    // dispatch(getCompanies(token))
+    dispatch(getCompanies(token))
   }, [])
-  console.log(user, "users")
   const { searchTerm } = useContext(LeadContext);
   return (
     <KTCardBody className='py-4'>
@@ -59,16 +60,16 @@ const CompanyTable = () => {
                 if (searchTerm === "") {
                   return val;
                 }
-                if (val?.original?.leadFirstName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                if (val?.original?.companyName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
                   return val;
                 }
-                if (val?.original?.leadLastName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                if (val?.original?.companyGSTNumber?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
                   return val;
                 }
-                if (val?.original?.leadCompanyName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                if (val?.original?.companyPANNumber?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
                   return val;
                 }
-                if (val?.original?.leadPhonenumber?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
+                if (val?.original?.companyTANNumber?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
                   return val;
                 }
               }).map((row: Row<Lead>, i) => {

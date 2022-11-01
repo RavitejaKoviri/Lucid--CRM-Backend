@@ -20,40 +20,40 @@ const CompanyColumns: ReadonlyArray<Column<Lead>> = [
   //   Cell: ({ ...props }) => <LeadInfoCell lead={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='FirstName' className='min-w-125px' />,
-    accessor: 'leadFirstName',
+    Header: (props) => <CompanyCustomHeader tableProps={props} title='companyName' className='min-w-125px' />,
+    accessor: 'companyName',
   },
   {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='LastName' className='min-w-125px' />,
-    accessor: 'leadLastName',
+    Header: (props) => <CompanyCustomHeader tableProps={props} title='companyGSTNumber' className='min-w-125px' />,
+    accessor: 'companyGSTNumber',
   },
   {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='Email' className='min-w-125px' />,
-    accessor: 'leadEmail',
+    Header: (props) => <CompanyCustomHeader tableProps={props} title='companyPANNumber' className='min-w-125px' />,
+    accessor: 'companyPANNumber',
   },
   {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='Company' className='min-w-125px' />,
-    accessor: 'leadCompanyName',
+    Header: (props) => <CompanyCustomHeader tableProps={props} title='companyTANNumber' className='min-w-125px' />,
+    accessor: 'companyTANNumber',
   },
-  {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='AnnualRevenue' className='min-w-125px' />,
-    accessor: 'leadAnnualRevenueContribution',
-  },
-  {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='Industry' className='min-w-125px' />,
-    accessor: 'leadIndustry',
-  },
-  {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='Phonenumber' className='min-w-125px' />,
-    accessor: 'leadPhonenumber',
-  },
-  {
-    Header: (props) => (
-      <CompanyCustomHeader tableProps={props} title='campaignSource' className='min-w-125px' />
-    ),
-    id: 'campaignSource',
-    Cell: ({ ...props }) => <CompanyLastLoginCell campaignSource={props.data[props.row.index].campaignName} />,
-  },
+  // {
+  //   Header: (props) => <CompanyCustomHeader tableProps={props} title='companyWebsocCRMUniqueID' className='min-w-125px' />,
+  //   accessor: 'companyWebsocCRMUniqueID',
+  // },
+  // {
+  //   Header: (props) => <CompanyCustomHeader tableProps={props} title='companyIndustry' className='min-w-125px' />,
+  //   accessor: 'companyIndustry',
+  // },
+  // {
+  //   Header: (props) => <CompanyCustomHeader tableProps={props} title='Phonenumber' className='min-w-125px' />,
+  //   accessor: 'leadPhonenumber',
+  // },
+  // {
+  //   Header: (props) => (
+  //     <CompanyCustomHeader tableProps={props} title='campaignSource' className='min-w-125px' />
+  //   ),
+  //   id: 'campaignSource',
+  //   Cell: ({ ...props }) => <CompanyLastLoginCell campaignSource={props.data[props.row.index].campaignName} />,
+  // },
   // {
   //   Header: (props) => (
   //     <LeadCustomHeader tableProps={props} title='Owner' className='min-w-125px' />

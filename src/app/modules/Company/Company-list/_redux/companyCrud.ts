@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// export const COMPANY = "company";
 export const COMPANIES = "companies";
 export const Brand = "brands";
+export const Industry = "industries";
 export const USER = "users";
 
 
@@ -13,12 +13,7 @@ export function getAllCompanies(token: any) {
   });
 }
 
-// export function CreateCompany(token: any  ) {
 
-//   return axios.get(COMPANY, {
-//     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
-//   });
-// }
 
 
 export function getAllCompaniesById(id: any, token: any) {
@@ -33,6 +28,12 @@ export function getAllCompaniesById(id: any, token: any) {
 export function getbrand(token: any) {
 
   return axios.get(Brand, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+export function getindustrys(token: any) {
+
+  return axios.get(Industry, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

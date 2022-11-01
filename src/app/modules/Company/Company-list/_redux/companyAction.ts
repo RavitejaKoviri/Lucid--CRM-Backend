@@ -6,19 +6,19 @@ const { actions } = CompanySlice;
 
 
 //get leads details
-// export const getCompanies = (token: any) => (dispatch: any) => {
-//   dispatch(actions.startCall({ callType: callTypes.action }));
-//   return requestFromServer
-//     .getAllCompanies(token)
-//     .then((response) => {
-//       const { data } = response;
-//       dispatch(actions.fetchedAllCompaniesDetails({ data }));
-//     })
-//     .catch((error) => {
-//       error.clientMessage = "Can't find patient test reports";;
-//       dispatch(actions.catchError({ error, callType: callTypes.action }));
-//     });
-// };
+export const getCompanies = (token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getAllCompanies(token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedAllCompaniesDetails({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
 
 export const getCompaniesById = (id: any, token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
@@ -43,6 +43,21 @@ export const getbrand = (token: any) => (dispatch: any) => {
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllbrandDetails({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
+//get brand details
+
+export const getindustry = (token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getindustrys(token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedAllindustry({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;

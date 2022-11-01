@@ -23,7 +23,8 @@ const CompanyActionsCell: FC<Props> = ({ id }) => {
   }, [])
 
   const openEditModal = () => {
-    navigation('leadadduser', { state: { id } })
+    navigation('AddCompany', { state: { id } })
+
   }
 
   const deleteItem = () =>
