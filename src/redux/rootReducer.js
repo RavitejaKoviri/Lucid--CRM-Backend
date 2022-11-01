@@ -21,6 +21,8 @@ import { CompanySlice } from "../app/modules/Company/Company-list/_redux/company
 
 import { ReportsSlice } from "../app/modules/reports/_redux/reportsSlice";
 import { CDRSlice } from "../app/modules/cdrs/cdrs-list/_redux/cdrSlice";
+import { RolesSlice } from "../app/modules/Roles/redux/rolesSlice";
+
 // import { bookingSlice } from "../app/modules/booking/bookings-list/_redux/bookingSlice";
 
 // import { dashboardSlice } from "../app/modules/DashboardAPI/dashboardSlice";
@@ -87,6 +89,7 @@ cdr:CDRSlice.reducer,
 
   Reports: ReportsSlice.reducer,
   Company: CompanySlice.reducer,
+  Roles:RolesSlice.reducer,
   // dashboardData: dashboardSlice.reducer,
   // manageUsers: manageUsersSlice.reducer,
   // manageVerificationRequests: manageVerificationRequestsSlice.reducer,

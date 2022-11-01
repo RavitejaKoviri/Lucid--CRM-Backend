@@ -139,7 +139,7 @@ export default function CdrAdduser() {
 
                 <div className="card-body pt-0">
                   <select
-                    className="form-select mb-2"
+                     className="form-control form-control-lg form-control-solid"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
@@ -161,7 +161,7 @@ export default function CdrAdduser() {
                       Select publishing date and time
                     </label>
                     <input
-                      className="form-control"
+                      className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
@@ -184,7 +184,7 @@ export default function CdrAdduser() {
                
                 <div className="card-body pt-0">
                   <select
-                    className="form-select mb-2"
+                     className="form-control form-control-lg form-control-solid"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
@@ -206,7 +206,7 @@ export default function CdrAdduser() {
                       Select publishing date and time
                     </label>
                     <input
-                      className="form-control"
+                      className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
@@ -230,7 +230,7 @@ export default function CdrAdduser() {
                 <div className="card-body pt-0">
                   {/*begin::Select2*/}
                   <select
-                    className="form-select mb-2"
+                     className="form-control form-control-lg form-control-solid"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
@@ -252,7 +252,7 @@ export default function CdrAdduser() {
                       Select publishing date and time
                     </label>
                     <input
-                      className="form-control"
+                      className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
@@ -287,7 +287,7 @@ export default function CdrAdduser() {
                                 value={data.leadFirstName}
                                 onChange={handleChange}
                                 name="leadFirstName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter FirstName"
                               />
                             </div>
@@ -298,7 +298,7 @@ export default function CdrAdduser() {
                                 value={data.leadLastName}
                                 onChange={handleChange}
                                 name="leadLastName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter LastNamer"
                               />
                             </div>
@@ -311,7 +311,7 @@ export default function CdrAdduser() {
                                 value={data.leadPhonenumber}
                                 onChange={handleChange}
                                 name="leadPhonenumber"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter PhoneNumber"
                               />
                             </div>
@@ -322,7 +322,7 @@ export default function CdrAdduser() {
                                 value={data.leadEmail}
                                 onChange={handleChange}
                                 name="leadEmail"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Email"
                               />
                             </div>
@@ -335,7 +335,7 @@ export default function CdrAdduser() {
                                 value={data.leadEmailOptOut}
                                 onChange={handleChange}
                                 name="leadEmailOptOut"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter EmailOptOut"
                               />
                             </div>
@@ -346,7 +346,7 @@ export default function CdrAdduser() {
                                 value={data.leadIndustry}
                                 onChange={handleChange}
                                 name="leadIndustry"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Industry"
                               />
                             </div>
@@ -359,7 +359,7 @@ export default function CdrAdduser() {
                                 value={data.leadAnnualRevenueContribution}
                                 onChange={handleChange}
                                 name="leadAnnualRevenueContribution"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter AnnualRevenue"
                               />
                             </div>
@@ -370,7 +370,7 @@ export default function CdrAdduser() {
                                 value={data.leadCompanyName}
                                 onChange={handleChange}
                                 name="leadCompanyName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter CompanyName"
                               />
                             </div>
@@ -383,7 +383,7 @@ export default function CdrAdduser() {
                                 value={data.leadWebsite}
                                 onChange={handleChange}
                                 name="leadWebsite"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Website"
                               />
                             </div>

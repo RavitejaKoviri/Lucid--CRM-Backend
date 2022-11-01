@@ -102,7 +102,7 @@ export default function AddDepartment() {
                                 value={data.departmentName}
                                 onChange={handleChange}
                                 name="departmentName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter DepartMent"
                               />
                             </div>

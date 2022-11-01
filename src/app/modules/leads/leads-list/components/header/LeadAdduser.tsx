@@ -525,7 +525,7 @@ export default function LeadAdduser() {
                                 value={data.leadFirstName}
                                 onChange={handleChange}
                                 name="leadFirstName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter FirstName"
                               />
                             </div>
@@ -536,7 +536,7 @@ export default function LeadAdduser() {
                                 value={data.leadLastName}
                                 onChange={handleChange}
                                 name="leadLastName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter LastNamer"
                               />
                             </div>
@@ -549,7 +549,7 @@ export default function LeadAdduser() {
                                 value={data.leadPhonenumber}
                                 onChange={handleChange}
                                 name="leadPhonenumber"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter PhoneNumber"
                               />
                             </div>
@@ -560,7 +560,7 @@ export default function LeadAdduser() {
                                 value={data.leadEmail}
                                 onChange={handleChange}
                                 name="leadEmail"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Email"
                               />
                             </div>
@@ -603,7 +603,7 @@ export default function LeadAdduser() {
                                 value={data.leadAppointmentDate}
                                 onChange={handleChange}
                                 name="leadAppointmentDate"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter AppointmentDate"
                               />
                             </div>
@@ -616,7 +616,7 @@ export default function LeadAdduser() {
                                 value={data.leadStatusName}
                                 onChange={handleChange}
                                 name="leadStatusName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter StatusName"
                               />
                             </div>
@@ -627,7 +627,7 @@ export default function LeadAdduser() {
                                 value={data.leadStatusId}
                                 onChange={handleChange}
                                 name="leadStatusId"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter StatusID"
                               />
                             </div>
@@ -640,7 +640,7 @@ export default function LeadAdduser() {
                                 value={data.leadSpecialityName}
                                 onChange={handleChange}
                                 name="leadSpecialityName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter SpecialityName"
                               />
                             </div>
@@ -651,7 +651,7 @@ export default function LeadAdduser() {
                                 value={data.leadLocationName}
                                 onChange={handleChange}
                                 name="leadLocationName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Location"
                               />
                             </div>
@@ -664,7 +664,7 @@ export default function LeadAdduser() {
                                 value={data.utmSource}
                                 onChange={handleChange}
                                 name="utmSource"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter utmSource"
                               />
                             </div>
@@ -675,7 +675,7 @@ export default function LeadAdduser() {
                                 value={data.utmMedium}
                                 onChange={handleChange}
                                 name="utmMedium"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter utmMedium"
                               />
                             </div>
@@ -688,7 +688,7 @@ export default function LeadAdduser() {
                                 value={data.utmCampaign}
                                 onChange={handleChange}
                                 name="utmCampaign"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter utmCampaign"
                               />
                             </div>
@@ -698,8 +698,7 @@ export default function LeadAdduser() {
                                 type="text"
                                 value={data.leadBusinessUnit}
                                 onChange={handleChange}
-                                name="leadBusinessUnit"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter leadBusinessUnit"
                               />
                             </div>
@@ -712,7 +711,7 @@ export default function LeadAdduser() {
                                 value={data.utmTerm}
                                 onChange={handleChange}
                                 name="utmTerm"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter utmTerm"
                               />
                             </div>
@@ -723,7 +722,7 @@ export default function LeadAdduser() {
                                 value={data.utmAdgroup}
                                 onChange={handleChange}
                                 name="utmAdgroup"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter utmAdgroup"
                               />
                             </div>
@@ -736,7 +735,7 @@ export default function LeadAdduser() {
                                 value={data.leadEmailOptOut}
                                 onChange={handleChange}
                                 name="leadEmailOptOut"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter EmailOptOut"
                               />
                             </div>
@@ -747,7 +746,7 @@ export default function LeadAdduser() {
                                 value={data.leadIndustry}
                                 onChange={handleChange}
                                 name="leadIndustry"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Industry"
                               />
                             </div>
@@ -760,7 +759,7 @@ export default function LeadAdduser() {
                                 value={data.leadAnnualRevenueContribution}
                                 onChange={handleChange}
                                 name="leadAnnualRevenueContribution"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter AnnualRevenue"
                               />
                             </div>
@@ -771,7 +770,7 @@ export default function LeadAdduser() {
                                 value={data.leadCompanyName}
                                 onChange={handleChange}
                                 name="leadCompanyName"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter CompanyName"
                               />
                             </div>
@@ -784,7 +783,7 @@ export default function LeadAdduser() {
                                 value={data.leadWebsite}
                                 onChange={handleChange}
                                 name="leadWebsite"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Website"
                               />
                             </div>
@@ -801,7 +800,7 @@ export default function LeadAdduser() {
                             value={data.leadPhonenumber}
                             onChange={handleChange}
                             name="leadPhonenumber"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter PhoneNumber"
                           />
                         </div>
@@ -812,7 +811,7 @@ export default function LeadAdduser() {
                             value={data.leadEmail}
                             onChange={handleChange}
                             name="leadEmail"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Email"
                           />
                         </div>
@@ -825,7 +824,7 @@ export default function LeadAdduser() {
                             value={data.leadGender}
                             onChange={handleChange}
                             name="leadGender"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Gender"
                           />
                         </div>
@@ -836,7 +835,7 @@ export default function LeadAdduser() {
                             value={data.leadAppointmentDate}
                             onChange={handleChange}
                             name="leadAppointmentDate"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter AppointmentDate"
                           />
                         </div>
@@ -849,7 +848,7 @@ export default function LeadAdduser() {
                             value={data.leadStatusName}
                             onChange={handleChange}
                             name="leadStatusName"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter StatusName"
                           />
                         </div>
@@ -860,7 +859,7 @@ export default function LeadAdduser() {
                             value={data.leadStatusId}
                             onChange={handleChange}
                             name="leadStatusId"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter StatusID"
                           />
                         </div>
@@ -873,7 +872,7 @@ export default function LeadAdduser() {
                             value={data.leadSpecialityName}
                             onChange={handleChange}
                             name="leadSpecialityName"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter SpecialityName"
                           />
                         </div>
@@ -884,7 +883,7 @@ export default function LeadAdduser() {
                             value={data.leadLocationName}
                             onChange={handleChange}
                             name="leadLocationName"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Location"
                           />
                         </div>
@@ -897,7 +896,7 @@ export default function LeadAdduser() {
                             value={data.utmSource}
                             onChange={handleChange}
                             name="utmSource"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter utmSource"
                           />
                         </div>
@@ -908,7 +907,7 @@ export default function LeadAdduser() {
                             value={data.utmMedium}
                             onChange={handleChange}
                             name="utmMedium"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter utmMedium"
                           />
                         </div>
@@ -920,8 +919,7 @@ export default function LeadAdduser() {
                             type="text"
                             value={data.utmCampaign}
                             onChange={handleChange}
-                            name="utmCampaign"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter utmCampaign"
                           />
                         </div>
@@ -932,7 +930,7 @@ export default function LeadAdduser() {
                             value={data.leadBusinessUnit}
                             onChange={handleChange}
                             name="leadBusinessUnit"
-                            className="form-control"
+                           className="form-control form-control-lg form-control-solid"
                             placeholder="Enter leadBusinessUnit"
                           />
                         </div>
@@ -945,7 +943,7 @@ export default function LeadAdduser() {
                             value={data.utmTerm}
                             onChange={handleChange}
                             name="utmTerm"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter utmTerm"
                           />
                         </div>
@@ -956,7 +954,7 @@ export default function LeadAdduser() {
                             value={data.utmAdgroup}
                             onChange={handleChange}
                             name="utmAdgroup"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter utmAdgroup"
                           />
                         </div>
@@ -969,7 +967,7 @@ export default function LeadAdduser() {
                             value={data.leadEmailOptOut}
                             onChange={handleChange}
                             name="leadEmailOptOut"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter EmailOptOut"
                           />
                         </div>
@@ -980,7 +978,7 @@ export default function LeadAdduser() {
                             value={data.leadIndustry}
                             onChange={handleChange}
                             name="leadIndustry"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Industry"
                           />
                         </div>
@@ -993,7 +991,7 @@ export default function LeadAdduser() {
                             value={data.leadAnnualRevenueContribution}
                             onChange={handleChange}
                             name="leadAnnualRevenueContribution"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter AnnualRevenue"
                           />
                         </div>
@@ -1004,7 +1002,7 @@ export default function LeadAdduser() {
                             value={data.leadCompanyName}
                             onChange={handleChange}
                             name="leadCompanyName"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter CompanyName"
                           />
                         </div>
@@ -1017,7 +1015,7 @@ export default function LeadAdduser() {
                             value={data.leadWebsite}
                             onChange={handleChange}
                             name="leadWebsite"
-                            className="form-control"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Website"
                           />
                         </div>

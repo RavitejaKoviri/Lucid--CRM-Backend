@@ -288,7 +288,7 @@ export default function DealsAdduser() {
                 value={data.description}
                 onChange={handleChange}
                 name="description"
-                className="form-control"
+              className="form-control form-control-lg form-control-solid"
                 placeholder="Enter Image description"
               />
              
@@ -324,7 +324,7 @@ export default function DealsAdduser() {
                       Select publishing date and time
                     </label>
                     <input
-                      className="form-control"
+                    className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
@@ -412,7 +412,7 @@ export default function DealsAdduser() {
                             value={data.dealName}
                             onChange={handleChange}
                             name="dealName"
-                            className="form-control"
+                          className="form-control form-control-lg form-control-solid"
                             placeholder="Enter FirstName"
                           />
                         </div>
@@ -423,7 +423,7 @@ export default function DealsAdduser() {
                             value={data.dealContactPersonName}
                             onChange={handleChange}
                             name="dealContactPersonName"
-                            className="form-control"
+                          className="form-control form-control-lg form-control-solid"
                             placeholder="Enter PhoneNumber"
                           />
                         </div>
@@ -437,7 +437,7 @@ export default function DealsAdduser() {
                             value={data.dealContactPersonAlternateEmail}
                             onChange={handleChange}
                             name="dealContactPersonAlternateEmail"
-                            className="form-control"
+                          className="form-control form-control-lg form-control-solid"
                           // placeholder="Enter EmailOptOut"
                           />
                         </div>
@@ -448,7 +448,7 @@ export default function DealsAdduser() {
                             value={data.dealContactPersonPhoneNumber}
                             onChange={handleChange}
                             name="dealContactPersonPhoneNumber"
-                            className="form-control"
+                          className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Industry"
                           />
                         </div>
@@ -461,7 +461,7 @@ export default function DealsAdduser() {
                             value={data.dealContactPersonEmail}
                             onChange={handleChange}
                             name="dealContactPersonEmail"
-                            className="form-control"
+                          className="form-control form-control-lg form-control-solid"
                             placeholder="Enter AnnualRevenue"
                           />
                         </div>
@@ -474,7 +474,7 @@ export default function DealsAdduser() {
                             }
                             onChange={handleChange}
                             name="dealContactPersonAlternatePhoneNumber"
-                            className="form-control"
+                          className="form-control form-control-lg form-control-solid"
                             placeholder="Enter CompanyName"
                           />
                         </div>
@@ -490,7 +490,7 @@ export default function DealsAdduser() {
                             value={data.dealType}
                             onChange={handleChange}
                             name="dealType"
-                            className="form-control selectpicker"
+                            className="form-control form-control-lg form-control-solid"
                           >
                             <option>
                               --Select --

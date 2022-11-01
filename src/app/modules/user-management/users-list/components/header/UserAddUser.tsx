@@ -84,7 +84,7 @@ export default function UserAdduser() {
                                  value={data.userName}
                                  onChange={handleChange}
                                  name="userName"
-                                 className="form-control"
+                                 className="form-control form-control-lg form-control-solid"
                                  placeholder=" "
                               />
                             </div>
@@ -95,7 +95,7 @@ export default function UserAdduser() {
                                 value={data.email}
                                  onChange={handleChange}
                                 name="email"
-                                className="form-control"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder=" "
                               />
                             </div>
@@ -108,7 +108,7 @@ export default function UserAdduser() {
                                   value={data.password}
                                  onChange={handleChange}
                                   
-                                  className="form-control"
+                                  className="form-control form-control-lg form-control-solid"
                                   placeholder=" "
                                 />
                               </div>
@@ -119,7 +119,7 @@ export default function UserAdduser() {
                                   name="mobileno"
                                   value={data.mobileNo}
                                  onChange={handleChange}
-                                  className="form-control"
+                                  className="form-control form-control-lg form-control-solid"
                                   placeholder=" "
                                 />
                               </div>
@@ -132,7 +132,7 @@ export default function UserAdduser() {
                                   name="firstName"
                                   value={data.firstName}
                                  onChange={handleChange}
-                                  className="form-control"
+                                  className="form-control form-control-lg form-control-solid"
                                   placeholder="firstname"
                                 />
                               </div>
@@ -143,7 +143,7 @@ export default function UserAdduser() {
                                   name="lastname"
                                   value={data.lastName}
                                  onChange={handleChange}
-                                  className="form-control"
+                                  className="form-control form-control-lg form-control-solid"
                                   placeholder="Lastname"
                                 />
                               </div>
@@ -152,7 +152,9 @@ export default function UserAdduser() {
                               <div className="d-flex flex-column  col-lg-3">
                                 <label className="form-label">Gender</label>
 
-                                <select>
+                                <select className="form-control form-control-lg form-control-solid"
+                    data-control="select2"
+                    data-hide-search="true">
                                   <option></option>
                                   <option>Male</option>
                                   <option>Female</option>

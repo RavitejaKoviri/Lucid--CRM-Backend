@@ -279,7 +279,7 @@ export default function TargetAdduser() {
                 value={data.description}
                 onChange={handleChange}
                 name="description"
-                className="form-control"
+                 className="form-control form-control-lg form-control-solid"
                 placeholder="Enter Image description"
               />
 
@@ -302,7 +302,7 @@ export default function TargetAdduser() {
             
                 <div className="card-body pt-0">
                   <select
-                    className="form-select mb-2"
+                   className="form-control form-control-lg form-control-solid"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
@@ -322,7 +322,7 @@ export default function TargetAdduser() {
                       Select publishing date and time
                     </label>
                     <input
-                      className="form-control"
+                       className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
@@ -336,35 +336,6 @@ export default function TargetAdduser() {
                   className="tab-pane fade show active"
                   id="kt_ecommerce_add_product_general"
                 >
-                  <div className="d-flex flex-column gap-7 gap-lg-10">
-                    <div className="card card-flush py-4">
-                      <div className="card-header">
-                        <div className="card-title">
-                          <h2>Target Details</h2>
-                        </div>
-                      </div>
-
-              <div className="card-body pt-0">
-                <select
-                  // className="form-select mb-2"
-                  className="form-control form-control-lg form-control-solid"
-                  data-control="select2"
-                  data-hide-search="true"
-                  data-placeholder="Select an option"
-                  value={data.targetStatus}
-                  onChange={handleChange}
-                  name="targetStatus"
-                >
-                  <option value="" disabled selected>
-                    -- Select Status --
-                  </option>{" "}
-                  {status?.map((item: any) => (
-                    <option value={item?.id}>{item?.targetStatusName}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
           <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
             <div className="d-flex flex-column gap-7 gap-lg-10">
               <div className="card card-flush py-4">

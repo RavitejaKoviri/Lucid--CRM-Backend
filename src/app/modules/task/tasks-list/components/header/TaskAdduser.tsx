@@ -298,7 +298,7 @@ export default function TaskAdduser() {
                 
                 <div className="card-body pt-0">
                   <select
-                    className="form-select mb-2"
+                   className="form-control form-control-lg form-control-solid"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
@@ -339,7 +339,7 @@ export default function TaskAdduser() {
                 <div className="card-body pt-0">
                   {/*begin::Select2*/}
                   <select
-                    className="form-select mb-2"
+                   className="form-control form-control-lg form-control-solid"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
@@ -413,7 +413,7 @@ export default function TaskAdduser() {
                             <div className="col-lg-6">
                               <label>Task Repeat:</label>
                               <select
-                                className="form-select mb-2"
+                               className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -432,7 +432,7 @@ export default function TaskAdduser() {
                               <label>Task Remainder:</label>
                              
                                 <select
-                                className="form-select mb-2"
+                               className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -453,7 +453,7 @@ export default function TaskAdduser() {
                               <label>Task Priority:</label>
                              
                                <select
-                                className="form-select mb-3"
+                                  className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"

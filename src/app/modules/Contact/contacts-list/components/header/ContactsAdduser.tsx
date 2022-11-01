@@ -350,7 +350,7 @@ export default function ContactsAdduser() {
                 value={data.description}
                 onChange={handleChange}
                 name="description"
-                className="form-control"
+               className="form-control form-control-lg form-control-solid"
                 placeholder="Enter Image description"
               />
               <div className="card card-flush py-4">
@@ -393,7 +393,7 @@ export default function ContactsAdduser() {
                       Select publishing date and time
                     </label>
                     <input
-                      className="form-control"
+                     className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
@@ -435,7 +435,7 @@ export default function ContactsAdduser() {
                       Select publishing date and time
                     </label>
                     <input
-                      className="form-control"
+                     className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
@@ -474,7 +474,7 @@ export default function ContactsAdduser() {
                                 value={data.contactName}
                                 onChange={handleChange}
                                 // name="Name"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
 
                               />
                             </div>
@@ -485,7 +485,7 @@ export default function ContactsAdduser() {
                                 value={data.contactEmail}
                                 onChange={handleChange}
                                 name="contactEmail"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Email"
                               />
                             </div>
@@ -500,7 +500,7 @@ export default function ContactsAdduser() {
                                 value={data.contactFirstName}
                                 onChange={handleChange}
                                 name="contactFirstName"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="FirstName"
                               />
                             </div>
@@ -511,7 +511,7 @@ export default function ContactsAdduser() {
                                 value={data.contactLastName}
                                 onChange={handleChange}
                                 name="contactLastName"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="LastName"
                               />
                             </div>
@@ -524,7 +524,7 @@ export default function ContactsAdduser() {
                                 value={data.contactSecondaryEmail}
                                 onChange={handleChange}
                                 name="contactSecondaryEmail"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="SecondaryEmail"
                               />
                             </div>
@@ -535,7 +535,7 @@ export default function ContactsAdduser() {
                                 value={data.contactMobile}
                                 onChange={handleChange}
                                 name="contactMobile"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Mobile"
                               />
                             </div>
@@ -548,7 +548,7 @@ export default function ContactsAdduser() {
                                 value={data.contactTitle}
                                 onChange={handleChange}
                                 name="contactTitle"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Title"
                               />
                             </div>
@@ -559,7 +559,7 @@ export default function ContactsAdduser() {
                                 value={data.contactJobTitle}
                                 onChange={handleChange}
                                 name="contactJobTitle"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="JobTitle"
                               />
                             </div>
@@ -572,7 +572,7 @@ export default function ContactsAdduser() {
                                 value={data.contactCompanyName}
                                 onChange={handleChange}
                                 name="contactCompanyName"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="CompanyName"
 
                               />
@@ -584,7 +584,7 @@ export default function ContactsAdduser() {
                                 value={data.contactCity}
                                 onChange={handleChange}
                                 name="contactCity"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="City"
                               />
                             </div>
@@ -597,7 +597,7 @@ export default function ContactsAdduser() {
                                 value={data.contactAddress}
                                 onChange={handleChange}
                                 name="contactAddress"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Address"
                               />
                             </div>
@@ -608,7 +608,7 @@ export default function ContactsAdduser() {
                                 value={data.contactState}
                                 onChange={handleChange}
                                 name="contactState"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="State"
                               />
                             </div>
@@ -621,7 +621,7 @@ export default function ContactsAdduser() {
                                 value={data.contactPincode}
                                 onChange={handleChange}
                                 name="contactPincode"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Pincode"
                               />
                             </div>
@@ -632,7 +632,7 @@ export default function ContactsAdduser() {
                                 value={data.contactCountry}
                                 onChange={handleChange}
                                 name="contactCountry"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Country"
                               />
                             </div>
@@ -646,7 +646,7 @@ export default function ContactsAdduser() {
                                 value={data.contactWebsiteAddress}
                                 onChange={handleChange}
                                 name="contactWebsiteAddress"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="WebsiteAddress"
                               />
                             </div>
@@ -657,7 +657,7 @@ export default function ContactsAdduser() {
                                 value={data.contactNotes}
                                 onChange={handleChange}
                                 name="contactNotes"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Notes"
                               />
                             </div>
@@ -671,7 +671,7 @@ export default function ContactsAdduser() {
                                 value={data.contactTwitterHandle}
                                 onChange={handleChange}
                                 name="contactTwitterHandle"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="TwitterHandle"
                               />
                             </div>
@@ -682,7 +682,7 @@ export default function ContactsAdduser() {
                                 value={data.contactLinkedinHandle}
                                 onChange={handleChange}
                                 name="contactLinkedinHandle"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="LinkedinHandle"
                               />
                             </div>
@@ -695,7 +695,7 @@ export default function ContactsAdduser() {
                                 value={data.contactFacebookHandle}
                                 onChange={handleChange}
                                 name="contactFacebookHandle"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="FacebookHandle"
                               />
                             </div>
@@ -706,7 +706,7 @@ export default function ContactsAdduser() {
                                 value={data.contactInstagramHandle}
                                 onChange={handleChange}
                                 name="contactInstagramHandle"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="InstagramHandle"
                               />
                             </div>

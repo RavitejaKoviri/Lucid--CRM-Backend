@@ -360,7 +360,7 @@ export default function BookingAdduser() {
                               <input
                                 type="text"
                                 name="fullName"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter fullName"
                                 value={data?.fullName}
                                 onChange={handleChange}
@@ -370,7 +370,7 @@ export default function BookingAdduser() {
                               {/* <label>Email:</label> */}
                               <input
                                 type="email"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Email"
                                 name="email"
                                 value={data?.email}
@@ -383,7 +383,7 @@ export default function BookingAdduser() {
                               {/* <label>PhoneNumber:</label> */}
                               <input
                                 type="text"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter PhoneNumber"
                                 name="mobileNumber"
                                 value={data?.mobileNumber}
@@ -395,7 +395,7 @@ export default function BookingAdduser() {
                               <input
                                 type="text"
                                 name="age"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Age"
                                 value={data?.age}
                                 onChange={handleChange}
@@ -406,7 +406,7 @@ export default function BookingAdduser() {
                             <div className="col-lg-5">
                               {/* <label>Gender</label> */}
                               <select
-                                className="form-select mb-2"
+                              className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -425,7 +425,7 @@ export default function BookingAdduser() {
                             <div className="col-lg-5">
                               {/* <label>Type</label> */}
                               <select
-                                className="form-select mb-2"
+                              className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -452,7 +452,7 @@ export default function BookingAdduser() {
                               <div className="col-lg-5">
                                 {/* <label>Doctor:</label> */}
                                 <select
-                                  className="form-select mb-2"
+                                className="form-control form-control-lg form-control-solid"
                                   data-control="select2"
                                   data-hide-search="true"
                                   data-placeholder="Select an option"
@@ -478,7 +478,7 @@ export default function BookingAdduser() {
                               {/* <label>Address:</label> */}
                               <input
                                 type="text"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Address"
                                 value={data.address}
                                 name="address"
@@ -487,7 +487,7 @@ export default function BookingAdduser() {
                             </div>
                             {/* <div className="col-lg-5">
                               <select
-                                className="form-select mb-2"
+                              className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -508,7 +508,7 @@ export default function BookingAdduser() {
                             <div className="col-lg-5">
                               {/* <label>City:</label> */}
                               <select
-                                className="form-select mb-2"
+                              className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -527,7 +527,7 @@ export default function BookingAdduser() {
                             <div className="col-lg-5">
                               {/* <label>Branch:</label> */}
                               <select
-                                className="form-select mb-2"
+                              className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 placeholder="Select an option"
@@ -627,7 +627,7 @@ export default function BookingAdduser() {
                               {/* <label>message:</label> */}
                               <input
                                 type="text"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter message"
                                 value={data.message}
                                 name="message"
@@ -673,7 +673,7 @@ export default function BookingAdduser() {
                             <div className="col-lg-5">
                               {/* <label>paymentMode</label> */}
                               <select
-                                className="form-select mb-2"
+                              className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -693,7 +693,7 @@ export default function BookingAdduser() {
                             <div className="col-lg-5">
                               {/* <label>paymentStatus</label> */}
                               <select
-                                className="form-select mb-2"
+                              className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -718,7 +718,7 @@ export default function BookingAdduser() {
                                 {/* <label>paymentId:</label> */}
                                 <input
                                   type="email"
-                                  className="form-control"
+                                 className="form-control form-control-lg form-control-solid"
                                   placeholder="Enter PaymentId"
                                   name="paymentId"
                                   value={data.paymentId}
@@ -730,7 +730,7 @@ export default function BookingAdduser() {
                               {/* <label>TotalAmount:</label> */}
                               <input
                                 type="email"
-                                className="form-control"
+                               className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Total Amount"
                                 value={totalAmount}
                               />

@@ -138,7 +138,7 @@ export default function CampaignAdduser() {
                                 value={data.campaignName}
                                 onChange={handleChange}
                                 name="campaignName"
-                                className="form-control"
+                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter FirstName"
                               />
                             </div>
@@ -146,7 +146,7 @@ export default function CampaignAdduser() {
 
                             <label>Status</label>
                      <select
-                    className="form-select mb-2"
+                     className="form-control form-control-lg form-control-solid"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
@@ -167,7 +167,7 @@ export default function CampaignAdduser() {
                                 value={data.campaignName}
                                 onChange={handleChange}
                                 name="campaignName"
-                                className="form-control"
+                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter PhoneNumber"
                               />
                               
@@ -176,7 +176,7 @@ export default function CampaignAdduser() {
                      {/* <div className="form col-4 mt-6">
                       <label>Status</label>
                      <select
-                    className="form-select mb-2"
+                     className="form-control form-control-lg form-control-solid"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
