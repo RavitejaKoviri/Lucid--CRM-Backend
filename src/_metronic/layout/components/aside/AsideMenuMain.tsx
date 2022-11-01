@@ -305,6 +305,13 @@ export function AsideMenuMain() {
             hasBullet={true}
           />
       </AsideMenuItemWithSubMain>
+      <AsideMenuItem
+        to='/socialPosts'
+        title="Social"
+        fontIcon='bi-globe'
+        // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
+        className='py-2'
+      />
     </>
   )
 }
