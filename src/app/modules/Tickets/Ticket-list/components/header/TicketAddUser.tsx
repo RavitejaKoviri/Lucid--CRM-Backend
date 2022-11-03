@@ -48,7 +48,7 @@ export default function TicketAdduser() {
     ticketStartDate: "",
     ticketEndDate: "",
     company: user?.company?.id,
-    image:imageUrl,
+    image: imageUrl,
     description: "",
   });
 
@@ -136,6 +136,7 @@ export default function TicketAdduser() {
       description: "",
       image: [],
     });
+    navigation("/ticket/ticket");
   };
 
   return (
@@ -147,7 +148,7 @@ export default function TicketAdduser() {
         <div id="kt_content_container" className="container-xxl">
           <div className="form d-flex flex-column flex-lg-row">
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-            <div className="card card-flush py-4">
+              <div className="card card-flush py-4">
                 {/*begin::Card header*/}
                 <div className="card-header">
                   {/*begin::Card title*/}
@@ -297,8 +298,8 @@ export default function TicketAdduser() {
 
                 <div className="card-body pt-0">
                   <select
-                                className="form-control form-control-lg form-control-solid"
-                                data-control="select2"
+                    className="form-control form-control-lg form-control-solid"
+                    data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
                     id="kt_ecommerce_add_product_status_select"

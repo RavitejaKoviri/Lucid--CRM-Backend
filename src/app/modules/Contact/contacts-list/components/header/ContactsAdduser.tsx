@@ -22,7 +22,7 @@ export default function ContactsAdduser() {
   const dispatch = useDispatch();
   const id: any = location?.state
   const [contact, setContact] = useState(false);
-  
+
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
@@ -36,18 +36,20 @@ export default function ContactsAdduser() {
     (state: any) => state?.ContactData?.Comapnies
   );
   const user = useSelector(
-    (state: any) => state?.auth?.users
+    (state: any) => state?.auth?.user
   );
+  console.log(user, "user");
+
   const ContactById = useSelector(
     (state: any) => state?.ContactData?.ContactById
   );
- 
+
   useEffect(() => {
     dispatch(getsource(token))
     dispatch(getcampaigns(token))
     dispatch(getcompanies(token))
   }, [])
-  
+
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
   const [preview, setPreview] = useState();
@@ -75,21 +77,21 @@ export default function ContactsAdduser() {
     contactLinkedinHandle: " ",
     contactSource: " ",
     campaignSource: " ",
-    image:imageUrl,
+    image: imageUrl,
     description: "",
-    
-    
+
+
   });
   // const handleChange = (e: any) => {
   //   setData({ ...data, [e.target.name]: e.target.value });
   // };
-  useEffect(()=>{
-    console.log(id?.id,"Testid");
-    
+  useEffect(() => {
+    console.log(id?.id, "Testid");
+
     dispatch(getContactById(id?.id, token));
     setContact(true);
-  },[ContactById?.id])
-  console.log(ContactById,"ContactByIdId");
+  }, [ContactById?.id])
+  console.log(ContactById, "ContactByIdId");
 
   useEffect(() => {
     if (!selectedPreviewFile) {
@@ -157,9 +159,9 @@ export default function ContactsAdduser() {
       image: ContactById?.image,
       description: ContactById?.description,
     })
-    
+
     console.log(data, "TEST");
-  
+
     setContact(false);
     console.log("hello")
   }, [contact])
@@ -200,11 +202,12 @@ export default function ContactsAdduser() {
       contactInstagramHandle: " ",
       contactLinkedinHandle: " ",
       contactSource: " ",
-      
+
       campaignSource: " ",
       description: "",
       image: [],
     });
+    navigation('/contacts/contacts')
   };
 
 
@@ -221,7 +224,7 @@ export default function ContactsAdduser() {
             data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-            <div className="card card-flush py-4">
+              <div className="card card-flush py-4">
                 {/*begin::Card header*/}
                 <div className="card-header">
                   {/*begin::Card title*/}
@@ -350,7 +353,7 @@ export default function ContactsAdduser() {
                 value={data.description}
                 onChange={handleChange}
                 name="description"
-               className="form-control form-control-lg form-control-solid"
+                className="form-control form-control-lg form-control-solid"
                 placeholder="Enter Image description"
               />
               <div className="card card-flush py-4">
@@ -358,16 +361,16 @@ export default function ContactsAdduser() {
                   <div className="card-title">
                     <h2>Campaign</h2>
                   </div>
-                
+
                   <div className="card-toolbar">
                     <div
                       className="rounded-circle bg-success w-15px h-15px"
                     ></div>
                   </div>
                 </div>
-               
+
                 <div className="card-body pt-0">
-               
+
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -385,15 +388,15 @@ export default function ContactsAdduser() {
                     }
 
                   </select>
-                  
+
                   <div className="text-muted fs-7"></div>
-                  
+
                   <div className="d-none mt-10">
                     <label className="form-label">
                       Select publishing date and time
                     </label>
                     <input
-                     className="form-control form-control-lg form-control-solid"
+                      className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
@@ -435,7 +438,7 @@ export default function ContactsAdduser() {
                       Select publishing date and time
                     </label>
                     <input
-                     className="form-control form-control-lg form-control-solid"
+                      className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
@@ -446,9 +449,9 @@ export default function ContactsAdduser() {
 
 
             </div>
-           
+
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-              
+
               <div className="tab-content">
                 <div
                   className="tab-pane fade show active"
@@ -462,19 +465,19 @@ export default function ContactsAdduser() {
                           <h2>Contact Details</h2>
                         </div>
                       </div>
-                    
+
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-4">
                             <div className="col-lg-6">
-                              <label>Name:</label>
+                              <label>Contact Name:</label>
                               <input
                                 type="text"
-                                placeholder="Name"
+                                placeholder="contactName"
                                 value={data.contactName}
+                                name="contactName"
                                 onChange={handleChange}
-                                // name="Name"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
 
                               />
                             </div>
@@ -485,11 +488,11 @@ export default function ContactsAdduser() {
                                 value={data.contactEmail}
                                 onChange={handleChange}
                                 name="contactEmail"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Email"
                               />
                             </div>
-                            
+
                           </div>
 
                           <div className="form-group row mb-4">
@@ -500,7 +503,7 @@ export default function ContactsAdduser() {
                                 value={data.contactFirstName}
                                 onChange={handleChange}
                                 name="contactFirstName"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="FirstName"
                               />
                             </div>
@@ -511,7 +514,7 @@ export default function ContactsAdduser() {
                                 value={data.contactLastName}
                                 onChange={handleChange}
                                 name="contactLastName"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="LastName"
                               />
                             </div>
@@ -524,7 +527,7 @@ export default function ContactsAdduser() {
                                 value={data.contactSecondaryEmail}
                                 onChange={handleChange}
                                 name="contactSecondaryEmail"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="SecondaryEmail"
                               />
                             </div>
@@ -535,7 +538,7 @@ export default function ContactsAdduser() {
                                 value={data.contactMobile}
                                 onChange={handleChange}
                                 name="contactMobile"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Mobile"
                               />
                             </div>
@@ -548,7 +551,7 @@ export default function ContactsAdduser() {
                                 value={data.contactTitle}
                                 onChange={handleChange}
                                 name="contactTitle"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Title"
                               />
                             </div>
@@ -559,7 +562,7 @@ export default function ContactsAdduser() {
                                 value={data.contactJobTitle}
                                 onChange={handleChange}
                                 name="contactJobTitle"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="JobTitle"
                               />
                             </div>
@@ -572,7 +575,7 @@ export default function ContactsAdduser() {
                                 value={data.contactCompanyName}
                                 onChange={handleChange}
                                 name="contactCompanyName"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="CompanyName"
 
                               />
@@ -584,7 +587,7 @@ export default function ContactsAdduser() {
                                 value={data.contactCity}
                                 onChange={handleChange}
                                 name="contactCity"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="City"
                               />
                             </div>
@@ -597,7 +600,7 @@ export default function ContactsAdduser() {
                                 value={data.contactAddress}
                                 onChange={handleChange}
                                 name="contactAddress"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Address"
                               />
                             </div>
@@ -608,7 +611,7 @@ export default function ContactsAdduser() {
                                 value={data.contactState}
                                 onChange={handleChange}
                                 name="contactState"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="State"
                               />
                             </div>
@@ -621,7 +624,7 @@ export default function ContactsAdduser() {
                                 value={data.contactPincode}
                                 onChange={handleChange}
                                 name="contactPincode"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Pincode"
                               />
                             </div>
@@ -632,7 +635,7 @@ export default function ContactsAdduser() {
                                 value={data.contactCountry}
                                 onChange={handleChange}
                                 name="contactCountry"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Country"
                               />
                             </div>
@@ -646,7 +649,7 @@ export default function ContactsAdduser() {
                                 value={data.contactWebsiteAddress}
                                 onChange={handleChange}
                                 name="contactWebsiteAddress"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="WebsiteAddress"
                               />
                             </div>
@@ -657,7 +660,7 @@ export default function ContactsAdduser() {
                                 value={data.contactNotes}
                                 onChange={handleChange}
                                 name="contactNotes"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Notes"
                               />
                             </div>
@@ -671,7 +674,7 @@ export default function ContactsAdduser() {
                                 value={data.contactTwitterHandle}
                                 onChange={handleChange}
                                 name="contactTwitterHandle"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="TwitterHandle"
                               />
                             </div>
@@ -682,7 +685,7 @@ export default function ContactsAdduser() {
                                 value={data.contactLinkedinHandle}
                                 onChange={handleChange}
                                 name="contactLinkedinHandle"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="LinkedinHandle"
                               />
                             </div>
@@ -695,7 +698,7 @@ export default function ContactsAdduser() {
                                 value={data.contactFacebookHandle}
                                 onChange={handleChange}
                                 name="contactFacebookHandle"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="FacebookHandle"
                               />
                             </div>
@@ -706,7 +709,7 @@ export default function ContactsAdduser() {
                                 value={data.contactInstagramHandle}
                                 onChange={handleChange}
                                 name="contactInstagramHandle"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="InstagramHandle"
                               />
                             </div>
@@ -721,11 +724,11 @@ export default function ContactsAdduser() {
 
                   </div>
                 </div>
-            
-                
+
+
               </div>
               <div className="d-flex justify-content-end">
-              <button
+                <button
                   className="btn btn-dark me-5"
                   onClick={() => {
                     navigation('/contacts/contacts')

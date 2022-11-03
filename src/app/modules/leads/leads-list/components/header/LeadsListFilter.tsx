@@ -5,7 +5,7 @@ import { initialQueryState, KTSVG } from '../../../../../../_metronic/helpers'
 // import UserContext from '../../../../user-management/users-list/table/columns/context'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
-import { getsource,getcampaigns } from '../../_redux/leadAction'
+import { getsource, getcampaigns } from '../../_redux/leadAction'
 // import UserContext from '../../table/columns/context';
 import LeadContext from '../../table/columns/context'
 
@@ -83,13 +83,13 @@ const LeadsListFilter = () => {
               value={searchTerm}
 
             >
-            <option></option>
-                    {
-                      source?.map((item: any) => (
-                        <option value={item?.id}>{item?.SourceName}</option>
-                      ))
-                    }
-             
+              <option></option>
+              {
+                source?.map((item: any) => (
+                  <option value={item?.SourceName}>{item?.SourceName}</option>
+                ))
+              }
+
             </select>
           </div>
           {/* end::Input group */}
@@ -109,10 +109,10 @@ const LeadsListFilter = () => {
             >
               <option value=''></option>
               {
-                      campaign?.map((item: any) => (
-                        <option value={item?.campaignName}>{item?.campaignName}</option>
-                      ))
-                    }
+                campaign?.map((item: any) => (
+                  <option value={item?.campaignName}>{item?.campaignName}</option>
+                ))
+              }
             </select>
           </div>
           {/* end::Input group */}

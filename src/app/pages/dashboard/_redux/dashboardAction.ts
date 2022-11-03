@@ -19,10 +19,10 @@ export const getAllBookings = () => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllTasks = (token:any) => (dispatch: any) => {
+export const getAllTasks = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .fetchAllTasks(token)
+    .fetchAllTasks(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllTasks({ data }));
@@ -32,7 +32,7 @@ export const getAllTasks = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllDeals = (token:any) => (dispatch: any) => {
+export const getAllDeals = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .fetchAllDeals(token)
@@ -45,7 +45,7 @@ export const getAllDeals = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllContacts = (token:any) => (dispatch: any) => {
+export const getAllContacts = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .fetchAllContacts(token)
@@ -58,7 +58,7 @@ export const getAllContacts = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllCampaigns = (token:any) => (dispatch: any) => {
+export const getAllCampaigns = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .fetchAllCampaigns(token)
@@ -71,13 +71,41 @@ export const getAllCampaigns = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const getAllLeads = (token:any) => (dispatch: any) => {
+export const getAllLeads = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .fetchAllLeads(token)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllLeads({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
+
+export const getCdrs = (token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getAllCdrs(token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedCDRSDetails({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
+
+export const getAllTickets = (token: any, companyId: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getAllTickets(token, companyId)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.getedAllTicketsDetails({ data }));
     })
     .catch((error) => {
       error.clientMessage = "Can't find patient test reports";;

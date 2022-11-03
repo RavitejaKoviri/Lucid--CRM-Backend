@@ -181,14 +181,14 @@ export function BookingsReport() {
                       <div className="badge badge-light-success">{item?.dateOfAppointment ? item?.dateOfAppointment : "Nill"}</div>
                     </td>
 
-                    <td>{item?.branch ? item?.branch : "Nill"}</td>
-                    <td>{item?.city ? item?.city : "Nill"}</td>
+                    <td>{item?.branch ? item?.branch?.name : "Nill"}</td>
+                    <td>{item?.city ? item?.branch?.city?.name : "Nill"}</td>
                     <td className=" pe-0">{item?.mobileNumber ? item?.mobileNumber : "Nill"}</td>
 
-                    <td className=" pe-0">{item?.healthPackages ? item?.healthPackages?.length : 0}</td>
+                    <td className=" pe-0">{item?.healthPackages.length > 0 ? item?.healthPackages?.length : 0}</td>
 
-                    <td className="pe-0">{item?.healthScans ? item?.healthScans?.length : 0}</td>
-                    <td className=" pe-0">{item?.branchwisetests ? item?.branchwisetests?.length : 0}</td>
+                    <td className="pe-0">{item?.healthScans?.length > 0 ? item?.healthScans?.length : 0}</td>
+                    <td className=" pe-0">{item?.branchwisetests.length > 0 ? item?.branchwisetests?.length : 0}</td>
 
                     <td >{item?.paymentMode ? item?.paymentMode : "Nill"}</td>
                     <td>{item?.paymentStatus ? item?.paymentStatus : "Nill"}</td>

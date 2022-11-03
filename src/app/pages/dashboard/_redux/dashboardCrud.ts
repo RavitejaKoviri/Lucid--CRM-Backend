@@ -3,11 +3,12 @@ export const TASKS = "tasks";
 export const LEADS = "leads";
 export const USER = "contacts";
 export const DEALS = "deals";
-const campaigns = "campaigns"
+const campaigns = "campaigns";
+export const TICKETS = "tickets";
 
-const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
 
-export function fetchAllCampaigns(token:any) {
+export function fetchAllCampaigns(token: any) {
   return axios.get(campaigns, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
@@ -19,9 +20,9 @@ export function fetchAllBookings() {
   });
 }
 
-export function fetchAllTasks(token: any) {
+export function fetchAllTasks(token: any, companyId: any) {
 
-  return axios.get(TASKS, {
+  return axios.get((`${TASKS}?company=${companyId}`), {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
@@ -46,5 +47,19 @@ export function fetchAllDeals(token: any) {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+  });
+}
+
+export function getAllCdrs(token: any) {
+
+  return axios.get(`cdrs`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+export function getAllTickets(token: any, companyId: any) {
+
+  return axios.get(`${TICKETS}?company=${companyId}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

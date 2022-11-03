@@ -21,7 +21,7 @@ import { RootStateOrAny } from 'react-redux'
 // import { getAllContacts } from '../../modules/Contact/contacts-list/_redux/contactAction'
 // import { getAllBookings } from '../../modules/booking/bookings-list/_redux/bookingAction'
 // import { getAlldeals } from '../../modules/deal/deals-list/_redux/dealAction'
-import { getAllBookings, getAllCampaigns, getAllContacts, getAllDeals, getAllLeads, getAllTasks } from './_redux/dashboardAction'
+import { getAllBookings, getAllCampaigns, getAllContacts, getAllDeals, getAllLeads, getAllTasks, getAllTickets, getCdrs } from './_redux/dashboardAction'
 const DashboardPage = () => {
 
 	const dispatch = useDispatch();
@@ -33,16 +33,20 @@ const DashboardPage = () => {
 			document.getElementById('kt_layout_toolbar')?.classList.add('d-none')
 		}
 	}, [])
-
+	const companyId = useSelector(
+		(state: any) => state?.auth?.user?.company?.id
+	);
 	//   const token = useSelector((state) => state?.auth?.authToken);
 	const token: any = useSelector<RootStateOrAny>(({ auth }) => auth.authToken, shallowEqual)
 	useEffect(() => {
-		dispatch(getAllTasks(token));
+		dispatch(getAllTasks(token, companyId));
 		dispatch(getAllLeads(token));
 		dispatch(getAllContacts(token));
 		dispatch(getAllBookings());
 		dispatch(getAllDeals(token));
 		dispatch(getAllCampaigns(token));
+		dispatch(getCdrs(token))
+		dispatch(getAllTickets(token, companyId))
 	}, []);
 	// const task = useSelector((state) => state?.ManageTaskData?.Tasks);
 	const task: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.Tasks, shallowEqual)
@@ -51,14 +55,38 @@ const DashboardPage = () => {
 	const bookings: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.booking, shallowEqual)
 	const deals: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.deals, shallowEqual)
 	const campaigns: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.campaigns, shallowEqual)
+	const cdrs: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.CDRS, shallowEqual)
+	const Tickets: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.Tickets, shallowEqual)
 	console.log(task, "tasks");
 	console.log(leads, "leads");
 	console.log(contacts, "contacts");
 	console.log(bookings, "bookings");
 	console.log(deals, "deals");
 	console.log(campaigns, "campaigns");
-	console.log(token, 'token');
-
+	console.log(Tickets, 'cdrs');
+	const bucketListedTasks = task?.filter(
+		(item: any) => item?.taskStatus?.taskStatusName === "Bucket List"
+	);
+	const toDoTasks = task?.filter(
+		(item: any) => item?.taskStatus?.taskStatusName === "To-Do"
+	);
+	const delegatedTasks = task?.filter(
+		(item: any) => item?.taskStatus?.taskStatusName === "Delegated"
+	);
+	const inProgressTasks = task?.filter(
+		(item: any) => item?.taskStatus?.taskStatusName === "In-Progress"
+	);
+	const doneTasks = task?.filter(
+		(item: any) => item?.taskStatus?.taskStatusName === "Done"
+	);
+	const verificationTasks = task?.filter(
+		(item: any) => item?.taskStatus?.taskStatusName === "Verification"
+	);
+	const TicketsINProgress = Tickets?.filter((item: any) => item?.ticketStatus?.ticketStatusName === "In Progress");
+	const TicketsINClosed = Tickets?.filter((item: any) => item?.ticketStatus?.ticketStatusName === "Closed");
+	const TicketsINEscalated = Tickets?.filter((item: any) => item?.ticketStatus?.ticketStatusName === "Escalated");
+	const TicketsINOpen = Tickets?.filter((item: any) => item?.ticketStatus?.ticketStatusName === "Open");
+	const callDuration = cdrs?.map((item: any) => Number(item?.call_duration)).reduce((a: any, b: any) => a + b, 0)
 
 	return (
 		<>
@@ -227,11 +255,11 @@ const DashboardPage = () => {
 									<div className="card-header pt-5">
 
 										<h3 className="card-title align-items-start flex-column">
-											<span className="card-label fw-bold text-dark">Performance</span>
-											<span className="text-gray-400 mt-1 fw-semibold fs-6">1,046 Inbound Calls today</span>
+											<span className="card-label fw-bold text-dark">CDR</span>
+											<span className="text-gray-400 mt-1 fw-semibold fs-6">{cdrs?.length} Inbound Calls today</span>
 										</h3>
 
-										<div className="card-toolbar">
+										{/* <div className="card-toolbar">
 
 											<span className="badge badge-light-danger fs-base mt-n3">
 
@@ -243,7 +271,7 @@ const DashboardPage = () => {
 												</span>
 											</span>
 
-										</div>
+										</div> */}
 
 									</div>
 
@@ -255,7 +283,7 @@ const DashboardPage = () => {
 
 												<div className="d-flex flex-column content-justify-center">
 
-													<div className="d-flex fs-6 fw-semibold align-items-center">
+													{/* <div className="d-flex fs-6 fw-semibold align-items-center">
 
 														<div className="bullet bg-success me-3" style={{ borderRadius: "3px", width: "12px", height: "12px" }}></div>
 
@@ -263,7 +291,7 @@ const DashboardPage = () => {
 
 														<div className="ms-auto fw-bolder text-gray-700 text-">72.56%</div>
 
-													</div>
+													</div> */}
 
 													<div className="d-flex fs-6 fw-semibold align-items-center my-4">
 
@@ -271,7 +299,7 @@ const DashboardPage = () => {
 
 														<div className="fs-5 fw-bold text-gray-600 me-5">Recurring Calls:</div>
 
-														<div className="ms-auto fw-bolder text-gray-700 text-">29.34%</div>
+														<div className="ms-auto fw-bolder text-gray-700 text-">{callDuration} Mins</div>
 
 													</div>
 
@@ -281,7 +309,7 @@ const DashboardPage = () => {
 
 														<div className="fs-5 fw-bold text-gray-600 me-5">Tickets Raised:</div>
 
-														<div className="ms-auto fw-bolder text-gray-700 text-">17.83%</div>
+														<div className="ms-auto fw-bolder text-gray-700 text-">{Tickets?.length}</div>
 
 													</div>
 
@@ -418,12 +446,12 @@ const DashboardPage = () => {
 									<div className="card-header pt-2">
 
 										<h3 className="card-title">
-											<span className="text-white fs-3 fw-bold me-2">Facebook Campaign</span>
+											<span className="text-white fs-3 fw-bold me-2">Tickets</span>
 											<span className="badge badge-success">Active</span>
 										</h3>
 
 
-										<div className="card-toolbar">
+										{/* <div className="card-toolbar">
 
 											<button className="btn btn-icon bg-white bg-opacity-10 btn-color-white btn-active-success w-25px h-25px" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true">
 
@@ -491,7 +519,7 @@ const DashboardPage = () => {
 
 											</div>
 
-										</div>
+										</div> */}
 
 									</div>
 
@@ -501,22 +529,48 @@ const DashboardPage = () => {
 
 											<div className="rounded min-w-125px py-3 px-4 my-1 me-6" style={{ border: "1px dashed rgba(255, 255, 255, 0.15)" }}>
 
+
 												<div className="d-flex align-items-center">
-													<div className="text-white fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="4368" data-kt-countup-prefix="$">0</div>
+													<div className="text-white fs-2 fw-bold">{TicketsINOpen?.length}</div>
 												</div>
 
 
-												<div className="fw-semibold fs-6 text-white opacity-50">New Followers</div>
+												<div className="fw-semibold fs-6 text-white opacity-50">Tickets Open </div>
 
 											</div>
 
 											<div className="rounded min-w-125px py-3 px-4 my-1" style={{ border: "1px dashed rgba(255, 255, 255, 0.15)" }}>
 
 												<div className="d-flex align-items-center">
-													<div className="text-white fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="120,000">0</div>
+													<div className="text-white fs-2 fw-bold">{TicketsINClosed?.length}</div>
 												</div>
 
-												<div className="fw-semibold fs-6 text-white opacity-50">Followers Goal</div>
+												<div className="fw-semibold fs-6 text-white opacity-50">Tickets Closed</div>
+
+											</div>
+
+										</div>
+										<div className="d-flex flex-wrap px-9 ">
+
+											<div className="rounded min-w-125px py-3 px-4 my-1 me-6" style={{ border: "1px dashed rgba(255, 255, 255, 0.15)" }}>
+
+
+												<div className="d-flex align-items-center">
+													<div className="text-white fs-2 fw-bold">{TicketsINProgress?.length}</div>
+												</div>
+
+
+												<div className="fw-semibold fs-6 text-white opacity-50">Tickets Progress </div>
+
+											</div>
+
+											<div className="rounded min-w-125px py-3 px-4 my-1" style={{ border: "1px dashed rgba(255, 255, 255, 0.15)" }}>
+
+												<div className="d-flex align-items-center">
+													<div className="text-white fs-2 fw-bold">{TicketsINEscalated?.length}</div>
+												</div>
+
+												<div className="fw-semibold fs-6 text-white opacity-50">Tickets Escalated</div>
 
 											</div>
 
@@ -537,11 +591,11 @@ const DashboardPage = () => {
 									<div className="card-header pt-5">
 
 										<h3 className="card-title align-items-start flex-column">
-											<span className="card-label fw-bold text-dark fs-3">Channels</span>
-											<span className="text-gray-400 mt-1 fw-semibold fs-6">Users from all channels</span>
+											<span className="card-label fw-bold text-dark fs-3">Task</span>
+											<span className="text-gray-400 mt-1 fw-semibold fs-6">Tasks  Updates............</span>
 										</h3>
 
-										<div className="card-toolbar">
+										{/* <div className="card-toolbar">
 
 											<button className="btn btn-icon btn-color-gray-400 btn-active-color-primary justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true">
 
@@ -612,7 +666,7 @@ const DashboardPage = () => {
 
 											</div>
 
-										</div>
+										</div> */}
 
 										<div className="card-body">
 
@@ -623,8 +677,8 @@ const DashboardPage = () => {
 													<img src="assets/media/svg/brand-logos/dribbble-icon-1.svg" className="me-3 w-30px" alt="" />
 
 													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Dribbble</a>
-														<span className="text-gray-400 fw-semibold d-block fs-6">Community</span>
+														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">bucket Listed</a>
+														{/* <span className="text-gray-400 fw-semibold d-block fs-6">Community</span> */}
 													</div>
 
 												</div>
@@ -632,10 +686,10 @@ const DashboardPage = () => {
 												<div className="d-flex align-items-center w-100 mw-125px">
 
 													<div className="progress h-6px w-100 me-2 bg-light-success">
-														<div className="progress-bar bg-success" role="progressbar" style={{ width: "65%" }} aria-valuenow={65} aria-valuemin={0} aria-valuemax={100}></div>
+														<div className="progress-bar bg-success" role="progressbar" style={{ width: (bucketListedTasks?.length / task?.length) * 100 }} aria-valuenow={65} aria-valuemin={0} aria-valuemax={100}></div>
 													</div>
 
-													<span className="text-gray-400 fw-semibold">65%</span>
+													<span className="text-gray-400 fw-semibold">{(bucketListedTasks?.length / task?.length) * 100}%</span>
 
 												</div>
 
@@ -650,8 +704,8 @@ const DashboardPage = () => {
 													<img src="assets/media/svg/brand-logos/instagram-2-1.svg" className="me-3 w-30px" alt="" />
 
 													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Linked In</a>
-														<span className="text-gray-400 fw-semibold d-block fs-6">Social Media</span>
+														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">verification</a>
+														{/* <span className="text-gray-400 fw-semibold d-block fs-6">Social Media</span> */}
 													</div>
 
 												</div>
@@ -659,10 +713,10 @@ const DashboardPage = () => {
 												<div className="d-flex align-items-center w-100 mw-125px">
 
 													<div className="progress h-6px w-100 me-2 bg-light-warning">
-														<div className="progress-bar bg-warning" role="progressbar" style={{ width: "87%" }} aria-valuenow={87} aria-valuemin={0} aria-valuemax={100}></div>
+														<div className="progress-bar bg-warning" role="progressbar" style={{ width: (verificationTasks?.length / task?.length) * 100 }} aria-valuenow={87} aria-valuemin={0} aria-valuemax={100}></div>
 													</div>
 
-													<span className="text-gray-400 fw-semibold">87%</span>
+													<span className="text-gray-400 fw-semibold">{(verificationTasks?.length / task?.length) * 100}%</span>
 
 												</div>
 
@@ -677,8 +731,8 @@ const DashboardPage = () => {
 													<img src="assets/media/svg/brand-logos/slack-icon.svg" className="me-3 w-30px" alt="" />
 
 													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Slack</a>
-														<span className="text-gray-400 fw-semibold d-block fs-6">Messenger</span>
+														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Done</a>
+														{/* <span className="text-gray-400 fw-semibold d-block fs-6">Messenger</span> */}
 													</div>
 
 												</div>
@@ -686,10 +740,10 @@ const DashboardPage = () => {
 												<div className="d-flex align-items-center w-100 mw-125px">
 
 													<div className="progress h-6px w-100 me-2 bg-light-primary">
-														<div className="progress-bar bg-primary" role="progressbar" style={{ width: "44%" }} aria-valuenow={44} aria-valuemin={0} aria-valuemax={100}></div>
+														<div className="progress-bar bg-primary" role="progressbar" style={{ width: (doneTasks?.length / task?.length) * 100 }} aria-valuenow={44} aria-valuemin={0} aria-valuemax={100}></div>
 													</div>
 
-													<span className="text-gray-400 fw-semibold">44%</span>
+													<span className="text-gray-400 fw-semibold">{(doneTasks?.length / task?.length) * 100}%</span>
 
 												</div>
 
@@ -704,8 +758,8 @@ const DashboardPage = () => {
 													<img src="assets/media/svg/brand-logos/google-icon.svg" className="me-3 w-30px" alt="" />
 
 													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Google</a>
-														<span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span>
+														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">In Progress</a>
+														{/* <span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span> */}
 													</div>
 
 												</div>
@@ -713,10 +767,64 @@ const DashboardPage = () => {
 												<div className="d-flex align-items-center w-100 mw-125px">
 
 													<div className="progress h-6px w-100 me-2 bg-light-info">
-														<div className="progress-bar bg-info" role="progressbar" style={{ width: "70%" }} aria-valuenow={70} aria-valuemin={0} aria-valuemax={100}></div>
+														<div className="progress-bar bg-info" role="progressbar" style={{ width: (inProgressTasks?.length / task?.length) * 100 }} aria-valuenow={70} aria-valuemin={0} aria-valuemax={100}></div>
 													</div>
 
-													<span className="text-gray-400 fw-semibold">70%</span>
+													<span className="text-gray-400 fw-semibold">{(inProgressTasks?.length / task?.length) * 100}%</span>
+
+												</div>
+
+											</div>
+
+											<div className="separator separator-dashed my-4"></div>
+
+											<div className="d-flex flex-stack">
+
+												<div className="d-flex align-items-center me-3">
+
+													<img src="assets/media/svg/brand-logos/google-icon.svg" className="me-3 w-30px" alt="" />
+
+													<div className="flex-grow-1">
+														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">delegated </a>
+														{/* <span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span> */}
+													</div>
+
+												</div>
+
+												<div className="d-flex align-items-center w-100 mw-125px">
+
+													<div className="progress h-6px w-100 me-2 bg-light-info">
+														<div className="progress-bar bg-info" role="progressbar" style={{ width: (delegatedTasks?.length / task?.length) * 100 }} aria-valuenow={70} aria-valuemin={0} aria-valuemax={100}></div>
+													</div>
+
+													<span className="text-gray-400 fw-semibold">{(delegatedTasks?.length / task?.length) * 100}%</span>
+
+												</div>
+
+											</div>
+
+											<div className="separator separator-dashed my-4"></div>
+
+											<div className="d-flex flex-stack">
+
+												<div className="d-flex align-items-center me-3">
+
+													<img src="assets/media/svg/brand-logos/google-icon.svg" className="me-3 w-30px" alt="" />
+
+													<div className="flex-grow-1">
+														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">To Do </a>
+														{/* <span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span> */}
+													</div>
+
+												</div>
+
+												<div className="d-flex align-items-center w-100 mw-125px">
+
+													<div className="progress h-6px w-100 me-2 bg-light-info">
+														<div className="progress-bar bg-info" role="progressbar" style={{ width: (toDoTasks?.length / task?.length) * 100 }} aria-valuenow={70} aria-valuemin={0} aria-valuemax={100}></div>
+													</div>
+
+													<span className="text-gray-400 fw-semibold">{(toDoTasks?.length / task?.length) * 100}%</span>
 
 												</div>
 
@@ -741,22 +849,22 @@ const DashboardPage = () => {
 								<div className="card-title pt-3 mb-0 gap-4 gap-lg-10 gap-xl-15 nav nav-tabs border-bottom-0" data-kt-table-widget-3="tabs_nav">
 
 									<div className="fs-4 fw-bold pb-3 border-bottom border-3 border-primary cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Show All">All Campaigns ({campaigns?.length ? campaigns?.length : 0})</div>
-
+									{/* 
 									<div className="fs-4 fw-bold text-muted pb-3 cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Pending">Draft</div>
 
-									<div className="fs-4 fw-bold text-muted pb-3 cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Completed">Completed</div>
+									<div className="fs-4 fw-bold text-muted pb-3 cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Completed">Completed</div> */}
 
 								</div>
 
 								<div className="card-toolbar">
-									<a href="#" type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_create_campaign">Create Campaign</a>
+									<Link to="/campaigns/campaigns/campaignadduser" type="button" className="btn btn-primary">Create Campaign</Link>
 								</div>
 
 							</div>
 
 							<div className="card-body pt-1" >
 
-								<div className="d-flex flex-stack flex-wrap gap-4">
+								{/* <div className="d-flex flex-stack flex-wrap gap-4">
 
 									<div className="d-flex align-items-center flex-wrap gap-3 gap-xl-9">
 
@@ -883,9 +991,9 @@ const DashboardPage = () => {
 
 									</div>
 
-								</div>
+								</div> */}
 
-								<div className="separator separator-dashed my-5"></div>
+								{/* <div className="separator separator-dashed my-5"></div> */}
 								<div style={{ overflow: 'scroll' }}>
 									<table id="kt_widget_table_3" className="table table-row-dashed align-middle fs-6 gy-4 my-0 pb-3" data-kt-table-widget-3="all" >
 										<thead className="d-none">
