@@ -148,6 +148,7 @@ export default function DealsAdduser() {
       description: "",
       image: [],
     });
+    navigation('/deals/deals')
   };
   return (
     <>

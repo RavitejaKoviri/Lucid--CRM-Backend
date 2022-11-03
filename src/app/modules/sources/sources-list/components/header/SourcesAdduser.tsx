@@ -52,6 +52,7 @@ export default function SourceAdduser() {
     setData({
       SourceName: " ",
     });
+    navigation("/sources/source");
   };
   useEffect(() => {
     setData({

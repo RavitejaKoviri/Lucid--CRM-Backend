@@ -63,6 +63,7 @@ export default function AddBrands() {
       brandName: " ",
       company: " ",
     })
+    navigation("/brands/brands");
   };
   return (
     <>

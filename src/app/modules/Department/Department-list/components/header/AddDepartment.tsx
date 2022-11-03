@@ -74,6 +74,7 @@ export default function AddDepartment() {
       departmentName: " ",
       company: " ",
     })
+    navigation("/department/department");
   };
   return (
     <>

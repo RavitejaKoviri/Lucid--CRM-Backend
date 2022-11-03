@@ -363,7 +363,7 @@ export default function CdrAdduser() {
                                 placeholder="Enter AnnualRevenue"
                               />
                             </div>
-                            <div className="col-lg-6">
+                            {/* <div className="col-lg-6">
                               <label>CompanyName:</label>
                               <input
                                 type="text"
@@ -373,7 +373,7 @@ export default function CdrAdduser() {
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter CompanyName"
                               />
-                            </div>
+                            </div> */}
                           </div>
                           <div className="form-group row mb-4">
                             <div className="col-lg-6">

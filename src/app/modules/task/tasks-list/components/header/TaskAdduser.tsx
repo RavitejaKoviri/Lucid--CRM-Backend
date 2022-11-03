@@ -142,6 +142,7 @@ export default function TaskAdduser() {
       description: "",
       image: [],
     });
+    navigation('/tasks/tasks')
   };
   return (
     <>

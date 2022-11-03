@@ -260,6 +260,7 @@ export default function BookingAdduser() {
       age: "",
       user: [],
     });
+    navigation('/bookings/bookings')
   };
   console.log(data.branchwisetests, "branchwisetests");
   useEffect(() => {

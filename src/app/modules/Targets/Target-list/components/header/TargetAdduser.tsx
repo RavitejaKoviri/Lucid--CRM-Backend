@@ -29,7 +29,7 @@ export default function TargetAdduser() {
   const targetsById = useSelector(
     (state: any) => state?.TargetData?.targetById
   );
-  console.log(status, "status");
+  console.log(userData, "status");
 
   useEffect(() => {
     dispatch(getassignedTo(token));
@@ -105,7 +105,7 @@ export default function TargetAdduser() {
       targetDescription: targetsById?.targetDescription,
       targetDueDate: targetsById?.targetDueDate,
       assignedTo: targetsById?.assignedTo?.id,
-      company: user?.company?.id,
+      company: userData?.company?.id,
       targetStatus: targetsById?.targetStatus?.id,
       image: targetsById?.image,
       description: targetsById?.description,
@@ -114,7 +114,7 @@ export default function TargetAdduser() {
     setTarget(false);
   }, [target]);
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: user?.company?.id });
+    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: userData?.company?.id });
   };
 
   const handleSubmit = () => {
@@ -134,6 +134,7 @@ export default function TargetAdduser() {
       description: "",
       image: [],
     });
+    navigation("/target/target");
   };
 
   return (

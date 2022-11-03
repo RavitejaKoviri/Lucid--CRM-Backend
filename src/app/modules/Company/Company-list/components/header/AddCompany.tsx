@@ -104,6 +104,7 @@ export default function AddCompany() {
       brands: [],
 
     })
+    navigation("/company/company");
   };
   return (
     <>
