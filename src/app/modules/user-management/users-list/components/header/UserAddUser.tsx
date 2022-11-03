@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { CreateUser } from "../../_redux/userAction";
 
 // import { FC, useState } from 'react'
 // import * as Yup from 'yup'
@@ -16,9 +17,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export default function UserAdduser() {
   const navigation = useNavigate();
+  const dispatch=useDispatch();
   const location = useLocation();
  
-
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
   
   
 
@@ -31,45 +35,257 @@ export default function UserAdduser() {
   const targetsById = useSelector(
     (state: any) => state?.TargetData?.targetById
   );
+  const userById = useSelector(
+    (state: any) => state?.UserData?.UsersById
+  );
+  console.log(userById, "userById");
+  
+  const [imageUrl, setImageUrl] = React.useState<any[]>([]);
+  const [selectedPreviewFile, setSelectedPreviewFile] = useState();
+  const [preview, setPreview] = useState();
+  
+  useEffect(() => {
+    if (!selectedPreviewFile) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl: any = URL.createObjectURL(selectedPreviewFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedPreviewFile]);
+  const handleUploadImage = (document: any) => {
+    setSelectedPreviewFile(document);
+    const selectedFile = document;
+    var formdata = new FormData();
+    formdata.append("files", selectedFile, selectedFile.name);
+    console.log("iamges ---", formdata);
+    // console.log(blog?.image?.id, "blog?.image[0]?.id");
+    // axios
+    //   .delete(
+    //     blog?.image &&
+    //       `http://43.205.49.41:5377/upload/files/${blog?.image[0]?.id}`
+    //   )
+    //   .then(({ data }) => {
+    //     console.log(data[0].url);
+    //   })
+    //   .catch(() => {});
+    axios
+      .post("http://65.2.10.157:5377/upload/", formdata, {
+        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      })
+      .then(({ data }) => {
+        console.log(data[0].url, "imageupload");
+        setImageUrl(data[0].id);
+      })
+      .catch(() => { });
+  };
+  useEffect(() => {
+    setData({
+      username:userById?.username,
+      email:userById?.email,
+      password:userById?.password,
+      mobile:userById?.mobile,
+      firstname:userById?.firstname,
+      lastname:userById?.lastname,
+      gender:userById?.gender,
+        image: userById?.image,
+      description: userById?.description,
+     
+  })
+ 
+  console.log("hello")
+}, [user])
+
+const handleSubmit = () => {
+  console.log(data);
+    dispatch(CreateUser(data, token));
+    setData({
+      username:" ",
+      email:" ",
+      password:'',
+      mobile:'',
+      firstname:'',
+      lastname:'',
+      gender:'',
+      image: imageUrl,
+      description: "",
+     
+    })
+  }
 
   const [data, setData] = useState({
-   userName:" ",
-   email:" ",
-   password:'',
-   mobileNo:'',
-   firstName:'',
-   lastName:'',
+    username:" ",
+    email:" ",
+    password:'',
+   mobile:'',
+   firstname:'',
+   lastname:'',
+   gender:'',
+   image: imageUrl,
+   description: "",
+ 
   });
 
    const handleChange = (e: any) => {
-    setData({ ...data, [e.user.name]: e.user.value });
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   return (
     <>
-      <div
+       <div
         className="content d-flex flex-column flex-column-fluid"
-        id="kt_content"
       >
         <div id="kt_content_container" className="container-xxl">
           <div
-            id="kt_ecommerce_add_product_form"
             className="form d-flex flex-column flex-lg-row"
-            data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
-            <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+          
+            <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
+            <div className="card card-flush py-4">
+                {/*begin::Card header*/}
+                <div className="card-header">
+                  {/*begin::Card title*/}
+                  <div className="card-title">
+                    <h2>Image</h2>
+                  </div>
+                  {/*end::Card title*/}
+                </div>
+                {/*end::Card header*/}
+                {/*begin::Card body*/}
+                <div className="card-body text-center pt-0">
+                  {/*begin::Image input*/}
+                  {/*begin::Image input placeholder*/}
+                  {/* <style>.image-input-placeholder [data-th</style> */}
+                  {/*end::Image input placeholder*/}
+                  <div
+                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
+                  >
+                    {selectedPreviewFile ? (
+                      <div className="image-input-wrapper w-150px h-150px">
+                        <label
+                          // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                          // data-kt-image-input-action="change"
+                          data-bs-toggle="tooltip"
+                          title="Remove avatar"
+                        >
+                          <i className="bi bi-x fs-2"></i>
+                          {/*begin::Inputs*/}
+                          <img
+                            src={preview}
+                            alt="no image is selected"
+                            style={{
+                              height: "150px",
+                              width: "150px",
+                              // marginTop: "20px",
+                            }}
+                          />
+                          {/*end::Inputs*/}
+                        </label>
+                      </div>
+                    ) : (
 
+                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                        <label
+                          // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                          // data-kt-image-input-action="change"
+                          data-bs-toggle="tooltip"
+                          title="Remove avatar"
+                        >
+                          {/* <i className="bi bi-x fs-7"></i> */}
+                          {/*begin::Inputs*/}
+                          <img
+                            src={`http://65.2.10.157:5377${data?.image[0]?.url}`}
+                            alt="no image to preview"
+                            style={{
+                              height: "150px",
+                              width: "150px",
+                              // marginTop: "20px",
+                            }}
+                          />
+                          {/*end::Inputs*/}
+                        </label>
+                        <label
+                          className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                          data-kt-image-input-action="change"
+                          data-bs-toggle="tooltip"
+                          title="Change avatar"
+                        >
+                          <i className="bi bi-pencil-fill fs-7"></i>
+                          {/*begin::Inputs*/}
+                          <input
+                            type="file"
+                            multiple
+                            // name="avatar"
+                            accept=".png, .jpg, .jpeg"
+                            onChange={(event: any) => {
+                              handleUploadImage(event.currentTarget.files[0]);
+                            }}
+                          />
+                          {/*end::Inputs*/}
+                        </label>
+                      </div>) : (
+                        <>
+                          <div
+                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
+                          >
+                            <div className="image-input-wrapper w-150px h-150px">
+                              <label
+                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                data-kt-image-input-action="change"
+                                data-bs-toggle="tooltip"
+                                title="Change avatar"
+                              >
+                                <i className="bi bi-pencil-fill fs-7"></i>
+                                {/*begin::Inputs*/}
+                                <input
+                                  type="file"
+                                  multiple
+                                  // name="avatar"
+                                  accept=".png, .jpg, .jpeg"
+                                  onChange={(event: any) => {
+                                    handleUploadImage(event.currentTarget.files[0]);
+                                  }}
+                                />
+                                {/*end::Inputs*/}
+                              </label>
+                            </div>
 
+                          </div>
+                          <div className="text-muted fs-7">
+                            Set the product thumbnail image. Only *.png, *.jpg and
+                            *.jpeg image files are accepted
+                          </div>
+                        </>
+                      )
+                    )
+                    }
+                  </div>
+                  {/*end::Image input*/}
+                </div>
+                {/*end::Card body*/}
+              </div>
+              {/*end::Thumbnail settings*/}
+              <input
+                type="text"
+                value={data.description}
+                onChange={handleChange}
+                name="description"
+                className="form-control"
+                placeholder="Enter Image description"
+              />
               
-              <div className="tab-content">
-                <div
-                  className="tab-pane fade show active"
-                  id="kt_ecommerce_add_product_general"
-                >
-                  <div className="d-flex flex-column gap-7 gap-lg-10">
-                    <div className="card card-flush py-4">
-                      <div className="card-header">
-                        <div className="card-title">
+
+              </div>
+              
+              <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+
+                    <div className="d-flex flex-column gap-7 gap-lg-10">
+                <div className="card card-flush py-4">
+                  <div className="card-header">
+                    <div className="card-title">
                           <h2>User Details</h2>
                         </div>
                       </div>
@@ -77,18 +293,18 @@ export default function UserAdduser() {
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-4">
-                            <div className="col-lg-6">
-                              <label>username:</label>
+                            <div className="col-lg-5">
+                              <label>UserName:</label>
                               <input
                                  type="text"
-                                 value={data.userName}
+                                 value={data.username}
                                  onChange={handleChange}
                                  name="userName"
                                  className="form-control form-control-lg form-control-solid"
                                  placeholder=" "
                               />
                             </div>
-                            <div className="col-lg-6">
+                            <div className="col-lg-5">
                               <label>Email:</label>
                               <input
                                 type="text"
@@ -99,8 +315,10 @@ export default function UserAdduser() {
                                 placeholder=" "
                               />
                             </div>
+                            </div>
+
                             <div className="form-group row mb-4">
-                              <div className="col-lg-6">
+                              <div className="col-lg-5">
                                 <label>Password:</label>
                                 <input
                                   type="text"
@@ -112,36 +330,36 @@ export default function UserAdduser() {
                                   placeholder=" "
                                 />
                               </div>
-                              <div className="col-lg-6">
-                                <label className="form-label">Mobileno:</label>
+                              <div className="col-lg-5">
+                                <label className="form-label ">MobileNo:</label>
                                 <input
                                   type="text"
                                   name="mobileno"
-                                  value={data.mobileNo}
+                                  value={data.mobile}
                                  onChange={handleChange}
                                   className="form-control form-control-lg form-control-solid"
                                   placeholder=" "
                                 />
                               </div>
                             </div>
-                            <div className="form-group row mb-2">
-                              <div className="col-lg-6">
+                            <div className="form-group row mb-4">
+                              <div className="col-lg-5">
                                 <label>FirstName:</label>
                                 <input
                                   type="text"
                                   name="firstName"
-                                  value={data.firstName}
+                                  value={data.firstname}
                                  onChange={handleChange}
                                   className="form-control form-control-lg form-control-solid"
                                   placeholder="firstname"
                                 />
                               </div>
-                              <div className="col-lg-6">
+                              <div className="col-lg-5">
                                 <label>LastName:</label>
                                 <input
                                   type="text"
                                   name="lastname"
-                                  value={data.lastName}
+                                  value={data.lastname}
                                  onChange={handleChange}
                                   className="form-control form-control-lg form-control-solid"
                                   placeholder="Lastname"
@@ -152,17 +370,24 @@ export default function UserAdduser() {
                               <div className="d-flex flex-column  col-lg-3">
                                 <label className="form-label">Gender</label>
 
-                                <select className="form-control form-control-lg form-control-solid"
-                    data-control="select2"
-                    data-hide-search="true">
-                                  <option></option>
-                                  <option>Male</option>
-                                  <option>Female</option>
-                                  <option>Others</option>
-                                </select>
+                                <select
+                                className="form-select mb-2"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                name="gender"
+                                value={data?.gender}
+                                onChange={handleChange}
+                              >
+                                <option value="" disabled selected>
+                                  --Select Gender--
+                                </option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="others">others</option>
+                              </select>
                               </div>
                             </div>
-                          </div>
                         </form>
                       </div>
                     </div>
@@ -173,28 +398,34 @@ export default function UserAdduser() {
                 <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation("/target/target");
+                    navigation("/team-members/team-members");
                   }}
                 >
                   Back
                 </button>
                 <button
+                 onClick={() => {
+                  handleSubmit()
+                  
+                }}
                   type="submit"
                   id="kt_ecommerce_add_product_submit"
                   className="btn btn-primary"
                 >
-                  <span className="indicator-label">Save Changes</span>
+                  <span  className="indicator-label">Save Changes</span>
                   <span className="indicator-progress">
                     Please wait...
                     <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                   </span>
                 </button>
               </div>
-            </div>
+            
           </div>
           {/*end::Form*/}
-        </div>
-      </div>
+        
+         </div>
+            
+      
     </>
   );
 }

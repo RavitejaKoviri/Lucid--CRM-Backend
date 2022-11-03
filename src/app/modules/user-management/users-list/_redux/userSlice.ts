@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
-  Users: []
+  Users: [],
+  UsersById:[],
+  Createuser:[]
 };
 
 export const callTypes = {
@@ -35,6 +37,17 @@ export const ManageUserSlice = createSlice({
     getedAllUsersDetails: (state, action) => {
       const { data } = action.payload;
       state.Users = data;
-    }
+    },
+    fetchedAllUsersDetailsById: (state, action) => {
+      const { data } = action.payload;
+      state.UsersById = data;
+    },
+    fetchedUser: (state, action) => {
+      const { data } = action.payload;
+      state.Createuser = data;
+    },
+
+
+
   },
 });

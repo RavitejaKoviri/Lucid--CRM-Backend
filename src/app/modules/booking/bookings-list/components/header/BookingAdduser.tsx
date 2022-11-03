@@ -356,7 +356,7 @@ export default function BookingAdduser() {
                         <div className="form">
                           <div className="form-group row mb-4">
                             <div className="col-lg-5">
-                              {/* <label> Age:</label> */}
+                             
                               <input
                                 type="text"
                                 name="fullName"

@@ -1,3 +1,4 @@
+import { any } from "prop-types";
 import * as requestFromServer from "./userCrud";
 import { ManageUserSlice, callTypes } from "./userSlice";
 
@@ -19,3 +20,28 @@ export const getAllUsers = (token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
+export const getUsersById = (id: any, token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getAllLUsersById(id, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedAllUsersDetailsById({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
+export const CreateUser = (data: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .CreateUser(data, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedUser({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
