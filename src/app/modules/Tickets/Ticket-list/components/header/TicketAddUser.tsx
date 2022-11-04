@@ -422,7 +422,7 @@ export default function TicketAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6 mb-4">
-                              {/* <label>Start Date</label> */}
+                              <label>Start Date</label>
                               <input
                                 type="date"
                                 className="form-control form-control-lg form-control-solid"
@@ -433,7 +433,7 @@ export default function TicketAdduser() {
                               />
                             </div>
                             <div className="col-lg-6">
-                              {/* <label>End Date</label> */}
+                              <label>End Date</label>
                               <input
                                 type="date"
                                 className="form-control form-control-lg form-control-solid"

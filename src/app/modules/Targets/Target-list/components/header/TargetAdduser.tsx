@@ -41,12 +41,12 @@ export default function TargetAdduser() {
   const [preview, setPreview] = useState();
 
   const [data, setData] = useState({
-    targetName: " ",
-    assignedTo: " ",
-    targetDescription: " ",
-    targetStatus: " ",
+    targetName: "",
+    assignedTo: "",
+    targetDescription: "",
+    targetStatus: "",
     company: userData?.company?.id,
-    targetDueDate: " ",
+    targetDueDate: "",
     image:imageUrl,
     description: "",
   });
@@ -125,12 +125,12 @@ export default function TargetAdduser() {
       dispatch(CreateTarget(data, token));
     }
     setData({
-      targetName: " ",
-      assignedTo: " ",
-      targetDescription: " ",
-      targetStatus: " ",
-      company: " ",
-      targetDueDate: " ",
+      targetName: "",
+      assignedTo: "",
+      targetDescription: "",
+      targetStatus: "",
+      company: "",
+      targetDueDate: "",
       description: "",
       image: [],
     });
@@ -399,8 +399,8 @@ export default function TargetAdduser() {
                     <div className="form-group row mb-2">
                       <div className="col-lg-12">
                         {/* <label>Target Description:</label> */}
-                        <input
-                          type="text"
+                        <textarea
+                          // type="text"
                           placeholder="Enter Description"
                           value={data.targetDescription}
                           onChange={handleChange}
