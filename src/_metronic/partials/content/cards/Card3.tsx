@@ -36,7 +36,7 @@ const Card3: FC<Props> = ({
   );
   const openEditModal = () => {
     console.log(id,"TestId");
-    navigation('contactaddcontact', { state: { id } })
+    navigation('Editcontact', { state: { id } })
     // dispatch(getContactById(id, token))
   }
 

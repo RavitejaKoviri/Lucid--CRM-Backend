@@ -23,7 +23,7 @@ const CompanyActionsCell: FC<Props> = ({ id }) => {
   }, [])
 
   const openEditModal = () => {
-    navigation('AddCompany', { state: { id } })
+    navigation('EditCompany', { state: { id } })
 
   }
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CreateLead, getcampaigns, getcompanies, getLeadsById, getleadStatuses, getsource, UpdateLead } from "../../_redux/cdrAction";
 
-export default function CdrAdduser() {
+export default function EditCdr() {
   const location = useLocation();
   const [lead, setLead] = useState(false);
   const id = location?.state
@@ -45,7 +45,26 @@ export default function CdrAdduser() {
     }
   }, [])
 
- 
+  useEffect(() => {
+    setData({
+      leadFirstName: leadById?.leadFirstName,
+      leadPhonenumber: leadById?.leadPhonenumber,
+      leadIndustry: leadById?.leadIndustry,
+      leadAnnualRevenueContribution: leadById?.leadAnnualRevenueContribution,
+      leadEmailOptOut: leadById?.leadEmailOptOut,
+      leadCompanyName: leadById?.leadCompanyName,
+      leadLastName: leadById?.leadLastName,
+      leadEmail: leadById?.leadEmail,
+      leadWebsite: leadById?.leadWebsite,
+      leadSource: leadById?.leadSource,
+      campaignSource: leadById?.campaignSource,
+      company: leadById?.company,
+      leadStatus: leadById?.leadStatus,
+      leadOwner: leadById?.leadOwner,
+    })
+    setLead(false);
+    console.log("hello")
+  }, [lead])
 
   const [data, setData] = useState(
     {
@@ -71,9 +90,12 @@ export default function CdrAdduser() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    
+    if (id !== null) {
+      dispatch(UpdateLead(id, data, token));
+    }
+    else {
       dispatch(CreateLead(data, token));
-    
+    }
     setData({
       leadFirstName: " ",
       leadPhonenumber: " ",

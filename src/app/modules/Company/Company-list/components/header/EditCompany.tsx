@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CreateCompany, getbrand, getCompaniesById, getindustry, UpdateCompany } from "../../_redux/companyAction";
 
-export default function AddCompany() {
+export default function EditCompany() {
   const location = useLocation();
   const [Company, setCompany] = useState(false);
   const [brands, setBrands] = useState([]);
@@ -56,7 +56,20 @@ export default function AddCompany() {
     setCompany(true);
   }, [companyById?.id])
 
- 
+  useEffect(() => {
+    setData({
+      companyName: companyById?.companyName,
+      companyPANNumber: companyById?.companyPANNumber,
+      companyIndustry: companyById?.companyIndustry?.id,
+      // companyWebsocCRMUniqueID: companyById?.companyWebsocCRMUniqueID,
+      companyGSTNumber: companyById?.companyGSTNumber,
+      companyTANNumber: companyById?.companyTANNumber,
+      brands: companyById?.brands,
+    })
+    // setBrands(companyById?.brands)
+    setCompany(false);
+    console.log("hello")
+  }, [Company])
 
   const [data, setData] = useState(
     {
@@ -75,9 +88,12 @@ export default function AddCompany() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-   
+    if (id !== null) {
+      dispatch(UpdateCompany(id, data, token));
+    }
+    else {
       dispatch(CreateCompany(data, token));
-    
+    }
     setData({
       companyName: " ",
       companyPANNumber: " ",

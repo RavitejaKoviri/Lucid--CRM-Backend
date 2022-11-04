@@ -41,6 +41,10 @@ import ViewRoles from '../modules/Roles/viewRoles'
 import UserAdduser from '../modules/user-management/users-list/components/header/UserAddUser'
 import EditTask from '../modules/task/tasks-list/components/header/EditTask'
 import EditLead from '../modules/leads/leads-list/components/header/EditLead'
+import Editcontact from '../modules/Contact/contacts-list/components/header/Editcontact'
+import EditCampaign from '../modules/campaign/campaigns-list/components/header/Editcampaign'
+import EditCdr from '../modules/cdrs/cdrs-list/components/header/EditCdr'
+import EditCompany from '../modules/Company/Company-list/components/header/EditCompany'
 
 
 
@@ -102,19 +106,23 @@ const PrivateRoutes = () => {
         <Route path='tasks/tasks/taskAdduser' element={<TaskAdduser />} />
         <Route path='tasks/tasks/EditTask' element={<EditTask />} />
         <Route path='campaigns/campaigns/campaignadduser' element={<CampaignAdduser />} />
+        <Route path='campaigns/campaigns/EditCampaign' element={<EditCampaign />} />
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
+        <Route path='contacts/contacts/Editcontact' element={<Editcontact />} />
 
         <Route path='sources/source/addsource' element={<SourceAdduser />} />
 
         <Route path='cdr/cdr/cdradduser' element={<CdrAdduser />} />
         <Route path='cdr/cdr/cdradduser' element={<CdrAdduser />} />
+        <Route path='cdr/cdr/EditCdr' element={<EditCdr />} />
 
         <Route path='/apps/user-management/roles/list' element={<RolesList />} />
         <Route path='/apps/user-management/roles/view' element={<ViewRoles />} />
 
         <Route path='/company' element={<CompanyPage />} />
         <Route path='/company/company/AddCompany' element={<AddCompany />} />
+        <Route path='/company/company/EditCompany' element={<EditCompany />} />
 
         {/* <Route path='sourcesadduser' element={<SourcesPage/>}/> */}
 

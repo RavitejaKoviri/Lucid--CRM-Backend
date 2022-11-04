@@ -16,7 +16,7 @@ import { CreateCampaign } from "../../_redux/campaignCrud";
 // import { createUser, updateUser } from '../core/_requests'
 // import { useQueryResponse } from '../core/QueryResponseProvider'
 
-export default function CampaignAdduser() {
+export default function EditCampaign() {
   const navigation = useNavigate();
   const location = useLocation();
 
@@ -46,7 +46,22 @@ export default function CampaignAdduser() {
     (state: any) => state?.campaignData?.CampaignById
   );
   console.log(status,"status");
- useEffect(() => {
+  
+  useEffect(() => {
+    setData({
+      campaignName: CampaignByIds?.campaignName,
+      campaignStatus: CampaignByIds?.campaignStatus,
+      company: user?.company?.id,     
+    })
+    setCampaign(false);
+    console.log("hello")
+  }, [CampaignByIds?.id])
+
+
+
+
+
+  useEffect(() => {
     
     dispatch(getCompanies(token))
     dispatch(getCampaignStatuses(token))
@@ -72,9 +87,12 @@ export default function CampaignAdduser() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-     
+    if (id !== null) {
+      dispatch(UpdateCampaign(id, data, token));
+    }
+    else {
       dispatch(CreateCampaign(data, token));
-    
+    }
     setData({
       campaignName: "",
       campaignStatus: "",

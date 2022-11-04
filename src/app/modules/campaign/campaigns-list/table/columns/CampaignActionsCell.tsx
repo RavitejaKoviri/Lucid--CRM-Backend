@@ -25,7 +25,7 @@ const CampaignActionsCell: FC<Props> = ({ id }) => {
   }, [])
   const navigation = useNavigate()
   const openEditModal = () => {
-    navigation('campaignadduser', { state: { id } })
+    navigation('EditCampaign', { state: { id } })
   }
 
   // const deleteItem = useMutation(() => deleteUser(id), {

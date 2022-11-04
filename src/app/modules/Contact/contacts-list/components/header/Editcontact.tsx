@@ -16,7 +16,7 @@ import { CreateContact, getcampaigns, getcompanies, getContactById, getsource, U
 // import { createUser, updateUser } from '../core/_requests'
 // import { useQueryResponse } from '../core/QueryResponseProvider'
 
-export default function ContactsAdduser() {
+export default function Editcontact() {
   const navigation = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -129,14 +129,53 @@ export default function ContactsAdduser() {
       })
       .catch(() => { });
   };
+  useEffect(() => {
+    setData({
+      company: ContactById?.company,
+      contactCompanyName: ContactById?.contactCompanyName,
+      contactName: ContactById?.contactName,
+      contactEmail: ContactById?.contactEmail,
+      contactMobile: ContactById?.contactMobile,
+      contactTitle: ContactById?.contactTitle,
+      contactFirstName: ContactById?.contactFirstName,
+      contactLastName: ContactById?.contactLastName,
+      contactJobTitle: ContactById?.contactJobTitle,
+      contactCity: ContactById?.contactCity,
+      contactAddress: ContactById?.contactAddress,
+      contactState: ContactById?.contactState,
+      contactPincode: ContactById?.contactPincode,
+      contactCountry: ContactById?.contactCountry,
+      contactWebsiteAddress: ContactById?.contactWebsiteAddress,
+      contactSecondaryEmail: ContactById?.contactSecondaryEmail,
+      contactNotes: ContactById?.contactNotes,
+      contactTwitterHandle: ContactById?.contactTwitterHandle,
+      contactFacebookHandle: ContactById?.contactFacebookHandle,
+      contactInstagramHandle: ContactById?.contactInstagramHandle,
+      contactLinkedinHandle: ContactById?.contactLinkedinHandle,
+      contactSource: ContactById?.contactSource,
+      campaignSource: ContactById?.campaignSource,
+      image: ContactById?.image,
+      description: ContactById?.description,
+    })
 
+    console.log(data, "TEST");
+
+    setContact(false);
+    console.log("hello")
+  }, [contact])
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: user?.company?.id });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
+    if (id !== null) {
+      dispatch(UpdateContact(id, data, token));
+    }
+    else {
       dispatch(CreateContact(data, token));
+    }
+    console.log(data, "data")
     setData({
       company: "",
       contactCompanyName: "",

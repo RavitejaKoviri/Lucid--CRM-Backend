@@ -23,7 +23,7 @@ const CdrActionsCell: FC<Props> = ({ id }) => {
   }, [])
 
   const openEditModal = () => {
-    navigation('leadadduser', { state: { id } })
+    navigation('EditCdr', { state: { id } })
   }
 
   const deleteItem = () =>
