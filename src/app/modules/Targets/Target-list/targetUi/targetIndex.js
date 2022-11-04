@@ -46,6 +46,7 @@ const TargetIndex = () => {
   useEffect(() => {
     dispatch(getAllTargets(token, companyId));
   }, []);
+
   const targets = targetsData.filter((val) => {
     if (searchTerm === "") {
       return val;

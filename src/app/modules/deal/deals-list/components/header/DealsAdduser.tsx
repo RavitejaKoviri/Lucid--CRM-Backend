@@ -41,17 +41,17 @@ export default function DealsAdduser() {
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
   const [preview, setPreview] = useState();
   const [data, setData] = useState({
-    dealName: " ",
-    dealContactPersonName: " ",
-    dealContactPersonPhoneNumber: " ",
-    dealContactPersonEmail: " ",
-    dealContactPersonAlternateEmail: " ",
-    dealContactPersonAlternatePhoneNumber: " ",
-    dealType: " ",
-    dealSource: " ",
-    campaignSource: " ",
+    dealName: "",
+    dealContactPersonName: "",
+    dealContactPersonPhoneNumber: "",
+    dealContactPersonEmail: "",
+    dealContactPersonAlternateEmail: "",
+    dealContactPersonAlternatePhoneNumber: "",
+    dealType: "",
+    dealSource: "",
+    campaignSource: "",
     company: user?.company?.id,
-    dealStatus: " ",
+    dealStatus: "",
     dealOwner: user?.id,
     image:imageUrl,
     description: "",
@@ -407,7 +407,7 @@ export default function DealsAdduser() {
                     <div className="form">
                       <div className="form-group row mb-4">
                         <div className="col-lg-6">
-                          <label>Deal Name:</label>
+                          {/* <label>Deal Name:</label> */}
                           <input
                             type="text"
                             value={data.dealName}
@@ -418,7 +418,7 @@ export default function DealsAdduser() {
                           />
                         </div>
                         <div className="col-lg-6">
-                          <label>Contact PersonName:</label>
+                          {/* <label>Contact PersonName:</label> */}
                           <input
                             type="text"
                             value={data.dealContactPersonName}
@@ -432,18 +432,18 @@ export default function DealsAdduser() {
 
                       <div className="form-group row mb-4">
                         <div className="col-lg-6">
-                          <label>Alternate Email:</label>
+                          {/* <label>Alternate Email:</label> */}
                           <input
                             type="email"
                             value={data.dealContactPersonAlternateEmail}
                             onChange={handleChange}
                             name="dealContactPersonAlternateEmail"
                           className="form-control form-control-lg form-control-solid"
-                          // placeholder="Enter EmailOptOut"
+                          placeholder="Enter Email"
                           />
                         </div>
                         <div className="col-lg-6">
-                          <label> Phone Number:</label>
+                          {/* <label> Phone Number:</label> */}
                           <input
                             type="text"
                             value={data.dealContactPersonPhoneNumber}
@@ -456,7 +456,7 @@ export default function DealsAdduser() {
                       </div>
                       <div className="form-group row mb-4">
                         <div className="col-lg-6">
-                          <label> Person Email:</label>
+                          {/* <label> Person Email:</label> */}
                           <input
                             type="text"
                             value={data.dealContactPersonEmail}
@@ -467,7 +467,7 @@ export default function DealsAdduser() {
                           />
                         </div>
                         <div className="col-lg-6">
-                          <label>Alternate PhoneNumber:</label>
+                          {/* <label>Alternate PhoneNumber:</label> */}
                           <input
                             type="text"
                             value={
@@ -483,7 +483,7 @@ export default function DealsAdduser() {
                       <div className="form-group row mb-4">
 
                         <div className="col-lg-6">
-                          <label>Deal Type:</label>
+                          {/* <label>Deal Type:</label> */}
                           <select
                             data-control="select2"
                             data-hide-search="true"
