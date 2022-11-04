@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { CreateTask, gettaskcompanies, gettaskcontact, gettaskStatus } from "../../_redux/taskAction";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CreateTask, gettaskcompanies, gettaskcontact, gettaskStatus, gettasksById, UpdateTask } from "../../_redux/taskAction";
 // import {
 //   CreateDeal,
 //   getcampaigns,
@@ -11,19 +11,21 @@ import { CreateTask, gettaskcompanies, gettaskcontact, gettaskStatus } from "../
 //   getsource,
 // } from "../../_redux/taskAction";
 
-export default function TaskAdduser() {
+export default function EditTask() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+  const id: any = location?.state
+  console.log(id, "dealid");
 
-
-
+  const [task, setTask] = useState(false);
 
   const token = useSelector((state: any) => state?.auth?.authToken);
   const user = useSelector((state: any) => state?.auth?.user);
   const contact = useSelector((state: any) => state?.tasks?.taskcontact);
   const company = useSelector((state: any) => state?.tasks?.Comapnies);
   const status = useSelector((state: any) => state?.tasks?.taskStatus);
-  // const taskById = useSelector((state: any) => state?.tasks?.tasksById);
+  const taskById = useSelector((state: any) => state?.tasks?.tasksById);
 
   console.log(user, "user");
 
@@ -55,6 +57,11 @@ export default function TaskAdduser() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(gettasksById(id?.id, token))
+    setTask(true);
+  }, [taskById?.id])
   useEffect(() => {
     if (!selectedPreviewFile) {
       setPreview(undefined);
@@ -94,12 +101,33 @@ export default function TaskAdduser() {
       .catch(() => { });
   };
 
-
+  useEffect(() => {
+    setData({
+      subject: taskById?.subject,
+      taskRepeat: taskById?.taskRepeat,
+      taskRemainder: taskById?.taskRemainder,
+      taskPriority: taskById?.taskPriority,
+      taskDueDate: taskById?.taskDueDate,
+      taskDescription: taskById?.taskDescription,
+      contact: taskById?.contact?.id,
+      company: user?.company?.id,
+      taskStatus: taskById?.taskStatus?.id,
+      taskOwner: user?.id,
+      image: taskById?.image,
+      description: taskById?.description,
+    })
+    setTask(false);
+  }, [task])
 
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(CreateTask(data, token));
+    if (id !== null) {
+      dispatch(UpdateTask(data, id?.id, token));
+    }
+    else {
+      dispatch(CreateTask(data, token));
+    }
     setData({
       subject: "",
       taskRepeat: "",

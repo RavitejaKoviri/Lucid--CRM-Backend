@@ -40,6 +40,7 @@ import RolesList from '../modules/Roles/rolesList.js'
 import ViewRoles from '../modules/Roles/viewRoles'
 import UserAdduser from '../modules/user-management/users-list/components/header/UserAddUser'
 import EditLead from '../modules/leads/leads-list/components/header/EditLead'
+import EditTask from '../modules/task/tasks-list/components/header/EditTask'
 
 
 
@@ -99,6 +100,7 @@ const PrivateRoutes = () => {
         <Route path='deals/deals/dealsadduser' element={<DealsAdduser />} />
         <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
         <Route path='tasks/tasks/taskAdduser' element={<TaskAdduser />} />
+        <Route path='tasks/tasks/EditTask' element={<EditTask />} />
         <Route path='campaigns/campaigns/campaignadduser' element={<CampaignAdduser />} />
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
