@@ -85,7 +85,7 @@ const PrivateRoutes = () => {
         <Route path='builder' element={<BuilderPageWrapper />} />
         <Route path='menu-test' element={<MenuTestPage />} />
         {/* <Route path='targets' element={<TargetsWrapper />} /> */}
-        <Route path='editer' element={<EditerPage />} />
+        <Route path='editor' element={<EditerPage />} />
         <Route path='team-members/team-members/adduser' element={<UserAdduser />} />
         <Route path='leads/list/leadadduser' element={<LeadAdduser />} />
         <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser />} />

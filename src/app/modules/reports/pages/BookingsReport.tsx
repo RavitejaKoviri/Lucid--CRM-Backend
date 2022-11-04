@@ -151,26 +151,26 @@ export function BookingsReport() {
                 if (val?.fullName?.toLowerCase()?.includes(search?.toLowerCase())) {
                   return val;
                 }
-              }).filter((val: any) => {
+              })?.filter((val: any) => {
                 if (date === "") {
                   return val;
                 }
                 if (val?.createdAt?.slice(0, 10)?.toLowerCase()?.includes(date?.toLowerCase())) {
                   return val;
                 }
-              }).map((item: any) => (
+              })?.map((item: any) => (
                 <tbody className="fw-semibold text-gray-600">
 
                   <tr>
 
                     <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.fullName ? item?.fullName : "Nill"}</a>
+                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.fullName ? item?.fullName : ""}</a>
                     </td>
                     <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.orderitem?.appointment ? item?.orderitem?.appointment : "Nill"}</a>
+                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.orderitem?.appointment ? item?.orderitem?.appointment : ""}</a>
                     </td>
                     <td>
-                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.gender ? item?.gender : "Nill"}</a>
+                      <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.gender ? item?.gender : ""}</a>
                     </td>
 
                     <td>
