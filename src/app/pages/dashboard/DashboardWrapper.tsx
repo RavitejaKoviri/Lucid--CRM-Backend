@@ -40,10 +40,10 @@ const DashboardPage = () => {
 	const token: any = useSelector<RootStateOrAny>(({ auth }) => auth.authToken, shallowEqual)
 	useEffect(() => {
 		dispatch(getAllTasks(token, companyId));
-		dispatch(getAllLeads(token));
-		dispatch(getAllContacts(token));
+		dispatch(getAllLeads(token,companyId));
+		dispatch(getAllContacts(token,companyId));
 		dispatch(getAllBookings());
-		dispatch(getAllDeals(token));
+		dispatch(getAllDeals(token,companyId));
 		dispatch(getAllCampaigns(token));
 		dispatch(getCdrs(token))
 		dispatch(getAllTickets(token, companyId))

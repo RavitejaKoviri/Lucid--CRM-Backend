@@ -27,22 +27,22 @@ export function fetchAllTasks(token: any, companyId: any) {
   });
 }
 
-export function fetchAllLeads(token: any) {
+export function fetchAllLeads(token: any, companyId: any) {
 
-  return axios.get(LEADS, {
+  return axios.get(`${LEADS}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 
-export function fetchAllContacts(token: any) {
+export function fetchAllContacts(token: any,companyId:any) {
 
-  return axios.get(USER, {
+  return axios.get(`${USER}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 
-export function fetchAllDeals(token: any) {
-  return axios.get(DEALS, {
+export function fetchAllDeals(token: any,companyId:any) {
+  return axios.get(`${DEALS}?company=${companyId}`, {
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,

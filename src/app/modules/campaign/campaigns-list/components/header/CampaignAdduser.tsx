@@ -73,8 +73,8 @@ export default function CampaignAdduser() {
   }, [CampaignByIds?.id])
 
   const [data, setData] = useState({
-    campaignName: " ",
-  campaignStatus: " ",
+    campaignName: "",
+  campaignStatus: "",
   company: user?.company?.id,
     
     
@@ -94,8 +94,8 @@ export default function CampaignAdduser() {
       dispatch(CreateCampaign(data, token));
     }
     setData({
-      campaignName: " ",
-      campaignStatus: " ",
+      campaignName: "",
+      campaignStatus: "",
       company: "",
       
     })
@@ -133,29 +133,29 @@ export default function CampaignAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-4">
-                              <label>campaignName:</label>
+                              {/* <label>campaignName:</label> */}
                               <input
                                 type="text"
                                 value={data.campaignName}
                                 onChange={handleChange}
                                 name="campaignName"
                                  className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter FirstName"
+                                placeholder="Enter Campaign Name"
                               />
                             </div>
                             <div className="col-lg-4">
 
-                            <label>Status</label>
+                            {/* <label>Status</label> */}
                      <select
                      className="form-control form-control-lg form-control-solid"
                     data-control="select2"
                     data-hide-search="true"
-                    data-placeholder="Select an option"
+                    data-placeholder="Select Status"
                     value={data.campaignStatus}
                     onChange={handleChange}
                     name="campaignStatus"
                   >
-                    <option></option>
+                    <option>--Select Status--</option>
                     {status?.map((item: any) => (
                       <option value={item?.id}>{item?.campaignStatusName}</option>
                     ))}

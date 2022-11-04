@@ -102,7 +102,7 @@ export function AsideMenuMain() {
       />
 
 
-      <AsideMenuItemWithSubMain
+      {/* <AsideMenuItemWithSubMain
         to='/inbox'
         title='Inbox'
         fontIcon='bi-file-text'
@@ -128,7 +128,7 @@ export function AsideMenuMain() {
           fontIcon='bi-card-text fs-3'
         />
 
-      </AsideMenuItemWithSubMain>
+      </AsideMenuItemWithSubMain> */}
       <AsideMenuItemWithSubMain
         to='/settings'
         title='Settings'

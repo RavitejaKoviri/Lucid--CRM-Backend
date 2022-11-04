@@ -39,15 +39,15 @@ export default function TaskAdduser() {
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
   const [preview, setPreview] = useState();
   const [data, setData] = useState({
-    subject: " ",
-    taskRepeat: " ",
-    taskRemainder: " ",
-    taskPriority: " ",
-    taskDueDate: " ",
-    taskDescription: " ",
-    contact: " ",
+    subject: "",
+    taskRepeat: "",
+    taskRemainder: "",
+    taskPriority: "",
+    taskDueDate: "",
+    taskDescription: "",
+    contact: "",
     company: user?.company?.id,
-    taskStatus: " ",
+    taskStatus: "",
     taskOwner: user?.id,
     image:imageUrl,
     description: "",
@@ -129,16 +129,16 @@ export default function TaskAdduser() {
       dispatch(CreateTask(data, token));
     }
     setData({
-      subject: " ",
-      taskRepeat: " ",
-      taskRemainder: " ",
-      taskPriority: " ",
-      taskDueDate: " ",
-      taskDescription: " ",
-      contact: " ",
-      company: " ",
-      taskStatus: " ",
-      taskOwner: " ",
+      subject: "",
+      taskRepeat: "",
+      taskRemainder: "",
+      taskPriority: "",
+      taskDueDate: "",
+      taskDescription: "",
+      contact: "",
+      company: "",
+      taskStatus: "",
+      taskOwner: "",
       description: "",
       image: [],
     });
@@ -386,7 +386,7 @@ export default function TaskAdduser() {
                         <form className="form">
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Subject:</label>
+                              {/* <label>Subject:</label> */}
                               <input
                                 type="text"
                                 value={data.subject}
@@ -397,14 +397,14 @@ export default function TaskAdduser() {
                                 />
                             </div>
                             <div className="col-lg-6">
-                              <label>Task DueDate:</label>
+                              {/* <label>Task DueDate:</label> */}
                               <input
                                 type="date"
                                 value={data.taskDueDate}
                                 onChange={handleChange}
                                 name="taskDueDate"
                                 className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
-                                // placeholder="Enter EmailOptOut"
+                                placeholder='Task DueDate:'
                               />
                             </div>
                           </div>
@@ -412,7 +412,7 @@ export default function TaskAdduser() {
                           <div className="form-group row mb-2">
                            
                             <div className="col-lg-6">
-                              <label>Task Repeat:</label>
+                              {/* <label>Task Repeat:</label> */}
                               <select
                                className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
@@ -423,14 +423,14 @@ export default function TaskAdduser() {
                                 name="taskRepeat"
                               >
                                 <option >
-                                  --Select --
+                                --Select Task Repeat:--
                                 </option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
                               </select>
                             </div>
                             <div className="col-lg-6">
-                              <label>Task Remainder:</label>
+                              {/* <label>Task Remainder:</label> */}
                              
                                 <select
                                className="form-control form-control-lg form-control-solid"
@@ -442,7 +442,7 @@ export default function TaskAdduser() {
                                 name="taskRemainder"
                               >
                                 <option >
-                                  --Select --
+                               --Select Task Remainder:--
                                 </option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
@@ -451,7 +451,7 @@ export default function TaskAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6">
-                              <label>Task Priority:</label>
+                              {/* <label>Task Priority:</label> */}
                              
                                <select
                                   className="form-control form-control-lg form-control-solid"
@@ -463,7 +463,7 @@ export default function TaskAdduser() {
                                 name="taskPriority"
                               >
                                 <option >
-                                  --Select --
+                                --Select Task Priority:--
                                 </option>
                                 <option value="High">High</option>
                                 <option value="Medium">Medium</option>
@@ -474,7 +474,7 @@ export default function TaskAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                           <div className="col-lg-12">
-                              <label>Task Description:</label>
+                              {/* <label>Task Description:</label> */}
                               <textarea
                                 // type="text"
                                 value={
