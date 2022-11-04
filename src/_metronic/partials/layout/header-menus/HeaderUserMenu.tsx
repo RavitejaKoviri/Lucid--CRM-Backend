@@ -6,7 +6,15 @@ import { Languages } from './Languages'
 import { toAbsoluteUrl } from '../../../helpers'
 
 const HeaderUserMenu: FC = () => {
-  const { currentUser, logout } = useAuth()
+  const { currentUser } = useAuth()
+
+  const logout = () => {
+
+    localStorage.removeItem("persist:root");
+    window.location.reload();
+    // window.location.replace("/");
+
+  }
   return (
     <div
       className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px'

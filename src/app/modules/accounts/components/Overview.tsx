@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { KTSVG } from '../../../../_metronic/helpers'
 import {
@@ -10,6 +11,11 @@ import {
 } from '../../../../_metronic/partials/widgets'
 
 export function Overview() {
+  const user = useSelector(
+    (state: any) => state?.auth?.user
+  );
+  console.log(user, "user");
+
   return (
     <>
       <div className='card mb-5 mb-xl-10' id='kt_profile_details_view'>
@@ -28,7 +34,7 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Full Name</label>
 
             <div className='col-lg-8'>
-              <span className='fw-bolder fs-6 text-dark'>Max Smith</span>
+              <span className='fw-bolder fs-6 text-dark'>{user?.username}</span>
             </div>
           </div>
 
@@ -36,7 +42,7 @@ export function Overview() {
             <label className='col-lg-4 fw-bold text-muted'>Company</label>
 
             <div className='col-lg-8 fv-row'>
-              <span className='fw-bold fs-6'>Keenthemes</span>
+              <span className='fw-bold fs-6'>{user?.company?.companyName}</span>
             </div>
           </div>
 
@@ -51,13 +57,13 @@ export function Overview() {
             </label>
 
             <div className='col-lg-8 d-flex align-items-center'>
-              <span className='fw-bolder fs-6 me-2'>044 3276 454 935</span>
+              <span className='fw-bolder fs-6 me-2'>{user?.mobile}</span>
 
               <span className='badge badge-success'>Verified</span>
             </div>
           </div>
 
-          <div className='row mb-7'>
+          {/* <div className='row mb-7'>
             <label className='col-lg-4 fw-bold text-muted'>Company Site</label>
 
             <div className='col-lg-8'>
@@ -65,9 +71,9 @@ export function Overview() {
                 keenthemes.com
               </a>
             </div>
-          </div>
+          </div> */}
 
-          <div className='row mb-7'>
+          {/* <div className='row mb-7'>
             <label className='col-lg-4 fw-bold text-muted'>
               Country
               <i
@@ -80,7 +86,7 @@ export function Overview() {
             <div className='col-lg-8'>
               <span className='fw-bolder fs-6 text-dark'>Germany</span>
             </div>
-          </div>
+          </div> */}
 
           <div className='row mb-7'>
             <label className='col-lg-4 fw-bold text-muted'>Communication</label>
