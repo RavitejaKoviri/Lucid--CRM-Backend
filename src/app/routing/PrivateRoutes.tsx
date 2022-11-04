@@ -39,6 +39,7 @@ import ReportsPage from '../modules/reports/ReportsPage'
 import RolesList from '../modules/Roles/rolesList.js'
 import ViewRoles from '../modules/Roles/viewRoles'
 import UserAdduser from '../modules/user-management/users-list/components/header/UserAddUser'
+import EditLead from '../modules/leads/leads-list/components/header/EditLead'
 
 
 
@@ -50,7 +51,7 @@ const PrivateRoutes = () => {
   const ChatPage = lazy(() => import('../modules/apps/chat/ChatPage'))
   const InboxPage = lazy(() => import('../modules/apps/chat/InboxPage'))
   const UsersPage = lazy(() => import('../modules/user-management/UsersPage'))
-  
+
   const LeadsPage = lazy(() => import('../modules/leads/LeadsPage'))
   const TargetPage = lazy(() => import('../modules/Targets/TargetPage'))
   const TasksPage = lazy(() => import('../modules/task/TasksPage'))
@@ -88,6 +89,7 @@ const PrivateRoutes = () => {
         <Route path='editor' element={<EditerPage />} />
         <Route path='team-members/team-members/adduser' element={<UserAdduser />} />
         <Route path='leads/list/leadadduser' element={<LeadAdduser />} />
+        <Route path='leads/list/EditLead' element={<EditLead />} />
         <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser />} />
         <Route path='target/target/targetadduser' element={<TargetAdduser />} />
         <Route path='brands/brands/addBrands' element={<AddBrands />} />
@@ -197,7 +199,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         /> */}
-       
+
         <Route
           path='tasks/*'
           element={

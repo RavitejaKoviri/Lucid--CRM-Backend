@@ -23,8 +23,8 @@ const LeadActionsCell: FC<Props> = ({ id }) => {
   }, [])
 
   const openEditModal = () => {
-    console.log(id,"TestId");
-    navigation('leadadduser', { state: { id } })
+    console.log(id, "TestId");
+    navigation('EditLead', { state: { id } })
   }
 
 

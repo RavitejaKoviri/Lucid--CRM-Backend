@@ -4,9 +4,14 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../../../app/modules/auth'
 import { Languages } from './Languages'
 import { toAbsoluteUrl } from '../../../helpers'
+import { useSelector } from 'react-redux'
 
 const HeaderUserMenu: FC = () => {
   const { currentUser } = useAuth()
+  const user = useSelector(
+    (state: any) => state?.auth?.user
+  );
+  console.log(user, "user");
 
   const logout = () => {
 
@@ -23,16 +28,16 @@ const HeaderUserMenu: FC = () => {
       <div className='menu-item px-3'>
         <div className='menu-content d-flex align-items-center px-3'>
           <div className='symbol symbol-50px me-5'>
-            <img alt='Logo' src={toAbsoluteUrl('/media/avatars/300-1.jpg')} />
+            <img alt='Logo' src={`http://65.2.10.157:5377${user?.image?.url}`} />
           </div>
 
           <div className='d-flex flex-column'>
             <div className='fw-bolder d-flex align-items-center fs-5'>
-              {currentUser?.first_name} {currentUser?.first_name}
+              {user?.username}
               <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>Pro</span>
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
-              {currentUser?.email}
+              {user?.email}
             </a>
           </div>
         </div>
