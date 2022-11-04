@@ -1,25 +1,31 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   getticketStatuses,
   CreateTicket,
   getassignedTo,
   getcustomerTo,
+  getticketsById,
+  UpdateTickets,
 } from "../../_redux/ticketAction";
 
-export default function TicketAdduser() {
+export default function EditTicket() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
-  
+  const location = useLocation();
+  const id: any = location?.state;
+  console.log(id, "dealid");
   const [tickets, setTickets] = useState(false);
 
   const token = useSelector((state: any) => state?.auth?.authToken);
   const user = useSelector((state: any) => state?.auth?.user);
   const userassign = useSelector((state: any) => state?.TicketData?.assignedTo);
   const customer = useSelector((state: any) => state?.TicketData?.customerTo);
-  
+  const ticketsById = useSelector(
+    (state: any) => state?.TicketData?.ticketsById
+  );
 
   const status = useSelector((state: any) => state?.TicketData?.ticketStatus);
   console.log(status, "status");
@@ -50,7 +56,11 @@ export default function TicketAdduser() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getticketsById(id?.id, token));
+    setTickets(true);
+  }, [ticketsById?.id])
   useEffect(() => {
     if (!selectedPreviewFile) {
       setPreview(undefined);
@@ -90,13 +100,30 @@ export default function TicketAdduser() {
       .catch(() => { });
   };
 
-  
+  useEffect(() => {
+    setData({
+      ticketName: ticketsById?.ticketName,
+      ticketStartDate: ticketsById?.ticketStartDate,
+      ticketEndDate: ticketsById?.ticketEndDate,
+      customer: ticketsById?.customer?.id,
+      ticketAssignedTo: ticketsById?.ticketAssignedTo?.id,
+      company: user?.company?.id,
+      ticketStatus: ticketsById?.ticketStatus?.id,
+      ticketPriority: ticketsById?.ticketPriority,
+      image: ticketsById?.image,
+      description: ticketsById?.description,
+    })
+    setTickets(false);
+  }, [tickets]);
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
 
+    if (id !== null) {
+      dispatch(UpdateTickets(data, id?.id, token));
+    } else {
       dispatch(CreateTicket(data, token));
-    
+    }
     setData({
       ticketStatus: '',
       ticketName: '',

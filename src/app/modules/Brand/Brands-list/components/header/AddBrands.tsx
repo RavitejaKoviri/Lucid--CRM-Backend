@@ -1,14 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { CreateBrands, getBrandsById, getBrandsStatuses, getsource, UpdateBrands } from "../../_redux/brandsAction";
+import {  useNavigate } from "react-router-dom";
+import { CreateBrands,  } from "../../_redux/brandsAction";
 
 export default function AddBrands() {
-  const location = useLocation();
-  const [Brands, setBrands] = useState(false);
-  const id = location?.state
-  console.log(id, "location")
+  
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector(
@@ -17,27 +14,11 @@ export default function AddBrands() {
   const user = useSelector(
     (state: any) => state?.auth?.user
   );
-  const BrandsById = useSelector(
-    (state: any) => state?.BrandsData?.BrandsById
-  );
+
   const companyId = useSelector(
     (state: any) => state?.auth?.user?.company?.id
   );
-  console.log(companyId, "DepartmentById");
-  console.log(BrandsById, "BrandsById");
-  useEffect(() => {
-    console.log(id, "TestId");
-    dispatch(getBrandsById(token, companyId))
-    setBrands(true);
-  }, [BrandsById?.id])
-  useEffect(() => {
-    setData({
-      brandName: BrandsById?.brandName,
-      company: BrandsById?.company,
-    })
-    setBrands(false);
-    console.log("hello")
-  }, [Brands])
+ 
 
   const [data, setData] = useState(
     {
@@ -51,14 +32,9 @@ export default function AddBrands() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    if (id !== null) {
-      dispatch(UpdateBrands(id, data, token));
-    }
-    else {
-
-      console.log(user, "data")
+    
       dispatch(CreateBrands(data, token));
-    }
+    
     setData({
       brandName: " ",
       company: " ",

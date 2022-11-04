@@ -1,21 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CreateSource,
   getcampaigns,
   getcompanies,
+  getSourcesById,
   getsource,
+  UpdateSource,
   getsourceStatuses,
 } from "../../_redux/sourceAction";
 
-export default function SourceAdduser() {
-  
-  
+export default function EditSource() {
+  const location = useLocation();
+  const [Source, setSource] = useState(false);
+  const id = location?.state;
+  console.log(id, "location");
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state?.auth?.authToken);
+  const sourceById = useSelector((state: any) => state?.Sources?.SourcesById);
+  console.log(sourceById, "leadById");
 
   useEffect(() => {
     dispatch(getsource(token));
@@ -23,26 +29,37 @@ export default function SourceAdduser() {
     dispatch(getcompanies(token));
     dispatch(getsourceStatuses(token));
   }, []);
-  
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getSourcesById(id, token));
+    setSource(true);
+  }, [sourceById?.id]);
   const [data, setData] = useState({
     SourceName: " ",
   });
- 
+
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    
+    if (id !== null) {
+      dispatch(UpdateSource(id, data, token));
+    } else {
       dispatch(CreateSource(data, token));
-    
+    }
     setData({
       SourceName: " ",
     });
     navigation("/sources/source");
   };
-  
+  useEffect(() => {
+    setData({
+      SourceName: sourceById?.SourceName,
+    });
+    setSource(false);
+  }, [Source]);
   return (
     <>
       <div className="content d-flex flex-column flex-column-fluid">

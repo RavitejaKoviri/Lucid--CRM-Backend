@@ -22,7 +22,7 @@ export function getAllBrands(token: any) {
 // }
 export function getAllBrandsById(token: any, companyId: any) {
 
-  return axios.get(`${BRAND}?company=${companyId}`, {
+  return axios.get(`${BRAND}/${companyId?.id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

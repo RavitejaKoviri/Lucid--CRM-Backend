@@ -2,17 +2,21 @@ import { Formik } from "formik";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CreateTarget,
   getassignedTo,
   getCompanies,
+  gettargetsById,
   getTargetStatuses,
+  UpdateTarget,
 } from "../../_redux/targetAction";
 
-export default function TargetAdduser() {
+export default function EditTarget() {
   const navigation = useNavigate();
-  
+  const location = useLocation();
+  const id: any = location?.state;
+  console.log(id, "dealid");
   const dispatch = useDispatch();
   const [target, setTarget] = useState(false);
 
@@ -22,7 +26,9 @@ export default function TargetAdduser() {
   // const company = useSelector((state: any) => state?.TargetData?.Comapnies);
   const status = useSelector((state: any) => state?.TargetData?.targetStatus);
   const user = useSelector((state: any) => state?.TargetData?.assignedTo);
-  
+  const targetsById = useSelector(
+    (state: any) => state?.TargetData?.targetById
+  );
   console.log(userData, "status");
 
   useEffect(() => {
@@ -49,7 +55,11 @@ export default function TargetAdduser() {
   //   setData({ ...data, [e.target.name]: e.target.value });
   // };
 
- 
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(gettargetsById(id?.id, token));
+    setTarget(true);
+  }, [targetsById?.id]);
   useEffect(() => {
     if (!selectedPreviewFile) {
       setPreview(undefined);
@@ -89,16 +99,31 @@ export default function TargetAdduser() {
       .catch(() => { });
   };
 
-  
+  useEffect(() => {
+    setData({
+      targetName: targetsById?.targetName,
+      targetDescription: targetsById?.targetDescription,
+      targetDueDate: targetsById?.targetDueDate,
+      assignedTo: targetsById?.assignedTo?.id,
+      company: userData?.company?.id,
+      targetStatus: targetsById?.targetStatus?.id,
+      image: targetsById?.image,
+      description: targetsById?.description,
+      // taskOwner: user?.id,
+    });
+    setTarget(false);
+  }, [target]);
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: userData?.company?.id });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    
+    if (id !== null) {
+      dispatch(UpdateTarget(data, id?.id, token));
+    } else {
       dispatch(CreateTarget(data, token));
-    
+    }
     setData({
       targetName: "",
       assignedTo: "",

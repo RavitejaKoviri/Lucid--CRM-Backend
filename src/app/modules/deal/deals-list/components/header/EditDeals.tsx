@@ -2,20 +2,23 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   CreateDeal,
   getcampaigns,
   getcompanies,
+  getdealsById,
   getdealStatuses,
   getsource,
-
+  UpdateDeal,
 } from "../../_redux/dealAction";
 
-export default function DealsAdduser() {
+export default function EditDeals() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
-;
+  const location = useLocation();
+  const id: any = location?.state
+  console.log(id, "dealid");
 
   const [deal, setDeal] = useState(false);
   const token = useSelector((state: any) => state?.auth?.authToken);
@@ -24,7 +27,7 @@ export default function DealsAdduser() {
   const campaign = useSelector((state: any) => state?.deal?.campaigns);
   const company = useSelector((state: any) => state?.deal?.Companies);
   const status = useSelector((state: any) => state?.deal?.dealStatus);
-
+  const dealById = useSelector((state: any) => state?.deal?.dealsById);
   console.log(status, "status");
 
   useEffect(() => {
@@ -57,7 +60,11 @@ export default function DealsAdduser() {
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
-
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getdealsById(id?.id, token))
+    setDeal(true);
+  }, [dealById?.id])
   useEffect(() => {
     if (!selectedPreviewFile) {
       setPreview(undefined);
@@ -97,10 +104,34 @@ export default function DealsAdduser() {
       .catch(() => { });
   };
 
- 
+  useEffect(() => {
+    setData({
+      dealName: dealById?.dealName,
+      dealContactPersonName: dealById?.dealContactPersonName,
+      dealContactPersonPhoneNumber: dealById?.dealContactPersonPhoneNumber,
+      dealContactPersonEmail: dealById?.dealContactPersonEmail,
+      dealContactPersonAlternateEmail: dealById?.dealContactPersonAlternateEmail,
+      dealContactPersonAlternatePhoneNumber: dealById?.dealContactPersonAlternatePhoneNumber,
+      dealType: dealById?.dealType,
+      dealSource: dealById?.dealSource?.id,
+      campaignSource: dealById?.campaignSource?.id,
+      company: user?.company?.id,
+      dealStatus: dealById?.dealStatus?.id,
+      dealOwner: user?.id,
+      image: dealById?.image,
+      description: dealById?.description,
+    })
+    setDeal(false);
+  }, [deal])
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
+
+    if (id !== null) {
+      dispatch(UpdateDeal(data, id?.id, token));
+    }
+    else {
       dispatch(CreateDeal(data, token));
+    }
     setData({
       dealName: " ",
       dealContactPersonName: " ",

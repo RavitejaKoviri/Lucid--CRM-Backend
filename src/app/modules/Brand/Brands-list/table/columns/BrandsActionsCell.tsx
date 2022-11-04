@@ -23,7 +23,7 @@ const BrandsActionsCell: FC<Props> = ({ id }) => {
   }, [])
 
   const openEditModal = () => {
-    navigation('AddBrands', { state: { id } })
+    navigation('EditBrands', { state: { id } })
   }
 
   const deleteItem = () =>

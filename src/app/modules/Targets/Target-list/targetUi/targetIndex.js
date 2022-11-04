@@ -515,7 +515,7 @@ const TargetIndex = () => {
                       <button
                         type="button"
                         className="btn btn-sm btn-icon btn-color-light-dark btn-active-light-primary"
-                        onClick={() => { navigation('targetadduser', { state: { id } }) }}
+                        onClick={() => { navigation('EditTarget', { state: { id } }) }}
                       >
                         {/* begin::Svg Icon | path: icons/duotune/general/gen024.svg */}
                         <svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">

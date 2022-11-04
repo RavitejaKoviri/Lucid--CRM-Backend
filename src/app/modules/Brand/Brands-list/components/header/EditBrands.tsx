@@ -1,48 +1,72 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
-import {
-  CreateSource,
-  getcampaigns,
-  getcompanies,
-  getsource,
-  getsourceStatuses,
-} from "../../_redux/sourceAction";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CreateBrands, getBrandsById, getBrandsStatuses, getsource, UpdateBrands } from "../../_redux/brandsAction";
 
-export default function SourceAdduser() {
-  
-  
+export default function EditBrands() {
+  const location = useLocation();
+  const [Brands, setBrands] = useState(false);
+  const id = location?.state
+  console.log(id, "location")
   const navigation = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state: any) => state?.auth?.authToken);
-
-  useEffect(() => {
-    dispatch(getsource(token));
-    dispatch(getcampaigns(token));
-    dispatch(getcompanies(token));
-    dispatch(getsourceStatuses(token));
-  }, []);
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
+  const user = useSelector(
+    (state: any) => state?.auth?.user
+  );
+  const BrandsById = useSelector(
+    (state: any) => state?.BrandsData?.BrandsById
+  );
+  console.log(BrandsById,"BrandsById");
   
-  const [data, setData] = useState({
-    SourceName: " ",
-  });
- 
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
+  console.log(companyId, "DepartmentById");
+  console.log(BrandsById, "BrandsById");
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getBrandsById(token, id))
+    setBrands(true);
+  }, [BrandsById?.id])
+  useEffect(() => {
+    setData({
+      brandName: BrandsById?.brandName,
+      company: BrandsById?.company,
+    })
+    setBrands(false);
+    console.log("hello")
+  }, [BrandsById?.id])
+
+  const [data, setData] = useState(
+    {
+      brandName: " ",
+      company: user?.company?.id,
+    })
+
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    
-      dispatch(CreateSource(data, token));
-    
+    if (id !== null) {
+      dispatch(UpdateBrands(id, data, token));
+    }
+    else {
+
+      console.log(user, "data")
+      dispatch(CreateBrands(data, token));
+    }
     setData({
-      SourceName: " ",
-    });
-    navigation("/sources/source");
+      brandName: " ",
+      company: " ",
+    })
+    navigation("/brands/brands");
   };
-  
   return (
     <>
       <div className="content d-flex flex-column flex-column-fluid">
@@ -55,22 +79,22 @@ export default function SourceAdduser() {
                     <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
-                          <h2>Source Details</h2>
+                          <h2>Brand Details</h2>
                         </div>
                       </div>
 
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-2">
-                            <div className="col-lg-6 ">
-                              <label> Source Name:</label>
+                          <div className="col-lg-6">
+                              <label>Brand Name</label>
                               <input
                                 type="text"
-                                placeholder="Enter Your Name"
-                                value={data.SourceName}
+                                value={data.brandName}
                                 onChange={handleChange}
-                                name="SourceName"
+                                name="brandName"
                                 className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
+                                placeholder='Enter Brands'
                               />
                             </div>
                           </div>
@@ -84,7 +108,7 @@ export default function SourceAdduser() {
                 <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation("/sources/source");
+                    navigation("/brands/brands");
                   }}
                 >
                   Back

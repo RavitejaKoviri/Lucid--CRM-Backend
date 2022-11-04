@@ -1,50 +1,87 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
-import {
-  CreateSource,
-  getcampaigns,
-  getcompanies,
-  getsource,
-  getsourceStatuses,
-} from "../../_redux/sourceAction";
+import { useLocation, useNavigate } from "react-router-dom";
+import { CreateDepartment, getcampaigns, getcompanies, getDepartmentById, getDepartmentStatuses, getsource, UpdateDepartment } from "../../_redux/departmentAction";
 
-export default function SourceAdduser() {
-  
-  
+export default function EditDepartment() {
+  const location = useLocation();
+  const [Department, setDepartment] = useState(false);
+  const id = location?.state
+  console.log(id, "location")
   const navigation = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector((state: any) => state?.auth?.authToken);
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
+  const user = useSelector(
+    (state: any) => state?.auth?.user
+  );
+
+  const company = useSelector(
+    (state: any) => state?.DepartmentData?.Comapnies
+  );
+
+  const DepartmentById = useSelector(
+    (state: any) => state?.DepartmentData?.DepartmentById
+  );
+
+
+  const companyId = useSelector(
+    (state: any) => state?.auth?.user?.company?.id
+  );
+
+  
 
   useEffect(() => {
-    dispatch(getsource(token));
-    dispatch(getcampaigns(token));
-    dispatch(getcompanies(token));
-    dispatch(getsourceStatuses(token));
-  }, []);
-  
-  const [data, setData] = useState({
-    SourceName: " ",
-  });
- 
+
+    dispatch(getcompanies(token))
+    dispatch(getDepartmentStatuses(token))
+  }, [])
+  useEffect(() => {
+    console.log(id, "TestId");
+    dispatch(getDepartmentById( token,companyId))
+    setDepartment(true);
+  }, [DepartmentById?.id])
+
+  useEffect(() => {
+    setData({
+      departmentName: DepartmentById?.departmentName,
+      company: DepartmentById?.company,
+    })
+    setDepartment(false);
+    console.log("hello")
+  }, [DepartmentById?.id])
+
+  const [data, setData] = useState(
+    {
+      departmentName: " ",
+      company: user?.company?.id,
+    })
+
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    
-      dispatch(CreateSource(data, token));
-    
+    if (id !== null) {
+      dispatch(UpdateDepartment(id, data, token));
+    }
+    else {
+
+      console.log(user, "data")
+      dispatch(CreateDepartment(data, token));
+    }
     setData({
-      SourceName: " ",
-    });
-    navigation("/sources/source");
+      departmentName: " ",
+      company: " ",
+    })
+    navigation("/department/department");
   };
-  
   return (
     <>
+     
       <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
           <div className="form d-flex flex-column flex-lg-row">
@@ -55,22 +92,22 @@ export default function SourceAdduser() {
                     <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
-                          <h2>Source Details</h2>
+                          <h2>Department Details</h2>
                         </div>
                       </div>
 
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-2">
-                            <div className="col-lg-6 ">
-                              <label> Source Name:</label>
+                          <div className="col-lg-6">
+                              <label>Department Name</label>
                               <input
                                 type="text"
-                                placeholder="Enter Your Name"
-                                value={data.SourceName}
+                                value={data.departmentName}
                                 onChange={handleChange}
-                                name="SourceName"
-                                className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
+                                name="departmentName"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter DepartMent"
                               />
                             </div>
                           </div>
@@ -84,7 +121,7 @@ export default function SourceAdduser() {
                 <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation("/sources/source");
+                    navigation("/department/department");
                   }}
                 >
                   Back

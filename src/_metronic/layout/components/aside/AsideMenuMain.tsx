@@ -83,7 +83,7 @@ export function AsideMenuMain() {
               <AsideMenuItem to='/department' title='Departments' fontIcon='bi-layers fs-3' />
 
               <AsideMenuItem to='/team-members' title='Team Members' fontIcon='bi-layers fs-3' />
-              <AsideMenuItem to='/settings/roles' title='Tickets' fontIcon='bi-layers fs-3' />
+              {/* <AsideMenuItem to='/settings/roles' title='Tickets' fontIcon='bi-layers fs-3' /> */}
               {/* <AsideMenuItem to='/settings/contacts' title='Targets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/contacts' title='Contacts' fontIcon='bi-layers fs-3' /> */}
 
@@ -323,7 +323,7 @@ export function AsideMenuMain() {
               <AsideMenuItem to='/department' title='Departments' fontIcon='bi-layers fs-3' />
 
               <AsideMenuItem to='/team-members' title='Team Members' fontIcon='bi-layers fs-3' />
-              <AsideMenuItem to='/settings/roles' title='Tickets' fontIcon='bi-layers fs-3' />
+              {/* <AsideMenuItem to='/settings/roles' title='Tickets' fontIcon='bi-layers fs-3' /> */}
               {/* <AsideMenuItem to='/settings/contacts' title='Targets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/contacts' title='Contacts' fontIcon='bi-layers fs-3' /> */}
 

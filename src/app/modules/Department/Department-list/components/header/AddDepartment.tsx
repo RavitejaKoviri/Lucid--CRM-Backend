@@ -1,14 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { CreateDepartment, getcampaigns, getcompanies, getDepartmentById, getDepartmentStatuses, getsource, UpdateDepartment } from "../../_redux/departmentAction";
+import {  useNavigate } from "react-router-dom";
+import { CreateDepartment,  } from "../../_redux/departmentAction";
 
 export default function AddDepartment() {
-  const location = useLocation();
-  const [Department, setDepartment] = useState(false);
-  const id = location?.state
-  console.log(id, "location")
+  
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector(
@@ -22,33 +19,16 @@ export default function AddDepartment() {
     (state: any) => state?.DepartmentData?.Comapnies
   );
 
-  const DepartmentById = useSelector(
-    (state: any) => state?.DepartmentData?.DepartmentById
-  );
+
   const companyId = useSelector(
     (state: any) => state?.auth?.user?.company?.id
   );
 
 
-  useEffect(() => {
+  
+  
 
-    dispatch(getcompanies(token))
-    dispatch(getDepartmentStatuses(token))
-  }, [])
-  useEffect(() => {
-    console.log(id, "TestId");
-    dispatch(getDepartmentById( token,companyId))
-    setDepartment(true);
-  }, [DepartmentById?.id])
-
-  useEffect(() => {
-    setData({
-      departmentName: DepartmentById?.departmentName,
-      company: DepartmentById?.company,
-    })
-    setDepartment(false);
-    console.log("hello")
-  }, [Department])
+ 
 
   const [data, setData] = useState(
     {
@@ -62,14 +42,11 @@ export default function AddDepartment() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    if (id !== null) {
-      dispatch(UpdateDepartment(id, data, token));
-    }
-    else {
+   
 
       console.log(user, "data")
       dispatch(CreateDepartment(data, token));
-    }
+    
     setData({
       departmentName: " ",
       company: " ",

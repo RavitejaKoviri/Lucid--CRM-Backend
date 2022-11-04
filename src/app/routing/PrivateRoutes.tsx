@@ -45,6 +45,12 @@ import Editcontact from '../modules/Contact/contacts-list/components/header/Edit
 import EditCampaign from '../modules/campaign/campaigns-list/components/header/Editcampaign'
 import EditCdr from '../modules/cdrs/cdrs-list/components/header/EditCdr'
 import EditCompany from '../modules/Company/Company-list/components/header/EditCompany'
+import EditDeals from '../modules/deal/deals-list/components/header/EditDeals'
+import EditTarget from '../modules/Targets/Target-list/components/header/EditTarget'
+import EditTicket from '../modules/Tickets/Ticket-list/components/header/EditTicket'
+import EditSource from '../modules/sources/sources-list/components/header/EditSources'
+import EditBrands from '../modules/Brand/Brands-list/components/header/EditBrands'
+import EditDepartment from '../modules/Department/Department-list/components/header/EditDepartment'
 
 
 
@@ -97,12 +103,22 @@ const PrivateRoutes = () => {
         <Route path='leads/list/EditLead' element={<EditLead />} />
         <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser />} />
         <Route path='target/target/targetadduser' element={<TargetAdduser />} />
+        <Route path='target/target/EditTarget' element={<EditTarget />} />
+
         <Route path='brands/brands/addBrands' element={<AddBrands />} />
+        <Route path='brands/brands/EditBrands' element={<EditBrands />} />
+
         <Route path='department/department/addDepartment' element={<AddDepartment />} />
+        <Route path='department/department/EditDepartment' element={<EditDepartment />} />
+
         {/* <Route path='brand/brand/addBrand' element={<AddBrand />} /> */}
 
         <Route path='deals/deals/dealsadduser' element={<DealsAdduser />} />
+        <Route path='deals/deals/EditDeal' element={<EditDeals />} />
+
         <Route path='ticket/ticket/ticketadduser' element={<TicketAdduser />} />
+        <Route path='ticket/ticket/EditTicket' element={<EditTicket />} />
+
         <Route path='tasks/tasks/taskAdduser' element={<TaskAdduser />} />
         <Route path='tasks/tasks/EditTask' element={<EditTask />} />
         <Route path='campaigns/campaigns/campaignadduser' element={<CampaignAdduser />} />
@@ -112,6 +128,8 @@ const PrivateRoutes = () => {
         <Route path='contacts/contacts/Editcontact' element={<Editcontact />} />
 
         <Route path='sources/source/addsource' element={<SourceAdduser />} />
+        <Route path='sources/source/EditSource' element={<EditSource />} />
+
 
         <Route path='cdr/cdr/cdradduser' element={<CdrAdduser />} />
         <Route path='cdr/cdr/cdradduser' element={<CdrAdduser />} />
