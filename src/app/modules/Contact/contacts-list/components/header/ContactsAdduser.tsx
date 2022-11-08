@@ -166,7 +166,35 @@ export default function ContactsAdduser() {
     });
     navigation('/contacts/contacts')
   };
-
+useEffect(()=>{
+  console.log("i was called");
+  setData({
+  company: "",
+  contactCompanyName: "",
+  contactName: "",
+  contactEmail: "",
+  contactMobile: "",
+  contactTitle: "",
+  contactFirstName: "",
+  contactLastName: "",
+  contactJobTitle: "",
+  contactCity: "",
+  contactAddress: "",
+  contactState: "",
+  contactPincode: "",
+  contactCountry: "",
+  contactWebsiteAddress: "",
+  contactSecondaryEmail: "",
+  contactNotes: "",
+  contactTwitterHandle: "",
+  contactFacebookHandle: "",
+  contactInstagramHandle: "",
+  contactLinkedinHandle: "",
+  contactSource: "",
+  campaignSource: "",
+  description: "",
+  image: [],
+})},[])
 
   return (
     <>

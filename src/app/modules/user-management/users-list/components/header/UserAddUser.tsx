@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateUser } from "../../_redux/userAction";
+import { CreateUser, fetchRoles } from "../../_redux/userAction";
 
 // import { FC, useState } from 'react'
 // import * as Yup from 'yup'
@@ -32,13 +32,20 @@ export default function UserAdduser() {
   // const company = useSelector((state: any) => state?.TargetData?.Comapnies);
   const status = useSelector((state: any) => state?.TargetData?.targetStatus);
   const user = useSelector((state: any) => state?.TargetData?.assignedTo);
+  const userAdmin = useSelector(
+    (state: any) => state?.auth?.user
+  );
   const targetsById = useSelector(
     (state: any) => state?.TargetData?.targetById
   );
   const userById = useSelector(
     (state: any) => state?.UserData?.UsersById
   );
-  console.log(userById, "userById");
+  const Roles = useSelector(
+    (state: any) => state?.ManageUserData?.Roles
+  );
+  console.log(Roles, "ASD");
+  const companyId=userAdmin?.company?.id
   
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
@@ -93,6 +100,8 @@ export default function UserAdduser() {
       gender:userById?.gender,
         image: userById?.image,
       description: userById?.description,
+      company:companyId,
+      role:""
      
   })
  
@@ -100,11 +109,11 @@ export default function UserAdduser() {
 }, [user])
 
 const handleSubmit = () => {
-  console.log(data);
-    dispatch(CreateUser(data, token));
+  console.log(data,"ASD");
+    dispatch(CreateUser(data,token));
     setData({
-      username:" ",
-      email:" ",
+      username:"",
+      email:"",
       password:'',
       mobile:'',
       firstname:'',
@@ -112,13 +121,15 @@ const handleSubmit = () => {
       gender:'',
       image: imageUrl,
       description: "",
+      company:companyId,
+      role:''
      
     })
   }
 
   const [data, setData] = useState({
-    username:" ",
-    email:" ",
+    username:"",
+    email:"",
     password:'',
    mobile:'',
    firstname:'',
@@ -126,13 +137,17 @@ const handleSubmit = () => {
    gender:'',
    image: imageUrl,
    description: "",
+   company:companyId,
+   role:""
  
   });
 
    const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value });
+    setData({ ...data, [e.target.name]: e.target.value, });
   };
-
+useEffect(()=>{
+  dispatch(fetchRoles(token))
+},[])
   return (
     <>
        <div
@@ -294,32 +309,32 @@ const handleSubmit = () => {
                         <form className="form">
                           <div className="form-group row mb-4">
                             <div className="col-lg-5">
-                              <label>UserName:</label>
+                              {/* <label>UserName:</label> */}
                               <input
                                  type="text"
                                  value={data.username}
                                  onChange={handleChange}
-                                 name="userName"
+                                 name="username"
                                  className="form-control form-control-lg form-control-solid"
-                                 placeholder=" "
+                                 placeholder="Enter Username "
                               />
                             </div>
                             <div className="col-lg-5">
-                              <label>Email:</label>
+                              {/* <label>Email:</label> */}
                               <input
                                 type="text"
                                 value={data.email}
                                  onChange={handleChange}
                                 name="email"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder=" "
+                                placeholder="Enter email "
                               />
                             </div>
                             </div>
 
                             <div className="form-group row mb-4">
                               <div className="col-lg-5">
-                                <label>Password:</label>
+                                {/* <label>Password:</label> */}
                                 <input
                                   type="text"
                                   name="password"
@@ -327,35 +342,35 @@ const handleSubmit = () => {
                                  onChange={handleChange}
                                   
                                   className="form-control form-control-lg form-control-solid"
-                                  placeholder=" "
+                                  placeholder=" Enter password"
                                 />
                               </div>
                               <div className="col-lg-5">
-                                <label className="form-label ">MobileNo:</label>
+                                {/* <label className="form-label ">MobileNo:</label> */}
                                 <input
                                   type="text"
-                                  name="mobileno"
+                                  name="mobile"
                                   value={data.mobile}
                                  onChange={handleChange}
                                   className="form-control form-control-lg form-control-solid"
-                                  placeholder=" "
+                                  placeholder="Enter mobilenumber "
                                 />
                               </div>
                             </div>
                             <div className="form-group row mb-4">
                               <div className="col-lg-5">
-                                <label>FirstName:</label>
+                                {/* <label>FirstName:</label> */}
                                 <input
                                   type="text"
-                                  name="firstName"
+                                  name="firstname"
                                   value={data.firstname}
                                  onChange={handleChange}
                                   className="form-control form-control-lg form-control-solid"
-                                  placeholder="firstname"
+                                  placeholder="Firstname"
                                 />
                               </div>
                               <div className="col-lg-5">
-                                <label>LastName:</label>
+                                {/* <label>LastName:</label> */}
                                 <input
                                   type="text"
                                   name="lastname"
@@ -367,11 +382,11 @@ const handleSubmit = () => {
                               </div>
                             </div>
                             <div className="form-group row mb-2">
-                              <div className="d-flex flex-column  col-lg-3">
-                                <label className="form-label">Gender</label>
+                              <div className="d-flex flex-column  col-lg-5">
+                                {/* <label className="form-label">Gender</label> */}
 
                                 <select
-                                className="form-select mb-2"
+                               className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -385,6 +400,24 @@ const handleSubmit = () => {
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                                 <option value="others">others</option>
+                              </select>
+                              </div>
+                              <div className="d-flex flex-column  col-lg-5">
+                                {/* <label className="form-label">Gender</label> */}
+
+                                <select
+                               className="form-control form-control-lg form-control-solid"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                name="role"
+                                value={data?.role}
+                                onChange={handleChange}
+                              >
+                                <option value="" disabled selected>
+                                  --Select Role--
+                                </option>
+                                {Roles?.map((item:any)=>(<option value={item?.id}>{item?.role}</option>)) }
                               </select>
                               </div>
                             </div>

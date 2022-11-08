@@ -80,7 +80,13 @@ export default function BookingAdduser() {
   const bookingById = useSelector(
     (state: any) => state?.booking?.BookingById
   );
-
+  useEffect(() => {
+    console.log("i was called");
+    
+    dispatch(fetchDoctors());
+    dispatch(fetchCity());
+    dispatch(fetchPatients());
+  }, []);
 
   // console.log(PatientData, "healthScan");
   const totalAmount = [
@@ -91,33 +97,7 @@ export default function BookingAdduser() {
     .reduce((a, b) => a + b, 0)
     .toString();
   console.log(bookingById, "bookingById");
-  useEffect(() => {
-    setData({
-      fullName: bookingById?.fullName,
-      email: bookingById?.email,
-      mobileNumber: bookingById?.mobileNumber,
-      dateOfAppointment: bookingById?.dateOfAppointment,
-      branch: bookingById?.branch,
-      message: bookingById?.message,
-      doctor: bookingById?.doctor,
-      type: bookingById?.type,
-      healthPackages: bookingById?.healthPackages,
-      healthScans: bookingById?.healthScans,
-      paymentId: bookingById?.paymentId,
-      paymentStatus: bookingById?.paymentStatus,
-      paymentMode: bookingById?.paymentMode,
-      city: bookingById?.city,
-      gender: bookingById?.gender,
-      patient: bookingById?.patient,
-      branchwisetests: bookingById?.branchwisetests,
-      totalAmount: bookingById?.totalAmount,
-      address: bookingById?.address,
-      age: bookingById?.age,
-      user: userID,
-    })
-    setBooking(false);
-    console.log("hello")
-  }, [booking])
+ 
   const [data, setData] = useState({
     fullName: "",
     email: "",
@@ -196,11 +176,6 @@ export default function BookingAdduser() {
     }
 
   }
-  useEffect(() => {
-    dispatch(fetchDoctors());
-    dispatch(fetchCity());
-    dispatch(fetchPatients());
-  }, []);
 
   useEffect(() => {
     console.log(id, "TestId");
@@ -216,7 +191,33 @@ export default function BookingAdduser() {
     dispatch(fetchBranchAddressesByCityId(data?.city));
   }, [data?.city]);
 
-
+  useEffect(() => {
+    console.log("i was called too");
+    setData({
+      fullName: bookingById?.fullName,
+      email: bookingById?.email,
+      mobileNumber: bookingById?.mobileNumber,
+      dateOfAppointment: bookingById?.dateOfAppointment,
+      branch: bookingById?.branch,
+      message: bookingById?.message,
+      doctor: bookingById?.doctor,
+      type: bookingById?.type,
+      healthPackages: bookingById?.healthPackages,
+      healthScans: bookingById?.healthScans,
+      paymentId: bookingById?.paymentId,
+      paymentStatus: bookingById?.paymentStatus,
+      paymentMode: bookingById?.paymentMode,
+      city: bookingById?.city,
+      gender: bookingById?.gender,
+      patient: bookingById?.patient,
+      branchwisetests: bookingById?.branchwisetests,
+      totalAmount: bookingById?.totalAmount,
+      address: bookingById?.address,
+      age: bookingById?.age,
+      user: userID,
+    })
+    setBooking(false);
+  }, [booking])
   const handleSubmit = (i: any) => {
     if (id !== null) {
       dispatch(Updatebooking(id, data, token));
@@ -237,19 +238,19 @@ export default function BookingAdduser() {
     }
 
     setData({
-      fullName: " ",
-      email: " ",
-      mobileNumber: " ",
+      fullName: "",
+      email: "",
+      mobileNumber: "",
       dateOfAppointment: new Date(),
-      branch: " ",
-      message: " ",
-      doctor: " ",
-      type: " ",
+      branch: "",
+      message: "",
+      doctor: "",
+      type: "",
       // appointmentStatus: "",
       healthPackages: [],
       healthScans: [],
-      paymentId: " ",
-      paymentStatus: " ",
+      paymentId: "",
+      paymentStatus: "",
       paymentMode: "",
       city: "",
       gender: "",
@@ -325,6 +326,30 @@ export default function BookingAdduser() {
         .catch(() => { });
   };
 
+  useEffect(()=>{ setData({
+    fullName: "",
+    email: "",
+    mobileNumber: "",
+    dateOfAppointment: new Date(),
+    branch: "",
+    message: "",
+    doctor: "",
+    type: "",
+    // appointmentStatus: "",
+    healthPackages: [],
+    healthScans: [],
+    paymentId: "",
+    paymentStatus: "",
+    paymentMode: "",
+    city: "",
+    gender: "",
+    patient: "",
+    branchwisetests: [],
+    totalAmount: "",
+    address: "",
+    age: "",
+    user: [],
+  })},[])
   return (
     <>
       <div

@@ -115,6 +115,7 @@ const TargetIndex = () => {
       // },
     ],
   };
+  console.log(boards,"Board");
   function handleCardMove(board, card, source, destination) {
     axios
       .get(

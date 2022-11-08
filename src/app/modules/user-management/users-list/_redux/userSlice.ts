@@ -4,7 +4,8 @@ import storage from "redux-persist/lib/storage";
 const initialProductsState = {
   Users: [],
   UsersById:[],
-  Createuser:[]
+  Createuser:[],
+  Roles:[]
 };
 
 export const callTypes = {
@@ -45,6 +46,10 @@ export const ManageUserSlice = createSlice({
     fetchedUser: (state, action) => {
       const { data } = action.payload;
       state.Createuser = data;
+    },
+    fetchedRoles: (state, action) => {
+      const { data } = action.payload;
+      state.Roles = data;
     },
 
 

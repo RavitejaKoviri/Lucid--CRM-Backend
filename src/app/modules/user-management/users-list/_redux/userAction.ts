@@ -33,12 +33,24 @@ export const getUsersById = (id: any, token: any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
-export const CreateUser = (data: any, token: any) => (dispatch: any) =>
+export const CreateUser = (data: any,token:any) => (dispatch: any) =>
   requestFromServer
-    .CreateUser(data, token)
+    .CreateUser(data,token)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedUser({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+    export const fetchRoles = (token:any) => (dispatch: any) =>
+  requestFromServer
+    .getRoles(token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedRoles({ data }));
     })
     .catch((error) => {
       // eslint-disable-next-line no-param-reassign

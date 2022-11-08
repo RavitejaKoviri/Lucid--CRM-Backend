@@ -34,10 +34,46 @@ export default function LeadAdduser() {
   console.log(leadById, "leadById");
   console.log(leadById?.id, "leadById1");
 
+  useEffect(()=>{  dispatch(getsource(token))
+    dispatch(getcampaigns(token))
+    dispatch(getcompanies(token))
+    dispatch(getleadStatuses(token))},[])
 
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
   const [preview, setPreview] = useState();
+  const [data, setData] = useState(
+    {
+      leadFirstName: "",
+      leadPhonenumber: "",
+      leadIndustry: "",
+      leadGender: "",
+      leadAppointmentDate: "",
+      leadAnnualRevenueContribution: "",
+      leadEmailOptOut: "",
+      leadStatusName: "",
+      leadCompanyName: "",
+      leadLastName: "",
+      leadEmail: "",
+      leadWebsite: "",
+      leadStatusId: "",
+      leadLocationName: "",
+      utmSource: "",
+      utmCampaign: "",
+      utmAdgroup: "",
+      utmTerm: "",
+      utmMedium: "",
+      leadId: "",
+      leadSource: "",
+      leadBusinessUnit: "",
+      campaignSource: "",
+      leadSpecialityName: "",
+      company: user?.company?.id,
+      leadStatus: "",
+      leadOwner: user?.id,
+      image: imageUrl,
+      description: "",
+    })
   useEffect(() => {
     if (!selectedPreviewFile) {
       setPreview(undefined);
@@ -87,38 +123,7 @@ export default function LeadAdduser() {
 
 
 
-  const [data, setData] = useState(
-    {
-      leadFirstName: "",
-      leadPhonenumber: "",
-      leadIndustry: "",
-      leadGender: "",
-      leadAppointmentDate: "",
-      leadAnnualRevenueContribution: "",
-      leadEmailOptOut: "",
-      leadStatusName: "",
-      leadCompanyName: "",
-      leadLastName: "",
-      leadEmail: "",
-      leadWebsite: "",
-      leadStatusId: "",
-      leadLocationName: "",
-      utmSource: "",
-      utmCampaign: "",
-      utmAdgroup: "",
-      utmTerm: "",
-      utmMedium: "",
-      leadId: "",
-      leadSource: "",
-      leadBusinessUnit: "",
-      campaignSource: "",
-      leadSpecialityName: "",
-      company: user?.company?.id,
-      leadStatus: "",
-      leadOwner: user?.id,
-      image: imageUrl,
-      description: "",
-    })
+  
 
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: user?.company?.id });
@@ -161,6 +166,40 @@ export default function LeadAdduser() {
     })
     navigation('/leads/list')
   };
+  useEffect(() => {
+    console.log(" i was called ");
+    setData({
+      leadFirstName: "",
+      leadPhonenumber: "",
+      leadIndustry: "",
+      leadGender: "",
+      leadAppointmentDate: "",
+      leadStatusName: "",
+      leadLocationName: "",
+      utmSource: "",
+      utmMedium: "",
+      utmCampaign: "",
+      leadId: "",
+      leadBusinessUnit: "",
+      utmTerm: "",
+      utmAdgroup: "",
+      leadAnnualRevenueContribution: "",
+      leadEmailOptOut: "",
+      leadCompanyName: "",
+      leadLastName: "",
+      leadSpecialityName: "",
+      leadEmail: "",
+      leadWebsite: "",
+      leadSource: "",
+      leadStatusId: "",
+      campaignSource: "",
+      company: "",
+      leadStatus: "",
+      leadOwner: "",
+      image: [],
+      description: "",
+    })
+  }, [])
   return (
     <>
       <div
