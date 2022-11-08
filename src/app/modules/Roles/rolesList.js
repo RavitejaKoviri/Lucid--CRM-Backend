@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { fetchRoleById, fetchRoles } from "../user-management/users-list/_redux/userAction";
 import {
   fetchAllModules,
-  fetchAllUsers,
-  fetchUserById,
 } from "./redux/rolesAction";
 
 function RolesListHeader() {
@@ -202,10 +201,11 @@ function RolesListHeader() {
 function RolesListCard(props) {
 	const dispatch=useDispatch();
   const { id, roleName } = props;
+  const navigate=useNavigate()
   const token = useSelector((state) => state?.auth?.authToken);
   const handleClick = () => {
 	console.log(id,"sdf");
-    dispatch(fetchUserById(token, id));
+    dispatch(fetchRoleById( id,token));
   };
 
   return (
@@ -244,13 +244,19 @@ function RolesListCard(props) {
           </div>
         </div>
         <div class="card-footer flex-wrap pt-0">
-          <a
-            href="../../demo6/dist/apps/user-management/roles/view.html"
-            class="btn btn-light btn-active-primary my-1 me-2"
+          
+        <button
+            type="button"
+            class="btn btn-light btn-active-light-primary my-1"
+            onClick={() => {
+              handleClick();
+              navigate("/apps/user-management/roles/view")
+            }}
           >
             View Role
-          </a>
-          <button
+          </button>
+         
+            <button
             type="button"
             class="btn btn-light btn-active-light-primary my-1"
             data-bs-toggle="modal"
@@ -309,17 +315,22 @@ function RolesPermissionsDetails(props) {
 
 function RolesList() {
   const dispatch = useDispatch();
-  const AllUsers = useSelector((state) => state?.Roles?.Users);
   const UserById = useSelector((state) => state?.Roles?.UserById);
   const AllModules = useSelector((state) => state?.Roles?.Modules);
   const token = useSelector((state) => state?.auth?.authToken);
+  const Roles = useSelector(
+    (state) => state?.ManageUserData?.Roles
+  );
+  const RoleById = useSelector(
+    (state) => state?.ManageUserData?.RoleById
+  );
   useEffect(() => {
-    dispatch(fetchAllUsers(token));
+    dispatch(fetchRoles(token))
   }, []);
   useEffect(() => {
     dispatch(fetchAllModules(token));
   }, [UserById?.id]);
-  console.log(UserById, "UserById");
+  console.log(RoleById, "ASD");
 
   const RoleName=({roleName})=> {
     return <input
@@ -338,8 +349,8 @@ function RolesList() {
           {/*begin::Row */}
           <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5 g-xl-9">
             {/*begin::Col */}
-            {AllUsers?.map((item) => (
-              <RolesListCard id={item?.id} roleName={item?.username} />
+            {Roles?.map((item) => (
+              <RolesListCard id={item?.id} roleName={item?.role} />
             ))}
             <div class="ol-md-4">
               {/*begin::Card */}
@@ -446,9 +457,9 @@ function RolesList() {
                         </label>
                         {/*end::Label */}
                         {/*begin::Input */}
-                        {UserById?.map((item) => (
-                          <RoleName roleName={item?.username} />
-                        ))}
+                        
+                          <RoleName roleName={RoleById?.role} />
+                       
                         {/*end::Input */}
                       </div>
                       {/*end::Input group */}

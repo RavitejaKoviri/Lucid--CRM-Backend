@@ -46,6 +46,8 @@ export default function UserAdduser() {
   );
   console.log(Roles, "ASD");
   const companyId=userAdmin?.company?.id
+  console.log(companyId,"ASD");
+  
   
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
@@ -101,7 +103,7 @@ export default function UserAdduser() {
         image: userById?.image,
       description: userById?.description,
       company:companyId,
-      role:""
+      rolebasedaccess:""
      
   })
  
@@ -122,7 +124,7 @@ const handleSubmit = () => {
       image: imageUrl,
       description: "",
       company:companyId,
-      role:''
+      rolebasedaccess:""
      
     })
   }
@@ -138,7 +140,7 @@ const handleSubmit = () => {
    image: imageUrl,
    description: "",
    company:companyId,
-   role:""
+   rolebasedaccess:""
  
   });
 
@@ -410,8 +412,8 @@ useEffect(()=>{
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
-                                name="role"
-                                value={data?.role}
+                                name="rolebasedaccess"
+                                value={data?.rolebasedaccess}
                                 onChange={handleChange}
                               >
                                 <option value="" disabled selected>

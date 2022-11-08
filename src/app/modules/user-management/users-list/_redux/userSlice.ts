@@ -5,7 +5,9 @@ const initialProductsState = {
   Users: [],
   UsersById:[],
   Createuser:[],
-  Roles:[]
+  Roles:[],
+  RoleById:[],
+  UsersByCompanyId:[]
 };
 
 export const callTypes = {
@@ -50,6 +52,14 @@ export const ManageUserSlice = createSlice({
     fetchedRoles: (state, action) => {
       const { data } = action.payload;
       state.Roles = data;
+    },
+    fetchedRoleById: (state, action) => {
+      const { data } = action.payload;
+      state.RoleById = data;
+    },
+    fetchedUsersByCompanyId: (state, action) => {
+      const { data } = action.payload;
+      state.UsersByCompanyId = data;
     },
 
 

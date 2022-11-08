@@ -29,3 +29,14 @@ export function getRoles(token:any) {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
+export function getRoleById(id:any,token:any) {
+  return axios.get(`${ROLES}/${id}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+export function getAllUsersByCompanyId(id: any, token: any) {
+
+  return axios.get(`${USER}?company=${id}`, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
