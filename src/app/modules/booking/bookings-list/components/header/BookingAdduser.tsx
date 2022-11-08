@@ -687,8 +687,8 @@ export default function BookingAdduser() {
                                   customInput={
                                     <input
                                       // type="date"
-                                      placeholder="Select"
-                                      style={{ height: "40px", width: "350px" }}
+                                      placeholder="Select Date and Time"
+                                      className="form-control form-control-lg form-control-solid"
                                     />
                                   }
                                 />

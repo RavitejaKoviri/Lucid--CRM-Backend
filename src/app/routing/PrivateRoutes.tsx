@@ -17,13 +17,19 @@ import TicketAdduser from '../modules/Tickets/Ticket-list/components/header/Tick
 
 import DealsAdduser from '../modules/deal/deals-list/components/header/DealsAdduser'
 import { Campaigns } from '../pages/campaigns/campaigns'
-import { EmailCampaigns } from '../pages/campaigns/emailCampaigns'
-import { SocialCampaigns } from '../pages/campaigns/socialCampaigns'
+// import { EmailCampaigns } from '../pages/campaigns/emailCampaigns'
+// import { SocialCampaigns } from '../pages/campaigns/socialCampaigns'
 import { PageCampaigns } from '../pages/campaigns/pageCampaigns'
 import { PostCampaigns } from '../pages/campaigns/postCampaingns'
 import TaskAdduser from '../modules/task/tasks-list/components/header/TaskAdduser'
 import ContactsAdduser from '../modules/Contact/contacts-list/components/header/ContactsAdduser'
 import CampaignAdduser from '../modules/campaign/campaigns-list/components/header/CampaignAdduser'
+import CampaignCreate from '../modules/campaign/campaigns-list/components/body/campaignCreate'
+import SignupForm from '../modules/campaign/campaigns-list/components/body/components/signupForm'
+import Templates from '../modules/campaign/campaigns-list/components/body/components/formTemplates'
+import EmailCampaign from '../modules/campaign/campaigns-list/components/body/components/emailCampaign'
+import CampaignAutomation from '../modules/campaign/campaigns-list/components/body/components/campaignAutomation'
+import SocialCampaigns from '../modules/campaign/campaigns-list/components/body/components/socialCampaigns'
 import SourceAdduser from '../modules/sources/sources-list/components/header/SourcesAdduser'
 
 // import SourcesAdduser from '../modules/sources/sources-list/components/header/SourcesAdduser'
@@ -83,8 +89,8 @@ const PrivateRoutes = () => {
   return (
     <Routes>
       <Route path='/leads/landingPages' element={<Campaigns />} />
-      <Route path='/leads/email' element={<EmailCampaigns />} />
-      <Route path='/leads/social' element={<SocialCampaigns />} />
+      {/* <Route path='/leads/email' element={<EmailCampaigns />} /> */}
+      {/* <Route path='/leads/social' element={<SocialCampaigns />} /> */}
       <Route path='/leads/social/pagecampaign' element={<PageCampaigns />} />
       <Route path='/leads/social/postcampaign' element={<PostCampaigns />} />
       {/* <Route path= '/Campaigns/Campaigns' element={<CampaignPage />} /> */}
@@ -123,6 +129,12 @@ const PrivateRoutes = () => {
         <Route path='tasks/tasks/EditTask' element={<EditTask />} />
         <Route path='campaigns/campaigns/campaignadduser' element={<CampaignAdduser />} />
         <Route path='campaigns/campaigns/EditCampaign' element={<EditCampaign />} />
+        <Route path='campaigns/campaigns/campaigncreate' element={<CampaignCreate />} />
+        <Route path='campaigns/campaigns/campaigncreate/signupform' element={<SignupForm />} />
+        <Route path='campaigns/campaigns/campaigncreate/signupform/templates' element={<Templates />} />
+        <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />}/>
+        <Route path='campaigns/campaigns/campaigncreate/campaignautomation' element={<CampaignAutomation />}/>
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />}/>
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
         <Route path='contacts/contacts/Editcontact' element={<Editcontact />} />
