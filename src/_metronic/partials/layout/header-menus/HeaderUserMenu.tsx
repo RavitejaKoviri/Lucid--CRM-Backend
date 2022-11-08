@@ -4,21 +4,19 @@ import { Link } from 'react-router-dom'
 import { useAuth } from '../../../../app/modules/auth'
 import { Languages } from './Languages'
 import { toAbsoluteUrl } from '../../../helpers'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { actions } from '../../../../app/modules/auth/_redux/authRedux'
 
 const HeaderUserMenu: FC = () => {
   const { currentUser } = useAuth()
+  const dispatch = useDispatch()
   const user = useSelector(
     (state: any) => state?.auth?.user
   );
   console.log(user, "user");
 
   const logout = () => {
-
-    localStorage.removeItem("persist:root");
-    window.location.reload();
-    // window.location.replace("/");
-
+    dispatch(actions.logout())
   }
   return (
     <div
