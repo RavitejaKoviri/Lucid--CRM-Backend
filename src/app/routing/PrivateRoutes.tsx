@@ -30,6 +30,7 @@ import Templates from '../modules/campaign/campaigns-list/components/body/compon
 import EmailCampaign from '../modules/campaign/campaigns-list/components/body/components/emailCampaign'
 import CampaignAutomation from '../modules/campaign/campaigns-list/components/body/components/campaignAutomation'
 import SocialCampaigns from '../modules/campaign/campaigns-list/components/body/components/socialCampaigns'
+import SocialMediaPost from '../modules/campaign/campaigns-list/components/body/components/socialmedia-campaigns/socialMediaPost'
 import SourceAdduser from '../modules/sources/sources-list/components/header/SourcesAdduser'
 
 // import SourcesAdduser from '../modules/sources/sources-list/components/header/SourcesAdduser'
@@ -133,9 +134,10 @@ const PrivateRoutes = () => {
         <Route path='campaigns/campaigns/campaigncreate' element={<CampaignCreate />} />
         <Route path='campaigns/campaigns/campaigncreate/signupform' element={<SignupForm />} />
         <Route path='campaigns/campaigns/campaigncreate/signupform/templates' element={<Templates />} />
-        <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />} />
-        <Route path='campaigns/campaigns/campaigncreate/campaignautomation' element={<CampaignAutomation />} />
-        <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />} />
+        <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />}/>
+        <Route path='campaigns/campaigns/campaigncreate/campaignautomation' element={<CampaignAutomation />}/>
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />}/>
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign/socialmediapost' element={<SocialMediaPost />}/>
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
         <Route path='contacts/contacts/Editcontact' element={<Editcontact />} />

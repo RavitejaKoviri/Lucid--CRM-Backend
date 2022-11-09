@@ -18,8 +18,8 @@ function CampaignCreate() {
                 <div onClick={()=>{navigation("emailcampaign")}} className="col my-5 d-flex" style={{cursor:'pointer'}}>
                   <i class="bi bi-envelope fa-2x my-4 me-5"></i>
                   <div>
-                    <h5 class="card-title">Email Campaign</h5>
-                    <p class="card-text my-3">
+                    <h5 class="card-title" style={{color:'#24a0ed'}}>Email Campaign</h5>
+                    <p class="card-text my-3" style={{color:'#888888'}}>
                       Create and send regular email campaigns to your contacts.
                     </p>
                   </div>
@@ -27,8 +27,8 @@ function CampaignCreate() {
                 <div onClick={()=>{navigation("signupform")}} className="col my-5 d-flex" style={{cursor:'pointer'}}>
                   <i class="bi bi-input-cursor fa-2x my-4 me-5"></i>
                   <div>
-                    <h5 class="card-title">Signup Form</h5>
-                    <p class="card-text my-3">
+                    <h5 class="card-title" style={{color:'#24a0ed'}}>Signup Form</h5>
+                    <p class="card-text my-3" style={{color:'#888888'}}>
                       Increase conversion rates by turning your website visitors
                       into contacts using signup forms.
                     </p>
@@ -40,8 +40,8 @@ function CampaignCreate() {
                 <div onClick={()=>{navigation("automation")}} className="col my-5 d-flex" style={{cursor:'pointer'}}>
                 <i class="bi bi-gear fa-2x my-4 me-5"></i>
                 <div>
-                  <h5 class="card-title">Automation</h5>
-                  <p class="card-text my-3">
+                  <h5 class="card-title" style={{color:'#24a0ed'}}>Automation</h5>
+                  <p class="card-text my-3" style={{color:'#888888'}}>
                     Initiate automated message series and action flows for
                     contacts based on their activities using workflows. Send
                     automated emails with autoresponders.
@@ -52,8 +52,8 @@ function CampaignCreate() {
                 <div onClick={()=>{navigation("socialcampaign")}} className="col my-5 d-flex" style={{cursor:'pointer'}}>
                 <i class="bi bi-share fa-2x my-4 me-5" ></i>
                 <div>
-                  <h5 class="card-title">Social Campaign</h5>
-                  <p class="card-text my-3">
+                  <h5 class="card-title" style={{color:'#24a0ed'}}>Social Campaign</h5>
+                  <p class="card-text my-3" style={{color:'#888888'}}>
                     Reach out to your followers and engage with them by posting
                     your campaigns on social media.
                   </p>
