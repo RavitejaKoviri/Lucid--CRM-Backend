@@ -134,9 +134,9 @@ export default function LeadAdduser() {
     console.log(data, "EDIT_PROFILE");
     dispatch(CreateLead(data, token));
     setData({
-      leadFirstName: " ",
-      leadPhonenumber: " ",
-      leadIndustry: " ",
+      leadFirstName: "",
+      leadPhonenumber: "",
+      leadIndustry: "",
       leadGender: "",
       leadAppointmentDate: "",
       leadStatusName: "",
@@ -148,19 +148,19 @@ export default function LeadAdduser() {
       leadBusinessUnit: "",
       utmTerm: "",
       utmAdgroup: "",
-      leadAnnualRevenueContribution: " ",
-      leadEmailOptOut: " ",
-      leadCompanyName: " ",
-      leadLastName: " ",
+      leadAnnualRevenueContribution: "",
+      leadEmailOptOut: "",
+      leadCompanyName: "",
+      leadLastName: "",
       leadSpecialityName: "",
-      leadEmail: " ",
-      leadWebsite: " ",
-      leadSource: " ",
+      leadEmail: "",
+      leadWebsite: "",
+      leadSource: "",
       leadStatusId: "",
-      campaignSource: " ",
-      company: " ",
-      leadStatus: " ",
-      leadOwner: " ",
+      campaignSource: "",
+      company: "",
+      leadStatus: "",
+      leadOwner: "",
       image: [],
       description: "",
     })
@@ -509,7 +509,7 @@ export default function LeadAdduser() {
                               />
                             </div>
                           </div> */}
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>Lead FirstName:</label> */}
                           <input
@@ -518,7 +518,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadFirstName"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter FirstName"
+                            placeholder="Enter First Name"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -528,11 +528,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadLastName"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter LastNamer"
+                            placeholder="Enter Last Name"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>PhoneNumber:</label> */}
                           <input
@@ -541,7 +541,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadPhonenumber"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter PhoneNumber"
+                            placeholder="Enter Phone Number"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -556,7 +556,7 @@ export default function LeadAdduser() {
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         {/* <div className="col-lg-6">
                               <label>Gender:</label>
                               <input
@@ -574,7 +574,7 @@ export default function LeadAdduser() {
                             className='form-select form-select-solid form-select-lg'
                             // data-control="select2"
                             // data-hide-search="true"
-                            name="gender"
+                            name="leadGender"
                             value={data?.leadGender}
                             onChange={handleChange}
                           >
@@ -589,16 +589,17 @@ export default function LeadAdduser() {
                         <div className="col-lg-6">
                           {/* <label>AppointmentDate:</label> */}
                           <input
-                            type="date"
+                            type="text"
                             value={data.leadAppointmentDate}
                             onChange={handleChange}
+                          onFocus={(e)=>{e.target.type="date"}}
                             name="leadAppointmentDate"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter AppointmentDate"
+                            placeholder="Enter Appointment Date"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>StatusName:</label> */}
                           <input
@@ -607,7 +608,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadStatusName"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter StatusName"
+                            placeholder="Enter Status Name"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -618,11 +619,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadStatusId"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter StatusID"
+                            placeholder="Enter Status ID"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>Speciality Name:</label> */}
                           <input
@@ -631,7 +632,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadSpecialityName"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter SpecialityName"
+                            placeholder="Enter Speciality Name"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -646,7 +647,7 @@ export default function LeadAdduser() {
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>utmSource:</label> */}
                           <input
@@ -655,7 +656,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmSource"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmSource"
+                            placeholder="Enter utm Source"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -666,11 +667,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmMedium"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmMedium"
+                            placeholder="Enter utm Medium"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>utmCampaign:</label> */}
                           <input
@@ -679,7 +680,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmCampaign"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmCampaign"
+                            placeholder="Enter utm Campaign"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -689,11 +690,11 @@ export default function LeadAdduser() {
                             value={data.leadBusinessUnit}
                             onChange={handleChange}
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter leadBusinessUnit"
+                            placeholder="Enter lead Business Unit"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>utmTerm:</label> */}
                           <input
@@ -702,7 +703,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmTerm"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmTerm"
+                            placeholder="Enter utm Term"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -713,11 +714,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmAdgroup"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmAdgroup"
+                            placeholder="Enter utm Adgroup"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>EmailOptOut:</label> */}
                           <input
@@ -726,7 +727,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadEmailOptOut"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter EmailOptOut"
+                            placeholder="Enter Email Opt Out"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -741,7 +742,7 @@ export default function LeadAdduser() {
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>AnnualRevenue:</label> */}
                           <input
@@ -750,7 +751,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadAnnualRevenueContribution"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter AnnualRevenue"
+                            placeholder="Enter Annual Revenue"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -761,11 +762,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadCompanyName"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter CompanyName"
+                            placeholder="Enter Company Name"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row mb-4">
                         <div className="col-lg-6">
                           {/* <label>Website:</label> */}
                           <input

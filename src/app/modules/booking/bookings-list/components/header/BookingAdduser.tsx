@@ -387,7 +387,7 @@ export default function BookingAdduser() {
                                 type="text"
                                 name="fullName"
                                className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter fullName"
+                                placeholder="Enter Full Name"
                                 value={data?.fullName}
                                 onChange={handleChange}
                               />
@@ -410,7 +410,7 @@ export default function BookingAdduser() {
                               <input
                                 type="text"
                                className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter PhoneNumber"
+                                placeholder="Enter Phone Number"
                                 name="mobileNumber"
                                 value={data?.mobileNumber}
                                 onChange={handleChange}

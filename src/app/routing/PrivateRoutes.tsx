@@ -136,7 +136,7 @@ const PrivateRoutes = () => {
         <Route path='campaigns/campaigns/campaigncreate/signupform' element={<SignupForm />} />
         <Route path='campaigns/campaigns/campaigncreate/signupform/templates' element={<Templates />} />
         <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />}/>
-        <Route path='campaigns/campaigns/campaigncreate/campaignautomation' element={<CampaignAutomation />}/>
+        <Route path='campaigns/campaigns/campaigncreate/automation' element={<CampaignAutomation />}/>
         <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />}/>
         <Route path='campaigns/campaigns/campaigncreate/socialcampaign/socialmediapost' element={<SocialMediaPost />}/>
         <Route path='campaigns/campaigns/campaigncreate/socialcampaign/facebookpost' element={<FacebookPost />}/>

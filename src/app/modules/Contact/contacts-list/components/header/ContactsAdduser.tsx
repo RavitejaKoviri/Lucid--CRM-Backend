@@ -458,7 +458,7 @@ useEffect(()=>{
                               {/* <label>Name:</label> */}
                               <input
                                 type="text"
-                                placeholder="contactName"
+                                placeholder="Contact Name"
                                 value={data.contactName}
                                 name="contactName"
                                 onChange={handleChange}
@@ -489,7 +489,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactFirstName"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="FirstName"
+                                placeholder="First Name"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -500,7 +500,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactLastName"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="LastName"
+                                placeholder="Last Name"
                               />
                             </div>
                           </div>
@@ -513,7 +513,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactSecondaryEmail"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="SecondaryEmail"
+                                placeholder="Secondary Email"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -548,7 +548,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactJobTitle"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="JobTitle"
+                                placeholder="Job Title"
                               />
                             </div>
                           </div>
@@ -561,7 +561,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactCompanyName"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="CompanyName"
+                                placeholder="Company Name"
 
                               />
                             </div>
@@ -635,7 +635,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactWebsiteAddress"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="WebsiteAddress"
+                                placeholder="Website Address"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -660,7 +660,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactTwitterHandle"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="TwitterHandle"
+                                placeholder="Twitter Handle"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -671,7 +671,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactLinkedinHandle"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="LinkedinHandle"
+                                placeholder="Linkedin Handle"
                               />
                             </div>
                           </div>
@@ -684,7 +684,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactFacebookHandle"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="FacebookHandle"
+                                placeholder="Facebook Handle"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -695,7 +695,7 @@ useEffect(()=>{
                                 onChange={handleChange}
                                 name="contactInstagramHandle"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="InstagramHandle"
+                                placeholder="Instagram Handle"
                               />
                             </div>
                           </div>

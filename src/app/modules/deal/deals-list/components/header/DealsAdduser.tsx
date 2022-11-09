@@ -383,7 +383,7 @@ export default function DealsAdduser() {
                             onChange={handleChange}
                             name="dealName"
                           className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter FirstName"
+                            placeholder="Enter First Name"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -394,7 +394,7 @@ export default function DealsAdduser() {
                             onChange={handleChange}
                             name="dealContactPersonName"
                           className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter PhoneNumber"
+                            placeholder="Enter Phone Number"
                           />
                         </div>
                       </div>
@@ -432,7 +432,7 @@ export default function DealsAdduser() {
                             onChange={handleChange}
                             name="dealContactPersonEmail"
                           className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter AnnualRevenue"
+                            placeholder="Enter Annual Revenue"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -445,7 +445,7 @@ export default function DealsAdduser() {
                             onChange={handleChange}
                             name="dealContactPersonAlternatePhoneNumber"
                           className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter CompanyName"
+                            placeholder="Enter Company Name"
                           />
                         </div>
                       </div>
@@ -463,7 +463,7 @@ export default function DealsAdduser() {
                             className="form-control form-control-lg form-control-solid"
                           >
                             <option>
-                              --Select --
+                              Select
                             </option>
                             <option value="ExistingBusiness">Existing Business</option>
                             <option value="NewBusiness">New Business </option>
