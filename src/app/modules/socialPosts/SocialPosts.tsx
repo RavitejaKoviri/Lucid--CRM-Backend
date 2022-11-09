@@ -1,9 +1,9 @@
 import React from 'react'
-import {Navigate, Route, Routes, Outlet} from 'react-router-dom'
-import {PageLink, PageTitle} from '../../../_metronic/layout/core'
+import { Navigate, Route, Routes, Outlet } from 'react-router-dom'
+import { PageLink, PageTitle } from '../../../_metronic/layout/core'
 import { FaceBookPosts } from './socialPosts-list/components/FaceBookPosts'
 import { TwitterTweets } from './socialPosts-list/components/TwitterTweets'
-import {Social} from './socialPosts-list/Social'
+import { Social } from './socialPosts-list/Social'
 
 const accountBreadCrumbs: Array<PageLink> = [
   {

@@ -31,7 +31,7 @@ export default function EditDepartment() {
     (state: any) => state?.auth?.user?.company?.id
   );
 
-  
+
 
   useEffect(() => {
 
@@ -40,7 +40,7 @@ export default function EditDepartment() {
   }, [])
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getDepartmentById( token,companyId))
+    dispatch(getDepartmentById(token, id))
     setDepartment(true);
   }, [DepartmentById?.id])
 
@@ -81,7 +81,7 @@ export default function EditDepartment() {
   };
   return (
     <>
-     
+
       <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
           <div className="form d-flex flex-column flex-lg-row">
@@ -99,7 +99,7 @@ export default function EditDepartment() {
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-2">
-                          <div className="col-lg-6">
+                            <div className="col-lg-6">
                               <label>Department Name</label>
                               <input
                                 type="text"

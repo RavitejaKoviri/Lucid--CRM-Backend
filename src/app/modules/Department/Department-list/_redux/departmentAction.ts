@@ -20,10 +20,10 @@ export const getDepartment = (token: any) => (dispatch: any) => {
     });
 };
 
-export const getDepartmentById = (token: any,companyId:any) => (dispatch: any) => {
+export const getDepartmentById = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllDepartmentById(token,companyId)
+    .getAllDepartmentById(token, companyId?.id)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllDepartmentDetailsById({ data }));
@@ -106,7 +106,7 @@ export const CreateDepartment = (data: any, token: any) => (dispatch: any) =>
     });
 
 
-export const UpdateDepartment= (id: any, data: any, token: any) => (dispatch: any) =>
+export const UpdateDepartment = (id: any, data: any, token: any) => (dispatch: any) =>
   requestFromServer
     .UpdateDepartment(id, data, token)
     .then((response) => {

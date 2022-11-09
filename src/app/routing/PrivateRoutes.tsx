@@ -57,6 +57,7 @@ import EditTicket from '../modules/Tickets/Ticket-list/components/header/EditTic
 import EditSource from '../modules/sources/sources-list/components/header/EditSources'
 import EditBrands from '../modules/Brand/Brands-list/components/header/EditBrands'
 import EditDepartment from '../modules/Department/Department-list/components/header/EditDepartment'
+import SocialPosts from '../modules/socialPosts/SocialPosts'
 
 
 
@@ -132,9 +133,9 @@ const PrivateRoutes = () => {
         <Route path='campaigns/campaigns/campaigncreate' element={<CampaignCreate />} />
         <Route path='campaigns/campaigns/campaigncreate/signupform' element={<SignupForm />} />
         <Route path='campaigns/campaigns/campaigncreate/signupform/templates' element={<Templates />} />
-        <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />}/>
-        <Route path='campaigns/campaigns/campaigncreate/campaignautomation' element={<CampaignAutomation />}/>
-        <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />}/>
+        <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />} />
+        <Route path='campaigns/campaigns/campaigncreate/campaignautomation' element={<CampaignAutomation />} />
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />} />
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
         <Route path='contacts/contacts/Editcontact' element={<Editcontact />} />
@@ -179,6 +180,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <ContactPage />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='socialPosts/*'
+          element={
+            <SuspensedView>
+              <SocialPosts />
             </SuspensedView>
           }
         />

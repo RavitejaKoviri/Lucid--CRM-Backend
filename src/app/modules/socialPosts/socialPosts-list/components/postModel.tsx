@@ -1,4 +1,4 @@
-import React, { createRef } from 'react';
+import React, { createRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import * as Yup from 'yup';
@@ -6,7 +6,9 @@ import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers';
 import { useFormik } from 'formik';
 import clsx from 'clsx';
 import Picker from 'emoji-picker-react';
-import { KTSVG } from '../../../../../_metronic/helpers'
+import { KTSVG } from '../../../../../_metronic/helpers';
+import FacebookLogin from 'react-facebook-login';
+import axios from 'axios';
 
 function PostModal(props: any) {
   const [isUserLoading, setUserLoading] = React.useState(false);
@@ -38,138 +40,188 @@ function PostModal(props: any) {
       console.log(values.disc, "ddd", discValue)
     },
   })
+
+  const [accessToken, setAccessToken] = useState("");
+  const [data, setData] = useState("");
+  const responseFacebook = (response: any) => {
+    axios.get(`https://graph.facebook.com/v6.0/oauth/access_token?  
+    grant_type=fb_exchange_token&          
+    client_id=1320326945373263&
+    client_secret=dff22b28e155da4acd6818580ed6438f&
+    fb_exchange_token=${response.accessToken}`).then((response) => {
+      const { data } = response;
+      getUserId(data?.access_token)
+      console.log(data, "data");
+    })
+  }
+
+  const getUserId = (accessId: any) => {
+    axios.get(`https://graph.facebook.com/v6.0/me?access_token=${accessId}`).then((response) => {
+      const { data } = response;
+      getPageAcessToken(data?.id, accessId)
+    })
+  }
+
+  const getPageAcessToken = (id: any, accessId: any) => {
+    axios.get(`https://graph.facebook.com/v6.0/${id}/accounts?access_token=${accessId}`).then((response) => {
+      const { data } = response;
+      setAccessToken(data?.data[0]?.access_token)
+    })
+  }
+
+  const PostToFacebook = () => {
+    axios.post(`https://graph.facebook.com/101750425879367/feed?message=${data}&access_token=${accessToken}`).then((response) => {
+      const { data } = response;
+    })
+  }
   return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          New Post
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <form id='kt_modal_add_user_form' className='form' onSubmit={formik.handleSubmit}>
-          {/* begin::Scroll */}
-          <div
-            className='d-flex flex-column scroll-y me-n7 pe-7'
-            id='kt_modal_add_user_scroll'
-            data-kt-scroll='true'
-            data-kt-scroll-activate='{default: false, lg: true}'
-            data-kt-scroll-max-height='auto'
-            data-kt-scroll-dependencies='#kt_modal_add_user_header'
-            data-kt-scroll-wrappers='#kt_modal_add_user_scroll'
-            data-kt-scroll-offset='300px'
-          >
-            {/* begin::Input group */}
-            <div className='fv-row mb-7'>
-              <label className='d-block fw-bold fs-6 mb-5'>Discription</label>
-              {/* begin::Input */}
-              <input
-                placeholder='Discription'
-                {...formik.getFieldProps('disc')}
-                className={clsx(
-                  'form-control form-control-solid mb-3 mb-lg-0',
-                  { 'is-invalid': formik.touched.disc && formik.errors.disc },
-                  {
-                    'is-valid': formik.touched.disc && !formik.errors.disc,
-                  }
-                )}
-                type='disc'
-                name='disc'
-                autoComplete='off'
-                id='disc'
-                value={formik.values.disc}
-              // disabled={formik.isSubmitting || isUserLoading}
-              />
-            </div>
-            {/* end::Input group */}
+    <>
 
-            <div>
-              <div className="d-flex flex-row align-items-center justify-content-center">
-                <div className="p-2">
-                  {/* begin::Export */}
-                  <button
-                    className='btn btn-light-primary me-3'
-                  >
-                    {/* <KTSVG path='/media/icons/duotune/arrows/arr078.svg' className='svg-icon-2' /> */}
-                    <div className="input-group">
-                      <div className="custom-file">
-                        <input
-                          type="file"
-                          className="custom-file-input"
-                          id="inputGroupFile04"
-                          onChange={(e) => handleImageChange(e)}
-                        />
-                      </div>
-                    </div>
-                  </button>
-                  {/* end::Export */}
-                  {/*begin::Thumbnail settings*/}
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            New Post
+          </Modal.Title>
+        </Modal.Header>
+        {accessToken ? (
+          <Modal.Body>
+            <form id='kt_modal_add_user_form' className='form' onSubmit={formik.handleSubmit}>
+              {/* begin::Scroll */}
+              <div
+                className='d-flex flex-column scroll-y me-n7 pe-7'
+                id='kt_modal_add_user_scroll'
+                data-kt-scroll='true'
+                data-kt-scroll-activate='{default: false, lg: true}'
+                data-kt-scroll-max-height='auto'
+                data-kt-scroll-dependencies='#kt_modal_add_user_header'
+                data-kt-scroll-wrappers='#kt_modal_add_user_scroll'
+                data-kt-scroll-offset='300px'
+              >
+                {/* begin::Input group */}
+                <div className='fv-row mb-7'>
+                  <label className='d-block fw-bold fs-6 mb-5'>Discription</label>
+                  {/* begin::Input */}
+                  <input
+                    placeholder='Discription'
+                    {...formik.getFieldProps('disc')}
+                    className={clsx(
+                      'form-control form-control-solid mb-3 mb-lg-0',
+                      { 'is-invalid': formik.touched.disc && formik.errors.disc },
+                      {
+                        'is-valid': formik.touched.disc && !formik.errors.disc,
+                      }
+                    )}
+                    type='disc'
+                    name='disc'
+                    autoComplete='off'
+                    id='disc'
+                    value={data}
+                    onChange={(e) => setData(e.target.value)}
+                  // disabled={formik.isSubmitting || isUserLoading}
+                  />
+                </div>
+                {/* end::Input group */}
 
-                  {/* <div className="text-muted fs-7">
+                <div>
+                  <div className="d-flex flex-row align-items-center justify-content-center">
+                    <div className="p-2">
+                      {/* begin::Export */}
+                      <button
+                        className='btn btn-light-primary me-3'
+                      >
+                        {/* <KTSVG path='/media/icons/duotune/arrows/arr078.svg' className='svg-icon-2' /> */}
+                        <div className="input-group">
+                          <div className="custom-file">
+                            <input
+                              type="file"
+                              className="custom-file-input"
+                              id="inputGroupFile04"
+                              onChange={(e) => handleImageChange(e)}
+                            />
+                          </div>
+                        </div>
+                      </button>
+                      {/* end::Export */}
+                      {/*begin::Thumbnail settings*/}
+
+                      {/* <div className="text-muted fs-7">
                   Set the product thumbnail image. Only *.png, *.jpg and
                   *.jpeg image files are accepted
                 </div> */}
 
-                  {/*end::Thumbnail settings*/}
+                      {/*end::Thumbnail settings*/}
+                    </div>
+                    <div className="p-2">
+                      {/* begin::Emoji */}
+                      <button type='button' className='btn btn-light-primary me-3'
+                        onClick={() => setEmojiPicker(!emojiPicker)}>
+                        <KTSVG path='/media/icons/duotune/arrows/arr078.svg' className='svg-icon-2' />
+                        Emoji
+                      </button>
+                      {/* end::Emoji */}
+                    </div>
+                    <div className="p-2">Flex item 3</div>
+                  </div>
                 </div>
-                <div className="p-2">
-                  {/* begin::Emoji */}
-                  <button type='button' className='btn btn-light-primary me-3'
-                    onClick={() => setEmojiPicker(!emojiPicker)}>
-                    <KTSVG path='/media/icons/duotune/arrows/arr078.svg' className='svg-icon-2' />
-                    Emoji
-                  </button>
-                  {/* end::Emoji */}
+                {emojiPicker && <Picker onEmojiClick={onEmojiClick} />}
+                <div style={{ width: 150, height: 150 }}>
+                  {image && <img src={image} style={{ width: '100%' }} />}
                 </div>
-                <div className="p-2">Flex item 3</div>
               </div>
-            </div>
-            {emojiPicker && <Picker onEmojiClick={onEmojiClick} />}
-            <div style={{ width: 150, height: 150 }}>
-              {image && <img src={image} style={{ width: '100%' }} />}
-            </div>
-          </div>
-          {/* end::Scroll */}
+              {/* end::Scroll */}
 
-          {/* begin::Actions */}
-          <div className='text-center pt-15'>
-            <button
-              type='reset'
-              onClick={props.onHide}
-              className='btn btn-light me-3'
-              data-kt-users-modal-action='cancel'
-              disabled={formik.isSubmitting || isUserLoading}
-            >
-              Discard
-            </button>
+              {/* begin::Actions */}
+              <div className='text-center pt-15'>
+                <button
+                  type='reset'
+                  onClick={props.onHide}
+                  className='btn btn-light me-3'
+                  data-kt-users-modal-action='cancel'
+                  disabled={formik.isSubmitting || isUserLoading}
+                >
+                  Discard
+                </button>
 
-            <button
-              type='submit'
-              className='btn btn-primary'
-              data-kt-users-modal-action='submit'
-            // disabled={isUserLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
-            >
-              <span className='indicator-label'>Submit</span>
-              {(formik.isSubmitting || isUserLoading) && (
-                <span className='indicator-progress'>
-                  Please wait...{' '}
-                  <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
-                </span>
-              )}
-            </button>
-          </div>
-          {/* end::Actions */}
-        </form>
-        {/* {(formik.isSubmitting || isUserLoading) && <UsersListLoading />} */}
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
-    </Modal>
+                <button
+                  type='submit'
+                  className='btn btn-primary'
+                  onClick={() => PostToFacebook()}
+                  data-kt-users-modal-action='submit'
+                // disabled={isUserLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
+                >
+                  <span className='indicator-label'>Submit</span>
+                  {(formik.isSubmitting || isUserLoading) && (
+                    <span className='indicator-progress'>
+                      Please wait...{' '}
+                      <span className='spinner-border spinner-border-sm align-middle ms-2'></span>
+                    </span>
+                  )}
+                </button>
+              </div>
+              {/* end::Actions */}
+            </form>
+            {/* {(formik.isSubmitting || isUserLoading) && <UsersListLoading />} */}
+          </Modal.Body>
+        ) : (
+          <FacebookLogin
+            appId="1320326945373263"
+            autoLoad={true}
+            fields="name,email,picture"
+            // onClick={componentClicked}
+            callback={responseFacebook} />
+        )}
+        <Modal.Footer>
+          <Button onClick={props.onHide}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+
+    </>
+
   );
 }
 
