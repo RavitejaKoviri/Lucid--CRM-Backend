@@ -29,9 +29,8 @@ export default function BookingAdduser() {
   console.log(branchwisetests, "branchwisetests");
   const [booking, setBooking] = useState(false);
   const location = useLocation();
-  const id = location?.state
+  const id = location?.state;
   console.log(id, "id");
-
 
   const [healthPackages, setHealthPackages] = useState([]);
   const [healthScans, setHealthScans] = useState([]);
@@ -59,15 +58,14 @@ export default function BookingAdduser() {
   newdate?.setDate(newdate?.getDate() + 9);
   // const user = useSelector((state: any) => state?.auth?.user);
   // const token = useSelector((state: any) => state?.auth?.authToken);
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0";
   const doctor = useSelector((state: any) => state?.booking?.doctors);
   const city = useSelector((state: any) => state?.booking?.city);
   const branch = useSelector(
     (state: any) => state?.booking?.BranchAddressesByCityId
   );
-  const PatientData = useSelector(
-    (state: any) => state?.booking?.patient
-  );
+  const PatientData = useSelector((state: any) => state?.booking?.patient);
   const branchwisetest = useSelector(
     (state: any) => state?.booking?.branchwisetestsByBranch
   );
@@ -77,12 +75,10 @@ export default function BookingAdduser() {
   const healthScan = useSelector(
     (state: any) => state?.booking?.healthscanBybranch
   );
-  const bookingById = useSelector(
-    (state: any) => state?.booking?.BookingById
-  );
+  const bookingById = useSelector((state: any) => state?.booking?.BookingById);
   useEffect(() => {
     console.log("i was called");
-    
+
     dispatch(fetchDoctors());
     dispatch(fetchCity());
     dispatch(fetchPatients());
@@ -97,7 +93,7 @@ export default function BookingAdduser() {
     .reduce((a, b) => a + b, 0)
     .toString();
   console.log(bookingById, "bookingById");
- 
+
   const [data, setData] = useState({
     fullName: "",
     email: "",
@@ -123,9 +119,11 @@ export default function BookingAdduser() {
     user: userID,
   });
   console.log(data, "userID");
-  const FindPatient = PatientData?.length > 0 && PatientData?.filter(
-    (item: any) => item?.mobileNumber === data.mobileNumber
-  );
+  const FindPatient =
+    PatientData?.length > 0 &&
+    PatientData?.filter(
+      (item: any) => item?.mobileNumber === data.mobileNumber
+    );
   const handleChange = (e: any) => {
     setData({
       ...data,
@@ -168,20 +166,19 @@ export default function BookingAdduser() {
           console.log(data, "data");
           handleSubmit(data);
         })
-        .catch(() => { });
+        .catch(() => {});
     } else {
       if (data.mobileNumber.length === 10) {
         handleSubmit(FindPatient[0]);
       }
     }
-
-  }
+  };
 
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getbookingsById(id, token))
+    dispatch(getbookingsById(id, token));
     setBooking(true);
-  }, [bookingById?.id])
+  }, [bookingById?.id]);
   useEffect(() => {
     dispatch(fetchBranchwisetestByBranch(data?.branch));
     dispatch(fetchHealthScansByBranch(data?.branch));
@@ -215,15 +212,14 @@ export default function BookingAdduser() {
       address: bookingById?.address,
       age: bookingById?.age,
       user: userID,
-    })
+    });
     setBooking(false);
-  }, [booking])
+  }, [booking]);
   const handleSubmit = (i: any) => {
     if (id !== null) {
       dispatch(Updatebooking(id, data, token));
-    }
-    else {
-      const AppointData = { ...data, patient: i }
+    } else {
+      const AppointData = { ...data, patient: i };
       axios
         .post("http://43.205.49.41:5377/appointments", AppointData, {
           headers: {
@@ -234,7 +230,7 @@ export default function BookingAdduser() {
         .then(({ data }) => {
           console.log(data, "data");
         })
-        .catch(() => { });
+        .catch(() => {});
     }
 
     setData({
@@ -261,7 +257,7 @@ export default function BookingAdduser() {
       age: "",
       user: [],
     });
-    navigation('/bookings/bookings')
+    navigation("/bookings/bookings");
   };
   console.log(data.branchwisetests, "branchwisetests");
   useEffect(() => {
@@ -274,8 +270,10 @@ export default function BookingAdduser() {
           params: {
             mobile: data.mobileNumber,
           },
-          headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
-
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         })
         .then((response) => {
           console.log(response, "response");
@@ -283,9 +281,15 @@ export default function BookingAdduser() {
             // dispatch(fetchUsersByMobile(mobilenumber));
             data.mobileNumber.length === 10 &&
               axios
-                .get(`http://43.205.49.41:5377/users?mobile=${data.mobileNumber}`, {
-                  headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
-                })
+                .get(
+                  `http://43.205.49.41:5377/users?mobile=${data.mobileNumber}`,
+                  {
+                    headers: {
+                      "content-type": "application/json",
+                      Authorization: `Bearer ${token}`,
+                    },
+                  }
+                )
                 .then((response) => {
                   console.log(response);
                   if (response.status !== 200) {
@@ -297,18 +301,25 @@ export default function BookingAdduser() {
                   console.log("llkkk--------------------", data);
                   setUserID(data);
                 })
-                .catch(() => { });
+                .catch(() => {});
           } else {
             data.mobileNumber.length === 10 &&
               axios
-                .post("http://43.205.49.41:5377/auth/local/register", {
-                  mobile: data.mobileNumber,
-                  username: data.mobileNumber,
-                  password: "123456",
-                  email: `${data.mobileNumber}@gmail.com`,
-                }, {
-                  headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
-                })
+                .post(
+                  "http://43.205.49.41:5377/auth/local/register",
+                  {
+                    mobile: data.mobileNumber,
+                    username: data.mobileNumber,
+                    password: "123456",
+                    email: `${data.mobileNumber}@gmail.com`,
+                  },
+                  {
+                    headers: {
+                      "content-type": "application/json",
+                      Authorization: `Bearer ${token}`,
+                    },
+                  }
+                )
                 .then((response) => {
                   console.log(response);
                   if (response.status !== 200) {
@@ -320,36 +331,38 @@ export default function BookingAdduser() {
                   console.log("llkkk--------------------", data);
                   setUserID(data?.user);
                 })
-                .catch(() => { });
+                .catch(() => {});
           }
         })
-        .catch(() => { });
+        .catch(() => {});
   };
 
-  useEffect(()=>{ setData({
-    fullName: "",
-    email: "",
-    mobileNumber: "",
-    dateOfAppointment: new Date(),
-    branch: "",
-    message: "",
-    doctor: "",
-    type: "",
-    // appointmentStatus: "",
-    healthPackages: [],
-    healthScans: [],
-    paymentId: "",
-    paymentStatus: "",
-    paymentMode: "",
-    city: "",
-    gender: "",
-    patient: "",
-    branchwisetests: [],
-    totalAmount: "",
-    address: "",
-    age: "",
-    user: [],
-  })},[])
+  useEffect(() => {
+    setData({
+      fullName: "",
+      email: "",
+      mobileNumber: "",
+      dateOfAppointment: new Date(),
+      branch: "",
+      message: "",
+      doctor: "",
+      type: "",
+      // appointmentStatus: "",
+      healthPackages: [],
+      healthScans: [],
+      paymentId: "",
+      paymentStatus: "",
+      paymentMode: "",
+      city: "",
+      gender: "",
+      patient: "",
+      branchwisetests: [],
+      totalAmount: "",
+      address: "",
+      age: "",
+      user: [],
+    });
+  }, []);
   return (
     <>
       <div
@@ -363,9 +376,7 @@ export default function BookingAdduser() {
             data-kt-redirect="../../demo6/dist/apps/ecommerce/catalog/products.html"
           >
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-             
               <div className="tab-content">
-               
                 <div
                   className="tab-pane fade show active"
                   id="kt_ecommerce_add_product_general"
@@ -377,16 +388,15 @@ export default function BookingAdduser() {
                           <h2>Booking Details</h2>
                         </div>
                       </div>
-                     
+
                       <div className="card-body pt-0">
                         <div className="form">
-                          <div className="form-group row mb-4">
+                          <div className="form-group row my-8">
                             <div className="col-lg-5">
-                             
                               <input
                                 type="text"
                                 name="fullName"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Full Name"
                                 value={data?.fullName}
                                 onChange={handleChange}
@@ -396,7 +406,7 @@ export default function BookingAdduser() {
                               {/* <label>Email:</label> */}
                               <input
                                 type="email"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Email"
                                 name="email"
                                 value={data?.email}
@@ -404,12 +414,12 @@ export default function BookingAdduser() {
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-4">
+                          <div className="form-group row my-8">
                             <div className="col-lg-5">
                               {/* <label>PhoneNumber:</label> */}
                               <input
                                 type="text"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Phone Number"
                                 name="mobileNumber"
                                 value={data?.mobileNumber}
@@ -421,18 +431,18 @@ export default function BookingAdduser() {
                               <input
                                 type="text"
                                 name="age"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Age"
                                 value={data?.age}
                                 onChange={handleChange}
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-4">
+                          <div className="form-group row my-8">
                             <div className="col-lg-5">
                               {/* <label>Gender</label> */}
                               <select
-                              className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -448,10 +458,30 @@ export default function BookingAdduser() {
                                 <option value="others">others</option>
                               </select>
                             </div>
+                            
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-column gap-7 gap-lg-10 my-10">
+                    <div className="card card-flush py-4">
+                      <div className="card-header">
+                        <div className="card-title">
+                          <h2>Booking Details</h2>
+                        </div>
+                      </div>
+
+                      <div className="card-body pt-0">
+                        <div className="form">
+                          
+                          <div className="form-group row my-8">
+                            
                             <div className="col-lg-5">
                               {/* <label>Type</label> */}
                               <select
-                              className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -472,13 +502,11 @@ export default function BookingAdduser() {
                                 </option>
                               </select>
                             </div>
-                          </div>
-                          <div className="form-group row mb-4">
-                            {data?.type === "doctorAppointment" && (
+                            {data?.type === "doctorAppointment" ? (
                               <div className="col-lg-5">
                                 {/* <label>Doctor:</label> */}
                                 <select
-                                className="form-control form-control-lg form-control-solid"
+                                  className="form-control form-control-lg form-control-solid"
                                   data-control="select2"
                                   data-hide-search="true"
                                   data-placeholder="Select an option"
@@ -497,22 +525,58 @@ export default function BookingAdduser() {
                                   ))}
                                 </select>
                               </div>
+                            ) : (
+                              <div className="col-lg-5">
+                                {/* <label>Doctor:</label> */}
+                                <input
+                                  className="form-control form-control-lg form-control-solid"
+                                  // data-control="select2"
+                                  // data-hide-search="true"
+                                  placeholder="Select Doctor"
+                                  // value={data.doctor}
+                                  // onChange={handleChange}
+                                  name="doctor"
+                                  disabled
+                                />
+                              </div>
                             )}
+                          </div>
+                          <div className="form-group row my-8">
+                            
                             <div className="col-lg-5">
                               {/* <label>Address:</label> */}
                               <input
                                 type="text"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Address"
                                 value={data.address}
                                 name="address"
                                 onChange={handleChange}
                               />
                             </div>
+                            <div className="col-lg-5">
+                              {/* <label>City:</label> */}
+                              <select
+                                className="form-control form-control-lg form-control-solid"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select an option"
+                                name="city"
+                                value={data.city}
+                                onChange={handleChange}
+                              >
+                                <option value="" disabled selected>
+                                  Select City
+                                </option>
+                                {city?.map((item: any) => (
+                                  <option value={item?.id}>{item?.name}</option>
+                                ))}
+                              </select>
+                            </div>
                           </div>
-                          {/* <div className="form-group row mb-4"> */}
-                            
-                            {/* <div className="col-lg-5">
+                          {/* <div className="form-group row my-8"> */}
+
+                          {/* <div className="col-lg-5">
                               <select
                               className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
@@ -531,30 +595,12 @@ export default function BookingAdduser() {
                               </select>
                             </div> */}
                           {/* </div> */}
-                          <div className="form-group row mb-4">
-                            <div className="col-lg-5">
-                              {/* <label>City:</label> */}
-                              <select
-                              className="form-control form-control-lg form-control-solid"
-                                data-control="select2"
-                                data-hide-search="true"
-                                data-placeholder="Select an option"
-                                name="city"
-                                value={data.city}
-                                onChange={handleChange}
-                              >
-                                <option value="" disabled selected>
-                                  Select City
-                                </option>
-                                {city?.map((item: any) => (
-                                  <option value={item?.id}>{item?.name}</option>
-                                ))}
-                              </select>
-                            </div>
+                          <div className="form-group row my-8">
+                            
                             <div className="col-lg-5">
                               {/* <label>Branch:</label> */}
                               <select
-                              className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 placeholder="Select an option"
@@ -570,10 +616,21 @@ export default function BookingAdduser() {
                                 ))}
                               </select>
                             </div>
+                            <div className="col-lg-5">
+                              {/* <label>message:</label> */}
+                              <input
+                                type="text"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Enter message"
+                                value={data.message}
+                                name="message"
+                                onChange={handleChange}
+                              />
+                            </div>
                           </div>
                           {data?.branch !== "" && (
                             <>
-                              <div className="form-group row mb-4">
+                              <div className="form-group row my-8">
                                 {branchwisetest.length > 0 && (
                                   <div className="col-lg-5">
                                     <Autocomplete
@@ -621,7 +678,7 @@ export default function BookingAdduser() {
                                   </div>
                                 )}
                               </div>
-                              <div className="form-group row mb-4">
+                              <div className="form-group row my-8">
                                 {healthScan.length > 0 && (
                                   <div className="col-lg-5">
                                     <Autocomplete
@@ -649,18 +706,8 @@ export default function BookingAdduser() {
                             </>
                           )}
 
-                          <div className="form-group row mb-4">
-                            <div className="col-lg-5">
-                              {/* <label>message:</label> */}
-                              <input
-                                type="text"
-                               className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter message"
-                                value={data.message}
-                                name="message"
-                                onChange={handleChange}
-                              />
-                            </div>
+                          <div className="form-group row my-8">
+                            
                             <div className="col-lg-5">
                               {/* <label>Select the date of Appointment</label> */}
                               <div style={{ width: "100%", height: "100%" }}>
@@ -670,7 +717,6 @@ export default function BookingAdduser() {
                                   onChange={(date: any) => setStartDate(date)}
                                   minDate={new Date()}
                                   maxDate={newdate}
-                                  
                                   minTime={
                                     new Date(
                                       new Date().setHours(
@@ -691,18 +737,34 @@ export default function BookingAdduser() {
                                       // type="date"
                                       placeholder="Select Date and Time"
                                       className="form-control form-control-lg form-control-solid col-lg-6"
-                                      style={{width:'464px'}}
+                                      style={{ width: "464px" }}
                                     />
                                   }
                                 />
                               </div>
                             </div>
                           </div>
-                          <div className="form-group row mb-4">
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-column gap-7 gap-lg-10 my-10">
+                    <div className="card card-flush py-4">
+                      <div className="card-header">
+                        <div className="card-title">
+                          <h2>Booking Details</h2>
+                        </div>
+                      </div>
+
+                      <div className="card-body pt-0">
+                        <div className="form">
+                          
+                          <div className="form-group row my-8">
                             <div className="col-lg-5">
                               {/* <label>paymentMode</label> */}
                               <select
-                              className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -722,7 +784,7 @@ export default function BookingAdduser() {
                             <div className="col-lg-5">
                               {/* <label>paymentStatus</label> */}
                               <select
-                              className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 data-control="select2"
                                 data-hide-search="true"
                                 data-placeholder="Select an option"
@@ -741,13 +803,13 @@ export default function BookingAdduser() {
                               </select>
                             </div>
                           </div>
-                          <div className="form-group row mb-4">
+                          <div className="form-group row my-8">
                             {data.paymentMode !== "cash" && (
                               <div className="col-lg-5">
                                 {/* <label>paymentId:</label> */}
                                 <input
                                   type="email"
-                                 className="form-control form-control-lg form-control-solid"
+                                  className="form-control form-control-lg form-control-solid"
                                   placeholder="Enter PaymentId"
                                   name="paymentId"
                                   value={data.paymentId}
@@ -759,7 +821,7 @@ export default function BookingAdduser() {
                               {/* <label>TotalAmount:</label> */}
                               <input
                                 type="email"
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Total Amount"
                                 value={totalAmount}
                               />
@@ -772,10 +834,10 @@ export default function BookingAdduser() {
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-              <button
+                <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation('/bookings/bookings')
+                    navigation("/bookings/bookings");
                   }}
                 >
                   Back
@@ -785,7 +847,7 @@ export default function BookingAdduser() {
                   id="kt_ecommerce_add_product_submit"
                   onClick={() => {
                     // navigation("users");
-                    FindPatientDetails()
+                    FindPatientDetails();
                   }}
                   className="btn btn-primary"
                 >

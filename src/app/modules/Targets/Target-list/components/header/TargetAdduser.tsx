@@ -287,7 +287,7 @@ export default function TargetAdduser() {
                     name="targetStatus"
                   >
                     {" "}
-                    <option></option>
+                    <option value={""} disabled selected>Select Status</option>
                     {status?.map((item: any) => (
                       <option value={item?.id}>{item?.targetStatusName}</option>
                     ))}

@@ -272,7 +272,7 @@ export default function TaskAdduser() {
                     onChange={handleChange}
                     name="taskStatus"
                   >
-                    <option></option>
+                    <option value={""} disabled selected>Select Status</option>
                     {status?.map((item: any) => (
                       <option value={item?.id}>{item?.taskStatusName}</option>
                     ))}
@@ -313,7 +313,7 @@ export default function TaskAdduser() {
                     onChange={handleChange}
                     name="contact"
                   >
-                    <option></option>
+                    <option value={""} disabled selected>Select Contact</option>
                     {contact?.map((item: any) => (
                       <option value={item?.id}>{item?.contactName}</option>
                     ))}

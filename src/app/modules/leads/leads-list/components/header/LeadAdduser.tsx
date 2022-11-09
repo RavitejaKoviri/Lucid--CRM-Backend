@@ -4,76 +4,68 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { CreateLead, getcampaigns, getcompanies, getleadStatuses, getsource, } from "../../_redux/leadAction";
+import {
+  CreateLead,
+  getcampaigns,
+  getcompanies,
+  getleadStatuses,
+  getsource,
+} from "../../_redux/leadAction";
 
 export default function LeadAdduser() {
-
   const navigation = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector(
-    (state: any) => state?.auth?.authToken
-  );
-  const user = useSelector(
-    (state: any) => state?.auth?.user
-  );
-  const source = useSelector(
-    (state: any) => state?.LeadData?.Source
-  );
-  const campaign = useSelector(
-    (state: any) => state?.LeadData?.campaigns
-  );
-  const company = useSelector(
-    (state: any) => state?.LeadData?.Comapnies
-  );
-  const status = useSelector(
-    (state: any) => state?.LeadData?.leadStatus
-  );
-  const leadById = useSelector(
-    (state: any) => state?.LeadData?.LeadsById
-  );
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const user = useSelector((state: any) => state?.auth?.user);
+  const source = useSelector((state: any) => state?.LeadData?.Source);
+  const campaign = useSelector((state: any) => state?.LeadData?.campaigns);
+  const company = useSelector((state: any) => state?.LeadData?.Comapnies);
+  const status = useSelector((state: any) => state?.LeadData?.leadStatus);
+  const leadById = useSelector((state: any) => state?.LeadData?.LeadsById);
   console.log(leadById, "leadById");
   console.log(leadById?.id, "leadById1");
 
-  useEffect(()=>{  dispatch(getsource(token))
-    dispatch(getcampaigns(token))
-    dispatch(getcompanies(token))
-    dispatch(getleadStatuses(token))},[])
+  useEffect(() => {
+    dispatch(getsource(token));
+    dispatch(getcampaigns(token));
+    dispatch(getcompanies(token));
+    dispatch(getleadStatuses(token));
+  }, []);
 
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
   const [preview, setPreview] = useState();
-  const [data, setData] = useState(
-    {
-      leadFirstName: "",
-      leadPhonenumber: "",
-      leadIndustry: "",
-      leadGender: "",
-      leadAppointmentDate: "",
-      leadAnnualRevenueContribution: "",
-      leadEmailOptOut: "",
-      leadStatusName: "",
-      leadCompanyName: "",
-      leadLastName: "",
-      leadEmail: "",
-      leadWebsite: "",
-      leadStatusId: "",
-      leadLocationName: "",
-      utmSource: "",
-      utmCampaign: "",
-      utmAdgroup: "",
-      utmTerm: "",
-      utmMedium: "",
-      leadId: "",
-      leadSource: "",
-      leadBusinessUnit: "",
-      campaignSource: "",
-      leadSpecialityName: "",
-      company: user?.company?.id,
-      leadStatus: "",
-      leadOwner: user?.id,
-      image: imageUrl,
-      description: "",
-    })
+  const [data, setData] = useState({
+    leadFirstName: "",
+    leadPhonenumber: "",
+    leadIndustry: "",
+    leadGender: "",
+    leadAppointmentDate: "",
+    leadAnnualRevenueContribution: "",
+    leadEmailOptOut: "",
+    leadStatusName: "",
+    leadCompanyName: "",
+    leadLastName: "",
+    leadEmail: "",
+    leadWebsite: "",
+    leadStatusId: "",
+    leadLocationName: "",
+    utmSource: "",
+    utmCampaign: "",
+    utmAdgroup: "",
+    utmTerm: "",
+    utmMedium: "",
+    leadId: "",
+    leadSource: "",
+    leadBusinessUnit: "",
+    campaignSource: "",
+    leadSpecialityName: "",
+    company: user?.company?.id,
+    leadStatus: "",
+    leadOwner: user?.id,
+    image: imageUrl,
+    description: "",
+  });
   useEffect(() => {
     if (!selectedPreviewFile) {
       setPreview(undefined);
@@ -104,29 +96,32 @@ export default function LeadAdduser() {
     //   .catch(() => {});
     axios
       .post("http://65.2.10.157:5377/upload/", formdata, {
-        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(({ data }) => {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   useEffect(() => {
-    dispatch(getsource(token))
-    dispatch(getcampaigns(token))
-    dispatch(getcompanies(token))
-    dispatch(getleadStatuses(token))
-  }, [])
-
-
-
-
-  
+    dispatch(getsource(token));
+    dispatch(getcampaigns(token));
+    dispatch(getcompanies(token));
+    dispatch(getleadStatuses(token));
+  }, []);
 
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: user?.company?.id });
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+      image: imageUrl,
+      company: user?.company?.id,
+    });
   };
   console.log(data, "TEST");
 
@@ -163,8 +158,8 @@ export default function LeadAdduser() {
       leadOwner: "",
       image: [],
       description: "",
-    })
-    navigation('/leads/list')
+    });
+    navigation("/leads/list");
   };
   useEffect(() => {
     console.log(" i was called ");
@@ -198,19 +193,14 @@ export default function LeadAdduser() {
       leadOwner: "",
       image: [],
       description: "",
-    })
-  }, [])
+    });
+  }, []);
   return (
     <>
-      <div
-        className="content d-flex flex-column flex-column-fluid"
-      >
+      <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
-          <div
-            className="form d-flex flex-column flex-lg-row"
-          >
+          <div className="form d-flex flex-column flex-lg-row">
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-
               {/*begin::Thumbnail settings*/}
               <div className="card card-flush py-4">
                 {/*begin::Card header*/}
@@ -228,9 +218,7 @@ export default function LeadAdduser() {
                   {/*begin::Image input placeholder*/}
                   {/* <style>.image-input-placeholder [data-th</style> */}
                   {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                  >
+                  <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
                     {selectedPreviewFile ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
@@ -253,9 +241,8 @@ export default function LeadAdduser() {
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) : (
-
-                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                    ) : data?.image?.length > 0 ? (
+                      <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                           // data-kt-image-input-action="change"
@@ -294,42 +281,40 @@ export default function LeadAdduser() {
                           />
                           {/*end::Inputs*/}
                         </label>
-                      </div>) : (
-                        <>
-                          <div
-                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                          >
-                            <div className="image-input-wrapper w-150px h-150px">
-                              <label
-                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="change"
-                                data-bs-toggle="tooltip"
-                                title="Change avatar"
-                              >
-                                <i className="bi bi-pencil-fill fs-7"></i>
-                                {/*begin::Inputs*/}
-                                <input
-                                  type="file"
-                                  multiple
-                                  // name="avatar"
-                                  accept=".png, .jpg, .jpeg"
-                                  onChange={(event: any) => {
-                                    handleUploadImage(event.currentTarget.files[0]);
-                                  }}
-                                />
-                                {/*end::Inputs*/}
-                              </label>
-                            </div>
-
+                      </div>
+                    ) : (
+                      <>
+                        <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
+                          <div className="image-input-wrapper w-150px h-150px">
+                            <label
+                              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="change"
+                              data-bs-toggle="tooltip"
+                              title="Change avatar"
+                            >
+                              <i className="bi bi-pencil-fill fs-7"></i>
+                              {/*begin::Inputs*/}
+                              <input
+                                type="file"
+                                multiple
+                                // name="avatar"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={(event: any) => {
+                                  handleUploadImage(
+                                    event.currentTarget.files[0]
+                                  );
+                                }}
+                              />
+                              {/*end::Inputs*/}
+                            </label>
                           </div>
-                          <div className="text-muted fs-7">
-                            Set the product thumbnail image. Only *.png, *.jpg and
-                            *.jpeg image files are accepted
-                          </div>
-                        </>
-                      )
-                    )
-                    }
+                        </div>
+                        <div className="text-muted fs-7">
+                          Set the product thumbnail image. Only *.png, *.jpg and
+                          *.jpeg image files are accepted
+                        </div>
+                      </>
+                    )}
                   </div>
                   {/*end::Image input*/}
                 </div>
@@ -350,9 +335,7 @@ export default function LeadAdduser() {
                     <h2>Status</h2>
                   </div>
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
                 <div className="card-body pt-0">
@@ -365,15 +348,14 @@ export default function LeadAdduser() {
                     onChange={handleChange}
                     name="leadStatus"
                   >
-                    <option></option>
-                    {
-                      status?.map((item: any) => (
-                        <option value={item?.id}>{item?.leadStatusName}</option>
-                      ))
-                    }
-
+                    <option value={""} disabled selected>
+                      Select Status
+                    </option>
+                    {status?.map((item: any) => (
+                      <option value={item?.id}>{item?.leadStatusName}</option>
+                    ))}
                   </select>
-
+                  {/* <p className="">Please Select Status</p> */}
                   <div className="d-none mt-10">
                     <label className="form-label">
                       Select publishing date and time
@@ -384,22 +366,17 @@ export default function LeadAdduser() {
                       placeholder="Pick date & time"
                     />
                   </div>
-
                 </div>
-
               </div>
 
               <div className="card card-flush py-4">
                 <div className="card-header">
-
                   <div className="card-title">
                     <h2>Campaign</h2>
                   </div>
 
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
 
@@ -413,17 +390,15 @@ export default function LeadAdduser() {
                     onChange={handleChange}
                     name="campaignSource"
                   >
-                    <option></option>
-                    {
-                      campaign?.map((item: any) => (
-                        <option value={item?.id}>{item?.campaignName}</option>
-                      ))
-                    }
-
+                    <option value={""} disabled selected>
+                      Select Campaign
+                    </option>
+                    {campaign?.map((item: any) => (
+                      <option value={item?.id}>{item?.campaignName}</option>
+                    ))}
                   </select>
 
                   <div className="d-none mt-10">
-
                     <input
                       className="form-control"
                       id="kt_ecommerce_add_product_status_datepicker"
@@ -440,9 +415,7 @@ export default function LeadAdduser() {
                   </div>
 
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
 
@@ -456,13 +429,12 @@ export default function LeadAdduser() {
                     onChange={handleChange}
                     name="leadSource"
                   >
-                    <option></option>
-                    {
-                      source?.map((item: any) => (
-                        <option value={item?.id}>{item?.SourceName}</option>
-                      ))
-                    }
-
+                    <option value={""} disabled selected>
+                      Select Source
+                    </option>
+                    {source?.map((item: any) => (
+                      <option value={item?.id}>{item?.SourceName}</option>
+                    ))}
                   </select>
 
                   <div className="d-none mt-10">
@@ -477,16 +449,131 @@ export default function LeadAdduser() {
                   </div>
                 </div>
               </div>
-
-
-
-
             </div>
 
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+              <div className="d-flex flex-column gap-7 gap-lg-10">
+                <div className="card card-flush py-4">
+                  <div className="card-header">
+                    <div className="card-title">
+                      <h2>Lead Personal Details</h2>
+                    </div>
+                  </div>
 
+                  <div className="card-body pt-0">
+                    <form className="form">
+                      {/* <div className="form-group row mb-2">
+                            <div className="col-lg-6">
+                              <input
+                                type="text"
+                                value={data.leadId}
+                                onChange={handleChange}
+                                name="leadId"
+                                className="form-control"
+                                placeholder="Enter LeadId"
+                              />
+                            </div>
+                          </div> */}
+                      <div className="form-group row my-8">
+                        <div className="col-lg-6">
+                          {/* <label>Lead FirstName:</label> */}
+                          <input
+                            type="text"
+                            value={data.leadFirstName}
+                            onChange={handleChange}
+                            name="leadFirstName"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="First Name"
+                          />
+                        </div>
+                        <div className="col-lg-6">
+                          <input
+                            type="text"
+                            value={data.leadLastName}
+                            onChange={handleChange}
+                            name="leadLastName"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Last Name"
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group row my-8">
+                        <div className="col-lg-6">
+                          {/* <label>PhoneNumber:</label> */}
+                          <input
+                            type="text"
+                            value={data.leadPhonenumber}
+                            onChange={handleChange}
+                            name="leadPhonenumber"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Phone Number"
+                          />
+                        </div>
+                        <div className="col-lg-6">
+                          {/* <label> Email:</label> */}
+                          <input
+                            type="email"
+                            value={data.leadEmail}
+                            onChange={handleChange}
+                            name="leadEmail"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Email"
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group row my-8">
+                        {/* <div className="col-lg-6">
+                              <label>Gender:</label>
+                              <input
+                                type="text"
+                                value={data.leadGender}
+                                onChange={handleChange}
+                                name="leadGender"
+                                className="form-control"
+                                placeholder="Enter Gender"
+                              />
+                            </div> */}
+                        <div className="col-lg-6">
+                          {/* <label>Lead Gender</label> */}
+                          <select
+                            className="form-select form-select-solid form-select-lg"
+                            // data-control="select2"
+                            // data-hide-search="true"
+                            name="leadGender"
+                            value={data?.leadGender}
+                            onChange={handleChange}
+                          >
+                            <option value="" disabled selected>
+                              Select Gender
+                            </option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">others</option>
+                          </select>
+                        </div>
+                        <div className="col-lg-6">
+                          {/* <label>AppointmentDate:</label> */}
+                          <input
+                            type="text"
+                            value={data.leadAppointmentDate}
+                            onChange={handleChange}
+                            onFocus={(e) => {
+                              e.target.type = "date";
+                            }}
+                            name="leadAppointmentDate"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Appointment Date"
+                          />
+                        </div>
+                      </div>
 
-
+                      {/* <div className="form-group row my-8">
+                        
+                      </div> */}
+                    </form>
+                  </div>
+                </div>
+              </div>
               <div className="d-flex flex-column gap-7 gap-lg-10">
                 <div className="card card-flush py-4">
                   <div className="card-header">
@@ -509,97 +596,7 @@ export default function LeadAdduser() {
                               />
                             </div>
                           </div> */}
-                      <div className="form-group row mb-4">
-                        <div className="col-lg-6">
-                          {/* <label>Lead FirstName:</label> */}
-                          <input
-                            type="text"
-                            value={data.leadFirstName}
-                            onChange={handleChange}
-                            name="leadFirstName"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter First Name"
-                          />
-                        </div>
-                        <div className="col-lg-6">
-                          <input
-                            type="text"
-                            value={data.leadLastName}
-                            onChange={handleChange}
-                            name="leadLastName"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Last Name"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row mb-4">
-                        <div className="col-lg-6">
-                          {/* <label>PhoneNumber:</label> */}
-                          <input
-                            type="text"
-                            value={data.leadPhonenumber}
-                            onChange={handleChange}
-                            name="leadPhonenumber"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Phone Number"
-                          />
-                        </div>
-                        <div className="col-lg-6">
-                          {/* <label> Email:</label> */}
-                          <input
-                            type="email"
-                            value={data.leadEmail}
-                            onChange={handleChange}
-                            name="leadEmail"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Email"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row mb-4">
-                        {/* <div className="col-lg-6">
-                              <label>Gender:</label>
-                              <input
-                                type="text"
-                                value={data.leadGender}
-                                onChange={handleChange}
-                                name="leadGender"
-                                className="form-control"
-                                placeholder="Enter Gender"
-                              />
-                            </div> */}
-                        <div className="col-lg-6">
-                          {/* <label>Lead Gender</label> */}
-                          <select
-                            className='form-select form-select-solid form-select-lg'
-                            // data-control="select2"
-                            // data-hide-search="true"
-                            name="leadGender"
-                            value={data?.leadGender}
-                            onChange={handleChange}
-                          >
-                            <option value="" disabled selected>
-                              Select Gender
-                            </option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="others">others</option>
-                          </select>
-                        </div>
-                        <div className="col-lg-6">
-                          {/* <label>AppointmentDate:</label> */}
-                          <input
-                            type="text"
-                            value={data.leadAppointmentDate}
-                            onChange={handleChange}
-                          onFocus={(e)=>{e.target.type="date"}}
-                            name="leadAppointmentDate"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Appointment Date"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row mb-4">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
                           {/* <label>StatusName:</label> */}
                           <input
@@ -608,7 +605,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadStatusName"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Status Name"
+                            placeholder="Status Name"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -619,11 +616,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadStatusId"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Status ID"
+                            placeholder="Status ID"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-4">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
                           {/* <label>Speciality Name:</label> */}
                           <input
@@ -632,7 +629,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadSpecialityName"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Speciality Name"
+                            placeholder="Speciality Name"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -643,11 +640,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadLocationName"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Location"
+                            placeholder="Location"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-4">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
                           {/* <label>utmSource:</label> */}
                           <input
@@ -656,7 +653,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmSource"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utm Source"
+                            placeholder="Utm Source"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -667,11 +664,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmMedium"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utm Medium"
+                            placeholder="Utm Medium"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-4">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
                           {/* <label>utmCampaign:</label> */}
                           <input
@@ -680,7 +677,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmCampaign"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utm Campaign"
+                            placeholder="Utm Campaign"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -690,11 +687,11 @@ export default function LeadAdduser() {
                             value={data.leadBusinessUnit}
                             onChange={handleChange}
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter lead Business Unit"
+                            placeholder="Lead Business Unit"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-4">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
                           {/* <label>utmTerm:</label> */}
                           <input
@@ -703,7 +700,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmTerm"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utm Term"
+                            placeholder="Utm Term"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -714,11 +711,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="utmAdgroup"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utm Adgroup"
+                            placeholder="Utm Adgroup"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-4">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
                           {/* <label>EmailOptOut:</label> */}
                           <input
@@ -727,7 +724,7 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadEmailOptOut"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Email Opt Out"
+                            placeholder="Email Opt Out"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -738,11 +735,11 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadIndustry"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Industry"
+                            placeholder="Industry"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-4">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
                           {/* <label>AnnualRevenue:</label> */}
                           <input
@@ -751,12 +748,12 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadAnnualRevenueContribution"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Annual Revenue"
+                            placeholder="Annual Revenue"
                           />
                         </div>
-                        <div className="col-lg-6">
-                          {/* <label>CompanyName:</label> */}
-                          <input
+                        {/* <div className="col-lg-6"> */}
+                        {/* <label>CompanyName:</label> */}
+                        {/* <input
                             type="text"
                             value={data.leadCompanyName}
                             onChange={handleChange}
@@ -764,9 +761,7 @@ export default function LeadAdduser() {
                             className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Company Name"
                           />
-                        </div>
-                      </div>
-                      <div className="form-group row mb-4">
+                        </div> */}
                         <div className="col-lg-6">
                           {/* <label>Website:</label> */}
                           <input
@@ -775,10 +770,13 @@ export default function LeadAdduser() {
                             onChange={handleChange}
                             name="leadWebsite"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Website"
+                            placeholder="Website"
                           />
                         </div>
                       </div>
+                      {/* <div className="form-group row my-8">
+                        
+                      </div> */}
                     </form>
                   </div>
                 </div>
@@ -787,14 +785,14 @@ export default function LeadAdduser() {
                 <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation('/leads/list')
+                    navigation("/leads/list");
                   }}
                 >
                   Back
                 </button>
                 <button
                   onClick={() => {
-                    handleSubmit()
+                    handleSubmit();
                     // navigation("users");
                   }}
                   className="btn btn-primary"

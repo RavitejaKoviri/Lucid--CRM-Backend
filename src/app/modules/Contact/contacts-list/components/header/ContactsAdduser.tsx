@@ -4,7 +4,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateContact, getcampaigns, getcompanies, getContactById, getsource, UpdateContact } from "../../_redux/contactAction";
+import {
+  CreateContact,
+  getcampaigns,
+  getcompanies,
+  getContactById,
+  getsource,
+  UpdateContact,
+} from "../../_redux/contactAction";
 // import { FC, useState } from 'react'
 // import * as Yup from 'yup'
 // import { useFormik } from 'formik'
@@ -20,24 +27,14 @@ export default function ContactsAdduser() {
   const navigation = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const id: any = location?.state
+  const id: any = location?.state;
   const [contact, setContact] = useState(false);
 
-  const token = useSelector(
-    (state: any) => state?.auth?.authToken
-  );
-  const source = useSelector(
-    (state: any) => state?.ContactData?.Source
-  );
-  const campaign = useSelector(
-    (state: any) => state?.ContactData?.campaigns
-  );
-  const company = useSelector(
-    (state: any) => state?.ContactData?.Comapnies
-  );
-  const user = useSelector(
-    (state: any) => state?.auth?.user
-  );
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const source = useSelector((state: any) => state?.ContactData?.Source);
+  const campaign = useSelector((state: any) => state?.ContactData?.campaigns);
+  const company = useSelector((state: any) => state?.ContactData?.Comapnies);
+  const user = useSelector((state: any) => state?.auth?.user);
   console.log(user, "user");
 
   const ContactById = useSelector(
@@ -45,10 +42,10 @@ export default function ContactsAdduser() {
   );
 
   useEffect(() => {
-    dispatch(getsource(token))
-    dispatch(getcampaigns(token))
-    dispatch(getcompanies(token))
-  }, [])
+    dispatch(getsource(token));
+    dispatch(getcampaigns(token));
+    dispatch(getcompanies(token));
+  }, []);
 
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
@@ -77,7 +74,7 @@ export default function ContactsAdduser() {
     contactLinkedinHandle: "",
     contactSource: "",
     campaignSource: "",
-    image:imageUrl,
+    image: imageUrl,
     description: "",
   });
   // const handleChange = (e: any) => {
@@ -88,7 +85,7 @@ export default function ContactsAdduser() {
 
     dispatch(getContactById(id?.id, token));
     setContact(true);
-  }, [ContactById?.id])
+  }, [ContactById?.id]);
   console.log(ContactById, "ContactByIdId");
 
   useEffect(() => {
@@ -121,22 +118,30 @@ export default function ContactsAdduser() {
     //   .catch(() => {});
     axios
       .post("http://65.2.10.157:5377/upload/", formdata, {
-        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(({ data }) => {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: user?.company?.id });
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+      image: imageUrl,
+      company: user?.company?.id,
+    });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-      dispatch(CreateContact(data, token));
+    dispatch(CreateContact(data, token));
     setData({
       company: "",
       contactCompanyName: "",
@@ -164,37 +169,38 @@ export default function ContactsAdduser() {
       description: "",
       image: [],
     });
-    navigation('/contacts/contacts')
+    navigation("/contacts/contacts");
   };
-useEffect(()=>{
-  console.log("i was called");
-  setData({
-  company: "",
-  contactCompanyName: "",
-  contactName: "",
-  contactEmail: "",
-  contactMobile: "",
-  contactTitle: "",
-  contactFirstName: "",
-  contactLastName: "",
-  contactJobTitle: "",
-  contactCity: "",
-  contactAddress: "",
-  contactState: "",
-  contactPincode: "",
-  contactCountry: "",
-  contactWebsiteAddress: "",
-  contactSecondaryEmail: "",
-  contactNotes: "",
-  contactTwitterHandle: "",
-  contactFacebookHandle: "",
-  contactInstagramHandle: "",
-  contactLinkedinHandle: "",
-  contactSource: "",
-  campaignSource: "",
-  description: "",
-  image: [],
-})},[])
+  useEffect(() => {
+    console.log("i was called");
+    setData({
+      company: "",
+      contactCompanyName: "",
+      contactName: "",
+      contactEmail: "",
+      contactMobile: "",
+      contactTitle: "",
+      contactFirstName: "",
+      contactLastName: "",
+      contactJobTitle: "",
+      contactCity: "",
+      contactAddress: "",
+      contactState: "",
+      contactPincode: "",
+      contactCountry: "",
+      contactWebsiteAddress: "",
+      contactSecondaryEmail: "",
+      contactNotes: "",
+      contactTwitterHandle: "",
+      contactFacebookHandle: "",
+      contactInstagramHandle: "",
+      contactLinkedinHandle: "",
+      contactSource: "",
+      campaignSource: "",
+      description: "",
+      image: [],
+    });
+  }, []);
 
   return (
     <>
@@ -225,9 +231,7 @@ useEffect(()=>{
                   {/*begin::Image input placeholder*/}
                   {/* <style>.image-input-placeholder [data-th</style> */}
                   {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                  >
+                  <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
                     {selectedPreviewFile ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
@@ -250,9 +254,8 @@ useEffect(()=>{
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) : (
-
-                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                    ) : data?.image?.length > 0 ? (
+                      <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                           // data-kt-image-input-action="change"
@@ -291,42 +294,40 @@ useEffect(()=>{
                           />
                           {/*end::Inputs*/}
                         </label>
-                      </div>) : (
-                        <>
-                          <div
-                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                          >
-                            <div className="image-input-wrapper w-150px h-150px">
-                              <label
-                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="change"
-                                data-bs-toggle="tooltip"
-                                title="Change avatar"
-                              >
-                                <i className="bi bi-pencil-fill fs-7"></i>
-                                {/*begin::Inputs*/}
-                                <input
-                                  type="file"
-                                  multiple
-                                  // name="avatar"
-                                  accept=".png, .jpg, .jpeg"
-                                  onChange={(event: any) => {
-                                    handleUploadImage(event.currentTarget.files[0]);
-                                  }}
-                                />
-                                {/*end::Inputs*/}
-                              </label>
-                            </div>
-
+                      </div>
+                    ) : (
+                      <>
+                        <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
+                          <div className="image-input-wrapper w-150px h-150px">
+                            <label
+                              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="change"
+                              data-bs-toggle="tooltip"
+                              title="Change avatar"
+                            >
+                              <i className="bi bi-pencil-fill fs-7"></i>
+                              {/*begin::Inputs*/}
+                              <input
+                                type="file"
+                                multiple
+                                // name="avatar"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={(event: any) => {
+                                  handleUploadImage(
+                                    event.currentTarget.files[0]
+                                  );
+                                }}
+                              />
+                              {/*end::Inputs*/}
+                            </label>
                           </div>
-                          <div className="text-muted fs-7">
-                            Set the product thumbnail image. Only *.png, *.jpg and
-                            *.jpeg image files are accepted
-                          </div>
-                        </>
-                      )
-                    )
-                    }
+                        </div>
+                        <div className="text-muted fs-7">
+                          Set the product thumbnail image. Only *.png, *.jpg and
+                          *.jpeg image files are accepted
+                        </div>
+                      </>
+                    )}
                   </div>
                   {/*end::Image input*/}
                 </div>
@@ -348,14 +349,11 @@ useEffect(()=>{
                   </div>
 
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
 
                 <div className="card-body pt-0">
-
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -365,13 +363,12 @@ useEffect(()=>{
                     onChange={handleChange}
                     name="campaignSource"
                   >
-                    <option></option>
-                    {
-                      campaign?.map((item: any) => (
-                        <option value={item?.id}>{item?.campaignName}</option>
-                      ))
-                    }
-
+                    <option value={""} disabled selected>
+                      Select Campaign
+                    </option>
+                    {campaign?.map((item: any) => (
+                      <option value={item?.id}>{item?.campaignName}</option>
+                    ))}
                   </select>
 
                   <div className="text-muted fs-7"></div>
@@ -394,9 +391,7 @@ useEffect(()=>{
                     <h2>Source</h2>
                   </div>
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
                 <div className="card-body pt-0">
@@ -409,13 +404,12 @@ useEffect(()=>{
                     onChange={handleChange}
                     name="contactSource"
                   >
-                    <option></option>
-                    {
-                      source?.map((item: any) => (
-                        <option value={item?.id}>{item?.SourceName}</option>
-                      ))
-                    }
-
+                    <option value={""} disabled selected>
+                      Select Source
+                    </option>
+                    {source?.map((item: any) => (
+                      <option value={item?.id}>{item?.SourceName}</option>
+                    ))}
                   </select>
                   <div className="text-muted fs-7"></div>
                   <div className="d-none mt-10">
@@ -430,13 +424,9 @@ useEffect(()=>{
                   </div>
                 </div>
               </div>
-
-
-
             </div>
 
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-
               <div className="tab-content">
                 <div
                   className="tab-pane fade show active"
@@ -453,7 +443,7 @@ useEffect(()=>{
 
                       <div className="card-body pt-0">
                         <form className="form">
-                          <div className="form-group row mb-4">
+                          <div className="form-group row my-8">
                             <div className="col-lg-6">
                               {/* <label>Name:</label> */}
                               <input
@@ -462,8 +452,7 @@ useEffect(()=>{
                                 value={data.contactName}
                                 name="contactName"
                                 onChange={handleChange}
-                               className="form-control form-control-lg form-control-solid"
-
+                                className="form-control form-control-lg form-control-solid"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -473,14 +462,25 @@ useEffect(()=>{
                                 value={data.contactEmail}
                                 onChange={handleChange}
                                 name="contactEmail"
-                                className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
+                                className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                                 placeholder="Email"
                               />
                             </div>
 
+                            
                           </div>
-
-                          <div className="form-group row mb-4">
+                          <div className="form-group row my-8">
+                          <div className="col-lg-6">
+                              {/* <label>Secondary Email:</label> */}
+                              <input
+                                type="text"
+                                value={data.contactSecondaryEmail}
+                                onChange={handleChange}
+                                name="contactSecondaryEmail"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Secondary Email"
+                              />
+                            </div>
                             <div className="col-lg-6">
                               {/* <label>First Name:</label> */}
                               <input
@@ -492,6 +492,15 @@ useEffect(()=>{
                                 placeholder="First Name"
                               />
                             </div>
+                            
+                          </div>
+
+                          {/* <div className="form-group row my-8">
+                            
+                            
+                          </div> */}
+                          <div className="form-group row my-8">
+                            
                             <div className="col-lg-6">
                               {/* <label>Last Name:</label> */}
                               <input
@@ -503,19 +512,7 @@ useEffect(()=>{
                                 placeholder="Last Name"
                               />
                             </div>
-                          </div>
-                          <div className="form-group row mb-4">
-                            <div className="col-lg-6">
-                              {/* <label>Secondary Email:</label> */}
-                              <input
-                                type="text"
-                                value={data.contactSecondaryEmail}
-                                onChange={handleChange}
-                                name="contactSecondaryEmail"
-                                className="form-control form-control-lg form-control-solid"
-                                placeholder="Secondary Email"
-                              />
-                            </div>
+
                             <div className="col-lg-6">
                               {/* <label> Mobile:</label> */}
                               <input
@@ -528,7 +525,27 @@ useEffect(()=>{
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-4">
+
+                          {/* <div className="form-group row my-8">
+                            
+                          </div> */}
+
+                          
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-column gap-7 gap-lg-10 my-10">
+                    <div className="card card-flush py-4">
+                      <div className="card-header">
+                        <div className="card-title">
+                          <h2>Contact Details</h2>
+                        </div>
+                      </div>
+
+                      <div className="card-body pt-0">
+                        <form className="form">
+                          <div className="form-group row my-8">
                             <div className="col-lg-6">
                               {/* <label>Title:</label> */}
                               <input
@@ -551,8 +568,10 @@ useEffect(()=>{
                                 placeholder="Job Title"
                               />
                             </div>
+                            
                           </div>
-                          <div className="form-group row mb-4">
+                          <div className="form-group row my-8">
+                            
                             <div className="col-lg-6">
                               {/* <label>CompanyName:</label> */}
                               <input
@@ -562,22 +581,8 @@ useEffect(()=>{
                                 name="contactCompanyName"
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Company Name"
-
                               />
                             </div>
-                            <div className="col-lg-6">
-                              {/* <label>City:</label> */}
-                              <input
-                                type="text"
-                                value={data.contactCity}
-                                onChange={handleChange}
-                                name="contactCity"
-                                className="form-control form-control-lg form-control-solid"
-                                placeholder="City"
-                              />
-                            </div>
-                          </div>
-                          <div className="form-group row mb-4">
                             <div className="col-lg-6">
                               {/* <label>Address:</label> */}
                               <input
@@ -587,6 +592,20 @@ useEffect(()=>{
                                 name="contactAddress"
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Address"
+                              />
+                            </div>
+                          </div>
+                          <div className="form-group row my-8">
+                            
+                            <div className="col-lg-6">
+                              {/* <label>City:</label> */}
+                              <input
+                                type="text"
+                                value={data.contactCity}
+                                onChange={handleChange}
+                                name="contactCity"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="City"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -601,18 +620,8 @@ useEffect(()=>{
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-4">
-                            <div className="col-lg-6">
-                              {/* <label>Pincode:</label> */}
-                              <input
-                                type="text"
-                                value={data.contactPincode}
-                                onChange={handleChange}
-                                name="contactPincode"
-                                className="form-control form-control-lg form-control-solid"
-                                placeholder="Pincode"
-                              />
-                            </div>
+                          <div className="form-group row my-8">
+                            
                             <div className="col-lg-6">
                               {/* <label>Country:</label> */}
                               <input
@@ -624,9 +633,33 @@ useEffect(()=>{
                                 placeholder="Country"
                               />
                             </div>
+                            <div className="col-lg-6">
+                              {/* <label>Pincode:</label> */}
+                              <input
+                                type="text"
+                                value={data.contactPincode}
+                                onChange={handleChange}
+                                name="contactPincode"
+                                className="form-control form-control-lg form-control-solid"
+                                placeholder="Pincode"
+                              />
+                            </div>
                           </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="d-flex flex-column gap-7 gap-lg-10 my-10">
+                    <div className="card card-flush py-4">
+                      <div className="card-header">
+                        <div className="card-title">
+                          <h2>Contact Details</h2>
+                        </div>
+                      </div>
 
-                          <div className="form-group row mb-4">
+                      <div className="card-body pt-0">
+                        <form className="form">
+                        <div className="form-group row my-8">
                             <div className="col-lg-6">
                               {/* <label>Website Address:</label> */}
                               <input
@@ -650,8 +683,7 @@ useEffect(()=>{
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-4">
-
+                          <div className="form-group row my-8">
                             <div className="col-lg-6">
                               {/* <label>Twitter Handle:</label> */}
                               <input
@@ -675,7 +707,7 @@ useEffect(()=>{
                               />
                             </div>
                           </div>
-                          <div className="form-group row mb-4">
+                          <div className="form-group row my-8">
                             <div className="col-lg-6">
                               {/* <label>Facebook Handle:</label> */}
                               <input
@@ -709,7 +741,7 @@ useEffect(()=>{
                 <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation('/contacts/contacts')
+                    navigation("/contacts/contacts");
                   }}
                 >
                   Back
@@ -718,7 +750,7 @@ useEffect(()=>{
                   type="submit"
                   id="kt_ecommerce_add_product_submit"
                   onClick={() => {
-                    handleSubmit()
+                    handleSubmit();
                   }}
                   className="btn btn-primary"
                 >
@@ -735,5 +767,5 @@ useEffect(()=>{
         </div>
       </div>
     </>
-  )
+  );
 }

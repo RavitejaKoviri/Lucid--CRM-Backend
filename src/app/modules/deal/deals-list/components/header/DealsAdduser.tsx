@@ -283,7 +283,7 @@ export default function DealsAdduser() {
                     onChange={handleChange}
                     name="dealStatus"
                   >
-                    <option></option>
+                    <option value={""} disabled selected>Select Status</option>
                     {status?.map((item: any) => (
                       <option value={item?.id}>{item?.dealStatusName}</option>
                     ))}
@@ -323,7 +323,7 @@ export default function DealsAdduser() {
                     onChange={handleChange}
                     name="campaignSource"
                   >
-                    <option></option>
+                    <option value={""} disabled selected>Select Campaign</option>
                     {campaign?.map((item: any) => (
                       <option value={item?.id}>{item?.campaignName}</option>
                     ))}
@@ -353,7 +353,7 @@ export default function DealsAdduser() {
                     onChange={handleChange}
                     name="dealSource"
                   >
-                    <option></option>
+                    <option value={""} disabled selected>Select Source</option>
                     {source?.map((item: any) => (
                       <option value={item?.id}>{item?.SourceName}</option>
                     ))}
