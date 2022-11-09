@@ -325,7 +325,7 @@ export default function TargetAdduser() {
                   <div className="form form-label-right">
                     {" "}
                     <div className="form-group row mb-4">
-                      <div className="col-lg-6 fv-row">
+                      <div className="col-lg-4 fv-row">
                         {/* <label>Target Name:</label> */}
                         <input
                           type="text"
@@ -337,20 +337,19 @@ export default function TargetAdduser() {
 
                         />
                       </div>
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         {/* <label>Target DueDate:</label> */}
                         <input
-                          type="date"
+                          type="text"
                           value={data.targetDueDate}
                           onChange={handleChange}
+                          onFocus={(e)=>{e.target.type='date'}}
                           name="targetDueDate"
                           className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                          placeholder=" "
+                          placeholder="Select Target Due Date"
                         />
                       </div>
-                    </div>
-                    <div className="form-group row mb-4">
-                      <div className="col-lg-6">
+                      <div className="col-lg-4">
                         {/* <label className="form-label">Assigned To</label> */}
                         <select
                           className="form-control form-control-solid mb-2"
@@ -362,7 +361,7 @@ export default function TargetAdduser() {
                           name="assignedTo"
                         >
                           <option value="" disabled selected>
-                            -- Select Assigned To --
+                            Select Assigned To
                           </option>
 
                           {user?.map((item: any) => (
@@ -371,6 +370,9 @@ export default function TargetAdduser() {
                         </select>
                       </div>
                     </div>
+                    {/* <div className="form-group row mb-4">
+                      
+                    </div> */}
                     <div className="form-group row mb-2">
                       <div className="col-lg-12">
                         {/* <label>Target Description:</label> */}

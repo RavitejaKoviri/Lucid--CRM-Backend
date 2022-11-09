@@ -441,7 +441,7 @@ export default function BookingAdduser() {
                                 onChange={handleChange}
                               >
                                 <option value="" disabled selected>
-                                  --Select Gender--
+                                  Select Gender
                                 </option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -460,7 +460,7 @@ export default function BookingAdduser() {
                                 onChange={handleChange}
                               >
                                 <option value="" disabled selected>
-                                  --Select Type--
+                                  Select Type
                                 </option>
                                 <option value="clinic">Clinic</option>
                                 <option value="enquiry">Enquiry</option>
@@ -487,7 +487,7 @@ export default function BookingAdduser() {
                                   name="doctor"
                                 >
                                   <option value="" disabled selected>
-                                    --Select Doctor --
+                                    Select Doctor
                                   </option>
                                   <option></option>
                                   {doctor?.map((item: any) => (
@@ -498,8 +498,6 @@ export default function BookingAdduser() {
                                 </select>
                               </div>
                             )}
-                          </div>
-                          <div className="form-group row mb-4">
                             <div className="col-lg-5">
                               {/* <label>Address:</label> */}
                               <input
@@ -511,6 +509,9 @@ export default function BookingAdduser() {
                                 onChange={handleChange}
                               />
                             </div>
+                          </div>
+                          {/* <div className="form-group row mb-4"> */}
+                            
                             {/* <div className="col-lg-5">
                               <select
                               className="form-control form-control-lg form-control-solid"
@@ -529,7 +530,7 @@ export default function BookingAdduser() {
                                 <option value="cancelled"> cancelled</option>
                               </select>
                             </div> */}
-                          </div>
+                          {/* </div> */}
                           <div className="form-group row mb-4">
                             <div className="col-lg-5">
                               {/* <label>City:</label> */}
@@ -543,7 +544,7 @@ export default function BookingAdduser() {
                                 onChange={handleChange}
                               >
                                 <option value="" disabled selected>
-                                  --Select City --
+                                  Select City
                                 </option>
                                 {city?.map((item: any) => (
                                   <option value={item?.id}>{item?.name}</option>
@@ -562,7 +563,7 @@ export default function BookingAdduser() {
                                 name="branch"
                               >
                                 <option disabled selected>
-                                  --Select Branch --
+                                  Select Branch
                                 </option>
                                 {branch?.map((item: any) => (
                                   <option value={item?.id}>{item?.name}</option>
@@ -660,7 +661,7 @@ export default function BookingAdduser() {
                                 onChange={handleChange}
                               />
                             </div>
-                            <div className="col-lg-4">
+                            <div className="col-lg-5">
                               {/* <label>Select the date of Appointment</label> */}
                               <div style={{ width: "100%", height: "100%" }}>
                                 <DatePicker
@@ -669,6 +670,7 @@ export default function BookingAdduser() {
                                   onChange={(date: any) => setStartDate(date)}
                                   minDate={new Date()}
                                   maxDate={newdate}
+                                  
                                   minTime={
                                     new Date(
                                       new Date().setHours(
@@ -688,7 +690,8 @@ export default function BookingAdduser() {
                                     <input
                                       // type="date"
                                       placeholder="Select Date and Time"
-                                      className="form-control form-control-lg form-control-solid"
+                                      className="form-control form-control-lg form-control-solid col-lg-6"
+                                      style={{width:'464px'}}
                                     />
                                   }
                                 />
@@ -708,7 +711,7 @@ export default function BookingAdduser() {
                                 onChange={handleChange}
                               >
                                 <option value="" disabled selected>
-                                  -- Select PaymentMode --
+                                  Select PaymentMode
                                 </option>
                                 <option value="cash">cash</option>
                                 <option value="Google">Google Pay </option>
@@ -728,7 +731,7 @@ export default function BookingAdduser() {
                                 onChange={handleChange}
                               >
                                 <option value="" disabled selected>
-                                  -- Select Payment Status --
+                                  Select Payment Status
                                 </option>
                                 <option value="Received">Received</option>
                                 <option value="NotReceived">

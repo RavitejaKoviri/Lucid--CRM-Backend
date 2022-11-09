@@ -38,7 +38,7 @@ function SocialCampaigns() {
           </div>
           <div
             onClick={() => {
-              navigation("");
+              navigation("facebookpost");
             }}
             className="col my-5 d-flex p-4 mx-5"
             style={{

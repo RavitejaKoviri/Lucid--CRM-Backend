@@ -280,7 +280,7 @@ export default function TicketAdduser() {
                     onChange={handleChange}
                     name="ticketStatus"
                   >
-                    <option>--Select Status --</option>
+                    <option>Select Status</option>
                     {status?.map((item: any) => (
                       <option value={item?.id}>{item?.ticketStatusName}</option>
                     ))}
@@ -327,7 +327,7 @@ export default function TicketAdduser() {
                               <input
                                 type="text"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter TicketName"
+                                placeholder="Enter Ticket Name"
                                 value={data.ticketName}
                                 onChange={handleChange}
                                 name="ticketName"
@@ -344,7 +344,7 @@ export default function TicketAdduser() {
                                 onChange={handleChange}
                                 name="ticketPriority"
                               >
-                                <option>--Select Priority --</option>
+                                <option>Select Priority</option>
                                 <option value="High">High</option>
                                 <option value="Medium">Medium</option>
                                 <option value="Low">Low</option>
@@ -363,7 +363,7 @@ export default function TicketAdduser() {
                                 onChange={handleChange}
                                 name="ticketAssignedTo"
                               >
-                                <option>--Select AssignedTo --</option>
+                                <option>Select Assigned To</option>
 
                                 {userassign?.map((item: any) => (
                                   <option value={item?.id}>
@@ -383,7 +383,7 @@ export default function TicketAdduser() {
                                 onChange={handleChange}
                                 name="customer"
                               >
-                                <option>--Select customer --</option>
+                                <option>Select Customer</option>
 
                                 {customer?.map((item: any) => (
                                   <option value={item?.id}>
@@ -395,24 +395,26 @@ export default function TicketAdduser() {
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-6 mb-4">
-                              <label>Start Date</label>
+                              {/* <label>Start Date</label> */}
                               <input
-                                type="date"
+                                type="text"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter customer"
+                                placeholder="Select Start Date"
                                 value={data.ticketStartDate}
                                 onChange={handleChange}
+                                onFocus={(e)=>{e.target.type='date'}}
                                 name="ticketStartDate"
                               />
                             </div>
                             <div className="col-lg-6">
-                              <label>End Date</label>
+                              {/* <label>End Date</label> */}
                               <input
-                                type="date"
+                                type="text"
                                 className="form-control form-control-lg form-control-solid"
-                                placeholder="Enter Company"
+                                placeholder="Select End Date"
                                 value={data.ticketEndDate}
                                 onChange={handleChange}
+                                onFocus={(e)=>{e.target.type='date'}}
                                 name="ticketEndDate"
                               />
                             </div>

@@ -31,6 +31,7 @@ import EmailCampaign from '../modules/campaign/campaigns-list/components/body/co
 import CampaignAutomation from '../modules/campaign/campaigns-list/components/body/components/campaignAutomation'
 import SocialCampaigns from '../modules/campaign/campaigns-list/components/body/components/socialCampaigns'
 import SocialMediaPost from '../modules/campaign/campaigns-list/components/body/components/socialmedia-campaigns/socialMediaPost'
+import FacebookPost from '../modules/campaign/campaigns-list/components/body/components/socialmedia-campaigns/facebookPost'
 import SourceAdduser from '../modules/sources/sources-list/components/header/SourcesAdduser'
 
 // import SourcesAdduser from '../modules/sources/sources-list/components/header/SourcesAdduser'
@@ -138,6 +139,7 @@ const PrivateRoutes = () => {
         <Route path='campaigns/campaigns/campaigncreate/campaignautomation' element={<CampaignAutomation />}/>
         <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />}/>
         <Route path='campaigns/campaigns/campaigncreate/socialcampaign/socialmediapost' element={<SocialMediaPost />}/>
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign/facebookpost' element={<FacebookPost />}/>
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
         <Route path='contacts/contacts/Editcontact' element={<Editcontact />} />
