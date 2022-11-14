@@ -45,6 +45,8 @@ import CdrAdduser from '../modules/cdrs/cdrs-list/components/header/CdrAdduser'
 // import AddBrand from '../modules/Brand/Brands-list/components/header/AddBrand'
 import ReportsPage from '../modules/reports/ReportsPage'
 import RolesList from '../modules/Roles/rolesList.js'
+import AddNewRole from '../modules/Roles/components/addNewRole.js'
+import RolePermissions from '../modules/Roles/rolePermissions.js'
 import ViewRoles from '../modules/Roles/viewRoles'
 import UserAdduser from '../modules/user-management/users-list/components/header/UserAddUser'
 import EditTask from '../modules/task/tasks-list/components/header/EditTask'
@@ -153,7 +155,9 @@ const PrivateRoutes = () => {
         <Route path='cdr/cdr/EditCdr' element={<EditCdr />} />
 
         <Route path='/apps/user-management/roles/list' element={<RolesList />} />
+        <Route path='/apps/user-management/roles/list/addnewrole' element={<AddNewRole />}/>
         <Route path='/apps/user-management/roles/view' element={<ViewRoles />} />
+        <Route path='/apps/user-management/roles/permissions' element={<RolePermissions />} />
 
         <Route path='/company' element={<CompanyPage />} />
         <Route path='/company/company/AddCompany' element={<AddCompany />} />

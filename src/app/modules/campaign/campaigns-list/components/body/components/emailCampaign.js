@@ -76,7 +76,7 @@ function EmailCampaign() {
           <button className="btn btn-danger">Delete</button>
         </div>
       </div>
-      <div
+      {/* <div
         className="d-flex flex-row my-10 p-10"
         style={{ background: "#FFFFFF", borderRadius: "10px" }}
       >
@@ -92,7 +92,7 @@ function EmailCampaign() {
         </p>
         <div>
           {/* <img src={FormImage} /> */}
-          <p className="my-5" style={{ fontSize: "14px", color: "#888888" }}>
+          {/* <p className="my-5" style={{ fontSize: "14px", color: "#888888" }}>
             Are you in need of a signup form? Choose one from our templates.
           </p>
           <button
@@ -105,7 +105,7 @@ function EmailCampaign() {
             Choose templates
           </button>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

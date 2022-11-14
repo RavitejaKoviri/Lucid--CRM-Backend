@@ -1,8 +1,10 @@
 import axios from "axios";
+import { AnyAaaaRecord } from "dns";
 
 export const USER = "users";
-export const ROLES = "rolebasedaccesses";
+export const ROLES = "crmroles";
 export const ADD_USER = "auth/local/register";
+export const COMPANIES = "companies";
 
 
 export function getAllUsers(token: any) { 
@@ -38,5 +40,13 @@ export function getAllUsersByCompanyId(id: any, token: any) {
 
   return axios.get(`${USER}?company=${id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+export function getCompanies(token: any) {
+  return axios.get(COMPANIES, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
 }

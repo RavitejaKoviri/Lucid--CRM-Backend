@@ -1,9 +1,15 @@
-import React, { useEffect } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchRoleById, fetchRoles } from "../user-management/users-list/_redux/userAction";
+import {
+  fetchRoleById,
+  fetchRoles,
+} from "../user-management/users-list/_redux/userAction";
 import {
   fetchAllModules,
+  fetchCrmRoles,
+  fetchRolePermissionsById,
 } from "./redux/rolesAction";
 
 function RolesListHeader() {
@@ -199,15 +205,20 @@ function RolesListHeader() {
 }
 
 function RolesListCard(props) {
-	const dispatch=useDispatch();
+  const dispatch = useDispatch();
   const { id, roleName } = props;
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const token = useSelector((state) => state?.auth?.authToken);
+  const rolePermissionsById = useSelector(
+    (state) => state?.Roles?.RolePermissionsById
+  );
+
   const handleClick = () => {
-	console.log(id,"sdf");
-    dispatch(fetchRoleById( id,token));
+    console.log(id, "roleId");
+    dispatch(fetchRolePermissionsById(id, token));
   };
 
+  console.log("rolePermissionsById", rolePermissionsById);
   return (
     <div class="col-md-4">
       <div class="card card-flush h-md-100">
@@ -244,19 +255,18 @@ function RolesListCard(props) {
           </div>
         </div>
         <div class="card-footer flex-wrap pt-0">
-          
-        <button
+          <button
             type="button"
             class="btn btn-light btn-active-light-primary my-1"
             onClick={() => {
               handleClick();
-              navigate("/apps/user-management/roles/view")
+              navigate("/apps/user-management/roles/view");
             }}
           >
             View Role
           </button>
-         
-            <button
+
+          <button
             type="button"
             class="btn btn-light btn-active-light-primary my-1"
             data-bs-toggle="modal"
@@ -273,72 +283,168 @@ function RolesListCard(props) {
   );
 }
 
-function RolesPermissionsDetails(props) {
-  const { moduleName } = props;
-  return (
-    <tr>
-      <td class="text-gray-800">{moduleName}</td>
-      <td>
-        <div class="d-flex">
-          <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              name="user_management_read"
-            />
-            <span class="form-check-label">Read</span>
-          </label>
-          <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              name="user_management_write"
-            />
-            <span class="form-check-label">Write</span>
-          </label>
-          <label class="form-check form-check-custom form-check-solid">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              name="user_management_create"
-            />
-            <span class="form-check-label">Create</span>
-          </label>
-        </div>
-      </td>
-    </tr>
-  );
-}
+// function RolesPermissionsDetails(props) {
+//   const { moduleName, create, write, read, dlt } = props;
+//   return (
+//     <tr>
+//       <td class="text-gray-800">{moduleName}</td>
+//       <td>
+//         <div class="d-flex">
+//           <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+//             <input
+//               class="form-check-input"
+//               type="checkbox"
+//               defaultChecked={read}
+//               value={""}
+//               // onChange={()=>}
+//               name="user_management_read"
+//             />
+//             <span class="form-check-label">Read</span>
+//           </label>
+//           <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+//             <input
+//               class="form-check-input"
+//               type="checkbox"
+//               defaultChecked={write}
+//               value=""
+//               name="user_management_write"
+//             />
+//             <span class="form-check-label">Update</span>
+//           </label>
+//           <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+//             <input
+//               class="form-check-input"
+//               type="checkbox"
+//               defaultChecked={create}
+//               value=""
+//               name="user_management_write"
+//             />
+//             <span class="form-check-label">Create</span>
+//           </label>
+//           <label class="form-check form-check-custom form-check-solid">
+//             <input
+//               class="form-check-input"
+//               type="checkbox"
+//               defaultChecked={dlt}
+//               value=""
+//               name="user_management_create"
+//             />
+//             <span class="form-check-label">Delete</span>
+//           </label>
+
+//         </div>
+//       </td>
+//     </tr>
+//   );
+// }
 
 function RolesList() {
+  const navigation = useNavigate();
   const dispatch = useDispatch();
   const UserById = useSelector((state) => state?.Roles?.UserById);
   const AllModules = useSelector((state) => state?.Roles?.Modules);
+  const crmRoles = useSelector((state) => state?.Roles?.CrmRoles);
   const token = useSelector((state) => state?.auth?.authToken);
-  const Roles = useSelector(
-    (state) => state?.ManageUserData?.Roles
+  const Roles = useSelector((state) => state?.ManageUserData?.Roles);
+  const RoleById = useSelector((state) => state?.ManageUserData?.RoleById);
+  const user = useSelector((state) => state?.auth?.user);
+  const rolePermissionsById = useSelector(
+    (state) => state?.Roles?.RolePermissionsById
   );
-  const RoleById = useSelector(
-    (state) => state?.ManageUserData?.RoleById
-  );
+
   useEffect(() => {
-    dispatch(fetchRoles(token))
+    dispatch(fetchRoles(token));
   }, []);
+
+  useEffect(() => {
+    dispatch(fetchCrmRoles(token));
+  }, []);
+  useEffect(() => {
+    dispatch(fetchRolePermissionsById(token));
+  }, []);
+
   useEffect(() => {
     dispatch(fetchAllModules(token));
   }, [UserById?.id]);
-  console.log(RoleById, "ASD");
 
-  const RoleName=({roleName})=> {
-    return <input
-      class="form-control form-control-solid"
-      placeholder="Enter a role name"
-      name="role_name"
-      value={roleName}
-    />;
+  const [create, setCreate] = useState(rolePermissionsById?.Create);
+  const [read, setRead] = useState(rolePermissionsById?.Get);
+  const [update, setUpdate] = useState(rolePermissionsById?.Update);
+  const [dlt, setDlt] = useState(rolePermissionsById?.Delete);
+
+  let itemId = "";
+  function handleRead(id) {
+    itemId = id?.id;
+    setRead(!rolePermissionsById?.Get);
+    console.log(itemId, "checking Id...");
+    handleSubmit(itemId);
+  }
+  function handleCreate(id) {
+    itemId = id?.id;
+    setRead(!rolePermissionsById?.Create);
+    console.log(itemId, "checking Id...");
+    handleSubmit(itemId);
+  }
+  function handleUpdate(id) {
+    itemId = id?.id;
+    setRead(!rolePermissionsById?.Update);
+    console.log(itemId, "checking Id...");
+    handleSubmit(itemId);
+  }
+  function handleDlt(id) {
+    itemId = id?.id;
+    setRead(!rolePermissionsById?.Delete);
+    console.log(itemId, "checking Id...");
+    handleSubmit(itemId);
+  }
+
+  function handleSubmit(id) {
+    const obj = {};
+    obj.Create = create;
+    obj.Get = read;
+    obj.Update = update;
+    obj.Delete = dlt;
+    // console.log(id, "checking id..")
+    axios
+      .put(`http://65.2.10.157:5377/rolepermissions/${id}`, obj, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        console.log(response, "response");
+        // alert("Submitted");
+      })
+      .catch((err) => {
+        console.log(err, "erroror");
+      });
+  }
+
+  console.log(
+    user,
+    "user",
+    crmRoles,
+    "crmRoles",
+    AllModules,
+    "allmodules",
+    UserById,
+    "UserById",
+    Roles,
+    "Roles",
+    RoleById,
+    "RoleById"
+  );
+
+  const RoleName = ({ roleName }) => {
+    return (
+      <input
+        class="form-control form-control-solid"
+        placeholder="Enter a role name"
+        name="role_name"
+        value={roleName}
+      />
+    );
   };
   return (
     <>
@@ -349,9 +455,10 @@ function RolesList() {
           {/*begin::Row */}
           <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5 g-xl-9">
             {/*begin::Col */}
-            {Roles?.map((item) => (
-              <RolesListCard id={item?.id} roleName={item?.role} />
+            {crmRoles?.map((item) => (
+              <RolesListCard id={item?.id} roleName={item?.name} />
             ))}
+
             <div class="ol-md-4">
               {/*begin::Card */}
               <div class="card h-md-100">
@@ -372,7 +479,12 @@ function RolesList() {
                     />
                     {/*end::Illustration */}
                     {/*begin::Label */}
-                    <div class="fw-bold fs-3 text-gray-600 text-hover-primary">
+                    <div
+                      onClick={() => {
+                        navigation("addnewrole");
+                      }}
+                      class="fw-bold fs-3 text-gray-600 text-hover-primary"
+                    >
                       Add New Role
                     </div>
                     {/*end::Label */}
@@ -388,6 +500,7 @@ function RolesList() {
             aria-hidden="true"
           >
             {/*begin::Modal dialog */}
+
             <div class="modal-dialog modal-dialog-centered mw-750px">
               {/*begin::Modal content */}
               <div class="modal-content">
@@ -435,6 +548,7 @@ function RolesList() {
                 </div>
                 {/*end::Modal header */}
                 {/*begin::Modal body */}
+
                 <div class="modal-body scroll-y mx-5 my-7">
                   {/*begin::Form */}
                   <form id="kt_modal_update_role_form" class="form" action="#">
@@ -457,9 +571,12 @@ function RolesList() {
                         </label>
                         {/*end::Label */}
                         {/*begin::Input */}
-                        
-                          <RoleName roleName={RoleById?.role} />
-                       
+
+                        <RoleName
+                          roleName={rolePermissionsById[0]?.crmrole?.name}
+                        />
+                        {/* <h1>{rolePermissionsById[0]?.crmrole?.name}</h1> */}
+
                         {/*end::Input */}
                       </div>
                       {/*end::Input group */}
@@ -505,10 +622,76 @@ function RolesList() {
                                   {/*end::Checkbox */}
                                 </td>
                               </tr>
-                              {AllModules?.map((item) => (
-                                <RolesPermissionsDetails
-                                  moduleName={item?.name}
-                                />
+                              {rolePermissionsById?.map((item) => (
+                                <tr>
+                                  <td class="text-gray-800">
+                                    {item?.allmodule?.name}
+                                  </td>
+                                  <td>
+                                    <div class="d-flex">
+                                      <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
+                                        <input
+                                          class="form-check-input"
+                                          type="checkbox"
+                                          defaultChecked={item?.Get}
+                                          value={""}
+                                          onChange={() =>
+                                            handleRead({ id: item?.id })
+                                          }
+                                          name="user_management_read"
+                                        />
+                                        <span class="form-check-label">
+                                          Read
+                                        </span>
+                                      </label>
+                                      <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                        <input
+                                          class="form-check-input"
+                                          type="checkbox"
+                                          defaultChecked={item?.Update}
+                                          onChange={() =>
+                                            handleUpdate({ id: item?.id })
+                                          }
+                                          value=""
+                                          name="user_management_write"
+                                        />
+                                        <span class="form-check-label">
+                                          Update
+                                        </span>
+                                      </label>
+                                      <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
+                                        <input
+                                          class="form-check-input"
+                                          type="checkbox"
+                                          defaultChecked={item?.Create}
+                                          onChange={() =>
+                                            handleCreate({ id: item?.id })
+                                          }
+                                          value=""
+                                          name="user_management_write"
+                                        />
+                                        <span class="form-check-label">
+                                          Create
+                                        </span>
+                                      </label>
+                                      <label class="form-check form-check-custom form-check-solid">
+                                        <input
+                                          class="form-check-input"
+                                          type="checkbox"
+                                          defaultChecked={item?.Delete}
+                                          onChange={() =>
+                                            handleDlt({ id: item?.id })
+                                          }
+                                          value=""
+                                          name="user_management_create"
+                                        />
+                                        <span class="form-check-label">
+                                          Delete
+                                        </span>
+                                      </label>
+                                    </div>
+                                  </td>
+                                </tr>
                               ))}
                             </tbody>
                             {/*end::Table body */}
@@ -530,7 +713,11 @@ function RolesList() {
                         class="btn btn-primary"
                         data-kt-roles-modal-action="submit"
                       >
-                        <span class="indicator-label">Submit</span>
+                        <span class="indicator-label" 
+                        // onClick={handleSubmit}
+                        >
+                          Submit
+                        </span>
                         <span class="indicator-progress">
                           Please wait...
                           <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
