@@ -42,6 +42,7 @@ function PostModal(props: any) {
   const onEmojiClick = (event: any, emojiObject: any) => {
     setData(prevInput => prevInput + event.emoji)
     console.log(event, emojiObject, "emoji")
+    setEmojiPicker(!emojiPicker)
   };
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
@@ -132,7 +133,7 @@ function PostModal(props: any) {
   // }
 
   const PostToFacebook = () => {
-    axios.post(`https://graph.facebook.com/101750425879367/photos?message=hellowebsoc&url=http://65.2.10.157:5377/uploads/flower_592ae1f006.jpg&access_token=${accessToken}`).then((response) => {
+    axios.post(`https://graph.facebook.com/101750425879367/photos?message=${data}&url=http://65.2.10.157:5377${imageUrl}&access_token=${accessToken}`).then((response) => {
       const { data } = response;
       console.log(data, "data")
     })
