@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import * as Yup from 'yup';
@@ -9,6 +9,7 @@ import Picker from 'emoji-picker-react';
 import { KTSVG } from '../../../../../_metronic/helpers';
 import FacebookLogin from 'react-facebook-login';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 function PostModal(props: any) {
   const [isUserLoading, setUserLoading] = React.useState(false);
@@ -17,23 +18,52 @@ function PostModal(props: any) {
   const [image, setImage] = React.useState("");
   const contentRef = createRef<any>();
   const [discValue, setDiscValue] = React.useState("");
-
+  const [insta, setInsta] = React.useState("");
+  const [instaId, setInstaId] = React.useState("");
+  const [creatorId, setCreatorId] = React.useState("");
+  const [data, setData] = useState("");
+  const token = useSelector(
+    (state: any) => state?.auth?.authToken
+  );
   const onEmojiClick = (event: any, emojiObject: any) => {
-    const ref = contentRef.current
-    const start = discValue.substring(0, ref.selectionStart);
-    const content = start + emojiObject.emoji;
-    setDiscValue(content);
-    ref.selectionEnd = start.length + emojiObject.emoji.length
+    setData(prevInput => prevInput + event.emoji)
+    console.log(event, emojiObject, "emoji")
   };
-
-  const handleImageChange = (e: any) => {
-    console.log(e, "iiiiii", e.target.files[0], "fff", e.target.files)
-    if (e.target.files && e.target.files[0]) {
-      setImage(URL.createObjectURL(e.target.files[0]))
+  const [imageUrl, setImageUrl] = React.useState<any[]>([]);
+  const [selectedPreviewFile, setSelectedPreviewFile] = useState();
+  const [preview, setPreview] = useState();
+  console.log(data, "emoji")
+  useEffect(() => {
+    if (!selectedPreviewFile) {
+      setPreview(undefined);
+      return;
     }
-    console.log(image, "imimim")
-  }
 
+    const objectUrl: any = URL.createObjectURL(selectedPreviewFile);
+    setPreview(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedPreviewFile]);
+
+  const handleImageChange = (document: any) => {
+    setSelectedPreviewFile(document);
+    const selectedFile = document;
+    var formdata = new FormData();
+    formdata.append("files", selectedFile, selectedFile.name);
+    console.log("document", document);
+    axios
+      .post("http://65.2.10.157:5377/upload/", formdata, {
+        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      })
+      .then(({ data }) => {
+        console.log(data[0].url, "imageupload");
+        setImageUrl(data[0].url);
+      })
+      .catch(() => { });
+
+  }
+  console.log(image, "imimim")
   const formik = useFormik({
     initialValues: { disc: "" },
     onSubmit: async (values) => {
@@ -42,7 +72,15 @@ function PostModal(props: any) {
   })
 
   const [accessToken, setAccessToken] = useState("");
-  const [data, setData] = useState("");
+  console.log(accessToken, "accessToken");
+
+  const facebookData = {
+    message: "hello websoc",
+    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxaPhzScJPYZs8LPQygV9kcYHOPYu0EhkOIpvvIlRriw&s"
+  }
+
+
+
   const responseFacebook = (response: any) => {
     axios.get(`https://graph.facebook.com/v6.0/oauth/access_token?  
     grant_type=fb_exchange_token&          
@@ -50,10 +88,14 @@ function PostModal(props: any) {
     client_secret=dff22b28e155da4acd6818580ed6438f&
     fb_exchange_token=${response.accessToken}`).then((response) => {
       const { data } = response;
+      setAccessToken(data?.access_token)
       getUserId(data?.access_token)
+      // getInstaId(data?.access_token)
       console.log(data, "data");
     })
   }
+
+  //facebook post
 
   const getUserId = (accessId: any) => {
     axios.get(`https://graph.facebook.com/v6.0/me?access_token=${accessId}`).then((response) => {
@@ -69,11 +111,43 @@ function PostModal(props: any) {
     })
   }
 
+  // const PostToFacebook = () => {
+  //   axios.post(`https://graph.facebook.com/101750425879367/feed?message=${data}&access_token=${accessToken}`).then((response) => {
+  //     const { data } = response;
+  //   })
+  // }
+
   const PostToFacebook = () => {
-    axios.post(`https://graph.facebook.com/101750425879367/feed?message=${data}&access_token=${accessToken}`).then((response) => {
+    axios.post(`https://graph.facebook.com/101750425879367/photos?message=hellowebsoc&url=http://65.2.10.157:5377/uploads/flower_592ae1f006.jpg&access_token=${accessToken}`).then((response) => {
       const { data } = response;
+      console.log(data, "data")
     })
   }
+
+  //insta post 
+
+  const getInstaId = (token: any) => {
+    axios.get(`https://graph.facebook.com/v15.0/101750425879367/?fields=instagram_business_account&access_token=${token}`).then((response) => {
+      const { data } = response;
+      createMediaContainer(data?.instagram_business_account?.id, token)
+    })
+  }
+
+  const createMediaContainer = (id: any, token: any) => {
+    axios.post(`https://graph.facebook.com/v15.0/${id}/media?image_url=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxaPhzScJPYZs8LPQygV9kcYHOPYu0EhkOIpvvIlRriw%26s&access_token=${token}`).then((response) => {
+      const { data } = response;
+      postInstagramPost(data?.id, id, token)
+    })
+  }
+
+  const postInstagramPost = (mediaId: any, id: any, token: any) => {
+    axios.post(`https://graph.facebook.com/v15.0/${id}/media_publish?access_token=${token}&creation_id=${mediaId}`).then((response) => {
+      const { data } = response;
+      console.log(data, "instapost");
+
+    })
+  }
+
   return (
     <>
 
@@ -141,7 +215,7 @@ function PostModal(props: any) {
                               type="file"
                               className="custom-file-input"
                               id="inputGroupFile04"
-                              onChange={(e) => handleImageChange(e)}
+                              onChange={(event: any) => handleImageChange(event.currentTarget.files[0])}
                             />
                           </div>
                         </div>
@@ -165,7 +239,6 @@ function PostModal(props: any) {
                       </button>
                       {/* end::Emoji */}
                     </div>
-                    <div className="p-2">Flex item 3</div>
                   </div>
                 </div>
                 {emojiPicker && <Picker onEmojiClick={onEmojiClick} />}
