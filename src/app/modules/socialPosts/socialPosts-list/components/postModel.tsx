@@ -21,6 +21,20 @@ function PostModal(props: any) {
   const [insta, setInsta] = React.useState("");
   const [instaId, setInstaId] = React.useState("");
   const [creatorId, setCreatorId] = React.useState("");
+  const [share, setShare] = useState([]);
+  const handleChange = (e:any) => {
+    const value = e.target.value;
+    const checked = e.target.checked;
+    console.log(value, checked);
+    // if (checked) {
+    //   setShare([...share, value]);
+    // } 
+    // else {
+    //   setShare(share.filter((e:any) => e !== value));
+    // }
+  };
+
+ 
   const [data, setData] = useState("");
   const token = useSelector(
     (state: any) => state?.auth?.authToken
@@ -178,7 +192,9 @@ function PostModal(props: any) {
               >
                 {/* begin::Input group */}
                 <div className='fv-row mb-7'>
-                  <label className='d-block fw-bold fs-6 mb-5'>Discription</label>
+                 
+                  <label className='d-block fw-bold fs-6 mb-1'>Discription</label>
+                  <div className='d-flex flex-row align-items-center justify-content-center'>
                   {/* begin::Input */}
                   <input
                     placeholder='Discription'
@@ -198,11 +214,21 @@ function PostModal(props: any) {
                     onChange={(e) => setData(e.target.value)}
                   // disabled={formik.isSubmitting || isUserLoading}
                   />
+                   <div className="p-2">
+                      {/* begin::Emoji */}
+                      <button type='button' className='btn btn-light-primary me-3'
+                        onClick={() => setEmojiPicker(!emojiPicker)}>
+                        <KTSVG path='/media/icons/duotune/arrows/arr078.svg' className='svg-icon-2' />
+                        Emoji
+                      </button>
+                      {/* end::Emoji */}
+                    </div>
+                  </div>
                 </div>
                 {/* end::Input group */}
 
                 <div>
-                  <div className="d-flex flex-row align-items-center justify-content-center">
+                  <div className="d-flex flex-row ">
                     <div className="p-2">
                       {/* begin::Export */}
                       <button
@@ -230,15 +256,27 @@ function PostModal(props: any) {
 
                       {/*end::Thumbnail settings*/}
                     </div>
-                    <div className="p-2">
-                      {/* begin::Emoji */}
-                      <button type='button' className='btn btn-light-primary me-3'
-                        onClick={() => setEmojiPicker(!emojiPicker)}>
-                        <KTSVG path='/media/icons/duotune/arrows/arr078.svg' className='svg-icon-2' />
-                        Emoji
-                      </button>
-                      {/* end::Emoji */}
-                    </div>
+                    <div  style={{display:'flex',marginLeft:'12%',marginTop:'2%'}}>
+                      <div>
+              <input
+                type="checkbox"
+                name="share"
+                value="Whatsapp"
+                onChange={handleChange}
+              />
+              <label style={{textAlign:'center',fontSize:'20px'}}>WhatsApp</label> </div>
+              <div style={{marginLeft:'30px'}}>
+              <input
+                type="checkbox"
+                name="share"
+                value="Instagram"
+                onChange={handleChange}
+              />
+              <label style={{textAlign:'center',fontSize:'20px'}}>Instagram</label>
+
+              </div>
+              
+            </div>
                   </div>
                 </div>
                 {emojiPicker && <Picker onEmojiClick={onEmojiClick} />}
