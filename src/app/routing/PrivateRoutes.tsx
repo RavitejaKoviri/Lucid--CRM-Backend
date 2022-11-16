@@ -45,8 +45,8 @@ import CdrAdduser from '../modules/cdrs/cdrs-list/components/header/CdrAdduser'
 // import AddBrand from '../modules/Brand/Brands-list/components/header/AddBrand'
 import ReportsPage from '../modules/reports/ReportsPage'
 import RolesList from '../modules/Roles/rolesList.js'
-import AddNewRole from '../modules/Roles/components/addNewRole.js'
-import RolePermissions from '../modules/Roles/rolePermissions.js'
+import AddNewRole from '../modules/Roles/components/addNewRole'
+import RolePermissions from '../modules/Roles/rolePermissions'
 import ViewRoles from '../modules/Roles/viewRoles'
 import UserAdduser from '../modules/user-management/users-list/components/header/UserAddUser'
 import EditTask from '../modules/task/tasks-list/components/header/EditTask'
@@ -137,11 +137,11 @@ const PrivateRoutes = () => {
         <Route path='campaigns/campaigns/campaigncreate' element={<CampaignCreate />} />
         <Route path='campaigns/campaigns/campaigncreate/signupform' element={<SignupForm />} />
         <Route path='campaigns/campaigns/campaigncreate/signupform/templates' element={<Templates />} />
-        <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />}/>
-        <Route path='campaigns/campaigns/campaigncreate/automation' element={<CampaignAutomation />}/>
-        <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />}/>
-        <Route path='campaigns/campaigns/campaigncreate/socialcampaign/socialmediapost' element={<SocialMediaPost />}/>
-        <Route path='campaigns/campaigns/campaigncreate/socialcampaign/facebookpost' element={<FacebookPost />}/>
+        <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />} />
+        <Route path='campaigns/campaigns/campaigncreate/automation' element={<CampaignAutomation />} />
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />} />
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign/socialmediapost' element={<SocialMediaPost />} />
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign/facebookpost' element={<FacebookPost />} />
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
         <Route path='contacts/contacts/Editcontact' element={<Editcontact />} />
@@ -155,7 +155,7 @@ const PrivateRoutes = () => {
         <Route path='cdr/cdr/EditCdr' element={<EditCdr />} />
 
         <Route path='/apps/user-management/roles/list' element={<RolesList />} />
-        <Route path='/apps/user-management/roles/list/addnewrole' element={<AddNewRole />}/>
+        <Route path='/apps/user-management/roles/list/addnewrole' element={<AddNewRole />} />
         <Route path='/apps/user-management/roles/view' element={<ViewRoles />} />
         <Route path='/apps/user-management/roles/permissions' element={<RolePermissions />} />
 
