@@ -15,9 +15,6 @@ import CheckBoxStatus from "./checkbox";
 
 function RolePermissions() {
   const dispatch = useDispatch();
-  const [role, setRole] = useState("");
-  const [module, setModule] = useState("");
-  const [company, setCompany] = useState("");
 
   const [create, setCreate] = useState(false);
   const [read, setRead] = useState(false);
@@ -25,12 +22,27 @@ function RolePermissions() {
   const [dlt, setDlt] = useState(false);
 
   const UserById = useSelector((state) => state?.Roles?.UserById);
+  const user = useSelector((state) => state?.auth?.user);
   const rolePermissions = useSelector((state) => state?.Roles?.RolePermissions);
+  const rolePermissionsByAdmin = rolePermissions?.filter(
+    (item) =>
+      item?.crmrole?.company === user?.company?.id &&
+      item?.crmrole?.name === user?.crmrole?.name
+  );
+
   const crmRoles = useSelector((state) => state?.Roles?.CrmRoles);
+  const crmRolesByAdmin = crmRoles?.filter(
+    (item) => item?.company?.id === user?.company?.id
+  );
   const companies = useSelector((state) => state?.Roles?.Companies);
   const allModules = useSelector((state) => state?.Roles?.Modules);
   const token = useSelector((state) => state?.auth?.authToken);
 
+  const [role, setRole] = useState("");
+  const [module, setModule] = useState("");
+  const [company, setCompany] = useState(
+    user?.isSuperAdmin === true ? "" : user?.company?.id
+  );
   useEffect(() => {
     dispatch(fetchRolePermissions(token));
   }, [UserById?.id]);
@@ -60,6 +72,7 @@ function RolePermissions() {
     obj.Delete = dlt;
     obj.allmodule = module;
     obj.crmrole = role;
+    obj.company = company;
 
     axios
       .post("http://65.2.10.157:5377/rolepermissions", obj, {
@@ -76,8 +89,13 @@ function RolePermissions() {
         // console.log(err, "err");
       });
   }
-  console.log(rolePermissions);
-  console.log(create, "create");
+  console.log(rolePermissions, "rolePermissions");
+  console.log(rolePermissionsByAdmin, "rolePermissionsByAdmin");
+  console.log(UserById, "UserById");
+  console.log(allModules, "allModules");
+  console.log(crmRoles, "crmRoles");
+  console.log(crmRolesByAdmin, "crmRolesByAdmin");
+  // console.log(create, "create");
 
   return (
     <div>
@@ -99,9 +117,15 @@ function RolePermissions() {
           <option value={""} disabled selected>
             Select Module
           </option>
-          {allModules?.map((item) => (
-            <option value={item?.id}>{item?.name}</option>
-          ))}
+          {user?.isSuperAdmin === true
+            ? allModules?.map((item) => (
+                <option value={item?.id}>{item?.name}</option>
+              ))
+            : rolePermissionsByAdmin?.map((item) => (
+                <option value={item?.allmodule?.id}>
+                  {item?.allmodule?.name}
+                </option>
+              ))}
         </select>
         <select
           onChange={(e) => setRole(e.target.value)}
@@ -119,32 +143,66 @@ function RolePermissions() {
           <option value={""} disabled selected>
             Select Role
           </option>
-          {crmRoles?.map((item) => (
-            <option value={item?.id}>{item?.name}</option>
-          ))}
+          {user?.isSuperAdmin === true
+            ? crmRoles?.map((item) => (
+                <option value={item?.id}>
+                  {item?.name} ({item?.company?.companyName})
+                </option>
+              ))
+            : crmRolesByAdmin
+                ?.filter((item) => item?.name !== user?.crmrole?.name)
+                .map((item) => (
+                  <option value={item?.id}>
+                    {item?.name} ({item?.company?.companyName})
+                  </option>
+                ))}
         </select>
       </div>
       <div className="d-flex flex-row mt-20">
-        <select
-          onChange={(e) => setCompany(e.target.value)}
-          className="col-4 col-xs-6"
-          style={{
-            border: "1px solid #666666",
-            borderRadius: "6px",
-            height: 44,
-            fontSize: 16,
-            marginRight: "20px",
-            outline: "none",
-            paddingInline: "10px",
-          }}
-        >
-          <option value={""} disabled selected>
-            Select Company
-          </option>
-          {companies?.map((item) => (
-            <option value={item?.id}>{item?.companyName}</option>
-          ))}
-        </select>
+        {user?.isSuperAdmin === true ? (
+          <>
+            <select
+              onChange={(e) => setCompany(e.target.value)}
+              className="col-4 col-xs-6"
+              style={{
+                border: "1px solid #666666",
+                borderRadius: "6px",
+                height: 44,
+                fontSize: 16,
+                marginRight: "20px",
+                outline: "none",
+                paddingInline: "10px",
+              }}
+            >
+              <option value={""} disabled selected>
+                Select Company
+              </option>
+              {companies?.map((item) => (
+                <option value={item?.id}>{item?.companyName}</option>
+              ))}
+            </select>
+          </>
+        ) : (
+          <>
+            {" "}
+            <input
+              disabled
+              type="text"
+              placeholder="Role Name"
+              className="col-4"
+              value={user?.company?.companyName}
+              style={{
+                border: "1px solid #666666",
+                borderRadius: "6px",
+                height: 44,
+                fontSize: 16,
+                marginRight: "20px",
+                outline: "none",
+                paddingInline: "10px",
+              }}
+            />
+          </>
+        )}
       </div>
       <div className="d-flex flex-row mt-20 col-md-6 col-xs-10">
         <div className="me-10 d-flex flex-row">

@@ -8,14 +8,27 @@ import LeadsPage from "../../../../app/modules/leads/LeadsPage";
 import { LeadsListWrapper } from "../../../../app/modules/leads/leads-list/LeadsList";
 import LeadAdduser from "../../../../app/modules/leads/leads-list/components/header/LeadAdduser";
 import { LeadsListToolbar } from "../../../../app/modules/leads/leads-list/components/header/LeadsListToolbar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchRolePermissionsByUserId } from "../../../../app/pages/dashboard/_redux/dashboardAction";
 
 export function AsideMenuMain() {
   const intl = useIntl();
+  const dispatch = useDispatch();
   const user = useSelector((state: any) => state?.auth?.user);
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const rolePermissionsByUser=useSelector((state:any)=>state?.Dashboard?.RolePermissionsById)
+  const roleFilter=rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Leads")
+  useEffect(()=>{
+    dispatch(fetchRolePermissionsByUserId(user?.crmrole?.id,token))
+  },[dispatch])
+  console.log("rolePermissionsByUser",rolePermissionsByUser);
+  console.log("user",user);
+  console.log("roleFilter",roleFilter);
+  
   return (
     <>
-      {user?.isSuperAdmin ? (
+      {user?.isSuperAdmin===true ? (
         <>
           <AsideMenuItemWithSubMain
             to="/leads"
@@ -303,12 +316,12 @@ export function AsideMenuMain() {
               bsTitle="Roles list"
               hasBullet={true}
             />
-            <AsideMenuItem
+            {/* <AsideMenuItem
               to="/apps/user-management/roles/view"
               title="View Roles"
               bsTitle="View Roles"
               hasBullet={true}
-            />
+            /> */}
             <AsideMenuItem
               to="/apps/user-management/roles/permissions"
               title="Roles Permissions"
@@ -332,51 +345,58 @@ export function AsideMenuMain() {
             // bsTitle='Leads'
             fontIcon="bi-gear"
           >
-            <AsideMenuItem
+            {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Leads")?.length>0&&  <AsideMenuItem
               to="/leads/list"
               title="Leads"
               fontIcon="bi-layers fs-3"
-            />
+            />}
+         {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Contacts")?.length>0&&
             <AsideMenuItem
               to="contacts"
               title="Contacts"
               fontIcon="bi-layers fs-3"
-            />
+            />}
+            {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Bookings")?.length>0&&
             <AsideMenuItem
               to="/bookings"
               title="Bookings"
               fontIcon="bi-layers fs-3"
-            />
+            />}
+            {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Deals")?.length>0&&
             <AsideMenuItem
               to="/deals"
               title="Deals"
               fontIcon="bi-layers fs-3"
-            />
+            />}
 
             {/* <AsideMenuItem to='/leads/tickets' title='Tickets' fontIcon='bi-layers fs-3' /> */}
+            {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Targets")?.length>0&&
             <AsideMenuItem
               to="/target"
               title="Targets"
               fontIcon="bi-layers fs-3"
-            />
+            />}
+            {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Tickets")?.length>0&&
             <AsideMenuItem
               to="/ticket"
               title="Tickets"
               fontIcon="bi-layers fs-3"
-            />
+            />}
+            {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Tasks")?.length>0&&
             <AsideMenuItem
               to="/tasks"
               title="Tasks"
               fontIcon="bi-layers fs-3"
-            />
+            />}
           </AsideMenuItemWithSubMain>
-
+          {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Campaigns")?.length>0&&
           <AsideMenuItem
             to="/campaigns"
-            title=" Campaigns"
+            title="Campaigns"
             fontIcon="bi-gear fs-3"
-          />
-          <AsideMenuItem to="/cdr" title="CDR" fontIcon="bi-gear fs-3" />
+          />}
+          {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="CDR")?.length>0&&
+          <AsideMenuItem to="/cdr" title="CDR" fontIcon="bi-gear fs-3" />}
           {/* <AsideMenuItem
               to='/company'
               title="Company"
@@ -384,6 +404,7 @@ export function AsideMenuMain() {
               // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
               className='py-2'
             /> */}
+            
           <AsideMenuItem
             to="/reports"
             title="Reports"
@@ -397,21 +418,24 @@ export function AsideMenuMain() {
             // bsTitle='Leads'
             fontIcon="bi-gear"
           >
+             {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Sources")?.length>0&&
             <AsideMenuItem
               to="/sources"
               title="Sources"
               fontIcon="bi-layers fs-3"
-            />
+            />}
+             {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Brands")?.length>0&&
             <AsideMenuItem
               to="/brands"
               title="Brands"
               fontIcon="bi-layers fs-3"
-            />
+            />}
+             {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Departments")?.length>0&&
             <AsideMenuItem
               to="/department"
               title="Departments"
               fontIcon="bi-layers fs-3"
-            />
+            />}
 
             <AsideMenuItem
               to="/team-members"
@@ -593,6 +617,7 @@ export function AsideMenuMain() {
               bsTitle="User management"
             />
           </AsideMenuItemWithSubMain>
+          {rolePermissionsByUser?.filter((item:any)=>item?.crmrole?.name==="Admin")?.length>0&&
           <AsideMenuItemWithSubMain
             to="/Roles"
             title="Roles"
@@ -605,13 +630,19 @@ export function AsideMenuMain() {
               bsTitle="Roles list"
               hasBullet={true}
             />
-            <AsideMenuItem
+            {/* <AsideMenuItem
               to="/apps/user-management/roles/view"
               title="View Roles"
               bsTitle="View Roles"
               hasBullet={true}
+            /> */}
+                <AsideMenuItem
+              to="/apps/user-management/roles/permissions"
+              title="Roles Permissions"
+              bsTitle="Roles Permissions"
+              hasBullet={true}
             />
-          </AsideMenuItemWithSubMain>
+          </AsideMenuItemWithSubMain>}
           <AsideMenuItem
             to="/socialPosts"
             title="Social"

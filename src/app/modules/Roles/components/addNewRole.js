@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRolePermissions, fetchCrmRoles, fetchCompanies } from "../redux/rolesAction";
+import {
+  fetchRolePermissions,
+  fetchCrmRoles,
+  fetchCompanies,
+} from "../redux/rolesAction";
 import {
   fetchRoleById,
   fetchRoles,
@@ -9,15 +13,18 @@ import axios from "axios";
 
 function AddNewRole() {
   const dispatch = useDispatch();
-  const [roleName, setRoleName] = useState("");
-  const [companyName, setCompanyName] = useState("");
   // const [companies, setCompanies] = useState("");
   const UserById = useSelector((state) => state?.Roles?.UserById);
   const rolePermissions = useSelector((state) => state?.Roles?.RolePermissions);
   const crmRoles = useSelector((state) => state?.Roles?.CrmRoles);
   const companies = useSelector((state) => state?.Roles?.Companies);
   const token = useSelector((state) => state?.auth?.authToken);
-  
+  const user = useSelector((state) => state?.auth?.user);
+
+  const [roleName, setRoleName] = useState("");
+  const [companyName, setCompanyName] = useState(
+    user?.isSuperAdmin === true ? "" : user?.company?.id
+  );
 
   useEffect(() => {
     dispatch(fetchRolePermissions(token));
@@ -31,7 +38,6 @@ function AddNewRole() {
     dispatch(fetchCrmRoles(token));
   }, []);
 
-  
   useEffect(() => {
     // axios
     //   .get("http://65.2.10.157:5377/companies", {
@@ -41,14 +47,14 @@ function AddNewRole() {
     //     },
     //   })
     //   .then(({data}) => {
-        
+
     //     setCompanies(data);
     //     // console.log(response, "response");
     //   })
     //   .catch((err) => {
     //     // console.log(err, "err");
     //   });
-    dispatch(fetchCompanies(token))
+    dispatch(fetchCompanies(token));
   }, []);
 
   function handleRoleName(e) {
@@ -75,7 +81,7 @@ function AddNewRole() {
       })
       .then((response) => {
         // console.log(response, "response");
-        alert("Submitted")
+        alert("Submitted");
       })
       .catch((err) => {
         // console.log(err, "err");
@@ -86,6 +92,7 @@ function AddNewRole() {
   console.log(rolePermissions, "rolePermissions", crmRoles, "crmRoles");
   console.log(UserById, "UserById");
   console.log(companies, "companies");
+  console.log(user, "user");
 
   return (
     <div>
@@ -105,28 +112,54 @@ function AddNewRole() {
             paddingInline: "10px",
           }}
         />
-        <select
-          type="text"
-          placeholder="Company"
-          onChange={selectCompany}
-          className="col-4"
-          style={{
-            border: "1px solid #666666",
-            borderRadius: "6px",
-            height: 44,
-            fontSize: 16,
-            marginInline: "20px",
-            outline: "none",
-            paddingInline: "10px",
-          }}
-        >
-          <option value={""} disabled selected>
-            Select Company
-          </option>
-          {companies?.map((item) => 
-            <option value={item?.id}>{item?.companyName}</option>
-          )}
-        </select>
+        {user?.isSuperAdmin === true ? (
+          <>
+            {" "}
+            <select
+              type="text"
+              placeholder="Company"
+              onChange={selectCompany}
+              className="col-4"
+              style={{
+                border: "1px solid #666666",
+                borderRadius: "6px",
+                height: 44,
+                fontSize: 16,
+                marginInline: "20px",
+                outline: "none",
+                paddingInline: "10px",
+              }}
+            >
+              <option value={""} disabled selected>
+                Select Company
+              </option>
+              {companies?.map((item) => (
+                <option value={item?.id}>{item?.companyName}</option>
+              ))}
+            </select>
+          </>
+        ) : (
+          <>
+            {" "}
+            <input
+              disabled
+              type="text"
+              placeholder="Role Name"
+              className="col-4"
+              value={user?.company?.companyName}
+              style={{
+                border: "1px solid #666666",
+                borderRadius: "6px",
+                height: 44,
+                fontSize: 16,
+                marginRight: "20px",
+                outline: "none",
+                paddingInline: "10px",
+              }}
+            />
+          </>
+        )}
+
         <button
           type="submit"
           className="btn btn-primary"

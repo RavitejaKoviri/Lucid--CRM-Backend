@@ -8,6 +8,7 @@ import {
   Search,
   ThemeModeSwitcher,
 } from '../../../partials'
+import accountImage from '../../../assets/images/account.png';
 import { useLayout } from '../../core'
 import { useSelector } from 'react-redux'
 
@@ -96,7 +97,7 @@ const Topbar: FC = () => {
           data-kt-menu-attach='parent'
           data-kt-menu-placement='bottom-end'
         >
-          <img src={`http://65.2.10.157:5377${user?.image?.url}`} alt='metronic' />
+          <img src={user?.image?`http://65.2.10.157:5377${user?.image?.url}`:accountImage} alt='' />
         </div>
         <HeaderUserMenu />
         {/* end::Toggle */}

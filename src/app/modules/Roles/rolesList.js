@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import {
   fetchRoleById,
   fetchRoles,
+  fetchUsersByCompanyId,
 } from "../user-management/users-list/_redux/userAction";
 import {
   fetchAllModules,
@@ -206,19 +207,36 @@ function RolesListHeader() {
 
 function RolesListCard(props) {
   const dispatch = useDispatch();
-  const { id, roleName } = props;
+  const { id, roleName, company } = props;
   const navigate = useNavigate();
   const token = useSelector((state) => state?.auth?.authToken);
-  const rolePermissionsById = useSelector(
-    (state) => state?.Roles?.RolePermissionsById
+  const userData = useSelector((state) => state?.auth?.user);
+  const companyId = userData?.company?.id;
+  // const rolePermissionsById = useSelector(
+  //   (state) => state?.Roles?.RolePermissionsById
+  // );
+
+  const UsersByCompanyId = useSelector(
+    (state) => state?.ManageUserData?.UsersByCompanyId
   );
+  const UsersByRole = UsersByCompanyId?.filter(
+    (item) => item?.crmrole?.name === roleName
+  );
+  useEffect(() => {
+    dispatch(fetchUsersByCompanyId(companyId, token));
+  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchRoles(token));
+  // }, []);
 
   const handleClick = () => {
-    console.log(id, "roleId");
+    // console.log(id, "roleId");
     dispatch(fetchRolePermissionsById(id, token));
   };
 
-  console.log("rolePermissionsById", rolePermissionsById);
+  // console.log("rolePermissionsById", rolePermissionsById);
+  // console.log("UsersByCompanyId", UsersByCompanyId);
+  // console.log("UsersByRole", UsersByRole);
   return (
     <div class="col-md-4">
       <div class="card card-flush h-md-100">
@@ -227,10 +245,18 @@ function RolesListCard(props) {
             <h2>{roleName}</h2>
           </div>
         </div>
+
         <div class="card-body pt-1">
-          <div class="fw-bold text-gray-600 mb-5">
-            Total users with this role: 5
-          </div>
+          {userData?.isSuperAdmin === true ? (
+            <div class="fw-bold text-gray-600 mb-5">
+              Company Name: {company}
+            </div>
+          ) : (
+            <div class="fw-bold text-gray-600 mb-5">
+              Total users with this role: {UsersByRole?.length}
+            </div>
+          )}
+
           <div class="d-flex flex-column text-gray-600">
             <div class="d-flex align-items-center py-2">
               <span class="bullet bg-primary me-3"></span>All Admin Controls
@@ -257,10 +283,12 @@ function RolesListCard(props) {
         <div class="card-footer flex-wrap pt-0">
           <button
             type="button"
-            class="btn btn-light btn-active-light-primary my-1"
+            class="btn btn-light btn-active-light-primary m-2"
             onClick={() => {
               handleClick();
-              navigate("/apps/user-management/roles/view");
+              navigate("/apps/user-management/roles/view", {
+                state: id,
+              });
             }}
           >
             View Role
@@ -268,7 +296,7 @@ function RolesListCard(props) {
 
           <button
             type="button"
-            class="btn btn-light btn-active-light-primary my-1"
+            class="btn btn-light btn-active-light-primary m-2"
             data-bs-toggle="modal"
             data-bs-target="#kt_modal_update_role"
             onClick={() => {
@@ -342,14 +370,18 @@ function RolesList() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const UserById = useSelector((state) => state?.Roles?.UserById);
-  const AllModules = useSelector((state) => state?.Roles?.Modules);
+  // const AllModules = useSelector((state) => state?.Roles?.Modules);
   const crmRoles = useSelector((state) => state?.Roles?.CrmRoles);
   const token = useSelector((state) => state?.auth?.authToken);
-  const Roles = useSelector((state) => state?.ManageUserData?.Roles);
-  const RoleById = useSelector((state) => state?.ManageUserData?.RoleById);
+  // const Roles = useSelector((state) => state?.ManageUserData?.Roles);
+  // const RoleById = useSelector((state) => state?.ManageUserData?.RoleById);
   const user = useSelector((state) => state?.auth?.user);
   const rolePermissionsById = useSelector(
     (state) => state?.Roles?.RolePermissionsById
+  );
+
+  const crmRolesByAdmin = crmRoles?.filter(
+    (item) => item?.company?.id === user?.company?.id
   );
 
   useEffect(() => {
@@ -413,28 +445,30 @@ function RolesList() {
         },
       })
       .then((response) => {
-        console.log(response, "response");
+        // console.log(response, "response");
         // alert("Submitted");
       })
       .catch((err) => {
-        console.log(err, "erroror");
+        // console.log(err, "erroror");
       });
   }
 
-  console.log(
-    user,
-    "user",
-    crmRoles,
-    "crmRoles",
-    AllModules,
-    "allmodules",
-    UserById,
-    "UserById",
-    Roles,
-    "Roles",
-    RoleById,
-    "RoleById"
-  );
+  // console.log(
+  //   user,
+  //   "user",
+  //   crmRoles,
+  //   "crmRoles",
+  //   crmRolesByAdmin,
+  //   "crmRolesByAdmin",
+  //   AllModules,
+  //   "allmodules",
+  //   UserById,
+  //   "UserById",
+  //   Roles,
+  //   "Roles",
+  //   RoleById,
+  //   "RoleById"
+  // );
 
   const RoleName = ({ roleName }) => {
     return (
@@ -455,9 +489,17 @@ function RolesList() {
           {/*begin::Row */}
           <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5 g-xl-9">
             {/*begin::Col */}
-            {crmRoles?.map((item) => (
-              <RolesListCard id={item?.id} roleName={item?.name} />
-            ))}
+            {user?.isSuperAdmin === true
+              ? crmRoles?.map((item) => (
+                  <RolesListCard
+                    id={item?.id}
+                    roleName={item?.name}
+                    company={item?.company?.companyName}
+                  />
+                ))
+              : crmRolesByAdmin?.map((item) => (
+                  <RolesListCard id={item?.id} roleName={item?.name} />
+                ))}
 
             <div class="ol-md-4">
               {/*begin::Card */}
@@ -713,8 +755,9 @@ function RolesList() {
                         class="btn btn-primary"
                         data-kt-roles-modal-action="submit"
                       >
-                        <span class="indicator-label" 
-                        // onClick={handleSubmit}
+                        <span
+                          class="indicator-label"
+                          // onClick={handleSubmit}
                         >
                           Submit
                         </span>

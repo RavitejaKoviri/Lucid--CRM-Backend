@@ -9,7 +9,7 @@ import { UsersListLoading } from '../components/loading/UsersListLoading'
 import { UsersListPagination } from '../components/pagination/UsersListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllUsers } from '../_redux/userAction'
+import { fetchUsersByCompanyId, getAllUsers } from '../_redux/userAction'
 import UserContext from './columns/context'
 import { Pagination } from '@mui/material'
 
@@ -17,8 +17,14 @@ const UsersTable = () => {
   const users = useSelector(
     (state: any) => state?.ManageUserData?.Users
   );
+  const usersByCompanyId = useSelector(
+    (state: any) => state?.ManageUserData?.UsersByCompanyId
+  );
   const token = useSelector(
     (state: any) => state?.auth?.authToken
+  );
+  const userData = useSelector(
+    (state: any) => state?.auth?.user
   );
   const isLoading = useQueryResponseLoading()
   const dispatch = useDispatch()
@@ -29,8 +35,13 @@ const UsersTable = () => {
   console.log(perPage, "perPage");
 
   useEffect(() => {
-    setUser(users);
-    setPerPage(users.slice(0, 10));
+    if(userData?.isSuperAdmin===true){ setUser(users);
+      setPerPage(users.slice(0, 10));}
+      else{
+        setUser(usersByCompanyId);
+        setPerPage(usersByCompanyId.slice(0, 10));
+      }
+   
   }, [users])
   const pageHandler = (pageNumber: any) => {
     setPerPage(user.slice(pageNumber * 10 - 10, pageNumber * 10));
@@ -50,7 +61,11 @@ const UsersTable = () => {
   useEffect(() => {
     dispatch(getAllUsers(token))
   }, [])
+  useEffect(() => {
+    dispatch(fetchUsersByCompanyId(userData?.company?.id,token))
+  }, [])
   console.log(user, "users")
+  console.log(usersByCompanyId, "usersByCompanyId")
   const { searchTerm } = useContext(UserContext);
   return (
     <KTCardBody className='py-4'>

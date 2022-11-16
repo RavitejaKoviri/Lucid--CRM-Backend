@@ -10,6 +10,7 @@ const initialProductsState = {
   deals: [],
   CDRS: [],
   Tickets: [],
+  RolePermissionsById:[],
 };
 
 export const callTypes = {
@@ -70,6 +71,10 @@ export const DashboardSlice = createSlice({
     getedAllTicketsDetails: (state, action) => {
       const { data } = action.payload;
       state.Tickets = data;
+    },
+    fetchedRolePermissionsById: (state, action) => {
+      const { data } = action.payload;
+      state.RolePermissionsById = data;
     },
   },
 });

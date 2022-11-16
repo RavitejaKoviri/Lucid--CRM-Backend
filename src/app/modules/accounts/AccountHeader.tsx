@@ -4,6 +4,7 @@ import { KTSVG, toAbsoluteUrl } from '../../../_metronic/helpers'
 import { Link } from 'react-router-dom'
 import { Dropdown1 } from '../../../_metronic/partials'
 import { useLocation } from 'react-router'
+import accountImage from '../../../_metronic/assets/images/account.png';
 import { useSelector } from 'react-redux'
 
 const AccountHeader: React.FC = () => {
@@ -17,7 +18,7 @@ const AccountHeader: React.FC = () => {
         <div className='d-flex flex-wrap flex-sm-nowrap mb-3'>
           <div className='me-7 mb-4'>
             <div className='symbol symbol-100px symbol-lg-160px symbol-fixed position-relative'>
-              <img src={`http://65.2.10.157:5377${user?.image?.url}`} alt='Metronic' />
+              <img src={user?.image?`http://65.2.10.157:5377${user?.image?.url}`:accountImage} alt='Metronic' />
               <div className='position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px'></div>
             </div>
           </div>
@@ -45,8 +46,8 @@ const AccountHeader: React.FC = () => {
                   </a> */}
                 </div>
 
-                <div className='d-flex flex-wrap fw-bold fs-6 mb-4 pe-2'>
-                  <a
+                <div className='d-block flex-wrap fw-bold fs-6 mb-4 pe-2'>
+                <a
                     href='#'
                     className='d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2'
                   >
@@ -54,18 +55,19 @@ const AccountHeader: React.FC = () => {
                       path='/media/icons/duotune/communication/com006.svg'
                       className='svg-icon-4 me-1'
                     />
-                    {user?.company?.companyName}
+                  {user?.isSuperAdmin===true?"Super Admin":user?.crmrole?.name}
                   </a>
-                  {/* <a
+                  <a
                     href='#'
                     className='d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2'
                   >
                     <KTSVG
-                      path='/media/icons/duotune/general/gen018.svg'
+                      path='/media/icons/duotune/general/gen001.svg'
                       className='svg-icon-4 me-1'
                     />
-                    SF, Bay Area
-                  </a> */}
+                    {user?.company?.companyName}
+                  </a>
+               
                   <a
                     href='#'
                     className='d-flex align-items-center text-gray-400 text-hover-primary mb-2'

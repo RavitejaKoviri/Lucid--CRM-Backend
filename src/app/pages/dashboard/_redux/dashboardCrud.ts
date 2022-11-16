@@ -5,6 +5,7 @@ export const USER = "contacts";
 export const DEALS = "deals";
 const campaigns = "campaigns";
 export const TICKETS = "tickets";
+export const ROLE_PERMISSIONS = "rolepermissions";
 
 const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
 
@@ -61,5 +62,13 @@ export function getAllTickets(token: any, companyId: any) {
 
   return axios.get(`${TICKETS}?company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+export function getRolePermissionsById(id:any, token:any) {
+  return axios.get(`${ROLE_PERMISSIONS}?crmrole=${id}`, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   });
 }

@@ -5,6 +5,7 @@ import { useAuth } from '../../../../app/modules/auth'
 import { Languages } from './Languages'
 import { toAbsoluteUrl } from '../../../helpers'
 import { useSelector, useDispatch } from 'react-redux'
+import accountImage from '../../../assets/images/account.png';
 import { actions } from '../../../../app/modules/auth/_redux/authRedux'
 
 const HeaderUserMenu: FC = () => {
@@ -25,17 +26,18 @@ const HeaderUserMenu: FC = () => {
     >
       <div className='menu-item px-3'>
         <div className='menu-content d-flex align-items-center px-3'>
-          <div className='symbol symbol-50px me-5'>
-            <img alt='Logo' src={`http://65.2.10.157:5377${user?.image?.url}`} />
+          <div className='symbol symbol-50px  me-5'>
+            <img alt='' src={user?.image? `http://65.2.10.157:5377${user?.image?.url}`:accountImage} />
           </div>
 
           <div className='d-flex flex-column'>
             <div className='fw-bolder d-flex align-items-center fs-5'>
               {user?.username}
-              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>Pro</span>
+              <span className='badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2'>{user?.isSuperAdmin===true?"Super Admin":user?.crmrole?.name}</span>
             </div>
             <a href='#' className='fw-bold text-muted text-hover-primary fs-7'>
-              {user?.email}
+              {/* {user?.email} */}
+              {user?.company?.companyName}
             </a>
           </div>
         </div>

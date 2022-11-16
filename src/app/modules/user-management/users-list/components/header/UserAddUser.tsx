@@ -28,17 +28,19 @@ export default function UserAdduser() {
   const status = useSelector((state: any) => state?.TargetData?.targetStatus);
   const user = useSelector((state: any) => state?.TargetData?.assignedTo);
 
-  const userAdmin = useSelector((state: any) => state?.auth?.user);
+  // const userAdmin = useSelector((state: any) => state?.auth?.user);
   const targetsById = useSelector(
     (state: any) => state?.TargetData?.targetById
   );
   const userById = useSelector((state: any) => state?.UserData?.UsersById);
   const Roles = useSelector((state: any) => state?.ManageUserData?.Roles);
+  const RolesByAdmin = Roles?.filter((item:any)=>item?.company?.id === userData?.company?.id);
   const companies = useSelector((state: any) => state?.Roles?.Companies);
 
   console.log(companies, "companies");
   console.log(Roles, "crmroles");
-  const companyId = userAdmin?.company?.id;
+  console.log(RolesByAdmin, "RolesByAdmin");
+  const companyId = userData?.company?.id;
   console.log(companyId, "ASD");
 
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
@@ -400,9 +402,14 @@ export default function UserAdduser() {
                             <option value="" disabled selected>
                               Select Role
                             </option>
-                            {Roles?.map((item: any) => (
+                            {userData?.isSuperAdmin===true?
+                            Roles?.map((item: any) => (
                               <option value={item?.id}>
-                                {item?.name} / {item?.company?.companyName}
+                                {item?.name} ({item?.company?.companyName})
+                              </option>
+                            )):RolesByAdmin?.filter((item:any)=>item?.name!==userData?.crmrole?.name)?.map((item: any) => (
+                              <option value={item?.id}>
+                                {item?.name} ({item?.company?.companyName})
                               </option>
                             ))}
                           </select>
@@ -421,14 +428,14 @@ export default function UserAdduser() {
                             value={data?.company}
                             onChange={handleChange}
                           >
-                            <option value="" disabled selected>
-                              Select Company
+                            <option value={userData?.company?.id} disabled selected>
+                           {userData?.company?.companyName}
                             </option>
-                            {companies?.map((item: any) => (
-                              <option value={item?.id}>
+                            {/* {companies?.map((item: any) => (
+                              <option value={item?.id} disabled>
                                 {item?.companyName}
                               </option>
-                            ))}
+                            ))} */}
                           </select>
                         </div>
                       </div>

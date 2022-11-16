@@ -112,3 +112,16 @@ export const getAllTickets = (token: any, companyId: any) => (dispatch: any) => 
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
+export const fetchRolePermissionsByUserId = (id:any,token:any) => (dispatch:any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getRolePermissionsById(id,token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedRolePermissionsById({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find Role permissions By Id";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
