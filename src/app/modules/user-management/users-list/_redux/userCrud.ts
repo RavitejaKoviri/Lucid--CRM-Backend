@@ -42,7 +42,7 @@ export function getAllUsersByCompanyId(id: any, token: any) {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
-export function getCompanies(token: any) {
+export function getCompanies(id: any, token: any) {
   return axios.get(COMPANIES, {
     headers: {
       "content-type": "application/json",
@@ -50,3 +50,10 @@ export function getCompanies(token: any) {
     },
   });
 }
+export function UpdateUser(id: any, data: any, token: any) {
+  return axios.put(`${USER}/${id?.id}`, data, {
+    headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+  });
+}
+
+

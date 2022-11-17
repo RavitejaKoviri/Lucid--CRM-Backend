@@ -62,6 +62,7 @@ import EditSource from '../modules/sources/sources-list/components/header/EditSo
 import EditBrands from '../modules/Brand/Brands-list/components/header/EditBrands'
 import EditDepartment from '../modules/Department/Department-list/components/header/EditDepartment'
 import SocialPosts from '../modules/socialPosts/SocialPosts'
+import EditUser from '../modules/user-management/users-list/components/header/EditUser'
 
 
 
@@ -112,6 +113,7 @@ const PrivateRoutes = () => {
         <Route path='team-members/team-members/adduser' element={<UserAdduser />} />
         <Route path='leads/list/leadadduser' element={<LeadAdduser />} />
         <Route path='leads/list/EditLead' element={<EditLead />} />
+        <Route path='team-members/team-members/EditUser' element={<EditUser/>} />
         <Route path='bookings/bookings/bookingadduser' element={<BookingAdduser />} />
         <Route path='target/target/targetadduser' element={<TargetAdduser />} />
         <Route path='target/target/EditTarget' element={<EditTarget />} />

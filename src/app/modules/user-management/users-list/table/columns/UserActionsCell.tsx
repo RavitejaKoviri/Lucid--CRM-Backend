@@ -23,8 +23,8 @@ const UserActionsCell: FC<Props> = ({ id }) => {
   }, [])
 
   const openEditModal = () => {
-    console.log(id)
-    setItemIdForUpdate(id)
+    console.log(id, "TestId");
+    navigation('EditUser', { state: { id } })
   }
 
   const deleteItem = useMutation(() => deleteUser(id), {
@@ -53,9 +53,7 @@ const UserActionsCell: FC<Props> = ({ id }) => {
       >
         {/* begin::Menu item */}
         <div className='menu-item px-3'>
-          <a className='menu-link px-3' onClick={() => {
-            navigation('adduser')
-          }}>
+          <a className='menu-link px-3' onClick={openEditModal}>
             Edit
           </a>
         </div>
