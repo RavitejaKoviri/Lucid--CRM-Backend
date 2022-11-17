@@ -8,6 +8,8 @@ import * as XLSX from 'xlsx';
 
 
 const LeadsListToolbar = () => {
+  const user = useSelector((state: any) => state?.auth?.user);
+  const rolePermissionsByUser=useSelector((state:any)=>state?.Dashboard?.RolePermissionsById)
   const { setItemIdForUpdate } = useListView()
   const openAddUserModal = () => {
     setItemIdForUpdate(null)
@@ -60,12 +62,20 @@ const LeadsListToolbar = () => {
       {/* end::Export */}
 
       {/* begin::Add user */}
-      <button type='button' className='btn btn-primary' onClick={() => {
+      {user?.isSuperAdmin===true?  <button type='button' className='btn btn-primary' onClick={() => {
         navigation('leadadduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Add Leads
-      </button>
+      </button>: <>
+      {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Leads"&&item?.Create===true)?.length>0&&    <button type='button' className='btn btn-primary' onClick={() => {
+        navigation('leadadduser')
+      }}>
+        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+        Add Leads
+      </button>}
+  </>}
+    
       {/* end::Add user */}
     </div>
   )

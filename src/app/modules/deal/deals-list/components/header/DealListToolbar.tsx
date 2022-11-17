@@ -7,6 +7,8 @@ import * as FileSaver from 'file-saver';
 import { useSelector } from 'react-redux';
 
 const DealsListToolbar = () => {
+  const user = useSelector((state: any) => state?.auth?.user);
+  const rolePermissionsByUser=useSelector((state:any)=>state?.Dashboard?.RolePermissionsById)
   const { setItemIdForUpdate } = useListView()
   const openAddUserModal = () => {
     setItemIdForUpdate(null)
@@ -40,6 +42,7 @@ const DealsListToolbar = () => {
       {/* end::Export */}
 
       {/* begin::Add user */}
+      {/* {} */}
       <button type='button' className='btn btn-primary' onClick={() => {
         navigation('dealsadduser')
       }}>

@@ -44,7 +44,7 @@ export default function LeadAdduser() {
     leadAnnualRevenueContribution: "",
     leadEmailOptOut: "",
     leadStatusName: "",
-    leadCompanyName: "",
+    // leadCompanyName: "",
     leadLastName: "",
     leadEmail: "",
     leadWebsite: "",
@@ -55,7 +55,7 @@ export default function LeadAdduser() {
     utmAdgroup: "",
     utmTerm: "",
     utmMedium: "",
-    leadId: "",
+    // leadId: "",
     leadSource: "",
     leadBusinessUnit: "",
     campaignSource: "",
@@ -121,6 +121,7 @@ export default function LeadAdduser() {
       [e.target.name]: e.target.value,
       image: imageUrl,
       company: user?.company?.id,
+      leadOwner: user?.id,
     });
   };
   console.log(data, "TEST");
@@ -139,13 +140,13 @@ export default function LeadAdduser() {
       utmSource: "",
       utmMedium: "",
       utmCampaign: "",
-      leadId: "",
+      // leadId: "",
       leadBusinessUnit: "",
       utmTerm: "",
       utmAdgroup: "",
       leadAnnualRevenueContribution: "",
       leadEmailOptOut: "",
-      leadCompanyName: "",
+      // leadCompanyName: "",
       leadLastName: "",
       leadSpecialityName: "",
       leadEmail: "",
@@ -174,13 +175,13 @@ export default function LeadAdduser() {
       utmSource: "",
       utmMedium: "",
       utmCampaign: "",
-      leadId: "",
+      // leadId: "",
       leadBusinessUnit: "",
       utmTerm: "",
       utmAdgroup: "",
       leadAnnualRevenueContribution: "",
       leadEmailOptOut: "",
-      leadCompanyName: "",
+      // leadCompanyName: "",
       leadLastName: "",
       leadSpecialityName: "",
       leadEmail: "",
@@ -686,6 +687,7 @@ export default function LeadAdduser() {
                             type="text"
                             value={data.leadBusinessUnit}
                             onChange={handleChange}
+                            name="leadBusinessUnit"
                             className="form-control form-control-lg form-control-solid"
                             placeholder="Lead Business Unit"
                           />

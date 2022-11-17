@@ -18,13 +18,13 @@ export function AsideMenuMain() {
   const user = useSelector((state: any) => state?.auth?.user);
   const token = useSelector((state: any) => state?.auth?.authToken);
   const rolePermissionsByUser=useSelector((state:any)=>state?.Dashboard?.RolePermissionsById)
-  const roleFilter=rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Leads")
+  // const roleFilter=rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Leads")
   useEffect(()=>{
     dispatch(fetchRolePermissionsByUserId(user?.crmrole?.id,token))
   },[dispatch])
   console.log("rolePermissionsByUser",rolePermissionsByUser);
   console.log("user",user);
-  console.log("roleFilter",roleFilter);
+  // console.log("roleFilter",roleFilter);
   
   return (
     <>
