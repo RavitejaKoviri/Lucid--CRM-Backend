@@ -103,14 +103,14 @@ export default function EditUser() {
         gender: userById?.gender,
         image: userById?.image,
         description: userById?.description,
-        company: userById?.company,
-        crmrole:userById?.crmrole
+        company: userById?.company?.id,
+        crmrole:userById?.crmrole?.id
     })
     setUsers(false);
     console.log("hello")
   }, [users])
 
-  const [data, setData] = useState(
+  const [data, setData] = useState<any>(
     {
         username: "",
         email: "",
@@ -121,12 +121,12 @@ export default function EditUser() {
         gender: "",
         image: imageUrl,
         description: "",
-        company: user?.company?.id,
+        company: "",
         crmrole: ""
     })
 
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: user?.company?.id });
+    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl});
   };
   console.log(data, "TEST");
 
@@ -197,7 +197,7 @@ export default function EditUser() {
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) : data?.image?.length > 0 ? (
+                    ) :data?.image ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -208,7 +208,7 @@ export default function EditUser() {
                           {/* <i className="bi bi-x fs-7"></i> */}
                           {/*begin::Inputs*/}
                           <img
-                            src={`http://65.2.10.157:5377${data?.image[0]?.url}`}
+                            src={`http://65.2.10.157:5377${data?.image?.url}`}
                             alt="no image to preview"
                             style={{
                               height: "150px",
@@ -405,7 +405,7 @@ export default function EditUser() {
                             onChange={handleChange}
                           >
                             <option value="" disabled selected>
-                              Select Role
+                             -- Select Role --
                             </option>
                             {Roless?.map((item: any) => (
                               <option value={item?.id}>
@@ -429,7 +429,7 @@ export default function EditUser() {
                             onChange={handleChange}
                           >
                             <option value="" disabled selected>
-                              Select Company
+                             -- Select Company --
                             </option>
                             {companies?.map((item: any) => (
                               <option value={item?.id}>
