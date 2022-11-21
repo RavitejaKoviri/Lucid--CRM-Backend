@@ -84,7 +84,7 @@ export const rootReducer = combineReducers({
   Dashboard: DashboardSlice.reducer,
   BrandsData: BrandsSlice.reducer,
   DepartmentData: DepartmentSlice.reducer,
-cdr:CDRSlice.reducer,
+ cdr:CDRSlice.reducer,
   Sources: sourceSlice.reducer,
 
   Reports: ReportsSlice.reducer,

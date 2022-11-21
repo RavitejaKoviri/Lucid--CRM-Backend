@@ -11,6 +11,9 @@ const initialProductsState = {
   CDRS: [],
   Tickets: [],
   RolePermissionsById:[],
+  Changeuser:[],
+  AllUsers:[]
+
 };
 
 export const callTypes = {
@@ -76,5 +79,14 @@ export const DashboardSlice = createSlice({
       const { data } = action.payload;
       state.RolePermissionsById = data;
     },
+    changedUser: (state, action) => {
+      const { data } = action.payload;
+      state.Changeuser = data;
+    },
+    fetchedAllUsers: (state, action) => {
+      const { data } = action.payload;
+      state.AllUsers = data;
+    },
+    
   },
 });

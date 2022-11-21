@@ -1,140 +1,183 @@
-import React, { useState } from 'react'
-import { toAbsoluteUrl } from '../../../../../../_metronic/helpers'
-import { IProfileDetails, profileDetailsInitValues as initialValues } from '../SettingsModel'
-import * as Yup from 'yup'
-import { useFormik } from 'formik'
-import { useSelector } from 'react-redux'
+import React, { useState } from "react";
+import { toAbsoluteUrl } from "../../../../../../_metronic/helpers";
+import {
+  IProfileDetails,
+  profileDetailsInitValues as initialValues,
+} from "../SettingsModel";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { ChangeUser } from "../../../../../pages/dashboard/_redux/dashboardAction";
 
 const profileDetailsSchema = Yup.object().shape({
-  fName: Yup.string().required('First name is required'),
-  lName: Yup.string().required('Last name is required'),
-  company: Yup.string().required('Company name is required'),
-  contactPhone: Yup.string().required('Contact phone is required'),
-  companySite: Yup.string().required('Company site is required'),
-  country: Yup.string().required('Country is required'),
-  language: Yup.string().required('Language is required'),
-  timeZone: Yup.string().required('Time zone is required'),
-  currency: Yup.string().required('Currency is required'),
-})
+  fName: Yup.string().required("First name is required"),
+  lName: Yup.string().required("Last name is required"),
+  company: Yup.string().required("Company name is required"),
+  contactPhone: Yup.string().required("Contact phone is required"),
+  companySite: Yup.string().required("Company site is required"),
+  country: Yup.string().required("Country is required"),
+  language: Yup.string().required("Language is required"),
+  timeZone: Yup.string().required("Time zone is required"),
+  currency: Yup.string().required("Currency is required"),
+});
 
 const ProfileDetails: React.FC = () => {
-  const [data, setData] = useState<IProfileDetails>(initialValues)
+  const dispatch = useDispatch();
+  const [data, setData] = useState<IProfileDetails>(initialValues);
   const updateData = (fieldsToUpdate: Partial<IProfileDetails>): void => {
-    const updatedData = Object.assign(data, fieldsToUpdate)
-    setData(updatedData)
-  }
+    const updatedData = Object.assign(data, fieldsToUpdate);
+    setData(updatedData);
+  };
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const formik = useFormik<IProfileDetails>({
     initialValues,
     validationSchema: profileDetailsSchema,
     onSubmit: (values) => {
-      setLoading(true)
+      setLoading(true);
       setTimeout(() => {
-        values.communications.email = data.communications.email
-        values.communications.phone = data.communications.phone
-        values.allowMarketing = data.allowMarketing
-        const updatedData = Object.assign(data, values)
-        setData(updatedData)
-        setLoading(false)
-      }, 1000)
+        values.communications.email = data.communications.email;
+        values.communications.phone = data.communications.phone;
+        values.allowMarketing = data.allowMarketing;
+        const updatedData = Object.assign(data, values);
+        setData(updatedData);
+        setLoading(false);
+      }, 1000);
     },
-  })
-  const user = useSelector(
-    (state: any) => state?.auth?.user
-  );
-  console.log(user, "user");
+  });
+  const user = useSelector((state: any) => state?.auth?.user);
+  const token = useSelector((state: any) => state?.auth?.authToken);
+
+  // const [change, setChange]: any = useState( "" );
+  // const saveChanges = () => {
+  //   dispatch(ChangeUser(user?.id, change, token));
+
+  //   // console.log(user, "user");
+
+  //   // const handleChange = (e: any) => {
+  //   //   setChange({ ...change, [e.target.name]: e.target.value });
+  // };
+  // console.log(change, "user");
 
   return (
-    <div className='card mb-5 mb-xl-10'>
+    <div className="card mb-5 mb-xl-10">
       <div
-        className='card-header border-0 cursor-pointer'
-        role='button'
-        data-bs-toggle='collapse'
-        data-bs-target='#kt_account_profile_details'
-        aria-expanded='true'
-        aria-controls='kt_account_profile_details'
+        className="card-header border-0 cursor-pointer"
+        role="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#kt_account_profile_details"
+        aria-expanded="true"
+        aria-controls="kt_account_profile_details"
       >
-        <div className='card-title m-0'>
-          <h3 className='fw-bolder m-0'>Profile Details</h3>
+        <div className="card-title m-0">
+          <h3 className="fw-bolder m-0">Profile Details</h3>
         </div>
       </div>
 
-      <div id='kt_account_profile_details' className='collapse show'>
-        <form onSubmit={formik.handleSubmit} noValidate className='form'>
-          <div className='card-body border-top p-9'>
-            <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>Avatar</label>
-              <div className='col-lg-8'>
+      <div id="kt_account_profile_details" className="collapse show">
+        <form onSubmit={formik.handleSubmit} noValidate className="form">
+          <div className="card-body border-top p-9">
+            <div className="row mb-6">
+              <label className="col-lg-4 col-form-label fw-bold fs-6">
+                Avatar
+              </label>
+              <div className="col-lg-8">
                 <div
-                  className='image-input image-input-outline'
-                  data-kt-image-input='true'
-                  style={{ backgroundImage: `url(${toAbsoluteUrl('/media/avatars/blank.png')})` }}
+                  className="image-input image-input-outline"
+                  data-kt-image-input="true"
+                  style={{
+                    backgroundImage: `url(${toAbsoluteUrl(
+                      "/media/avatars/blank.png"
+                    )})`,
+                  }}
                 >
                   <div
-                    className='image-input-wrapper w-125px h-125px'
-                    style={{ backgroundImage: `url(http://65.2.10.157:5377${user?.image?.url})` }}
+                    className="image-input-wrapper w-125px h-125px"
+                    style={{
+                      backgroundImage: `url(http://65.2.10.157:5377${user?.image?.url})`,
+                    }}
                   ></div>
                 </div>
               </div>
             </div>
 
-            <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Full Name</label>
+            <div className="row mb-6">
+              <label className="col-lg-4 col-form-label required fw-bold fs-6">
+                Full Name
+              </label>
 
-              <div className='col-lg-8 fv-row'>
+              <div className="col-lg-8 fv-row">
                 <input
-                  type='text'
-                  className='form-control form-control-lg form-control-solid'
-                  placeholder='Full Name'
-                  // {...formik.getFieldProps('company')}
-                  value={user?.username}
+                  // onChange={(e) =>
+                  //   setChange({ ...change, username: e.target.value })
+                  // }
+                  type="text"
+                  className="form-control form-control-lg form-control-solid"
+                  placeholder="Full Name"
+                  {...formik.getFieldProps('company')}
+                   value={user?.username}
                 />
                 {formik.touched.company && formik.errors.company && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.company}</div>
+                  <div className="fv-plugins-message-container">
+                    <div className="fv-help-block">{formik.errors.company}</div>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label required fw-bold fs-6'>Company</label>
+            <div className="row mb-6">
+              <label className="col-lg-4 col-form-label required fw-bold fs-6">
+                Company
+              </label>
 
-              <div className='col-lg-8 fv-row'>
+              <div className="col-lg-8 fv-row">
                 <input
-                  type='text'
-                  className='form-control form-control-lg form-control-solid'
-                  placeholder='Company name'
+                  type="text"
+                  className="form-control form-control-lg form-control-solid"
+                  placeholder="Company name"
                   // {...formik.getFieldProps('company')}
                   value={user?.company?.companyName}
                 />
                 {formik.touched.company && formik.errors.company && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.company}</div>
+                  <div className="fv-plugins-message-container">
+                    <div className="fv-help-block">{formik.errors.company}</div>
                   </div>
                 )}
               </div>
             </div>
 
-            <div className='row mb-6'>
-              <label className='col-lg-4 col-form-label fw-bold fs-6'>
-                <span className='required'>Contact Phone</span>
+            <div className="row mb-6">
+              <label className="col-lg-4 col-form-label fw-bold fs-6">
+                <span className="required">Contact Phone</span>
               </label>
 
-              <div className='col-lg-8 fv-row'>
+              <div className="col-lg-8 fv-row">
                 <input
-                  type='tel'
-                  className='form-control form-control-lg form-control-solid'
-                  placeholder='Phone number'
-                  // {...formik.getFieldProps('contactPhone')}
-                  value={user?.mobile}
+                  // onChange={(e) =>
+                  //   setChange({ ...change, mobile: e.target.value })
+                  // }
+                  type="text"
+                  className="form-control form-control-lg form-control-solid"
+                  placeholder="Phone number"
+                   {...formik.getFieldProps('contactPhone')}
+                   value={user?.mobile}
                 />
                 {formik.touched.contactPhone && formik.errors.contactPhone && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>{formik.errors.contactPhone}</div>
+                  <div className="fv-plugins-message-container">
+                    <div className="fv-help-block">
+                      {formik.errors.contactPhone}
+                    </div>
                   </div>
                 )}
+              </div>
+              <div style={{ textAlign: "right", marginTop: "4%" }}>
+                <button
+                  // onClick={saveChanges}
+                  className="btn btn-primary align-self-center"
+                >
+                  Save
+                </button>
               </div>
             </div>
 
@@ -766,7 +809,7 @@ const ProfileDetails: React.FC = () => {
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export { ProfileDetails }
+export { ProfileDetails };
