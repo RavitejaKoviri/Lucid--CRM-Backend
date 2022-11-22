@@ -1,41 +1,39 @@
-import { useEffect, useMemo } from 'react'
-import { useTable, ColumnInstance, Row } from 'react-table'
-import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
-import { CustomRow } from './columns/CustomRow'
-import { useQueryResponseData, useQueryResponseLoading } from '../core/QueryResponseProvider'
-import { contactsColumns } from './columns/_columns'
-import { User } from '../core/_models'
-import { ContactsListLoading } from '../components/loading/ContactsListLoading'
-import { ContactsListPagination } from '../components/pagination/ContactsListPagination'
-import { KTCardBody } from '../../../../../_metronic/helpers'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllContacts } from '../_redux/contactAction'
-import { ProfileHeader } from '../../../profile/ProfileHeader'
-import { Connections } from '../../../profile/components/Connections'
+import { useEffect, useMemo } from "react";
+import { useTable, ColumnInstance, Row } from "react-table";
+import { CustomHeaderColumn } from "./columns/CustomHeaderColumn";
+import { CustomRow } from "./columns/CustomRow";
+import {
+  useQueryResponseData,
+  useQueryResponseLoading,
+} from "../core/QueryResponseProvider";
+import { contactsColumns } from "./columns/_columns";
+import { User } from "../core/_models";
+import { ContactsListLoading } from "../components/loading/ContactsListLoading";
+import { ContactsListPagination } from "../components/pagination/ContactsListPagination";
+import { KTCardBody } from "../../../../../_metronic/helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllContacts } from "../_redux/contactAction";
+import { ProfileHeader } from "../../../profile/ProfileHeader";
+import { Connections } from "../../../profile/components/Connections";
 
 const ContactsTable = () => {
-  const user = useSelector(
-    (state: any) => state?.ManageUserData?.Users
-  );
-  const token = useSelector(
-    (state: any) => state?.auth?.authToken
-  );
-  const isLoading = useQueryResponseLoading()
-  const dispatch = useDispatch()
-  const data = useMemo(() => user, [user])
-  const columns = useMemo(() => contactsColumns, [])
-  const { getTableProps, getTableBodyProps, headers, rows, prepareRow } = useTable({
-    columns,
-    data,
-  })
-  const companyId = useSelector(
-    (state: any) => state?.auth?.user?.company?.id
-  );
+  const user = useSelector((state: any) => state?.ManageUserData?.Users);
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const isLoading = useQueryResponseLoading();
+  const dispatch = useDispatch();
+  const data = useMemo(() => user, [user]);
+  const columns = useMemo(() => contactsColumns, []);
+  const { getTableProps, getTableBodyProps, headers, rows, prepareRow } =
+    useTable({
+      columns,
+      data,
+    });
+  const companyId = useSelector((state: any) => state?.auth?.user?.company?.id);
   console.log(data);
   useEffect(() => {
-    dispatch(getAllContacts(token, companyId))
-  }, [])
-  console.log(user, "users")
+    dispatch(getAllContacts(token, companyId));
+  }, [dispatch]);
+  console.log(user, "users");
   return (
     <>
       <ProfileHeader />
@@ -77,7 +75,7 @@ const ContactsTable = () => {
     //   <ContactsListPagination />
     //   {isLoading && <ContactsListLoading />}
     // </KTCardBody>
-  )
-}
+  );
+};
 
-export { ContactsTable }
+export { ContactsTable };

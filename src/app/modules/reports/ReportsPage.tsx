@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {Navigate, Route, Routes, Outlet} from 'react-router-dom'
 import {PageLink, PageTitle} from '../../../_metronic/layout/core'
 import { BookingsReport } from './pages/BookingsReport'
@@ -27,6 +28,8 @@ const accountBreadCrumbs: Array<PageLink> = [
 ]
 
 const ReportsPage: React.FC = () => {
+  const user = useSelector((state: any) => state?.auth?.user);
+  const rolePermissionsByUser=useSelector((state:any)=>state?.Dashboard?.RolePermissionsById)
   return (
     <Routes>
       <Route
@@ -100,7 +103,24 @@ const ReportsPage: React.FC = () => {
             </>
           }
         />
-        <Route index element={<Navigate to='/reports/leads' />} />
+        {user?.isSuperAdmin===true?
+        <Route index element={<Navigate to='/reports/leads' />} />:<>
+        {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Leads")?.length>0&& 
+        <Route index element={<Navigate to='/reports/leads' />}/>}
+        {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Contacts")?.length>0&& 
+        <Route index element={<Navigate to='/reports/contacts' />}/>}
+        {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Bookings")?.length>0&& 
+        <Route index element={<Navigate to='/reports/bookings' />}/>}
+        {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Deals")?.length>0&& 
+        <Route index element={<Navigate to='/reports/deals' />}/>}
+        {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Targets")?.length>0&& 
+        <Route index element={<Navigate to='/reports/targets' />}/>}
+        {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Tickets")?.length>0&& 
+        <Route index element={<Navigate to='/reports/tickets' />}/>}
+        {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Tasks")?.length>0&& 
+        <Route index element={<Navigate to='/reports/tasks' />}/>}
+        </>
+        }
       </Route>
     </Routes>
   )

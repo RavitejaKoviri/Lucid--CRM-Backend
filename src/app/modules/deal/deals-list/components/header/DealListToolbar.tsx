@@ -42,13 +42,21 @@ const DealsListToolbar = () => {
       {/* end::Export */}
 
       {/* begin::Add user */}
-      {/* {} */}
-      <button type='button' className='btn btn-primary' onClick={() => {
+      {user?.isSuperAdmin===true?  
+       <button type='button' className='btn btn-primary' onClick={() => {
         navigation('dealsadduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Add Deal
-      </button>
+      </button>:  <>
+      {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Deals"&&item?.Create===true)?.length>0&&
+       <button type='button' className='btn btn-primary' onClick={() => {
+        navigation('dealsadduser')
+      }}>
+        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+        Add Deal
+      </button>}
+      </>}
       {/* end::Add user */}
     </div>
   )

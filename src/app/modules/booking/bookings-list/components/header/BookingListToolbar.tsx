@@ -7,6 +7,8 @@ import * as XLSX from 'xlsx';
 import { useSelector } from 'react-redux';
 
 const BookingsListToolbar = () => {
+  const user = useSelector((state: any) => state?.auth?.user);
+  const rolePermissionsByUser=useSelector((state:any)=>state?.Dashboard?.RolePermissionsById)
   const { setItemIdForUpdate } = useListView()
   const openAddUserModal = () => {
     setItemIdForUpdate(null)
@@ -40,12 +42,20 @@ const BookingsListToolbar = () => {
       {/* end::Export */}
 
       {/* begin::Add user */}
+      {user?.isSuperAdmin===true?<button type='button' className='btn btn-primary' onClick={() => {
+        navigation('bookingadduser')
+      }}>
+        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+        Add Booking
+      </button>:<>
+      {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Bookings"&&item?.Create===true)?.length>0&&
       <button type='button' className='btn btn-primary' onClick={() => {
         navigation('bookingadduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Add Booking
-      </button>
+      </button>}</>}
+      
       {/* end::Add user */}
     </div>
   )

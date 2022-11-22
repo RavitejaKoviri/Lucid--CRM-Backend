@@ -1,9 +1,11 @@
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { KTSVG } from '../../../../../../_metronic/helpers'
 import { useListView } from '../../core/ListViewProvider'
 import { UsersListFilter } from './UsersListFilter'
 
 const UsersListToolbar = () => {
+  const user = useSelector((state: any) => state?.auth?.user);
   const { setItemIdForUpdate } = useListView()
   const openAddUserModal = () => {
     setItemIdForUpdate(null)
@@ -22,12 +24,14 @@ const UsersListToolbar = () => {
       {/* end::Export */}
 
       {/* begin::Add user */}
-      <button  type='button' className='btn btn-primary' onClick={()=>{
+{user?.isSuperAdmin===true||user?.crmrole?.name==="Admin"?
+ <button  type='button' className='btn btn-primary' onClick={()=>{
         navigation('adduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Add User
-      </button>
+      </button>:<></>}
+    
       {/* end::Add user */}
     </div>
   )

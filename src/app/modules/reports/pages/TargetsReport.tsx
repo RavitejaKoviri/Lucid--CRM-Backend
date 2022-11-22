@@ -24,7 +24,7 @@ export function TargetsReport() {
   }, []);
   console.log(targets, "targets");
 
-  const [search, setSearch] = useState(' ');
+  const [search, setSearch] = useState('');
   const [date, setDate] = useState("");
 
 
@@ -147,21 +147,25 @@ export function TargetsReport() {
                 </tr>
 
               </thead>
-              {perPage?.length > 0 ? perPage?.filter((val: any) => {
+              {perPage?.length > 0 ? 
+              perPage
+              ?.filter((val: any) => {
                 if (search === "") {
                   return val;
                 }
                 if (val?.targetName?.toLowerCase()?.includes(search?.toLowerCase())) {
                   return val;
                 }
-              }).filter((val: any) => {
+              })
+              ?.filter((val: any) => {
                 if (date === "") {
                   return val;
                 }
                 if (val?.createdAt?.slice(0, 10)?.toLowerCase()?.includes(date?.toLowerCase())) {
                   return val;
                 }
-              }).map((item: any) => (
+              })
+              ?.map((item: any) => (
                 <tbody className="fw-semibold text-gray-600">
 
                   <tr>

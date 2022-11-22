@@ -1,9 +1,12 @@
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { KTSVG } from '../../../../../../_metronic/helpers'
 import { useListView } from '../../core/ListViewProvider'
 import { CampaignsListFilter } from './CampaignsListFilter'
 
 const CampaignsListToolbar = () => {
+  const user = useSelector((state: any) => state?.auth?.user);
+  const rolePermissionsByUser=useSelector((state:any)=>state?.Dashboard?.RolePermissionsById)
   const { setItemIdForUpdate } = useListView()
   const openAddUserModal = () => {
     setItemIdForUpdate(null)
@@ -22,12 +25,25 @@ const CampaignsListToolbar = () => {
       {/* end::Export */}
 
       {/* begin::Add user */}
-      <button type='button' className='btn btn-primary' onClick={()=>{
+      {user?.isSuperAdmin===true?  <button type='button' className='btn btn-primary' onClick={() => {
         navigation('campaignadduser')
       }}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Add Campaign
-      </button>
+      </button>: <>
+      {rolePermissionsByUser?.filter((item:any)=>item?.allmodule?.name==="Campaigns"&&item?.Create===true)?.length>0&&    <button type='button' className='btn btn-primary' onClick={() => {
+        navigation('campaignadduser')
+      }}>
+        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+        Add Campaign
+      </button>}
+  </>}
+      {/* <button type='button' className='btn btn-primary' onClick={()=>{
+        navigation('campaignadduser')
+      }}>
+        <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
+        Add Campaign
+      </button> */}
       {/* end::Add user */}
     </div>
   )
