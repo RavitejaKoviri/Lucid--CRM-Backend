@@ -13,28 +13,23 @@ import { useSelector } from 'react-redux';
 
 function PostModal(props: any) {
   const [isUserLoading, setUserLoading] = React.useState(false);
-  const [chosenEmoji, setChosenEmoji] = React.useState(null);
   const [emojiPicker, setEmojiPicker] = React.useState(false);
-  const [image, setImage] = React.useState("");
-  const contentRef = createRef<any>();
+
   const [discValue, setDiscValue] = React.useState("");
-  const [insta, setInsta] = React.useState("");
-  const [instaId, setInstaId] = React.useState("");
-  const [creatorId, setCreatorId] = React.useState("");
-  const [share, setShare] = useState([]);
-  const handleChange = (e:any) => {
-    const value = e.target.value;
-    const checked = e.target.checked;
-    console.log(value, checked);
-    // if (checked) {
-    //   setShare([...share, value]);
-    // } 
-    // else {
-    //   setShare(share.filter((e:any) => e !== value));
-    // }
+  const [share, setShare] = useState<any>([]);
+  const handleChange = (e: any) => {
+    const { value, checked } = e.target
+    if (checked) {
+      setShare([...share, value]);
+    }
+    else {
+      setShare(share.filter((e: any) => e !== value));
+    }
   };
 
- 
+  const facebook = share.includes('Facebook')
+  const instagram = share.includes('Instagram')
+
   const [data, setData] = useState("");
   const token = useSelector(
     (state: any) => state?.auth?.authToken
@@ -78,7 +73,6 @@ function PostModal(props: any) {
       .catch(() => { });
 
   }
-  console.log(image, "imimim")
   const formik = useFormik({
     initialValues: { disc: "" },
     onSubmit: async (values) => {
@@ -89,10 +83,10 @@ function PostModal(props: any) {
   const [accessToken, setAccessToken] = useState("");
   console.log(accessToken, "accessToken");
 
-  const facebookData = {
-    message: "hello websoc",
-    url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxaPhzScJPYZs8LPQygV9kcYHOPYu0EhkOIpvvIlRriw&s"
-  }
+  // const facebookData = {
+  //   message: "hello websoc",
+  //   url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxaPhzScJPYZs8LPQygV9kcYHOPYu0EhkOIpvvIlRriw&s"
+  // }
 
 
 
@@ -149,7 +143,7 @@ function PostModal(props: any) {
   }
 
   const createMediaContainer = (id: any, token: any) => {
-    axios.post(`https://graph.facebook.com/v15.0/${id}/media?image_url=https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxaPhzScJPYZs8LPQygV9kcYHOPYu0EhkOIpvvIlRriw%26s&access_token=${token}`).then((response) => {
+    axios.post(`https://graph.facebook.com/v15.0/${id}/media?image_url=http://65.2.10.157:5377${imageUrl}&caption=%23${data}&access_token=${token}`).then((response) => {
       const { data } = response;
       postInstagramPost(data?.id, id, token)
     })
@@ -163,6 +157,10 @@ function PostModal(props: any) {
     })
   }
 
+  const PostOnSocialMedia = () => {
+    facebook && PostToFacebook()
+    instagram && getInstaId(accessToken)
+  }
   return (
     <>
 
@@ -193,29 +191,29 @@ function PostModal(props: any) {
               >
                 {/* begin::Input group */}
                 <div className='fv-row mb-7'>
-                 
+
                   <label className='d-block fw-bold fs-6 mb-1'>Discription</label>
                   <div className='d-flex flex-row align-items-center justify-content-center'>
-                  {/* begin::Input */}
-                  <input
-                    placeholder='Discription'
-                    {...formik.getFieldProps('disc')}
-                    className={clsx(
-                      'form-control form-control-solid mb-3 mb-lg-0',
-                      { 'is-invalid': formik.touched.disc && formik.errors.disc },
-                      {
-                        'is-valid': formik.touched.disc && !formik.errors.disc,
-                      }
-                    )}
-                    type='disc'
-                    name='disc'
-                    autoComplete='off'
-                    id='disc'
-                    value={data}
-                    onChange={(e) => setData(e.target.value)}
-                  // disabled={formik.isSubmitting || isUserLoading}
-                  />
-                   <div className="p-2">
+                    {/* begin::Input */}
+                    <input
+                      placeholder='Discription'
+                      {...formik.getFieldProps('disc')}
+                      className={clsx(
+                        'form-control form-control-solid mb-3 mb-lg-0',
+                        { 'is-invalid': formik.touched.disc && formik.errors.disc },
+                        {
+                          'is-valid': formik.touched.disc && !formik.errors.disc,
+                        }
+                      )}
+                      type='disc'
+                      name='disc'
+                      autoComplete='off'
+                      id='disc'
+                      value={data}
+                      onChange={(e) => setData(e.target.value)}
+                    // disabled={formik.isSubmitting || isUserLoading}
+                    />
+                    <div className="p-2">
                       {/* begin::Emoji */}
                       <button type='button' className='btn btn-light-primary me-3'
                         onClick={() => setEmojiPicker(!emojiPicker)}>
@@ -257,32 +255,32 @@ function PostModal(props: any) {
 
                       {/*end::Thumbnail settings*/}
                     </div>
-                    <div  style={{display:'flex',marginLeft:'12%',marginTop:'2%'}}>
+                    <div style={{ display: 'flex', marginLeft: '12%', marginTop: '2%' }}>
                       <div>
-              <input
-                type="checkbox"
-                name="share"
-                value="Whatsapp"
-                onChange={handleChange}
-              />
-              <label style={{textAlign:'center',fontSize:'20px'}}>WhatsApp</label> </div>
-              <div style={{marginLeft:'30px'}}>
-              <input
-                type="checkbox"
-                name="share"
-                value="Instagram"
-                onChange={handleChange}
-              />
-              <label style={{textAlign:'center',fontSize:'20px'}}>Instagram</label>
+                        <input
+                          type="checkbox"
+                          name="share"
+                          value="Facebook"
+                          onChange={handleChange}
+                        />
+                        <label style={{ textAlign: 'center', fontSize: '20px' }}>Facebook</label> </div>
+                      <div style={{ marginLeft: '30px' }}>
+                        <input
+                          type="checkbox"
+                          name="share"
+                          value="Instagram"
+                          onChange={handleChange}
+                        />
+                        <label style={{ textAlign: 'center', fontSize: '20px' }}>Instagram</label>
 
-              </div>
-              
-            </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
                 {emojiPicker && <Picker onEmojiClick={onEmojiClick} />}
                 <div style={{ width: 150, height: 150 }}>
-                  {image && <img src={image} style={{ width: '100%' }} />}
+                  {preview && <img src={preview} style={{ width: '100%' }} />}
                 </div>
               </div>
               {/* end::Scroll */}
@@ -302,7 +300,7 @@ function PostModal(props: any) {
                 <button
                   type='submit'
                   className='btn btn-primary'
-                  onClick={() => PostToFacebook()}
+                  onClick={() => PostOnSocialMedia()}
                   data-kt-users-modal-action='submit'
                 // disabled={isUserLoading || formik.isSubmitting || !formik.isValid || !formik.touched}
                 >
