@@ -21,8 +21,9 @@ function SocialCampaigns() {
             className="col my-5 d-flex p-4 mx-4"
             style={{
               cursor: "pointer",
-              border: "2px solid #24a0ed",
+              // border: "2px solid #24a0ed",
               borderRadius: "10px",
+              backgroundColor:"#FFFFFF"
             }}
           >
             <i class="bi bi-envelope fa-2x my-4 me-5"></i>
@@ -43,8 +44,9 @@ function SocialCampaigns() {
             className="col my-5 d-flex p-4 mx-5"
             style={{
               cursor: "pointer",
-              border: "2px solid #24a0ed",
+              // border: "2px solid #24a0ed",
               borderRadius: "10px",
+              backgroundColor:"#FFFFFF"
             }}
           >
             <i class="bi bi-input-cursor fa-2x my-4 me-5"></i>

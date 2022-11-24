@@ -88,6 +88,7 @@ function SignupForm() {
             color: "#888888",
             marginRight: "8%",
             fontWeight: 550,
+            width:'100px'
           }}
         >
           FORM
@@ -95,11 +96,44 @@ function SignupForm() {
         <div>
           <img src={FormImage} />
           <p className="my-5" style={{ fontSize: "14px", color: "#888888" }}>
-            Are you in need of a signup form? Choose one from our templates.
+            Are you in need of a form? Customize your own with our Websoc forms.
           </p>
           <button
             type="button"
-            className="btn btn-info"
+            className="btn btn-danger"
+            onClick={() => {
+              navigation("form");
+            }}
+          >
+            Customize Forms
+          </button>
+          
+        </div>
+      </div>
+      <div
+        className="d-flex flex-row my-10 p-10"
+        style={{ background: "#FFFFFF", borderRadius: "10px" }}
+      >
+        <p
+          style={{
+            fontSize: 18,
+            color: "#888888",
+            marginRight: "8%",
+            fontWeight: 550,
+            width:'100px'
+          }}
+        >
+          TEMPLATE
+        </p>
+        <div>
+          <img src={FormImage} />
+          <p className="my-5" style={{ fontSize: "14px", color: "#888888" }}>
+            Are you in need of a signup form? Choose one from our templates.
+          </p>
+          
+          <button
+            type="button"
+            className="btn btn-danger"
             onClick={() => {
               navigation("templates");
             }}

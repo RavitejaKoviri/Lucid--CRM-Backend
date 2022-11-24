@@ -27,6 +27,8 @@ import CampaignAdduser from '../modules/campaign/campaigns-list/components/heade
 import CampaignCreate from '../modules/campaign/campaigns-list/components/body/campaignCreate'
 import SignupForm from '../modules/campaign/campaigns-list/components/body/components/signupForm'
 import Templates from '../modules/campaign/campaigns-list/components/body/components/formTemplates'
+import FormBuilder from '../modules/campaign/campaigns-list/components/body/components/forms/fromBuilder'
+import SignUpFormTemplate from '../modules/campaign/campaigns-list/components/body/components/templates/signUpFormTemplate'
 import EmailCampaign from '../modules/campaign/campaigns-list/components/body/components/emailCampaign'
 import CampaignAutomation from '../modules/campaign/campaigns-list/components/body/components/campaignAutomation'
 import SocialCampaigns from '../modules/campaign/campaigns-list/components/body/components/socialCampaigns'
@@ -63,6 +65,8 @@ import EditBrands from '../modules/Brand/Brands-list/components/header/EditBrand
 import EditDepartment from '../modules/Department/Department-list/components/header/EditDepartment'
 import SocialPosts from '../modules/socialPosts/SocialPosts'
 import EditUser from '../modules/user-management/users-list/components/header/EditUser'
+import SavedTemplate from '../modules/campaign/campaigns-list/components/body/components/templates/savedTemplate'
+import TempResponse from '../modules/campaign/campaigns-list/components/body/components/templates/tempResponse'
 
 
 
@@ -94,6 +98,8 @@ const PrivateRoutes = () => {
 
   return (
     <Routes>
+      {/* <Route path="/templates" element={<SavedTemplate/>} /> */}
+      <Route path="/templates/:id" element={<SavedTemplate/>} />
       <Route path='/leads/landingPages' element={<Campaigns />} />
       {/* <Route path='/leads/email' element={<EmailCampaigns />} /> */}
       {/* <Route path='/leads/social' element={<SocialCampaigns />} /> */}
@@ -138,12 +144,21 @@ const PrivateRoutes = () => {
         <Route path='campaigns/campaigns/EditCampaign' element={<EditCampaign />} />
         <Route path='campaigns/campaigns/campaigncreate' element={<CampaignCreate />} />
         <Route path='campaigns/campaigns/campaigncreate/signupform' element={<SignupForm />} />
+        <Route path='campaigns/campaigns/campaigncreate/signupform/form' element={<FormBuilder />} />
         <Route path='campaigns/campaigns/campaigncreate/signupform/templates' element={<Templates />} />
         <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />} />
         <Route path='campaigns/campaigns/campaigncreate/automation' element={<CampaignAutomation />} />
         <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />} />
         <Route path='campaigns/campaigns/campaigncreate/socialcampaign/socialmediapost' element={<SocialMediaPost />} />
         <Route path='campaigns/campaigns/campaigncreate/socialcampaign/facebookpost' element={<FacebookPost />} />
+        <Route path='campaigns/campaigns/campaigncreate/signupform/templates/signupformtemplate' element={<SignUpFormTemplate />} />
+        <Route path='campaigns/campaigns/campaigncreate/signupform/templates/signupformtemplate/response' element={<TempResponse />} />
+        <Route path='campaigns/campaigns/campaigncreate/emailcampaign' element={<EmailCampaign />}/>
+        <Route path='campaigns/campaigns/campaigncreate/automation' element={<CampaignAutomation />}/>
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign' element={<SocialCampaigns />}/>
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign/socialmediapost' element={<SocialMediaPost />}/>
+        <Route path='campaigns/campaigns/campaigncreate/socialcampaign/facebookpost' element={<FacebookPost />}/>
+        {/* <Route path='websocCRM/templates' element={<SavedTemplate />}/> */}
 
         <Route path='contacts/contacts/contactaddcontact' element={<ContactsAdduser />} />
         <Route path='contacts/contacts/Editcontact' element={<Editcontact />} />
@@ -164,6 +179,7 @@ const PrivateRoutes = () => {
         <Route path='/company' element={<CompanyPage />} />
         <Route path='/company/company/AddCompany' element={<AddCompany />} />
         <Route path='/company/company/EditCompany' element={<EditCompany />} />
+        
 
         {/* <Route path='sourcesadduser' element={<SourcesPage/>}/> */}
 
@@ -177,6 +193,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
+        
         <Route
           path='crafted/pages/wizards/*'
           element={
@@ -283,6 +300,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         />
+        
         <Route
           path='target/*'
           element={
