@@ -40,6 +40,9 @@ export const CreateUser = (data: any, token: any) => (dispatch: any) =>
     })
     .catch((error) => {
       // eslint-disable-next-line no-param-reassign
+      // console.log(error.response.data,"error");
+      
+      alert(error?.response?.data?.message[0]?.messages[0]?.message)
       error.clientMessage = "Can't find";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });

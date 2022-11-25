@@ -141,9 +141,9 @@ function RolesListHeader() {
               >
                 Range:
               </span>
-              <span class="fw-bold" id="kt_dashboard_daterangepicker_date">
+              {/* <span class="fw-bold" id="kt_dashboard_daterangepicker_date">
                 September 12
-              </span>
+              </span> */}
             </a>
             {/* end::Daterangepicker */}
             {/* begin::Actions */}
@@ -215,7 +215,7 @@ function RolesListCard(props) {
   // const rolePermissionsById = useSelector(
   //   (state) => state?.Roles?.RolePermissionsById
   // );
-
+  console.log(userData, "userData");
   const UsersByCompanyId = useSelector(
     (state) => state?.ManageUserData?.UsersByCompanyId
   );
@@ -237,6 +237,8 @@ function RolesListCard(props) {
   // console.log("rolePermissionsById", rolePermissionsById);
   // console.log("UsersByCompanyId", UsersByCompanyId);
   // console.log("UsersByRole", UsersByRole);
+  // console.log("token", token);
+
   return (
     <div class="col-md-4">
       <div class="card card-flush h-md-100">
@@ -257,9 +259,10 @@ function RolesListCard(props) {
             </div>
           )}
 
-          <div class="d-flex flex-column text-gray-600">
+          {/* <div class="d-flex flex-column text-gray-600">
+            {}
             <div class="d-flex align-items-center py-2">
-              <span class="bullet bg-primary me-3"></span>All Admin Controls
+              <span class="bullet bg-primary me-3"></span>
             </div>
             <div class="d-flex align-items-center py-2">
               <span class="bullet bg-primary me-3"></span>View and Edit
@@ -276,23 +279,38 @@ function RolesListCard(props) {
             </div>
             <div class="d-flex align-items-center py-2">
               <span class="bullet bg-primary me-3"></span>
-              <em>and 7 more...</em>
+              <em>and many more...</em>
             </div>
-          </div>
+          </div> */}
         </div>
         <div class="card-footer flex-wrap pt-0">
-          <button
-            type="button"
-            class="btn btn-light btn-active-light-primary m-2"
-            onClick={() => {
-              handleClick();
-              navigate("/apps/user-management/roles/view", {
-                state: id,
-              });
-            }}
-          >
-            View Role
-          </button>
+          {UsersByRole?.length > 0 ? (
+            <button
+              type="button"
+              class="btn btn-light btn-active-light-primary m-2"
+              onClick={() => {
+                handleClick();
+                navigate("/apps/user-management/roles/view", {
+                  state: id,
+                });
+              }}
+            >
+              View Role
+            </button>
+          ) : (
+            <button
+              type="button"
+              class="btn btn-light btn-active-light-primary m-2"
+              onClick={() => {
+                // handleClick();
+                navigate("/team-members/team-members/adduser", {
+                  state: id,
+                });
+              }}
+            >
+              Add User to this Role
+            </button>
+          )}
 
           <button
             type="button"
@@ -386,14 +404,14 @@ function RolesList() {
 
   useEffect(() => {
     dispatch(fetchRoles(token));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchCrmRoles(token));
-  }, []);
-  useEffect(() => {
-    dispatch(fetchRolePermissionsById(token));
-  }, []);
+  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchRolePermissionsById(token));
+  // }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchAllModules(token));
@@ -746,7 +764,7 @@ function RolesList() {
                       <button
                         type="reset"
                         class="btn btn-light me-3"
-                        data-kt-roles-modal-action="cancel"
+                        data-kt-roles-modal-action="close"
                       >
                         Discard
                       </button>

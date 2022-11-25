@@ -10,9 +10,11 @@ import {
   fetchRoles,
 } from "../../user-management/users-list/_redux/userAction";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AddNewRole() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // const [companies, setCompanies] = useState("");
   const UserById = useSelector((state) => state?.Roles?.UserById);
   const rolePermissions = useSelector((state) => state?.Roles?.RolePermissions);
@@ -32,11 +34,11 @@ function AddNewRole() {
 
   useEffect(() => {
     dispatch(fetchRoles(token));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchCrmRoles(token));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     // axios
@@ -86,6 +88,7 @@ function AddNewRole() {
       .catch((err) => {
         // console.log(err, "err");
       });
+    navigate(-1);
   }
 
   console.log(roleName, companyName);

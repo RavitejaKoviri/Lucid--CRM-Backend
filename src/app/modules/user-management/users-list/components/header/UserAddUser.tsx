@@ -34,7 +34,9 @@ export default function UserAdduser() {
   );
   const userById = useSelector((state: any) => state?.UserData?.UsersById);
   const Roles = useSelector((state: any) => state?.ManageUserData?.Roles);
-  const RolesByAdmin = Roles?.filter((item:any)=>item?.company?.id === userData?.company?.id);
+  const RolesByAdmin = Roles?.filter(
+    (item: any) => item?.company?.id === userData?.company?.id
+  );
   const companies = useSelector((state: any) => state?.Roles?.Companies);
 
   console.log(companies, "companies");
@@ -103,7 +105,7 @@ export default function UserAdduser() {
       image: userById?.image,
       description: userById?.description,
       company: companyId,
-      crmrole:''
+      crmrole: "",
     });
 
     console.log("hello");
@@ -123,7 +125,7 @@ export default function UserAdduser() {
       image: imageUrl,
       description: "",
       company: "",
-      crmrole: ""
+      crmrole: "",
     });
   };
 
@@ -138,7 +140,7 @@ export default function UserAdduser() {
     image: imageUrl,
     description: "",
     company: "",
-    crmrole: ""
+    crmrole: "",
   });
 
   const handleChange = (e: any) => {
@@ -146,7 +148,7 @@ export default function UserAdduser() {
   };
   useEffect(() => {
     dispatch(fetchRoles(token));
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <div className="content d-flex flex-column flex-column-fluid">
@@ -402,43 +404,79 @@ export default function UserAdduser() {
                             <option value="" disabled selected>
                               Select Role
                             </option>
-                            {userData?.isSuperAdmin===true?
-                            Roles?.map((item: any) => (
-                              <option value={item?.id}>
-                                {item?.name} ({item?.company?.companyName})
-                              </option>
-                            )):RolesByAdmin?.filter((item:any)=>item?.name!==userData?.crmrole?.name)?.map((item: any) => (
-                              <option value={item?.id}>
-                                {item?.name} ({item?.company?.companyName})
-                              </option>
-                            ))}
+                            {userData?.isSuperAdmin === true
+                              ? Roles?.map((item: any) => (
+                                  <option value={item?.id}>
+                                    {item?.name} ({item?.company?.companyName})
+                                  </option>
+                                ))
+                              : RolesByAdmin?.filter(
+                                  (item: any) =>
+                                    item?.name !== userData?.crmrole?.name
+                                )?.map((item: any) => (
+                                  <option value={item?.id}>
+                                    {item?.name} ({item?.company?.companyName})
+                                  </option>
+                                ))}
                           </select>
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
-                        <div className="d-flex flex-column  col-lg-5">
-                          {/* <label className="form-label">Gender</label> */}
+                      {userData?.isSuperAdmin === true ? (
+                        <div className="form-group row mb-2">
+                          <div className="d-flex flex-column  col-lg-5">
+                            {/* <label className="form-label">Gender</label> */}
 
-                          <select
-                            className="form-control form-control-lg form-control-solid mt-3"
-                            data-control="select2"
-                            data-hide-search="true"
-                            data-placeholder="Select an option"
-                            name="company"
-                            value={data?.company}
-                            onChange={handleChange}
-                          >
-                            <option value={userData?.company?.id} disabled selected>
-                           {userData?.company?.companyName}
-                            </option>
-                            {/* {companies?.map((item: any) => (
+                            <select
+                              className="form-control form-control-lg form-control-solid mt-3"
+                              data-control="select2"
+                              data-hide-search="true"
+                              data-placeholder="Select a Company"
+                              name="company"
+                              value={data?.company}
+                              onChange={handleChange}
+                            >
+                              <option value={userData?.company?.id} selected>
+                                Select Company
+                                {/* {userData?.company?.companyName} */}
+                              </option>
+                              {companies?.map((item: any) => (
+                                <option value={item?.id}>
+                                  {item?.companyName}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="form-group row mb-2">
+                          <div className="d-flex flex-column  col-lg-5">
+                            {/* <label className="form-label">Gender</label> */}
+
+                            <select
+                              className="form-control form-control-lg form-control-solid mt-3"
+                              data-control="select2"
+                              data-hide-search="true"
+                              data-placeholder="Select an option"
+                              name="company"
+                              value={data?.company}
+                              onChange={handleChange}
+                            >
+                              <option
+                                value={userData?.company?.id}
+                                disabled
+                                selected
+                              >
+                                {userData?.company?.companyName}
+                              </option>
+                              {/* {companies?.map((item: any) => (
                               <option value={item?.id} disabled>
                                 {item?.companyName}
                               </option>
                             ))} */}
-                          </select>
+                            </select>
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </form>
                   </div>
                 </div>

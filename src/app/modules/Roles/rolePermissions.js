@@ -12,10 +12,11 @@ import {
 } from "../user-management/users-list/_redux/userAction";
 import axios from "axios";
 import CheckBoxStatus from "./checkbox";
+import { useNavigate } from "react-router-dom";
 
 function RolePermissions() {
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [create, setCreate] = useState(false);
   const [read, setRead] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -49,19 +50,19 @@ function RolePermissions() {
 
   useEffect(() => {
     dispatch(fetchRoles(token));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchCrmRoles(token));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchAllModules(token));
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(fetchCompanies(token));
-  }, []);
+  }, [dispatch]);
 
   const obj = {};
 
@@ -88,6 +89,7 @@ function RolePermissions() {
       .catch((err) => {
         // console.log(err, "err");
       });
+    navigate(-1);
   }
   console.log(rolePermissions, "rolePermissions");
   console.log(rolePermissionsByAdmin, "rolePermissionsByAdmin");

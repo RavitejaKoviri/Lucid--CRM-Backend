@@ -9,7 +9,7 @@ import accountImage from "../../../_metronic/assets/images/account.png";
 import { fetchAllModules, fetchAllUsers } from "./redux/rolesAction";
 
 const UserDetailsComponent = (props) => {
-  const { id, img, userName, email } = props;
+  const { id, img, userName, email, date } = props;
   return (
     <tr>
       {/*begin::Checkbox */}
@@ -20,7 +20,7 @@ const UserDetailsComponent = (props) => {
       </td>
       {/*end::Checkbox */}
       {/*begin::ID */}
-      <td>ID2833</td>
+      <td>{id?.slice(0, 6)}</td>
       {/*begin::ID */}
       {/*begin::User= */}
       <td class="d-flex align-items-center">
@@ -51,7 +51,7 @@ const UserDetailsComponent = (props) => {
       </td>
       {/*end::user= */}
       {/*begin::Joined date= */}
-      <td>22 Sep 2022, 10:30 am</td>
+      <td>{date}</td>
       {/*end::Joined date= */}
       {/*begin::Action= */}
       <td class="text-end">
@@ -89,6 +89,10 @@ const UserDetailsComponent = (props) => {
             <a
               href="../../demo6/dist/apps/user-management/users/view.html"
               class="menu-link px-3"
+              type="button"
+              // class="btn btn-light btn-active-light-primary m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#kt_modal_update_role"
             >
               View
             </a>
@@ -268,15 +272,15 @@ function ViewRoles() {
                 data-bs-trigger="hover"
                 title="Select dashboard daterange"
               >
-                <span
+                {/* <span
                   class="fw-semibold me-1"
                   id="kt_dashboard_daterangepicker_title"
                 >
                   Range:
-                </span>
-                <span class="fw-bold" id="kt_dashboard_daterangepicker_date">
+                </span> */}
+                {/* <span class="fw-bold" id="kt_dashboard_daterangepicker_date">
                   September 12
-                </span>
+                </span> */}
               </a>
               {/*end::Daterangepicker */}
               {/*begin::Actions */}
@@ -526,16 +530,20 @@ function ViewRoles() {
                       {userAdmin?.isSuperAdmin === true
                         ? UsersByRoleSuperAdmin.map((item) => (
                             <UserDetailsComponent
+                              id={item?.crmrole?.id}
                               img={item?.image?.url}
                               userName={item?.username}
                               email={item?.email}
+                              date={item?.createdAt?.slice(0, 10)}
                             />
                           ))
                         : UsersByRole.map((item) => (
                             <UserDetailsComponent
+                              id={item?.crmrole?.id}
                               img={item?.image?.url}
                               userName={item?.username}
                               email={item?.email}
+                              date={item?.createdAt?.slice(0, 10)}
                             />
                           ))}
                     </tbody>

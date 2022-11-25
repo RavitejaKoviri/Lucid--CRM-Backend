@@ -135,14 +135,14 @@ export function AsideMenuMain() {
             {/* <AsideMenuItem to='/settings/contacts' title='Targets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/contacts' title='Contacts' fontIcon='bi-layers fs-3' /> */}
           </AsideMenuItemWithSubMain>
-          <AsideMenuItem
+          {/* <AsideMenuItem
             to="/editor"
             title="Editor"
             fontIcon="bi-card-text fs-3"
             bsTitle={"Editer"}
             className="py-2"
-          />
-          <AsideMenuItemWithSubMain
+          /> */}
+          {/* <AsideMenuItemWithSubMain
             to="/crafted/pages"
             title="Crafted"
             fontIcon="bi-file-text"
@@ -305,7 +305,7 @@ export function AsideMenuMain() {
               hasBullet={true}
               bsTitle="User management"
             />
-          </AsideMenuItemWithSubMain>
+          </AsideMenuItemWithSubMain> */}
           <AsideMenuItemWithSubMain
             to="/Roles"
             title="Roles"
@@ -488,14 +488,14 @@ export function AsideMenuMain() {
             {/* <AsideMenuItem to='/settings/contacts' title='Targets' fontIcon='bi-layers fs-3' />
         <AsideMenuItem to='/settings/contacts' title='Contacts' fontIcon='bi-layers fs-3' /> */}
           </AsideMenuItemWithSubMain>
-          <AsideMenuItem
+          {/* <AsideMenuItem
             to="/editor"
             title="Editor"
             fontIcon="bi-card-text fs-3"
             bsTitle={"Editer"}
             className="py-2"
-          />
-          <AsideMenuItemWithSubMain
+          /> */}
+          {/* <AsideMenuItemWithSubMain
             to="/crafted/pages"
             title="Crafted"
             fontIcon="bi-file-text"
@@ -658,7 +658,7 @@ export function AsideMenuMain() {
               hasBullet={true}
               bsTitle="User management"
             />
-          </AsideMenuItemWithSubMain>
+          </AsideMenuItemWithSubMain> */}
           {rolePermissionsByUser?.filter(
             (item: any) => item?.crmrole?.name === "Admin"
           )?.length > 0 && (
