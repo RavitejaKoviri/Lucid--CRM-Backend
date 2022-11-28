@@ -1,18 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CreateSource,
   getcampaigns,
   getcompanies,
   getsource,
   getsourceStatuses,
+  SourcesLoading,
 } from "../../_redux/sourceAction";
 
 export default function SourceAdduser() {
-  
-  
+
+
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state?.auth?.authToken);
@@ -23,26 +24,27 @@ export default function SourceAdduser() {
     dispatch(getcompanies(token));
     dispatch(getsourceStatuses(token));
   }, []);
-  
+
   const [data, setData] = useState({
     SourceName: " ",
   });
- 
+
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    
-      dispatch(CreateSource(data, token));
-    
+
+    dispatch(CreateSource(data, token));
+
     setData({
       SourceName: " ",
     });
+    dispatch(SourcesLoading(true));
     navigation("/sources/source");
   };
-  
+
   return (
     <>
       <div className="content d-flex flex-column flex-column-fluid">

@@ -10,6 +10,7 @@ const initialProductsState = {
   sourceStatus: [],
   SourcesById: null,
   UpdatedSource: null,
+  Loading: false,
 };
 
 export const callTypes = {
@@ -70,6 +71,10 @@ export const sourceSlice = createSlice({
     UpdatedSource: (state, action) => {
       const { data } = action.payload;
       state.UpdatedSource = data;
+    },
+    fetchedSourcesLoading: (state, action) => {
+      const { data } = action.payload;
+      state.Loading = data;
     },
   },
 });

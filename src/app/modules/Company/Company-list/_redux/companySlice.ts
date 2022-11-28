@@ -4,12 +4,13 @@ import storage from "redux-persist/lib/storage";
 const initialProductsState = {
   Companies: [],
   Createcompany: [],
-  brand:[],
-  getusers:[],
-  industries:[],
+  brand: [],
+  getusers: [],
+  industries: [],
   companyStatus: [],
   CompanyById: null,
   UpdatedCompany: null,
+  Loading: false,
 };
 
 export const callTypes = {
@@ -47,12 +48,12 @@ export const CompanySlice = createSlice({
       const { data } = action.payload;
       state.CompanyById = data;
     },
-   
+
     // fetchedAllcompanyStatusesDetails: (state, action) => {
     //   const { data } = action.payload;
     //   state.companyStatus = data;
     // },
-    
+
     postCompany: (state, action) => {
       const { data } = action.payload;
       state.Createcompany = data;
@@ -72,6 +73,10 @@ export const CompanySlice = createSlice({
     UpdatedCompany: (state, action) => {
       const { data } = action.payload;
       state.UpdatedCompany = data;
+    },
+    fetchedComapanyLoading: (state, action) => {
+      const { data } = action.payload;
+      state.Loading = data;
     },
   },
 });

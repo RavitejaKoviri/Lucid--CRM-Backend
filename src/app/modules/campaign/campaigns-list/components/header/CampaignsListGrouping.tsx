@@ -4,7 +4,7 @@ import { QUERIES } from "../../../../../../_metronic/helpers";
 import { useListView } from "../../core/ListViewProvider";
 import { useQueryResponse } from "../../core/QueryResponseProvider";
 import { deleteSelectedUsers } from "../../core/_requests";
-import { deleteSelectedCampaigns } from "../../_redux/campaignAction";
+import { CampaignLoading, deleteSelectedCampaigns } from "../../_redux/campaignAction";
 
 const CampaignsListGrouping = () => {
   const { selected, clearSelected } = useListView();
@@ -25,8 +25,11 @@ const CampaignsListGrouping = () => {
   // })
   const token = useSelector((state: any) => state?.auth?.authToken);
   const dispatch = useDispatch();
-  const deleteSelectedItems = () =>
+  const deleteSelectedItems = () => {
     dispatch(deleteSelectedCampaigns(selected, token));
+    dispatch(CampaignLoading(true))
+  }
+
   return (
     <div className="d-flex justify-content-end align-items-center">
       <div className="fw-bolder me-5">
@@ -36,7 +39,7 @@ const CampaignsListGrouping = () => {
         <button
           type="button"
           className="btn btn-danger"
-          onClick={deleteSelectedItems()}
+          onClick={() => deleteSelectedItems()}
         >
           Delete Selected
         </button>
@@ -46,14 +49,14 @@ const CampaignsListGrouping = () => {
             (item: any) =>
               item?.allmodule.name === "Campaigns" && item?.Delete === true
           )?.length > 0 && (
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={deleteSelectedItems()}
-            >
-              Delete Selected
-            </button>
-          )}
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => deleteSelectedItems()}
+              >
+                Delete Selected
+              </button>
+            )}
         </>
       )}
     </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom"
-import { CreateUser, fetchCompanies, fetchRoles, getUsersById, UpdateUser } from "../../_redux/userAction";
+import { CreateUser, fetchCompanies, fetchRoles, getUsersById, UpdateUser, UsersLoading } from "../../_redux/userAction";
 
 
 export default function EditUser() {
@@ -19,14 +19,14 @@ export default function EditUser() {
   const token = useSelector((state: any) => state?.auth?.authToken);
 
   const userData = useSelector((state: any) => state?.auth?.user);
-//    const company = useSelector((state: any) => state?.TargetData?.Comapnies);
-  
+  //    const company = useSelector((state: any) => state?.TargetData?.Comapnies);
+
   const user = useSelector((state: any) => state?.TargetData?.assignedTo);
 
   const userAdmin = useSelector((state: any) => state?.auth?.user);
-//   const targetsById = useSelector(
-//     (state: any) => state?.TargetData?.targetById
-//   );
+  //   const targetsById = useSelector(
+  //     (state: any) => state?.TargetData?.targetById
+  //   );
   const userById = useSelector((state: any) => state?.ManageUserData?.UsersById);
   const Roless = useSelector((state: any) => state?.ManageUserData?.Roles);
   const companies = useSelector((state: any) => state?.ManageUserData?.Companies);
@@ -79,13 +79,13 @@ export default function EditUser() {
       .catch(() => { });
   };
   useEffect(() => {
-   dispatch(fetchRoles(token))
-    dispatch(fetchCompanies(id,token))
+    dispatch(fetchRoles(token))
+    dispatch(fetchCompanies(id, token))
 
   }, [])
- 
-  
-  
+
+
+
   useEffect(() => {
     console.log(id, "TestId");
     dispatch(getUsersById(id, token))
@@ -94,17 +94,17 @@ export default function EditUser() {
 
   useEffect(() => {
     setData({
-        username: userById?.username,
-        email: userById?.email,
-        password: userById?.password,
-        mobile: userById?.mobile,
-        firstname: userById?.firstname,
-        lastname: userById?.lastname,
-        gender: userById?.gender,
-        image: userById?.image,
-        description: userById?.description,
-        company: userById?.company?.id,
-        crmrole:userById?.crmrole?.id
+      username: userById?.username,
+      email: userById?.email,
+      password: userById?.password,
+      mobile: userById?.mobile,
+      firstname: userById?.firstname,
+      lastname: userById?.lastname,
+      gender: userById?.gender,
+      image: userById?.image,
+      description: userById?.description,
+      company: userById?.company?.id,
+      crmrole: userById?.crmrole?.id
     })
     setUsers(false);
     console.log("hello")
@@ -112,49 +112,47 @@ export default function EditUser() {
 
   const [data, setData] = useState<any>(
     {
-        username: "",
-        email: "",
-        password: "",
-        mobile: "",
-        firstname: "",
-        lastname: "",
-        gender: "",
-        image: imageUrl,
-        description: "",
-        company: "",
-        crmrole: ""
+      username: "",
+      email: "",
+      password: "",
+      mobile: "",
+      firstname: "",
+      lastname: "",
+      gender: "",
+      image: imageUrl,
+      description: "",
+      company: "",
+      crmrole: ""
     })
 
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl});
+    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl });
   };
   console.log(data, "TEST");
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    if (id !== null)
+    dispatch(UsersLoading(true))
     dispatch(UpdateUser(id, data, token));
-    else {
-      dispatch(CreateUser(data, token));
-    }
+
     setData({
-        username: "",
-        email: "",
-        password: "",
-        mobile: "",
-        firstname: "",
-        lastname: "",
-        gender: "",
-        image: imageUrl,
-        description: "",
-        company: "",
-        crmrole: ""
+      username: "",
+      email: "",
+      password: "",
+      mobile: "",
+      firstname: "",
+      lastname: "",
+      gender: "",
+      image: imageUrl,
+      description: "",
+      company: "",
+      crmrole: ""
     })
     navigation('/team-members/team-members')
   };
   return (
     <>
-     <div className="content d-flex flex-column flex-column-fluid">
+      <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
           <div className="form d-flex flex-column flex-lg-row">
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
@@ -197,7 +195,7 @@ export default function EditUser() {
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) :data?.image ? (
+                    ) : data?.image ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -405,7 +403,7 @@ export default function EditUser() {
                             onChange={handleChange}
                           >
                             <option value="" disabled selected>
-                             -- Select Role --
+                              -- Select Role --
                             </option>
                             {Roless?.map((item: any) => (
                               <option value={item?.id}>
@@ -429,7 +427,7 @@ export default function EditUser() {
                             onChange={handleChange}
                           >
                             <option value="" disabled selected>
-                             -- Select Company --
+                              -- Select Company --
                             </option>
                             {companies?.map((item: any) => (
                               <option value={item?.id}>

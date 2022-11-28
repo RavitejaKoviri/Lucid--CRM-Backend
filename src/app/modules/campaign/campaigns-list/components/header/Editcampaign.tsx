@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getCampaignById, getCampaignStatuses, UpdateCampaign } from "../../_redux/campaignAction";
-import {  getCompanies,    } from "../../_redux/campaignAction";
+import { CampaignLoading, getCampaignById, getCampaignStatuses, UpdateCampaign } from "../../_redux/campaignAction";
+import { getCompanies, } from "../../_redux/campaignAction";
 import { CreateCampaign } from "../../_redux/campaignCrud";
 
 // import { FC, useState } from 'react'
@@ -24,11 +24,11 @@ export default function EditCampaign() {
   const id = location?.state
   console.log(id, "location")
   const [campaign, setCampaign] = useState(false);
-  
+
   const token = useSelector(
     (state: any) => state?.auth?.authToken
   );
-  
+
   const user = useSelector(
     (state: any) => state?.auth?.user
   );
@@ -45,13 +45,13 @@ export default function EditCampaign() {
   const CampaignByIds = useSelector(
     (state: any) => state?.campaignData?.CampaignById
   );
-  console.log(status,"status");
-  
+  console.log(status, "status");
+
   useEffect(() => {
     setData({
       campaignName: CampaignByIds?.campaignName,
       campaignStatus: CampaignByIds?.campaignStatus,
-      company: user?.company?.id,     
+      company: user?.company?.id,
     })
     setCampaign(false);
     console.log("hello")
@@ -62,23 +62,23 @@ export default function EditCampaign() {
 
 
   useEffect(() => {
-    
+
     dispatch(getCompanies(token))
     dispatch(getCampaignStatuses(token))
   }, [])
 
   useEffect(() => {
-      dispatch(getCampaignById(id, token))
-      setCampaign(true);
+    dispatch(getCampaignById(id, token))
+    setCampaign(true);
   }, [CampaignByIds?.id])
 
   const [data, setData] = useState({
     campaignName: "",
-  campaignStatus: "",
-  company: user?.company?.id,
-    
-    
-   
+    campaignStatus: "",
+    company: user?.company?.id,
+
+
+
   })
 
   const handleChange = (e: any) => {
@@ -87,38 +87,34 @@ export default function EditCampaign() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    if (id !== null) {
-      dispatch(UpdateCampaign(id, data, token));
-    }
-    else {
-      dispatch(CreateCampaign(data, token));
-    }
+    dispatch(UpdateCampaign(id, data, token));
+    dispatch(CampaignLoading(true))
     setData({
       campaignName: "",
       campaignStatus: "",
       company: "",
-      
+
     })
     navigation('/campaigns/campaigns')
   };
-  
 
-  
+
+
 
 
 
   return (
-<>
-<div
+    <>
+      <div
         className="content d-flex flex-column flex-column-fluid"
       >
         <div id="kt_content_container" className="container-xxl">
           <div
             className="form  flex-column flex-lg-row"
           >
-           
+
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-              
+
               <div className="tab-content">
                 <div className="tab-pane fade show active" role="tab-panel">
                   <div className="d-flex flex-column gap-7 gap-lg-6">
@@ -128,7 +124,7 @@ export default function EditCampaign() {
                           <h2>Campaign Details</h2>
                         </div>
                       </div>
-                    
+
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-2">
@@ -139,28 +135,28 @@ export default function EditCampaign() {
                                 value={data.campaignName}
                                 onChange={handleChange}
                                 name="campaignName"
-                                 className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter Campaign Name"
                               />
                             </div>
                             <div className="col-lg-4">
 
-                            {/* <label>Status</label> */}
-                     <select
-                     className="form-control form-control-lg form-control-solid"
-                    data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select Status"
-                    value={data.campaignStatus}
-                    onChange={handleChange}
-                    name="campaignStatus"
-                  >
-                    <option>--Select Status--</option>
-                    {status?.map((item: any) => (
-                      <option value={item?.id}>{item?.campaignStatusName}</option>
-                    ))}
-                  </select>
-                  </div>
+                              {/* <label>Status</label> */}
+                              <select
+                                className="form-control form-control-lg form-control-solid"
+                                data-control="select2"
+                                data-hide-search="true"
+                                data-placeholder="Select Status"
+                                value={data.campaignStatus}
+                                onChange={handleChange}
+                                name="campaignStatus"
+                              >
+                                <option>--Select Status--</option>
+                                {status?.map((item: any) => (
+                                  <option value={item?.id}>{item?.campaignStatusName}</option>
+                                ))}
+                              </select>
+                            </div>
                             {/* <div className="col-lg-6">
                               <label>Contact PersonName:</label>
                               <input
@@ -174,7 +170,7 @@ export default function EditCampaign() {
                               
                             </div> */}
                           </div>
-                     {/* <div className="form col-4 mt-6">
+                          {/* <div className="form col-4 mt-6">
                       <label>Status</label>
                      <select
                      className="form-control form-control-lg form-control-solid"
@@ -191,17 +187,17 @@ export default function EditCampaign() {
                     ))}
                   </select>
                      </div> */}
-                          
+
 
                         </form>
                       </div>
                     </div>
-                   
+
                   </div>
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-              <button
+                <button
                   className="btn btn-dark me-5"
                   onClick={() => {
                     navigation('/campaigns/campaigns')

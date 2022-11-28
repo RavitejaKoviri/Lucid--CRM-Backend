@@ -134,3 +134,5 @@ export const DeleteSource = (id: any, token: any) => (dispatch: any) =>
 export const deleteSelectedSources = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
     .deleteSelectedSource(id, token)
+
+export const SourcesLoading = (data: any) => (dispatch: any) => dispatch(actions.fetchedSourcesLoading({ data }));

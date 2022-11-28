@@ -10,6 +10,7 @@ import {
   getsource,
   UpdateSource,
   getsourceStatuses,
+  SourcesLoading,
 } from "../../_redux/sourceAction";
 
 export default function EditSource() {
@@ -44,11 +45,9 @@ export default function EditSource() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    if (id !== null) {
-      dispatch(UpdateSource(id, data, token));
-    } else {
-      dispatch(CreateSource(data, token));
-    }
+
+    dispatch(UpdateSource(id, data, token));
+    dispatch(SourcesLoading(true));
     setData({
       SourceName: " ",
     });

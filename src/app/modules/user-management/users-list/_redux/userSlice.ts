@@ -3,14 +3,14 @@ import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
   Users: [],
-  UsersById:[],
-  Createuser:[],
-  Roles:[],
-  RoleById:[],
-  UsersByCompanyId:[],
-  Companies:[],
-  UpdatedUser :null,
-
+  UsersById: [],
+  Createuser: [],
+  Roles: [],
+  RoleById: [],
+  UsersByCompanyId: [],
+  Companies: [],
+  UpdatedUser: null,
+  Loading: false,
 
 };
 
@@ -73,6 +73,9 @@ export const ManageUserSlice = createSlice({
       const { data } = action.payload;
       state.UpdatedUser = data;
     },
-    
+    fetchedUsersLoading: (state, action) => {
+      const { data } = action.payload;
+      state.Loading = data;
+    },
   },
 });

@@ -10,6 +10,7 @@ const initialProductsState = {
   leadStatus: [],
   LeadsById: null,
   UpdatedLead: null,
+  Loading: false
 };
 
 export const callTypes = {
@@ -70,6 +71,10 @@ export const LeadSlice = createSlice({
     UpdatedLead: (state, action) => {
       const { data } = action.payload;
       state.UpdatedLead = data;
+    },
+    fetchedLoading: (state, action) => {
+      const { data } = action.payload;
+      state.Loading = data;
     },
   },
 });

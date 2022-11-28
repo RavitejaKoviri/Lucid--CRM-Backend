@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from './columns/CustomHeaderColumn'
@@ -9,13 +10,16 @@ import { CampaignsListLoading } from '../components/loading/CampaignsListLoading
 import { CampaignsListPagination } from '../components/pagination/CampaignsListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getAllCampaigns } from '../_redux/campaignAction'
+import { CampaignLoading, getAllCampaigns } from '../_redux/campaignAction'
 import { Pagination } from '@mui/material'
 import campgineContext from './columns/context'
 
 const CampaignsTable = () => {
   const campaigns = useSelector(
     (state: any) => state?.campaignData?.campaign
+  );
+  const loading = useSelector(
+    (state: any) => state?.campaignData?.Loading
   );
   const token = useSelector(
     (state: any) => state?.auth?.authToken
@@ -41,10 +45,12 @@ const CampaignsTable = () => {
     columns,
     data,
   })
-  // console.log(data);
+
   useEffect(() => {
     dispatch(getAllCampaigns(token))
-  }, [])
+    dispatch(CampaignLoading(false))
+  }, [loading])
+  console.log(loading, "loading");
   const { searchTerm } = useContext(campgineContext);
   return (
     <KTCardBody className='py-4'>

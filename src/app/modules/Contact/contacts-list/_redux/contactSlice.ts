@@ -8,7 +8,8 @@ const initialProductsState = {
   Comapnies: [],
   Createcontact: [],
   ContactById: null,
-  UpdatedContact: null
+  UpdatedContact: null,
+  Loading: false
 };
 
 export const callTypes = {
@@ -71,7 +72,10 @@ export const ContactSlice = createSlice({
       const { data } = action.payload;
       state.UpdatedContact = data;
     },
-
+    fetchedcontactLoading: (state, action) => {
+      const { data } = action.payload;
+      state.Loading = data;
+    },
   },
 });
 

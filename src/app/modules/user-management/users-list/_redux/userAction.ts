@@ -82,7 +82,7 @@ export const fetchUsersByCompanyId = (id: any, token: any) => (dispatch: any) =>
       error.clientMessage = "Can't find";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
-    export const fetchCompanies = (id: any, token: any) => (dispatch: any) =>
+export const fetchCompanies = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
     .getCompanies(id, token)
     .then((response) => {
@@ -94,16 +94,17 @@ export const fetchUsersByCompanyId = (id: any, token: any) => (dispatch: any) =>
       error.clientMessage = "Can't find";
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
-    export const UpdateUser = (id: any, data: any, token: any) => (dispatch: any) =>
-    requestFromServer
-      .UpdateUser(id, data, token)
-      .then((response) => {
-        const { data } = response;
-        dispatch(actions.UpdatedUser({ data }));
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-param-reassign
-        error.clientMessage = "Can't find";
-        dispatch(actions.catchError({ error, callType: callTypes.list }));
-      });
-     
+export const UpdateUser = (id: any, data: any, token: any) => (dispatch: any) =>
+  requestFromServer
+    .UpdateUser(id, data, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.UpdatedUser({ data }));
+    })
+    .catch((error) => {
+      // eslint-disable-next-line no-param-reassign
+      error.clientMessage = "Can't find";
+      dispatch(actions.catchError({ error, callType: callTypes.list }));
+    });
+
+export const UsersLoading = (data: any) => (dispatch: any) => dispatch(actions.fetchedUsersLoading({ data }));

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
@@ -10,7 +11,7 @@ import { DepartmentListLoading } from '../components/loading/DepartmentListLoadi
 import { DepartmentListPagination } from '../components/pagination/DepartmentListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getDepartment } from '../_redux/departmentAction'
+import { DepartmentLoading, getDepartment } from '../_redux/departmentAction'
 import UserContext from './columns/context'
 import { Pagination } from '@mui/material'
 import DepartmentContext from './columns/context'
@@ -20,6 +21,9 @@ const DepartmentTable = () => {
   const dispatch = useDispatch()
   const departments = useSelector(
     (state: any) => state?.DepartmentData?.Department
+  );
+  const loading = useSelector(
+    (state: any) => state?.DepartmentData?.Loading
   );
   const isLoading = useQueryResponseLoading()
 
@@ -56,7 +60,8 @@ const DepartmentTable = () => {
   console.log(data);
   useEffect(() => {
     dispatch(getDepartment(token))
-  }, [])
+    dispatch(DepartmentLoading(false))
+  }, [loading])
   const { searchTerm } = useContext(DepartmentContext);
   return (
     <KTCardBody className='py-4'>

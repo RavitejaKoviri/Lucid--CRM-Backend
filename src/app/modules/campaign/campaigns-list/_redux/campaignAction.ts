@@ -6,7 +6,7 @@ const { actions } = CampaignSlice;
 
 
 //getAll user details
-export const getAllCampaigns = (token:any) => (dispatch: any) => {
+export const getAllCampaigns = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .getAllCampaign(token)
@@ -18,9 +18,9 @@ export const getAllCampaigns = (token:any) => (dispatch: any) => {
       error.clientMessage = "Can't find patient test reports";;
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
- };
+};
 
- export const getCompanies = (token: any) => (dispatch: any) => {
+export const getCompanies = (token: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
     .getAllCompanies(token)
@@ -32,23 +32,23 @@ export const getAllCampaigns = (token:any) => (dispatch: any) => {
       error.clientMessage = "Can't find patient test reports";;
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     })
-  };
+};
 
-  export const getCampaignStatuses = (token: any) => (dispatch: any) => {
-    dispatch(actions.startCall({ callType: callTypes.action }));
-    return requestFromServer
-      .getCampaignStatuses(token)
-      .then((response) => {
-        const { data } = response;
-        dispatch(actions.fetchedcampaignsStatusesDetails({ data }));
-      })
-      .catch((error) => {
-        error.clientMessage = "Can't find patient test reports";;
-        dispatch(actions.catchError({ error, callType: callTypes.action }));
-      });
-  };
+export const getCampaignStatuses = (token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getCampaignStatuses(token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedcampaignsStatusesDetails({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
 
-  export const CreateCampaign = (data: any, token: any) => (dispatch: any) =>
+export const CreateCampaign = (data: any, token: any) => (dispatch: any) =>
   requestFromServer
     .CreateCampaign(data, token)
     .then((response) => {
@@ -61,21 +61,21 @@ export const getAllCampaigns = (token:any) => (dispatch: any) => {
       dispatch(actions.catchError({ error, callType: callTypes.list }));
     });
 
-    export const getCampaignById = (id: any, token: any) => (dispatch: any) => {
-      dispatch(actions.startCall({ callType: callTypes.action }));
-      return requestFromServer
-        .getCampaignsById(id, token)
-        .then((response) => {
-          const { data } = response;
-          dispatch(actions.fetchedAllCampaignDetailsById({ data }));
-        })
-        .catch((error) => {
-          error.clientMessage = "Can't find patient test reports";;
-          dispatch(actions.catchError({ error, callType: callTypes.action }));
-        });
-    };
+export const getCampaignById = (id: any, token: any) => (dispatch: any) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getCampaignsById(id, token)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedAllCampaignDetailsById({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find patient test reports";;
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};
 
-    export const UpdateCampaign = (id: any, data: any, token: any) => (dispatch: any) =>
+export const UpdateCampaign = (id: any, data: any, token: any) => (dispatch: any) =>
   requestFromServer
     .UpdateCampaign(id, data, token)
     .then((response) => {
@@ -103,3 +103,5 @@ export const DeleteCampaign = (id: any, token: any) => (dispatch: any) =>
 export const deleteSelectedCampaigns = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
     .deleteSelectedCampaign(id, token)
+
+export const CampaignLoading = (data: any) => async (dispatch: any) => dispatch(actions.fetchedCampaignLoading({ data }));

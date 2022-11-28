@@ -119,3 +119,4 @@ export const deleteSelectedLeads = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
     .deleteSelectedContact(id, token)
 
+export const ContactLoading = (data: any) => (dispatch: any) => dispatch(actions.fetchedcontactLoading({ data }));

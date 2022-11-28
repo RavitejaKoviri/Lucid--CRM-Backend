@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
@@ -10,7 +11,7 @@ import { BrandsListLoading } from '../components/loading/BrandsListLoading'
 import { BrandsListPagination } from '../components/pagination/BrandsListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getBrands } from '../_redux/brandsAction'
+import { BrandsLoading, getBrands } from '../_redux/brandsAction'
 import { Pagination } from '@mui/material'
 import BrandContext from './columns/context'
 
@@ -19,6 +20,9 @@ const BrandsTable = () => {
   const dispatch = useDispatch()
   const Brands = useSelector(
     (state: any) => state?.BrandsData?.Brands
+  );
+  const loading = useSelector(
+    (state: any) => state?.BrandsData?.Loading
   );
   const isLoading = useQueryResponseLoading()
 
@@ -55,7 +59,8 @@ const BrandsTable = () => {
   console.log(data);
   useEffect(() => {
     dispatch(getBrands(token))
-  }, [])
+    dispatch(BrandsLoading(false));
+  }, [loading])
 
   return (
     <KTCardBody className='py-4'>

@@ -1,15 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { Pagination } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Card3 } from '../../../../../_metronic/partials/content/cards/Card3'
-import { getAllContacts } from '../_redux/contactAction'
+import { ContactLoading, getAllContacts } from '../_redux/contactAction'
 import ContactContext from './columns/context';
 
 
 export function ContactsData() {
   const Contacts = useSelector(
     (state: any) => state?.ContactData?.Contacts
+  );
+  const loading = useSelector(
+    (state: any) => state?.ContactData?.Loading
   );
   const token = useSelector(
     (state: any) => state?.auth?.authToken
@@ -26,7 +30,8 @@ export function ContactsData() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getAllContacts(token, companyId))
-  }, [])
+    dispatch(ContactLoading(false));
+  }, [loading])
   const pageHandler = (pageNumber: any) => {
     setPerPage(contact.slice(pageNumber * 10 - 10, pageNumber * 10));
   };
@@ -75,8 +80,8 @@ export function ContactsData() {
             return val;
           }
           if (val?.campaignSource?.campaignName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {
-            console.log(val,"source");
-            
+            console.log(val, "source");
+
             return val;
           }
           if (val?.contactSource?.SourceName?.toLowerCase()?.includes(searchTerm?.toLowerCase())) {

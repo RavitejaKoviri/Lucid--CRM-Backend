@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
+  ContactLoading,
   CreateContact,
   getcampaigns,
   getcompanies,
@@ -127,7 +128,7 @@ export default function ContactsAdduser() {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   const handleChange = (e: any) => {
@@ -142,6 +143,7 @@ export default function ContactsAdduser() {
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
     dispatch(CreateContact(data, token));
+    dispatch(ContactLoading(true));
     setData({
       company: "",
       contactCompanyName: "",
@@ -467,10 +469,10 @@ export default function ContactsAdduser() {
                               />
                             </div>
 
-                            
+
                           </div>
                           <div className="form-group row my-8">
-                          <div className="col-lg-6">
+                            <div className="col-lg-6">
                               {/* <label>Secondary Email:</label> */}
                               <input
                                 type="text"
@@ -492,7 +494,7 @@ export default function ContactsAdduser() {
                                 placeholder="First Name"
                               />
                             </div>
-                            
+
                           </div>
 
                           {/* <div className="form-group row my-8">
@@ -500,7 +502,7 @@ export default function ContactsAdduser() {
                             
                           </div> */}
                           <div className="form-group row my-8">
-                            
+
                             <div className="col-lg-6">
                               {/* <label>Last Name:</label> */}
                               <input
@@ -530,7 +532,7 @@ export default function ContactsAdduser() {
                             
                           </div> */}
 
-                          
+
                         </form>
                       </div>
                     </div>
@@ -568,10 +570,10 @@ export default function ContactsAdduser() {
                                 placeholder="Job Title"
                               />
                             </div>
-                            
+
                           </div>
                           <div className="form-group row my-8">
-                            
+
                             <div className="col-lg-6">
                               {/* <label>CompanyName:</label> */}
                               <input
@@ -596,7 +598,7 @@ export default function ContactsAdduser() {
                             </div>
                           </div>
                           <div className="form-group row my-8">
-                            
+
                             <div className="col-lg-6">
                               {/* <label>City:</label> */}
                               <input
@@ -621,7 +623,7 @@ export default function ContactsAdduser() {
                             </div>
                           </div>
                           <div className="form-group row my-8">
-                            
+
                             <div className="col-lg-6">
                               {/* <label>Country:</label> */}
                               <input
@@ -659,7 +661,7 @@ export default function ContactsAdduser() {
 
                       <div className="card-body pt-0">
                         <form className="form">
-                        <div className="form-group row my-8">
+                          <div className="form-group row my-8">
                             <div className="col-lg-6">
                               {/* <label>Website Address:</label> */}
                               <input

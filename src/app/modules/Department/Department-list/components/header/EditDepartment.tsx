@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateDepartment, getcampaigns, getcompanies, getDepartmentById, getDepartmentStatuses, getsource, UpdateDepartment } from "../../_redux/departmentAction";
+import { CreateDepartment, DepartmentLoading, getcampaigns, getcompanies, getDepartmentById, getDepartmentStatuses, getsource, UpdateDepartment } from "../../_redux/departmentAction";
 
 export default function EditDepartment() {
   const location = useLocation();
@@ -65,14 +65,9 @@ export default function EditDepartment() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    if (id !== null) {
-      dispatch(UpdateDepartment(id, data, token));
-    }
-    else {
+    dispatch(DepartmentLoading(true))
+    dispatch(UpdateDepartment(id, data, token));
 
-      console.log(user, "data")
-      dispatch(CreateDepartment(data, token));
-    }
     setData({
       departmentName: " ",
       company: " ",

@@ -4,7 +4,7 @@ import { QUERIES } from "../../../../../../_metronic/helpers";
 import { useListView } from "../../core/ListViewProvider";
 import { useQueryResponse } from "../../core/QueryResponseProvider";
 import { deleteSelectedUsers } from "../../core/_requests";
-import { deleteSelectedLeads } from "../../_redux/leadAction";
+import { deleteSelectedLeads, Loading } from "../../_redux/leadAction";
 
 const LeadsListGrouping = () => {
   const dispatch = useDispatch();
@@ -16,9 +16,11 @@ const LeadsListGrouping = () => {
   const { selected, clearSelected } = useListView();
   const queryClient = useQueryClient();
   const { query } = useQueryResponse();
-
-  const deleteSelectedItems = () =>
+  const deleteSelectedItems = () => {
     dispatch(deleteSelectedLeads(selected, token));
+    dispatch(Loading(true));
+  }
+
 
   return (
     <div className="d-flex justify-content-end align-items-center">
@@ -39,14 +41,14 @@ const LeadsListGrouping = () => {
             (item: any) =>
               item?.allmodule.name === "Leads" && item?.Delete === true
           )?.length > 0 && (
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={deleteSelectedItems}
-            >
-              Delete Selected
-            </button>
-          )}
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={deleteSelectedItems}
+              >
+                Delete Selected
+              </button>
+            )}
         </>
       )}
     </div>

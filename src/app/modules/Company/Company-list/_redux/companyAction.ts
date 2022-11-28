@@ -80,6 +80,8 @@ export const getusers = (token: any) => (dispatch: any) => {
     });
 };
 
+export const CompanyLoading = (data: any) => (dispatch: any) => dispatch(actions.fetchedComapanyLoading({ data }));
+
 
 
 // export const getcompanies = (token: any) => (dispatch: any) => {

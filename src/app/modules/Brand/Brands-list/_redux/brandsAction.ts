@@ -20,10 +20,10 @@ export const getBrands = (token: any) => (dispatch: any) => {
     });
 };
 
-export const getBrandsById = (token: any,companyId: any) => (dispatch: any) => {
+export const getBrandsById = (token: any, companyId: any) => (dispatch: any) => {
   dispatch(actions.startCall({ callType: callTypes.action }));
   return requestFromServer
-    .getAllBrandsById(token,companyId)
+    .getAllBrandsById(token, companyId)
     .then((response) => {
       const { data } = response;
       dispatch(actions.fetchedAllBrandsDetailsById({ data }));
@@ -106,7 +106,7 @@ export const CreateBrands = (data: any, token: any) => (dispatch: any) =>
     });
 
 
-export const UpdateBrands= (id: any, data: any, token: any) => (dispatch: any) =>
+export const UpdateBrands = (id: any, data: any, token: any) => (dispatch: any) =>
   requestFromServer
     .UpdateBrands(id, data, token)
     .then((response) => {
@@ -134,3 +134,5 @@ export const DeleteBrands = (id: any, token: any) => (dispatch: any) =>
 export const deleteSelectedBrands = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
     .deleteSelectedBrands(id, token)
+
+export const BrandsLoading = (data: any) => (dispatch: any) => dispatch(actions.fetchedBrandsLoading({ data }));

@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
-import { CreateBrands,  } from "../../_redux/brandsAction";
+import { useNavigate } from "react-router-dom";
+import { BrandsLoading, CreateBrands, } from "../../_redux/brandsAction";
 
 export default function AddBrands() {
-  
+
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector(
@@ -18,7 +18,7 @@ export default function AddBrands() {
   const companyId = useSelector(
     (state: any) => state?.auth?.user?.company?.id
   );
- 
+
 
   const [data, setData] = useState(
     {
@@ -32,9 +32,9 @@ export default function AddBrands() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    
-      dispatch(CreateBrands(data, token));
-    
+
+    dispatch(CreateBrands(data, token));
+    dispatch(BrandsLoading(true));
     setData({
       brandName: " ",
       company: " ",
@@ -60,7 +60,7 @@ export default function AddBrands() {
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-2">
-                          <div className="col-lg-6">
+                            <div className="col-lg-6">
                               <label>Brand Name</label>
                               <input
                                 type="text"

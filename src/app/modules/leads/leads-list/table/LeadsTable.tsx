@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { useContext, useEffect, useMemo, useState } from "react";
 import { useTable, ColumnInstance, Row } from "react-table";
@@ -13,7 +14,7 @@ import { LeadsListLoading } from "../components/loading/LeadsListLoading";
 import { LeadsListPagination } from "../components/pagination/LeadsListPagination";
 import { KTCardBody } from "../../../../../_metronic/helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { getLeads } from "../_redux/leadAction";
+import { getLeads, Loading } from "../_redux/leadAction";
 import LeadContext from "./columns/context";
 import { Pagination } from "@mui/material";
 
@@ -22,8 +23,11 @@ const LeadsTable = () => {
   const [perPage, setPerPage] = useState([]);
   const [lead, setLead] = useState([]);
   const leads = useSelector((state: any) => state?.LeadData?.Leads);
-  const isLoading = useQueryResponseLoading();
+  const loading = useSelector((state: any) => state?.LeadData?.Loading);
+  console.log(loading, "loading");
 
+  const isLoading = useQueryResponseLoading();
+  const { searchTerm } = useContext(LeadContext);
   const data = useMemo(() => perPage, [perPage]);
   useEffect(() => {
     setLead(leads);
@@ -50,8 +54,8 @@ const LeadsTable = () => {
   console.log(data);
   useEffect(() => {
     dispatch(getLeads(token, companyId));
-  }, []);
-  const { searchTerm } = useContext(LeadContext);
+    dispatch(Loading(false));
+  }, [loading]);
   return (
     <KTCardBody className="py-4">
       <div className="table-responsive">

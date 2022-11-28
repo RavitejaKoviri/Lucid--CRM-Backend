@@ -4,10 +4,11 @@ import storage from "redux-persist/lib/storage";
 const initialProductsState = {
   campaign: [],
   campaignStatus: [],
-  Comapnies : [],
-  Createcampaign : [],
-  UpdatedCampaign:[],
-  CampaignById:[],
+  Comapnies: [],
+  Createcampaign: [],
+  UpdatedCampaign: [],
+  CampaignById: [],
+  Loading: false,
 };
 
 export const callTypes = {
@@ -60,6 +61,10 @@ export const CampaignSlice = createSlice({
     fetchedAllCampaignDetailsById: (state, action) => {
       const { data } = action.payload;
       state.CampaignById = data;
+    },
+    fetchedCampaignLoading: (state, action) => {
+      const { data } = action.payload;
+      state.Loading = data;
     },
   },
 });

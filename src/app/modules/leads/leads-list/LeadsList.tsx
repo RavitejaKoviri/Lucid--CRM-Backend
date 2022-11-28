@@ -17,7 +17,6 @@ import LeadContext from './table/columns/context'
 
 const LeadsList = () => {
   const { itemIdForUpdate } = useListView()
-
   const [searchTerm, setSearchTerm] = useState<string>('')
   return (
     <>

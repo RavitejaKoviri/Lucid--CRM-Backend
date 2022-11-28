@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { useContext, useEffect, useMemo } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
@@ -11,15 +12,18 @@ import { CompanyListPagination } from '../components/pagination/CompanyListPagin
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
 import LeadContext from './columns/context'
-import { getCompanies } from '../_redux/companyAction'
+import { CompanyLoading, getCompanies } from '../_redux/companyAction'
 
 const CompanyTable = () => {
   const users = useQueryResponseData()
   const company = useSelector(
     (state: any) => state?.Company?.Companies
   );
-  console.log(company,"company");
-  
+  const loading = useSelector(
+    (state: any) => state?.Company?.Loading
+  );
+  console.log(loading, "loading");
+
   const isLoading = useQueryResponseLoading()
   const data = useMemo(() => company, [company])
   const columns = useMemo(() => CompanyColumns, [])
@@ -37,7 +41,8 @@ const CompanyTable = () => {
   console.log(data);
   useEffect(() => {
     dispatch(getCompanies(token))
-  }, [])
+    dispatch(CompanyLoading(false))
+  }, [loading])
   const { searchTerm } = useContext(LeadContext);
   return (
     <KTCardBody className='py-4'>

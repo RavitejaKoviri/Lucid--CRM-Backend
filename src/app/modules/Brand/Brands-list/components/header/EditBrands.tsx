@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateBrands, getBrandsById, getBrandsStatuses, getsource, UpdateBrands } from "../../_redux/brandsAction";
+import { BrandsLoading, CreateBrands, getBrandsById, getBrandsStatuses, getsource, UpdateBrands } from "../../_redux/brandsAction";
 
 export default function EditBrands() {
   const location = useLocation();
@@ -20,8 +20,8 @@ export default function EditBrands() {
   const BrandsById = useSelector(
     (state: any) => state?.BrandsData?.BrandsById
   );
-  console.log(BrandsById,"BrandsById");
-  
+  console.log(BrandsById, "BrandsById");
+
   const companyId = useSelector(
     (state: any) => state?.auth?.user?.company?.id
   );
@@ -53,14 +53,8 @@ export default function EditBrands() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    if (id !== null) {
-      dispatch(UpdateBrands(id, data, token));
-    }
-    else {
-
-      console.log(user, "data")
-      dispatch(CreateBrands(data, token));
-    }
+    dispatch(UpdateBrands(id, data, token));
+    dispatch(BrandsLoading(true));
     setData({
       brandName: " ",
       company: " ",
@@ -86,7 +80,7 @@ export default function EditBrands() {
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-2">
-                          <div className="col-lg-6">
+                            <div className="col-lg-6">
                               <label>Brand Name</label>
                               <input
                                 type="text"

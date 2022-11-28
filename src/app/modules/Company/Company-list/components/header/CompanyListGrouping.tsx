@@ -4,7 +4,7 @@ import { QUERIES } from '../../../../../../_metronic/helpers'
 import { useListView } from '../../core/ListViewProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
 import { deleteSelectedUsers } from '../../core/_requests'
-import { deleteSelectedCompany } from '../../_redux/companyAction'
+import { CompanyLoading, deleteSelectedCompany } from '../../_redux/companyAction'
 
 const CompanyListGrouping = () => {
   const dispatch = useDispatch();
@@ -16,8 +16,11 @@ const CompanyListGrouping = () => {
   const queryClient = useQueryClient()
   const { query } = useQueryResponse()
 
-  const deleteSelectedItems = () =>
+  const deleteSelectedItems = () => {
+    dispatch(CompanyLoading(true))
     dispatch(deleteSelectedCompany(selected, token))
+  }
+
 
   return (
     <div className='d-flex justify-content-end align-items-center'>

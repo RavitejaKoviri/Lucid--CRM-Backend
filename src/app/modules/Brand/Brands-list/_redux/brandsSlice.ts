@@ -10,6 +10,7 @@ const initialProductsState = {
   BrandsStatus: [],
   BrandsById: null,
   UpdatedBrands: null,
+  Loading: false,
 };
 
 export const callTypes = {
@@ -70,6 +71,10 @@ export const BrandsSlice = createSlice({
     UpdatedBrands: (state, action) => {
       const { data } = action.payload;
       state.UpdatedBrands = data;
+    },
+    fetchedBrandsLoading: (state, action) => {
+      const { data } = action.payload;
+      state.Loading = data;
     },
   },
 });

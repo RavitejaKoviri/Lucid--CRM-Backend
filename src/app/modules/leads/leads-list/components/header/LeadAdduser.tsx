@@ -10,6 +10,7 @@ import {
   getcompanies,
   getleadStatuses,
   getsource,
+  Loading,
 } from "../../_redux/leadAction";
 
 export default function LeadAdduser() {
@@ -24,6 +25,8 @@ export default function LeadAdduser() {
   const leadById = useSelector((state: any) => state?.LeadData?.LeadsById);
   console.log(leadById, "leadById");
   console.log(leadById?.id, "leadById1");
+
+
 
   useEffect(() => {
     dispatch(getsource(token));
@@ -105,7 +108,7 @@ export default function LeadAdduser() {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => {});
+      .catch(() => { });
   };
 
   useEffect(() => {
@@ -160,6 +163,7 @@ export default function LeadAdduser() {
       image: [],
       description: "",
     });
+    dispatch(Loading(true));
     navigation("/leads/list");
   };
   useEffect(() => {

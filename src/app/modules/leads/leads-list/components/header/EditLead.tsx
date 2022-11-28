@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateLead, getcampaigns, getcompanies, getLeadsById, getleadStatuses, getsource, UpdateLead } from "../../_redux/leadAction";
+import { CreateLead, getcampaigns, getcompanies, getLeadsById, getleadStatuses, getsource, Loading, UpdateLead } from "../../_redux/leadAction";
 
 export default function EditLead() {
   const location = useLocation();
@@ -171,6 +171,7 @@ export default function EditLead() {
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
     dispatch(UpdateLead(id, data, token));
+    dispatch(Loading(true));
     setData({
       leadFirstName: " ",
       leadPhonenumber: " ",

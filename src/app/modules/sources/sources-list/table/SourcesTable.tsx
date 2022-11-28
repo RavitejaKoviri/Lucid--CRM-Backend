@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable array-callback-return */
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
@@ -10,7 +11,7 @@ import { SourcesListLoading } from '../components/loading/SourcesListLoading'
 import { SourcesListPagination } from '../components/pagination/SourcesListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSources } from '../_redux/sourceAction'
+import { getSources, SourcesLoading } from '../_redux/sourceAction'
 import { Pagination } from '@mui/material'
 import SourceContext from './columns/context'
 
@@ -18,6 +19,9 @@ const SourcesTable = () => {
   const users = useQueryResponseData()
   const sources = useSelector(
     (state: any) => state?.Sources?.Sources
+  );
+  const loading = useSelector(
+    (state: any) => state?.Sources?.Loading
   );
   const isLoading = useQueryResponseLoading()
 
@@ -54,7 +58,8 @@ const SourcesTable = () => {
   console.log(data);
   useEffect(() => {
     dispatch(getSources(token))
-  }, [])
+    dispatch(SourcesLoading(false))
+  }, [loading])
   const { searchTerm } = useContext(SourceContext);
 
   return (

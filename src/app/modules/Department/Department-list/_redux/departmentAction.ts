@@ -134,3 +134,5 @@ export const DeleteDepartment = (id: any, token: any) => (dispatch: any) =>
 export const deleteSelectedDepartment = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
     .deleteSelectedDepartment(id, token)
+
+export const DepartmentLoading = (data: any) => (dispatch: any) => dispatch(actions.fetchedDepartmentLoading({ data }));

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
 import { ID, KTSVG, } from '../../../../../../_metronic/helpers'
 
-import { DeleteCompany } from '../../_redux/companyAction'
+import { CompanyLoading, DeleteCompany } from '../../_redux/companyAction'
 
 type Props = {
   id: ID
@@ -27,8 +27,11 @@ const CompanyActionsCell: FC<Props> = ({ id }) => {
 
   }
 
-  const deleteItem = () =>
+  const deleteItem = () => {
+    dispatch(CompanyLoading(true))
     dispatch(DeleteCompany(id, token))
+  }
+
 
   return (
     <>

@@ -134,3 +134,6 @@ export const DeleteLead = (id: any, token: any) => (dispatch: any) =>
 export const deleteSelectedLeads = (id: any, token: any) => (dispatch: any) =>
   requestFromServer
     .deleteSelectedLead(id, token)
+
+export const Loading = (data: any) => (dispatch: any) => dispatch(actions.fetchedLoading({ data }));
+

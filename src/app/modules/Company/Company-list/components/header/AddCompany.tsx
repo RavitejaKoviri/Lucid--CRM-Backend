@@ -3,7 +3,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateCompany, getbrand, getCompaniesById, getindustry, UpdateCompany } from "../../_redux/companyAction";
+import { CompanyLoading, CreateCompany, getbrand, getCompaniesById, getindustry, UpdateCompany } from "../../_redux/companyAction";
 
 export default function AddCompany() {
   const location = useLocation();
@@ -56,7 +56,7 @@ export default function AddCompany() {
     setCompany(true);
   }, [companyById?.id])
 
- 
+
 
   const [data, setData] = useState(
     {
@@ -70,14 +70,13 @@ export default function AddCompany() {
     })
 
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value,brands: brands});
+    setData({ ...data, [e.target.name]: e.target.value, brands: brands });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-   
-      dispatch(CreateCompany(data, token));
-    
+    dispatch(CompanyLoading(true))
+    dispatch(CreateCompany(data, token));
     setData({
       companyName: " ",
       companyPANNumber: " ",
@@ -183,7 +182,7 @@ export default function AddCompany() {
 
 
                       <div className="col-lg-6 mb-4">
-                      <label> Brand:</label>  
+                        <label> Brand:</label>
                         <Autocomplete
                           multiple
                           id="controllable-states-demo"
@@ -214,27 +213,27 @@ export default function AddCompany() {
                           className="form-control form-control-lg form-control-solid"
                           placeholder="Industry "
                         /> */}
-                         <select
-                                className="form-control form-control-lg form-control-solid"
-                                data-control="select2"
-                    data-hide-search="true"
-                    data-placeholder="Select an option"
-                    value={data.companyIndustry}
-                    onChange={handleChange}
-                    name="companyIndustry"
-                  >
-                    <option> -- select Industry --</option>
-                    {
-                      industry?.map((item: any) => (
-                        <option value={item?.id}>{item?.industryName}</option>
-                      ))
-                    }
+                        <select
+                          className="form-control form-control-lg form-control-solid"
+                          data-control="select2"
+                          data-hide-search="true"
+                          data-placeholder="Select an option"
+                          value={data.companyIndustry}
+                          onChange={handleChange}
+                          name="companyIndustry"
+                        >
+                          <option> -- select Industry --</option>
+                          {
+                            industry?.map((item: any) => (
+                              <option value={item?.id}>{item?.industryName}</option>
+                            ))
+                          }
 
-                  </select>
+                        </select>
                       </div>
-                      
+
                     </div>
-                   
+
                   </form>
                 </div>
               </div>

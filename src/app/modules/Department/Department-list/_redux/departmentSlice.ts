@@ -10,6 +10,7 @@ const initialProductsState = {
   DepartmentStatus: [],
   DepartmentById: null,
   UpdatedDepartment: null,
+  Loading: false,
 };
 
 export const callTypes = {
@@ -70,6 +71,10 @@ export const DepartmentSlice = createSlice({
     UpdatedDepartment: (state, action) => {
       const { data } = action.payload;
       state.UpdatedDepartment = data;
+    },
+    fetchedDepartmentLoading: (state, action) => {
+      const { data } = action.payload;
+      state.Loading = data;
     },
   },
 });

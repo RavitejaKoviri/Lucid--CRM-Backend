@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
-import { CreateDepartment,  } from "../../_redux/departmentAction";
+import { useNavigate } from "react-router-dom";
+import { CreateDepartment, DepartmentLoading, } from "../../_redux/departmentAction";
 
 export default function AddDepartment() {
-  
+
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector(
@@ -25,10 +25,10 @@ export default function AddDepartment() {
   );
 
 
-  
-  
 
- 
+
+
+
 
   const [data, setData] = useState(
     {
@@ -42,11 +42,11 @@ export default function AddDepartment() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-   
 
-      console.log(user, "data")
-      dispatch(CreateDepartment(data, token));
-    
+
+    console.log(user, "data")
+    dispatch(CreateDepartment(data, token));
+    dispatch(DepartmentLoading(true))
     setData({
       departmentName: " ",
       company: " ",
@@ -55,7 +55,7 @@ export default function AddDepartment() {
   };
   return (
     <>
-     
+
       <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
           <div className="form d-flex flex-column flex-lg-row">
@@ -73,7 +73,7 @@ export default function AddDepartment() {
                       <div className="card-body pt-0">
                         <form className="form">
                           <div className="form-group row mb-2">
-                          <div className="col-lg-6">
+                            <div className="col-lg-6">
                               <label>Department Name</label>
                               <input
                                 type="text"

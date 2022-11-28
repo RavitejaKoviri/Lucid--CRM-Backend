@@ -4,7 +4,7 @@ import { QUERIES } from "../../../../../../_metronic/helpers";
 import { useListView } from "../../core/ListViewProvider";
 import { useQueryResponse } from "../../core/QueryResponseProvider";
 import { deleteSelectedUsers } from "../../core/_requests";
-import { deleteSelectedDepartment } from "../../_redux/departmentAction";
+import { deleteSelectedDepartment, DepartmentLoading } from "../../_redux/departmentAction";
 
 const DepartmentListGrouping = () => {
   const dispatch = useDispatch();
@@ -17,8 +17,11 @@ const DepartmentListGrouping = () => {
   const queryClient = useQueryClient();
   const { query } = useQueryResponse();
 
-  const deleteSelectedItems = () =>
+  const deleteSelectedItems = () => {
+    dispatch(DepartmentLoading(true))
     dispatch(deleteSelectedDepartment(selected, token));
+  }
+
 
   return (
     <div className="d-flex justify-content-end align-items-center">
@@ -39,14 +42,14 @@ const DepartmentListGrouping = () => {
             (item: any) =>
               item?.allmodule.name === "Departments" && item?.Delete === true
           )?.length > 0 && (
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={deleteSelectedItems}
-            >
-              Delete Selected
-            </button>
-          )}
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={deleteSelectedItems}
+              >
+                Delete Selected
+              </button>
+            )}
         </>
       )}
     </div>

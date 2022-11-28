@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateContact, getcampaigns, getcompanies, getContactById, getsource, UpdateContact } from "../../_redux/contactAction";
+import { ContactLoading, CreateContact, getcampaigns, getcompanies, getContactById, getsource, UpdateContact } from "../../_redux/contactAction";
 // import { FC, useState } from 'react'
 // import * as Yup from 'yup'
 // import { useFormik } from 'formik'
@@ -77,7 +77,7 @@ export default function Editcontact() {
     contactLinkedinHandle: "",
     contactSource: "",
     campaignSource: "",
-    image:imageUrl,
+    image: imageUrl,
     description: "",
   });
   // const handleChange = (e: any) => {
@@ -169,12 +169,8 @@ export default function Editcontact() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    if (id !== null) {
-      dispatch(UpdateContact(id, data, token));
-    }
-    else {
-      dispatch(CreateContact(data, token));
-    }
+    dispatch(UpdateContact(id, data, token));
+    dispatch(ContactLoading(true));
     console.log(data, "data")
     setData({
       company: "",
@@ -473,7 +469,7 @@ export default function Editcontact() {
                                 value={data.contactName}
                                 name="contactName"
                                 onChange={handleChange}
-                               className="form-control form-control-lg form-control-solid"
+                                className="form-control form-control-lg form-control-solid"
 
                               />
                             </div>

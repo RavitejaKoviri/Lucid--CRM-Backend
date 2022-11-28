@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useTable, ColumnInstance, Row } from 'react-table'
 import { CustomHeaderColumn } from '../table/columns/CustomHeaderColumn'
@@ -9,13 +10,16 @@ import { UsersListLoading } from '../components/loading/UsersListLoading'
 import { UsersListPagination } from '../components/pagination/UsersListPagination'
 import { KTCardBody } from '../../../../../_metronic/helpers'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchUsersByCompanyId, getAllUsers } from '../_redux/userAction'
+import { fetchUsersByCompanyId, getAllUsers, UsersLoading } from '../_redux/userAction'
 import UserContext from './columns/context'
 import { Pagination } from '@mui/material'
 
 const UsersTable = () => {
   const users = useSelector(
     (state: any) => state?.ManageUserData?.Users
+  );
+  const loading = useSelector(
+    (state: any) => state?.ManageUserData?.Loading
   );
   const usersByCompanyId = useSelector(
     (state: any) => state?.ManageUserData?.UsersByCompanyId
@@ -35,13 +39,15 @@ const UsersTable = () => {
   console.log(perPage, "perPage");
 
   useEffect(() => {
-    if(userData?.isSuperAdmin===true){ setUser(users);
-      setPerPage(users.slice(0, 10));}
-      else{
-        setUser(usersByCompanyId);
-        setPerPage(usersByCompanyId.slice(0, 10));
-      }
-   
+    if (userData?.isSuperAdmin === true) {
+      setUser(users);
+      setPerPage(users.slice(0, 10));
+    }
+    else {
+      setUser(usersByCompanyId);
+      setPerPage(usersByCompanyId.slice(0, 10));
+    }
+
   }, [users])
   const pageHandler = (pageNumber: any) => {
     setPerPage(user.slice(pageNumber * 10 - 10, pageNumber * 10));
@@ -60,9 +66,10 @@ const UsersTable = () => {
   console.log(data);
   useEffect(() => {
     dispatch(getAllUsers(token))
-  }, [])
+    dispatch(UsersLoading(false))
+  }, [loading])
   useEffect(() => {
-    dispatch(fetchUsersByCompanyId(userData?.company?.id,token))
+    dispatch(fetchUsersByCompanyId(userData?.company?.id, token))
   }, [])
   console.log(user, "users")
   console.log(usersByCompanyId, "usersByCompanyId")
