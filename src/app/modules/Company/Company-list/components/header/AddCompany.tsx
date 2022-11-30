@@ -3,44 +3,39 @@ import { Autocomplete, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CompanyLoading, CreateCompany, getbrand, getCompaniesById, getindustry, UpdateCompany } from "../../_redux/companyAction";
+import {
+  CompanyLoading,
+  CreateCompany,
+  getbrand,
+  getCompaniesById,
+  getindustry,
+  UpdateCompany,
+} from "../../_redux/companyAction";
 
 export default function AddCompany() {
   const location = useLocation();
   const [Company, setCompany] = useState(false);
   const [brands, setBrands] = useState([]);
 
-  const id = location?.state
-  console.log(id, "location")
+  const id = location?.state;
+  console.log(id, "location");
   const navigation = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector(
-    (state: any) => state?.auth?.authToken
-  );
-  const user = useSelector(
-    (state: any) => state?.auth?.user
-  );
-
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const user = useSelector((state: any) => state?.auth?.user);
 
   // const company = useSelector(
   //   (state: any) => state?.CompanyData?.Comapnies
   // );
-  const brand = useSelector(
-    (state: any) => state?.Company?.brand
-  );
+  const brand = useSelector((state: any) => state?.Company?.brand);
 
-  const industry = useSelector(
-    (state: any) => state?.Company?.industries
-  );
-  const companyById = useSelector(
-    (state: any) => state?.Company?.CompanyById
-  );
+  const industry = useSelector((state: any) => state?.Company?.industries);
+  const companyById = useSelector((state: any) => state?.Company?.CompanyById);
 
   useEffect(() => {
-    dispatch(getbrand(token))
-    dispatch(getindustry(token))
-
-  }, [])
+    dispatch(getbrand(token));
+    dispatch(getindustry(token));
+  }, []);
   // useEffect(() => {
 
   //   dispatch(getcompanies(token))
@@ -52,22 +47,19 @@ export default function AddCompany() {
   // }, [])
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getCompaniesById(id, token))
+    dispatch(getCompaniesById(id, token));
     setCompany(true);
-  }, [companyById?.id])
+  }, [companyById?.id]);
 
-
-
-  const [data, setData] = useState(
-    {
-      companyName: " ",
-      companyPANNumber: " ",
-      companyIndustry: " ",
-      // companyWebsocCRMUniqueID: "",
-      companyGSTNumber: " ",
-      companyTANNumber: " ",
-      brands: brands,
-    })
+  const [data, setData] = useState({
+    companyName: "",
+    companyPANNumber: "",
+    companyIndustry: "",
+    // companyWebsocCRMUniqueID: "",
+    companyGSTNumber: "",
+    companyTANNumber: "",
+    brands: brands,
+  });
 
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value, brands: brands });
@@ -75,41 +67,31 @@ export default function AddCompany() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(CompanyLoading(true))
+    dispatch(CompanyLoading(true));
     dispatch(CreateCompany(data, token));
     setData({
-      companyName: " ",
-      companyPANNumber: " ",
-      companyIndustry: " ",
+      companyName: "",
+      companyPANNumber: "",
+      companyIndustry: "",
       // companyWebsocCRMUniqueID: "",
-      companyGSTNumber: " ",
-      companyTANNumber: " ",
+      companyGSTNumber: "",
+      companyTANNumber: "",
       brands: [],
-
-    })
+    });
     navigation("/company/company");
   };
   return (
     <>
-      <div
-        className="content d-flex flex-column flex-column-fluid"
-      >
+      <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
-          <div
-            className="form d-flex flex-column flex-lg-row"
-          >
-            <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-            </div>
+          <div className="form d-flex flex-column flex-lg-row">
+            <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10"></div>
           </div>
         </div>
       </div>
       <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-
         <div className="tab-content">
-          <div
-            className="tab-pane fade show active"
-            role="tab-panel"
-          >
+          <div className="tab-pane fade show active" role="tab-panel">
             <div className="d-flex flex-column gap-7 gap-lg-10">
               <div className="card card-flush py-4">
                 <div className="card-header">
@@ -121,7 +103,7 @@ export default function AddCompany() {
                   <form className="form">
                     <div className="form-group row mb-2">
                       <div className="col-lg-6">
-                        <label> Name:</label>
+                        {/* <label> Name:</label> */}
                         <input
                           type="text"
                           value={data.companyName}
@@ -132,7 +114,7 @@ export default function AddCompany() {
                         />
                       </div>
                       <div className="col-lg-6">
-                        <label> GST Number:</label>
+                        {/* <label> GST Number:</label> */}
                         <input
                           type="text"
                           value={data.companyGSTNumber}
@@ -145,7 +127,7 @@ export default function AddCompany() {
                     </div>
                     <div className="form-group row mb-2">
                       <div className="col-lg-6">
-                        <label> PAN Number:</label>
+                        {/* <label> PAN Number:</label> */}
                         <input
                           type="text"
                           value={data.companyPANNumber}
@@ -156,7 +138,7 @@ export default function AddCompany() {
                         />
                       </div>
                       <div className="col-lg-6">
-                        <label>  TAN Number:</label>
+                        {/* <label> TAN Number:</label> */}
                         <input
                           type="text"
                           value={data.companyTANNumber}
@@ -180,16 +162,13 @@ export default function AddCompany() {
                               />
                             </div> */}
 
-
                       <div className="col-lg-6 mb-4">
-                        <label> Brand:</label>
+                        {/* <label> Brand:</label> */}
                         <Autocomplete
                           multiple
                           id="controllable-states-demo"
                           options={brand}
-                          getOptionLabel={(option: any) =>
-                            option?.brandName
-                          }
+                          getOptionLabel={(option: any) => option?.brandName}
                           onChange={(_event, newTeam: any) => {
                             setBrands(newTeam);
                           }}
@@ -204,7 +183,7 @@ export default function AddCompany() {
                         />
                       </div>
                       <div className="col-lg-6">
-                        <label> Industry:</label>
+                        {/* <label> Industry:</label> */}
                         {/* <input
                           type="text"
                           value={data.companyIndustry}
@@ -223,24 +202,19 @@ export default function AddCompany() {
                           name="companyIndustry"
                         >
                           <option> -- select Industry --</option>
-                          {
-                            industry?.map((item: any) => (
-                              <option value={item?.id}>{item?.industryName}</option>
-                            ))
-                          }
-
+                          {industry?.map((item: any) => (
+                            <option value={item?.id}>
+                              {item?.industryName}
+                            </option>
+                          ))}
                         </select>
                       </div>
-
                     </div>
-
                   </form>
                 </div>
               </div>
-
             </div>
           </div>
-
         </div>
         <div className="d-flex justify-content-end">
           <button
@@ -253,7 +227,7 @@ export default function AddCompany() {
           </button>
           <button
             onClick={() => {
-              handleSubmit()
+              handleSubmit();
               // navigation("users");
             }}
             className="btn btn-primary"
@@ -266,7 +240,6 @@ export default function AddCompany() {
           </button>
         </div>
       </div>
-
     </>
   );
 }
