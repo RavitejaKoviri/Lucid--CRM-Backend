@@ -110,14 +110,14 @@ function RolePermissions() {
   }
 
   return (
-    <div style={{ padding: 20, borderRadius: 8, backgroundColor: "#fff" }}>
+    <div style={{ padding: 30, borderRadius: 8, backgroundColor: "#fff" }}>
       <h1>Role Permissions</h1>
       <div className="d-flex flex-row mt-10">
         <select
           onChange={(e) => setRole(e.target.value)}
           className="col-4 col-xs-6"
           style={{
-            border: "1px solid #666666",
+            border: "1px solid #cdcdcd",
             borderRadius: "6px",
             height: 44,
             fontSize: 16,
@@ -147,7 +147,7 @@ function RolePermissions() {
           onChange={(e) => setModule(e.target.value)}
           className="col-4"
           style={{
-            border: "1px solid #666666",
+            border: "1px solid #cdcdcd",
             borderRadius: "6px",
             height: 44,
             fontSize: 16,
@@ -177,7 +177,7 @@ function RolePermissions() {
               onChange={(e) => setCompany(e.target.value)}
               className="col-4 col-xs-6"
               style={{
-                border: "1px solid #666666",
+                border: "1px solid #cdcdcd",
                 borderRadius: "6px",
                 height: 44,
                 fontSize: 16,

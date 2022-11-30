@@ -101,7 +101,7 @@ export default function AddCompany() {
                 </div>
                 <div className="card-body pt-0">
                   <form className="form">
-                    <div className="form-group row mb-2">
+                    <div className="form-group row my-8">
                       <div className="col-lg-6">
                         {/* <label> Name:</label> */}
                         <input
@@ -125,7 +125,7 @@ export default function AddCompany() {
                         />
                       </div>
                     </div>
-                    <div className="form-group row mb-2">
+                    <div className="form-group row my-8">
                       <div className="col-lg-6">
                         {/* <label> PAN Number:</label> */}
                         <input
@@ -149,7 +149,7 @@ export default function AddCompany() {
                         />
                       </div>
                     </div>
-                    <div className="form-group row mb-2">
+                    <div className="form-group row my-8">
                       {/* <div className="col-lg-6">
                               <label> Websoc CRM Unique ID:</label>
                               <input
@@ -162,7 +162,7 @@ export default function AddCompany() {
                               />
                             </div> */}
 
-                      <div className="col-lg-6 mb-4">
+                      <div className="col-lg-6 mb-8">
                         {/* <label> Brand:</label> */}
                         <Autocomplete
                           multiple
