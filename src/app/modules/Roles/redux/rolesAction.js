@@ -94,3 +94,17 @@ export const fetchCompanies = (token, id) => (dispatch) => {
       dispatch(actions.catchError({ error, callType: callTypes.action }));
     });
 };
+
+export const fetchRolePermissionsUpdate = (id, token, data) => (dispatch) => {
+  dispatch(actions.startCall({ callType: callTypes.action }));
+  return requestFromServer
+    .getRolePermissionsUpdate(id, token, data)
+    .then((response) => {
+      const { data } = response;
+      dispatch(actions.fetchedRolePermissionsUpdate({ data }));
+    })
+    .catch((error) => {
+      error.clientMessage = "Can't find Role permissions By Id";
+      dispatch(actions.catchError({ error, callType: callTypes.action }));
+    });
+};

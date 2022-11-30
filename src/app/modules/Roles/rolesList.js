@@ -12,6 +12,7 @@ import {
   fetchCrmRoles,
   fetchRolePermissionsById,
 } from "./redux/rolesAction";
+import RolesTable from "./rolesTable";
 
 function RolesListHeader() {
   return (
@@ -205,6 +206,27 @@ function RolesListHeader() {
   );
 }
 
+// const Roles = ({ id }) => {
+//   const dispatch = useDispatch();
+//   const rolePermissionsById = useSelector(
+//     (state) => state?.Roles?.RolePermissionsById
+//   );
+//   const token = useSelector((state) => state?.auth?.authToken);
+//   useEffect(() => {
+//     dispatch(fetchRolePermissionsById(id, token));
+//   }, []);
+
+//   return (
+//     <div class="d-flex flex-column text-gray-600">
+//       {rolePermissionsById?.map((item) => (
+//         <div class="d-flex align-items-center py-2">
+//           <span class="bullet bg-primary me-3"></span>{item?.allmodule?.name}
+//         </div>
+//       ))}
+//     </div>
+//   )
+// }
+
 function RolesListCard(props) {
   const dispatch = useDispatch();
   const { id, roleName, company } = props;
@@ -212,9 +234,7 @@ function RolesListCard(props) {
   const token = useSelector((state) => state?.auth?.authToken);
   const userData = useSelector((state) => state?.auth?.user);
   const companyId = userData?.company?.id;
-  // const rolePermissionsById = useSelector(
-  //   (state) => state?.Roles?.RolePermissionsById
-  // );
+
   console.log(userData, "userData");
   const UsersByCompanyId = useSelector(
     (state) => state?.ManageUserData?.UsersByCompanyId
@@ -225,19 +245,10 @@ function RolesListCard(props) {
   useEffect(() => {
     dispatch(fetchUsersByCompanyId(companyId, token));
   }, [dispatch]);
-  // useEffect(() => {
-  //   dispatch(fetchRoles(token));
-  // }, []);
 
   const handleClick = () => {
-    // console.log(id, "roleId");
     dispatch(fetchRolePermissionsById(id, token));
   };
-
-  // console.log("rolePermissionsById", rolePermissionsById);
-  // console.log("UsersByCompanyId", UsersByCompanyId);
-  // console.log("UsersByRole", UsersByRole);
-  // console.log("token", token);
 
   return (
     <div class="col-md-4">
@@ -258,33 +269,10 @@ function RolesListCard(props) {
               Total users with this role: {UsersByRole?.length}
             </div>
           )}
-
-          {/* <div class="d-flex flex-column text-gray-600">
-            {}
-            <div class="d-flex align-items-center py-2">
-              <span class="bullet bg-primary me-3"></span>
-            </div>
-            <div class="d-flex align-items-center py-2">
-              <span class="bullet bg-primary me-3"></span>View and Edit
-              Financial Summaries
-            </div>
-            <div class="d-flex align-items-center py-2">
-              <span class="bullet bg-primary me-3"></span>Enabled Bulk Reports
-            </div>
-            <div class="d-flex align-items-center py-2">
-              <span class="bullet bg-primary me-3"></span>View and Edit Payouts
-            </div>
-            <div class="d-flex align-items-center py-2">
-              <span class="bullet bg-primary me-3"></span>View and Edit Disputes
-            </div>
-            <div class="d-flex align-items-center py-2">
-              <span class="bullet bg-primary me-3"></span>
-              <em>and many more...</em>
-            </div>
-          </div> */}
         </div>
-        <div class="card-footer flex-wrap pt-0">
-          {UsersByRole?.length > 0 ? (
+        {/* <Roles id={id} /> */}
+        {userData?.isSuperAdmin === true ? (
+          <>
             <button
               type="button"
               class="btn btn-light btn-active-light-primary m-2"
@@ -297,92 +285,68 @@ function RolesListCard(props) {
             >
               View Role
             </button>
-          ) : (
             <button
               type="button"
               class="btn btn-light btn-active-light-primary m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#kt_modal_update_role"
               onClick={() => {
-                // handleClick();
-                navigate("/team-members/team-members/adduser", {
-                  state: id,
-                });
+                handleClick();
               }}
             >
-              Add User to this Role
+              Edit Role
             </button>
-          )}
+          </>
+        ) : (
+          <div class="card-footer flex-wrap pt-0">
+            {UsersByRole?.length > 0 ? (
+              <button
+                type="button"
+                class="btn btn-light btn-active-light-primary m-2"
+                onClick={() => {
+                  handleClick();
+                  navigate("/apps/user-management/roles/view", {
+                    state: id,
+                  });
+                }}
+              >
+                View Role
+              </button>
+            ) : (
+              <button
+                type="button"
+                class="btn btn-light btn-active-light-primary m-2"
+                onClick={() => {
+                  // handleClick();
+                  navigate("/team-members/team-members/adduser", {
+                    state: id,
+                  });
+                }}
+              >
+                Add User to this Role
+              </button>
+            )}
 
-          <button
-            type="button"
-            class="btn btn-light btn-active-light-primary m-2"
-            data-bs-toggle="modal"
-            data-bs-target="#kt_modal_update_role"
-            onClick={() => {
-              handleClick();
-            }}
-          >
-            Edit Role
-          </button>
-        </div>
+            <button
+              type="button"
+              class="btn btn-light btn-active-light-primary m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#kt_modal_update_role"
+              onClick={() => {
+                handleClick();
+              }}
+            >
+              Edit Role
+            </button>
+          </div>
+        )
+
+        }
+
       </div>
     </div>
   );
 }
-
-// function RolesPermissionsDetails(props) {
-//   const { moduleName, create, write, read, dlt } = props;
-//   return (
-//     <tr>
-//       <td class="text-gray-800">{moduleName}</td>
-//       <td>
-//         <div class="d-flex">
-//           <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-//             <input
-//               class="form-check-input"
-//               type="checkbox"
-//               defaultChecked={read}
-//               value={""}
-//               // onChange={()=>}
-//               name="user_management_read"
-//             />
-//             <span class="form-check-label">Read</span>
-//           </label>
-//           <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
-//             <input
-//               class="form-check-input"
-//               type="checkbox"
-//               defaultChecked={write}
-//               value=""
-//               name="user_management_write"
-//             />
-//             <span class="form-check-label">Update</span>
-//           </label>
-//           <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
-//             <input
-//               class="form-check-input"
-//               type="checkbox"
-//               defaultChecked={create}
-//               value=""
-//               name="user_management_write"
-//             />
-//             <span class="form-check-label">Create</span>
-//           </label>
-//           <label class="form-check form-check-custom form-check-solid">
-//             <input
-//               class="form-check-input"
-//               type="checkbox"
-//               defaultChecked={dlt}
-//               value=""
-//               name="user_management_create"
-//             />
-//             <span class="form-check-label">Delete</span>
-//           </label>
-
-//         </div>
-//       </td>
-//     </tr>
-//   );
-// }
 
 function RolesList() {
   const navigation = useNavigate();
@@ -398,6 +362,7 @@ function RolesList() {
     (state) => state?.Roles?.RolePermissionsById
   );
 
+  console.log(rolePermissionsById, "rolePermissionsById");
   const crmRolesByAdmin = crmRoles?.filter(
     (item) => item?.company?.id === user?.company?.id
   );
@@ -417,76 +382,6 @@ function RolesList() {
     dispatch(fetchAllModules(token));
   }, [UserById?.id]);
 
-  const [create, setCreate] = useState(rolePermissionsById?.Create);
-  const [read, setRead] = useState(rolePermissionsById?.Get);
-  const [update, setUpdate] = useState(rolePermissionsById?.Update);
-  const [dlt, setDlt] = useState(rolePermissionsById?.Delete);
-
-  let itemId = "";
-  function handleRead(id) {
-    itemId = id?.id;
-    setRead(!rolePermissionsById?.Get);
-    console.log(itemId, "checking Id...");
-    handleSubmit(itemId);
-  }
-  function handleCreate(id) {
-    itemId = id?.id;
-    setRead(!rolePermissionsById?.Create);
-    console.log(itemId, "checking Id...");
-    handleSubmit(itemId);
-  }
-  function handleUpdate(id) {
-    itemId = id?.id;
-    setRead(!rolePermissionsById?.Update);
-    console.log(itemId, "checking Id...");
-    handleSubmit(itemId);
-  }
-  function handleDlt(id) {
-    itemId = id?.id;
-    setRead(!rolePermissionsById?.Delete);
-    console.log(itemId, "checking Id...");
-    handleSubmit(itemId);
-  }
-
-  function handleSubmit(id) {
-    const obj = {};
-    obj.Create = create;
-    obj.Get = read;
-    obj.Update = update;
-    obj.Delete = dlt;
-    // console.log(id, "checking id..")
-    axios
-      .put(`http://65.2.10.157:5377/rolepermissions/${id}`, obj, {
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        // console.log(response, "response");
-        // alert("Submitted");
-      })
-      .catch((err) => {
-        // console.log(err, "erroror");
-      });
-  }
-
-  // console.log(
-  //   user,
-  //   "user",
-  //   crmRoles,
-  //   "crmRoles",
-  //   crmRolesByAdmin,
-  //   "crmRolesByAdmin",
-  //   AllModules,
-  //   "allmodules",
-  //   UserById,
-  //   "UserById",
-  //   Roles,
-  //   "Roles",
-  //   RoleById,
-  //   "RoleById"
-  // );
 
   const RoleName = ({ roleName }) => {
     return (
@@ -509,15 +404,15 @@ function RolesList() {
             {/*begin::Col */}
             {user?.isSuperAdmin === true
               ? crmRoles?.map((item) => (
-                  <RolesListCard
-                    id={item?.id}
-                    roleName={item?.name}
-                    company={item?.company?.companyName}
-                  />
-                ))
+                <RolesListCard
+                  id={item?.id}
+                  roleName={item?.name}
+                  company={item?.company?.companyName}
+                />
+              ))
               : crmRolesByAdmin?.map((item) => (
-                  <RolesListCard id={item?.id} roleName={item?.name} />
-                ))}
+                <RolesListCard id={item?.id} roleName={item?.name} />
+              ))}
 
             <div class="ol-md-4">
               {/*begin::Card */}
@@ -683,75 +578,8 @@ function RolesList() {
                                 </td>
                               </tr>
                               {rolePermissionsById?.map((item) => (
-                                <tr>
-                                  <td class="text-gray-800">
-                                    {item?.allmodule?.name}
-                                  </td>
-                                  <td>
-                                    <div class="d-flex">
-                                      <label class="form-check form-check-sm form-check-custom form-check-solid me-5 me-lg-20">
-                                        <input
-                                          class="form-check-input"
-                                          type="checkbox"
-                                          defaultChecked={item?.Get}
-                                          value={""}
-                                          onChange={() =>
-                                            handleRead({ id: item?.id })
-                                          }
-                                          name="user_management_read"
-                                        />
-                                        <span class="form-check-label">
-                                          Read
-                                        </span>
-                                      </label>
-                                      <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
-                                        <input
-                                          class="form-check-input"
-                                          type="checkbox"
-                                          defaultChecked={item?.Update}
-                                          onChange={() =>
-                                            handleUpdate({ id: item?.id })
-                                          }
-                                          value=""
-                                          name="user_management_write"
-                                        />
-                                        <span class="form-check-label">
-                                          Update
-                                        </span>
-                                      </label>
-                                      <label class="form-check form-check-custom form-check-solid me-5 me-lg-20">
-                                        <input
-                                          class="form-check-input"
-                                          type="checkbox"
-                                          defaultChecked={item?.Create}
-                                          onChange={() =>
-                                            handleCreate({ id: item?.id })
-                                          }
-                                          value=""
-                                          name="user_management_write"
-                                        />
-                                        <span class="form-check-label">
-                                          Create
-                                        </span>
-                                      </label>
-                                      <label class="form-check form-check-custom form-check-solid">
-                                        <input
-                                          class="form-check-input"
-                                          type="checkbox"
-                                          defaultChecked={item?.Delete}
-                                          onChange={() =>
-                                            handleDlt({ id: item?.id })
-                                          }
-                                          value=""
-                                          name="user_management_create"
-                                        />
-                                        <span class="form-check-label">
-                                          Delete
-                                        </span>
-                                      </label>
-                                    </div>
-                                  </td>
-                                </tr>
+
+                                <RolesTable item={item} />
                               ))}
                             </tbody>
                             {/*end::Table body */}
@@ -775,7 +603,7 @@ function RolesList() {
                       >
                         <span
                           class="indicator-label"
-                          // onClick={handleSubmit}
+                        // onClick={handleSubmit}
                         >
                           Submit
                         </span>

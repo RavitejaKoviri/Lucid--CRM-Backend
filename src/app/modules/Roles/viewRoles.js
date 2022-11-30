@@ -6,114 +6,303 @@ import {
   fetchUsersByCompanyId,
 } from "../user-management/users-list/_redux/userAction";
 import accountImage from "../../../_metronic/assets/images/account.png";
-import { fetchAllModules, fetchAllUsers } from "./redux/rolesAction";
+import { fetchAllModules, fetchAllUsers, fetchUserById } from "./redux/rolesAction";
 
-const UserDetailsComponent = (props) => {
-  const { id, img, userName, email, date } = props;
+const UserDetailsComponent = ({ item }) => {
+  console.log(item, "item");
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state?.auth?.authToken);
+  const getUsersDataById = () => {
+    dispatch(fetchUserById(token, item?.id))
+  }
+  const UserById = useSelector((state) => state?.Roles?.UserById);
   return (
-    <tr>
-      {/*begin::Checkbox */}
-      <td>
-        <div class="form-check form-check-sm form-check-custom form-check-solid">
-          <input class="form-check-input" type="checkbox" value="1" />
-        </div>
-      </td>
-      {/*end::Checkbox */}
-      {/*begin::ID */}
-      <td>{id?.slice(0, 6)}</td>
-      {/*begin::ID */}
-      {/*begin::User= */}
-      <td class="d-flex align-items-center">
-        {/*begin:: Avatar  */}
-        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
-          <a href="../../demo6/dist/apps/user-management/users/view.html">
-            <div class="symbol-label">
-              <img
-                src={img ? `http://65.2.10.157:5377${img}` : accountImage}
-                alt=""
-                class="w-100"
-              />
-            </div>
-          </a>
-        </div>
-        {/*end::Avatar */}
-        {/*begin::User details */}
-        <div class="d-flex flex-column">
-          <a
-            href="../../demo6/dist/apps/user-management/users/view.html"
-            class="text-gray-800 text-hover-primary mb-1"
-          >
-            {userName}
-          </a>
-          <span>{email}</span>
-        </div>
-        {/*begin::User details */}
-      </td>
-      {/*end::user= */}
-      {/*begin::Joined date= */}
-      <td>{date}</td>
-      {/*end::Joined date= */}
-      {/*begin::Action= */}
-      <td class="text-end">
-        <a
-          href="#"
-          class="btn btn-sm btn-light btn-active-light-primary"
-          data-kt-menu-trigger="click"
-          data-kt-menu-placement="bottom-end"
-        >
-          Actions
-          {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg */}
-          <span class="svg-icon svg-icon-5 m-0">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                fill="currentColor"
-              />
-            </svg>
-          </span>
-          {/*end::Svg Icon */}
-        </a>
-        {/*begin::Menu */}
-        <div
-          class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-          data-kt-menu="true"
-        >
-          {/*begin::Menu item */}
-          <div class="menu-item px-3">
+    <>
+      <tr>
+        {/*begin::Checkbox */}
+        <td>
+          <div class="form-check form-check-sm form-check-custom form-check-solid">
+            <input class="form-check-input" type="checkbox" value="1" />
+          </div>
+        </td>
+        {/*end::Checkbox */}
+        {/*begin::ID */}
+        <td>{item?.id?.slice(0, 6)}</td>
+        {/*begin::ID */}
+        {/*begin::User= */}
+        <td class="d-flex align-items-center">
+          {/*begin:: Avatar  */}
+          <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+            <a href="../../demo6/dist/apps/user-management/users/view.html">
+              <div class="symbol-label">
+                <img
+                  src={item?.image?.url ? `http://65.2.10.157:5377${item?.image?.url}` : accountImage}
+                  alt=""
+                  class="w-100"
+                />
+              </div>
+            </a>
+          </div>
+          {/*end::Avatar */}
+          {/*begin::User details */}
+          <div class="d-flex flex-column">
             <a
               href="../../demo6/dist/apps/user-management/users/view.html"
-              class="menu-link px-3"
-              type="button"
-              // class="btn btn-light btn-active-light-primary m-2"
-              data-bs-toggle="modal"
-              data-bs-target="#kt_modal_update_role"
+              class="text-gray-800 text-hover-primary mb-1"
             >
-              View
+              {item?.username}
             </a>
+            <span>{item?.email}</span>
           </div>
-          {/*end::Menu item */}
-          {/*begin::Menu item */}
-          <div class="menu-item px-3">
-            <a
-              href="#"
-              class="menu-link px-3"
-              data-kt-roles-table-filter="delete_row"
-            >
-              Delete
-            </a>
+          {/*begin::User details */}
+        </td>
+        {/*end::user= */}
+        {/*begin::Joined date= */}
+        <td>{item?.createdAt?.slice(0, 10)}</td>
+        {/*end::Joined date= */}
+        {/*begin::Action= */}
+        <td class="text-end">
+          <div
+            href="#"
+            class="btn btn-sm btn-light btn-active-light-primary"
+            data-kt-menu-trigger="click"
+            data-kt-menu-placement="bottom-end"
+          >
+            Actions
+            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg */}
+            <span class="svg-icon svg-icon-5 m-0">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                  fill="currentColor"
+                />
+              </svg>
+            </span>
+            {/*end::Svg Icon */}
           </div>
-          {/*end::Menu item */}
+          {/*begin::Menu */}
+          <div
+            class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+            data-kt-menu="true"
+          >
+            {/*begin::Menu item */}
+            <div class="menu-item px-3">
+              <div
+                class="menu-link px-3"
+                type="button"
+                // class="btn btn-light btn-active-light-primary m-2"
+                data-bs-toggle="modal"
+                data-bs-target="#kt_modal_update_role"
+                onClick={() => getUsersDataById()}
+              >
+                View
+              </div>
+            </div>
+            {/*end::Menu item */}
+            {/*begin::Menu item */}
+            <div class="menu-item px-3">
+              <div
+                class="menu-link px-3"
+                data-kt-roles-table-filter="delete_row"
+              >
+                Delete
+              </div>
+            </div>
+            {/*end::Menu item */}
+          </div>
+          {/*end::Menu */}
+        </td>
+        {/*end::Action= */}
+      </tr>
+      <div
+        class="modal fade"
+        id="kt_modal_update_role"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        {/*begin::Modal dialog */}
+
+        <div class="modal-dialog modal-dialog-centered mw-750px">
+          {/*begin::Modal content */}
+          <div class="modal-content">
+            {/*begin::Modal header */}
+            <div class="modal-header">
+              {/*begin::Modal title */}
+              <h2 class="fw-bold">User Data</h2>
+              <div
+                class="btn btn-icon btn-sm btn-active-icon-primary"
+                data-kt-roles-modal-action="close"
+              >
+                {/*begin::Svg Icon | path: icons/duotune/arrows/arr061.svg */}
+                <span class="svg-icon svg-icon-1">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      opacity="0.5"
+                      x="6"
+                      y="17.3137"
+                      width="16"
+                      height="2"
+                      rx="1"
+                      transform="rotate(-45 6 17.3137)"
+                      fill="currentColor"
+                    />
+                    <rect
+                      x="7.41422"
+                      y="6"
+                      width="16"
+                      height="2"
+                      rx="1"
+                      transform="rotate(45 7.41422 6)"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+                {/*end::Svg Icon */}
+              </div>
+              {/*end::Close */}
+            </div>
+            {/*end::Modal header */}
+            {/*begin::Modal body */}
+
+            <div class="modal-body scroll-y mx-5 my-7">
+              {/*begin::Form */}
+              <form id="kt_modal_update_role_form" class="form" action="#">
+                {/*begin::Scroll */}
+
+                <div className="row mb-6">
+                  <label className="col-lg-3 col-form-label fw-bold fs-6">
+                    <span className="required">User Name</span>
+                  </label>
+
+                  <div className="col-lg-3 fv-row">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      placeholder="Phone number"
+
+                      value={UserById?.username}
+                    />
+                  </div>
+                  <label className="col-lg-3 col-form-label fw-bold fs-6">
+                    <span className="required">Contact Phone</span>
+                  </label>
+
+                  <div className="col-lg-3 fv-row">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      placeholder="Phone number"
+
+                      value={UserById?.mobile}
+                    />
+                  </div>
+                </div>
+
+                <div className="row mb-6">
+                  <label className="col-lg-3 col-form-label fw-bold fs-6">
+                    <span className="required">first Name</span>
+                  </label>
+
+                  <div className="col-lg-3 fv-row">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      placeholder="Phone number"
+
+                      value={UserById?.firstname}
+                    />
+                  </div>
+                  <label className="col-lg-3 col-form-label fw-bold fs-6">
+                    <span className="required">Last Name</span>
+                  </label>
+
+                  <div className="col-lg-3 fv-row">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      placeholder="Phone number"
+
+                      value={UserById?.lastname}
+                    />
+                  </div>
+                </div>
+
+                <div className="row mb-6">
+                  <label className="col-lg-3 col-form-label fw-bold fs-6">
+                    <span className="required">gender</span>
+                  </label>
+
+                  <div className="col-lg-3 fv-row">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      placeholder="Phone number"
+
+                      value={UserById?.gender}
+                    />
+                  </div>
+                  <label className="col-lg-3 col-form-label fw-bold fs-6">
+                    <span className="required">Email</span>
+                  </label>
+
+                  <div className="col-lg-3 fv-row">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      placeholder="Phone number"
+
+                      value={UserById?.email}
+                    />
+                  </div>
+                </div>
+
+                <div className="row mb-6">
+                  <label className="col-lg-3 col-form-label fw-bold fs-6">
+                    <span className="required">Crmrole</span>
+                  </label>
+
+                  <div className="col-lg-3 fv-row">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      placeholder="Phone number"
+
+                      value={UserById?.crmrole?.name}
+                    />
+                  </div>
+                  <label className="col-lg-3 col-form-label fw-bold fs-6">
+                    <span className="required">Company</span>
+                  </label>
+
+                  <div className="col-lg-3 fv-row">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg form-control-solid"
+                      placeholder="Phone number"
+
+                      value={UserById?.company?.companyName}
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        {/*end::Menu */}
-      </td>
-      {/*end::Action= */}
-    </tr>
+      </div>
+    </>
+
   );
 };
 
@@ -134,14 +323,12 @@ function ViewRoles() {
   const UsersByRoleSuperAdmin = allUsers?.filter(
     (item) => item?.crmrole?.id === query?.state
   );
+  const rolePermissionsById = useSelector(
+    (state) => state?.Roles?.RolePermissionsById
+  );
   const companyId = userAdmin?.company?.id;
-  console.log(allUsers, "ASD");
-  console.log(userAdmin, "userAdmin");
-  console.log(UsersByCompanyId, "UsersByCompanyId");
-  console.log(UsersByRole, "UsersByRole");
-  console.log(UsersByRoleSuperAdmin, "UsersByRoleSuperAdmin");
-  console.log(query, "query");
 
+  console.log(rolePermissionsById, "rolePermissionsById");
   useEffect(() => {
     dispatch(fetchUsersByCompanyId(companyId, token));
   }, [dispatch]);
@@ -370,45 +557,24 @@ function ViewRoles() {
                 <div class="card-body pt-0">
                   {/*begin::Permissions */}
                   <div class="d-flex flex-column text-gray-600">
-                    <div class="d-flex align-items-center py-2">
-                      <span class="bullet bg-primary me-3"></span>Some Admin
-                      Controls
-                    </div>
-                    <div class="d-flex align-items-center py-2">
-                      <span class="bullet bg-primary me-3"></span>View Financial
-                      Summaries only
-                    </div>
-                    <div class="d-flex align-items-center py-2">
-                      <span class="bullet bg-primary me-3"></span>View and Edit
-                      API Controls
-                    </div>
-                    <div class="d-flex align-items-center py-2">
-                      <span class="bullet bg-primary me-3"></span>View Payouts
-                      only
-                    </div>
-                    <div class="d-flex align-items-center py-2">
-                      <span class="bullet bg-primary me-3"></span>View and Edit
-                      Disputes
-                    </div>
-                    <div class="d-flex align-items-center py-2 d-none">
-                      <span class="bullet bg-primary me-3"></span>
-                      <em>and 3 more...</em>
-                    </div>
+                    {rolePermissionsById?.map((item) => (
+                      <div class="d-flex align-items-center py-2">
+                        <span class="bullet bg-primary me-3"></span>{item?.allmodule?.name}
+                      </div>
+                    ))}
                   </div>
                   {/*end::Permissions */}
                 </div>
                 {/*end::Card body */}
                 {/*begin::Card footer */}
-                <div class="card-footer pt-0">
+                {/* <div class="card-footer pt-0">
                   <button
                     type="button"
                     class="btn btn-light btn-active-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#kt_modal_update_role"
                   >
                     Edit Role
                   </button>
-                </div>
+                </div> */}
                 {/*end::Card footer */}
               </div>
             </div>
@@ -529,23 +695,25 @@ function ViewRoles() {
                     <tbody class="fw-semibold text-gray-600">
                       {userAdmin?.isSuperAdmin === true
                         ? UsersByRoleSuperAdmin.map((item) => (
-                            <UserDetailsComponent
-                              id={item?.crmrole?.id}
-                              img={item?.image?.url}
-                              userName={item?.username}
-                              email={item?.email}
-                              date={item?.createdAt?.slice(0, 10)}
-                            />
-                          ))
+                          <UserDetailsComponent
+                            // id={item?.crmrole?.id}
+                            // img={item?.image?.url}
+                            // userName={item?.username}
+                            // email={item?.email}
+                            // date={item?.createdAt?.slice(0, 10)}
+                            item={item}
+                          />
+                        ))
                         : UsersByRole.map((item) => (
-                            <UserDetailsComponent
-                              id={item?.crmrole?.id}
-                              img={item?.image?.url}
-                              userName={item?.username}
-                              email={item?.email}
-                              date={item?.createdAt?.slice(0, 10)}
-                            />
-                          ))}
+                          <UserDetailsComponent
+                            // id={item?.crmrole?.id}
+                            // img={item?.image?.url}
+                            // userName={item?.username}
+                            // email={item?.email}
+                            // date={item?.createdAt?.slice(0, 10)}
+                            item={item}
+                          />
+                        ))}
                     </tbody>
                   </table>
                 </div>

@@ -3,12 +3,13 @@ import storage from "redux-persist/lib/storage";
 
 const initialProductsState = {
   Users: [],
-  Modules:[],
-  UserById:[],
-  RolePermissions:[],
-  RolePermissionsById:[],
-  CrmRoles:[],
-  Companies:[] 
+  Modules: [],
+  UserById: [],
+  RolePermissions: [],
+  RolePermissionsById: [],
+  CrmRoles: [],
+  Companies: [],
+  RolesUpdate: [],
 };
 
 export const callTypes = {
@@ -65,6 +66,10 @@ export const RolesSlice = createSlice({
     fetchedCompanies: (state, action) => {
       const { data } = action.payload;
       state.Companies = data;
+    },
+    fetchedRolePermissionsUpdate: (state, action) => {
+      const { data } = action.payload;
+      state.RolesUpdate = data;
     }
-},
+  },
 });

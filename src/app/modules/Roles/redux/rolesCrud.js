@@ -23,7 +23,7 @@ export function getAllModules(token) {
   });
 }
 export function getUserById(token, id) {
-  return axios.get(`${USERS}?id=${id}`, {
+  return axios.get(`${USERS}/${id}`, {
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -56,6 +56,15 @@ export function getCrmRoles(token, id) {
 }
 export function getCompanies(token) {
   return axios.get(COMPANIES, {
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
+export function getRolePermissionsUpdate(id, token, data) {
+  return axios.put(`${ROLE_PERMISSIONS}?crmrole=${id}`, data, {
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,

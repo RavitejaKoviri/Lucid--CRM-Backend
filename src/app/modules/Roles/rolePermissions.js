@@ -5,6 +5,7 @@ import {
   fetchCrmRoles,
   fetchCompanies,
   fetchAllModules,
+  fetchRolePermissionsById,
 } from "./redux/rolesAction";
 import {
   fetchRoleById,
@@ -38,12 +39,20 @@ function RolePermissions() {
   const companies = useSelector((state) => state?.Roles?.Companies);
   const allModules = useSelector((state) => state?.Roles?.Modules);
   const token = useSelector((state) => state?.auth?.authToken);
-
+  const rolePermissionsById = useSelector(
+    (state) => state?.Roles?.RolePermissionsById
+  );
   const [role, setRole] = useState("");
   const [module, setModule] = useState("");
+  const [loading, setLoading] = useState(false);
   const [company, setCompany] = useState(
     user?.isSuperAdmin === true ? "" : user?.company?.id
   );
+  // console.log(rolePermissionsByAdmin, "rolePermissionsByAdmin");
+  // console.log(rolePermissionsById, "rolePermissionsByAdmin");
+
+  const filteredRoles = rolePermissionsByAdmin.filter(o1 => !rolePermissionsById.some(o2 => o1?.allmodule?.id === o2?.allmodule?.id))
+  // console.log(filteredRoles, "filteredRoles");
   useEffect(() => {
     dispatch(fetchRolePermissions(token));
   }, [UserById?.id]);
@@ -63,6 +72,11 @@ function RolePermissions() {
   useEffect(() => {
     dispatch(fetchCompanies(token));
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchRolePermissionsById(role, token));
+    setLoading(false);
+  }, [loading, dispatch, role])
 
   const obj = {};
 
@@ -91,44 +105,12 @@ function RolePermissions() {
       });
     navigate(-1);
   }
-  console.log(rolePermissions, "rolePermissions");
-  console.log(rolePermissionsByAdmin, "rolePermissionsByAdmin");
-  console.log(UserById, "UserById");
-  console.log(allModules, "allModules");
-  console.log(crmRoles, "crmRoles");
-  console.log(crmRolesByAdmin, "crmRolesByAdmin");
-  // console.log(create, "create");
+
 
   return (
     <div>
       <h1>Role Permissions</h1>
       <div className="d-flex flex-row mt-10">
-        <select
-          onChange={(e) => setModule(e.target.value)}
-          className="col-4"
-          style={{
-            border: "1px solid #666666",
-            borderRadius: "6px",
-            height: 44,
-            fontSize: 16,
-            marginRight: "20px",
-            outline: "none",
-            paddingInline: "10px",
-          }}
-        >
-          <option value={""} disabled selected>
-            Select Module
-          </option>
-          {user?.isSuperAdmin === true
-            ? allModules?.map((item) => (
-                <option value={item?.id}>{item?.name}</option>
-              ))
-            : rolePermissionsByAdmin?.map((item) => (
-                <option value={item?.allmodule?.id}>
-                  {item?.allmodule?.name}
-                </option>
-              ))}
-        </select>
         <select
           onChange={(e) => setRole(e.target.value)}
           className="col-4 col-xs-6"
@@ -147,17 +129,43 @@ function RolePermissions() {
           </option>
           {user?.isSuperAdmin === true
             ? crmRoles?.map((item) => (
+              <option value={item?.id}>
+                {item?.name} ({item?.company?.companyName})
+              </option>
+            ))
+            : crmRolesByAdmin
+              ?.filter((item) => item?.name !== user?.crmrole?.name)
+              .map((item) => (
                 <option value={item?.id}>
                   {item?.name} ({item?.company?.companyName})
                 </option>
-              ))
-            : crmRolesByAdmin
-                ?.filter((item) => item?.name !== user?.crmrole?.name)
-                .map((item) => (
-                  <option value={item?.id}>
-                    {item?.name} ({item?.company?.companyName})
-                  </option>
-                ))}
+              ))}
+        </select>
+        <select
+          onChange={(e) => setModule(e.target.value)}
+          className="col-4"
+          style={{
+            border: "1px solid #666666",
+            borderRadius: "6px",
+            height: 44,
+            fontSize: 16,
+            marginRight: "20px",
+            outline: "none",
+            paddingInline: "10px",
+          }}
+        >
+          <option value={""} disabled selected>
+            Select Module
+          </option>
+          {user?.isSuperAdmin === true
+            ? allModules?.map((item) => (
+              <option value={item?.id}>{item?.name}</option>
+            ))
+            : filteredRoles?.map((item) => (
+              <option value={item?.allmodule?.id}>
+                {item?.allmodule?.name}
+              </option>
+            ))}
         </select>
       </div>
       <div className="d-flex flex-row mt-20">
