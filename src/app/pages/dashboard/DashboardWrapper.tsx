@@ -1,265 +1,362 @@
-import { useEffect } from 'react'
-import { useIntl } from 'react-intl'
-import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { PageTitle } from '../../../_metronic/layout/core'
+import { useEffect } from "react";
+import { useIntl } from "react-intl";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { PageTitle } from "../../../_metronic/layout/core";
 import {
-	ListsWidget4,
-	ListsWidget5,
-	MixedWidget8,
-	StatisticsWidget5,
-	MixedWidget7,
-	ListsWidget9,
-	TablesWidget9,
-	ListsWidget3,
-	TablesWidget11,
-	MixedWidget6,
-} from '../../../_metronic/partials/widgets'
+  ListsWidget4,
+  ListsWidget5,
+  MixedWidget8,
+  StatisticsWidget5,
+  MixedWidget7,
+  ListsWidget9,
+  TablesWidget9,
+  ListsWidget3,
+  TablesWidget11,
+  MixedWidget6,
+} from "../../../_metronic/partials/widgets";
 // import { getAllTasks } from '../../modules/task/tasks-list/_redux/taskAction'
-import { RootStateOrAny } from 'react-redux'
+import { RootStateOrAny } from "react-redux";
 // import { getcampaigns, getLeads } from '../../modules/leads/leads-list/_redux/leadAction'
 // import { getAllContacts } from '../../modules/Contact/contacts-list/_redux/contactAction'
 // import { getAllBookings } from '../../modules/booking/bookings-list/_redux/bookingAction'
 // import { getAlldeals } from '../../modules/deal/deals-list/_redux/dealAction'
-import { getAllBookings, getAllCampaigns, getAllContacts, getAllDeals, getAllLeads, getAllTasks, getAllTickets, getCdrs } from './_redux/dashboardAction'
+import {
+  getAllBookings,
+  getAllCampaigns,
+  getAllContacts,
+  getAllDeals,
+  getAllLeads,
+  getAllTasks,
+  getAllTickets,
+  getCdrs,
+} from "./_redux/dashboardAction";
 const DashboardPage = () => {
+  const dispatch = useDispatch();
 
-	const dispatch = useDispatch();
+  useEffect(() => {
+    // We have to show toolbar only for dashboard page
+    document.getElementById("kt_layout_toolbar")?.classList.remove("d-none");
+    return () => {
+      document.getElementById("kt_layout_toolbar")?.classList.add("d-none");
+    };
+  }, []);
+  const companyId = useSelector((state: any) => state?.auth?.user?.company?.id);
+  //   const token = useSelector((state) => state?.auth?.authToken);
+  const token: any = useSelector<RootStateOrAny>(
+    ({ auth }) => auth.authToken,
+    shallowEqual
+  );
+  useEffect(() => {
+    dispatch(getAllTasks(token, companyId));
+    dispatch(getAllLeads(token, companyId));
+    dispatch(getAllContacts(token, companyId));
+    dispatch(getAllBookings());
+    dispatch(getAllDeals(token, companyId));
+    dispatch(getAllCampaigns(token));
+    dispatch(getCdrs(token));
+    dispatch(getAllTickets(token, companyId));
+  }, []);
+  // const task = useSelector((state) => state?.ManageTaskData?.Tasks);
+  const task: any = useSelector<RootStateOrAny>(
+    ({ Dashboard }) => Dashboard.Tasks,
+    shallowEqual
+  );
+  const leads: any = useSelector<RootStateOrAny>(
+    ({ Dashboard }) => Dashboard.Leads,
+    shallowEqual
+  );
+  const contacts: any = useSelector<RootStateOrAny>(
+    ({ Dashboard }) => Dashboard.Contacts,
+    shallowEqual
+  );
+  const bookings: any = useSelector<RootStateOrAny>(
+    ({ Dashboard }) => Dashboard.booking,
+    shallowEqual
+  );
+  const deals: any = useSelector<RootStateOrAny>(
+    ({ Dashboard }) => Dashboard.deals,
+    shallowEqual
+  );
+  const campaigns: any = useSelector<RootStateOrAny>(
+    ({ Dashboard }) => Dashboard.campaigns,
+    shallowEqual
+  );
+  const cdrs: any = useSelector<RootStateOrAny>(
+    ({ Dashboard }) => Dashboard.CDRS,
+    shallowEqual
+  );
+  const Tickets: any = useSelector<RootStateOrAny>(
+    ({ Dashboard }) => Dashboard.Tickets,
+    shallowEqual
+  );
+  console.log(task, "tasks");
+  console.log(leads, "leads");
+  console.log(contacts, "contacts");
+  console.log(bookings, "bookings");
+  console.log(deals, "deals");
+  console.log(campaigns, "campaigns");
+  console.log(Tickets, "cdrs");
+  const bucketListedTasks = task?.filter(
+    (item: any) => item?.taskStatus?.taskStatusName === "Bucket List"
+  );
+  const toDoTasks = task?.filter(
+    (item: any) => item?.taskStatus?.taskStatusName === "To-Do"
+  );
+  const delegatedTasks = task?.filter(
+    (item: any) => item?.taskStatus?.taskStatusName === "Delegated"
+  );
+  const inProgressTasks = task?.filter(
+    (item: any) => item?.taskStatus?.taskStatusName === "In-Progress"
+  );
+  const doneTasks = task?.filter(
+    (item: any) => item?.taskStatus?.taskStatusName === "Done"
+  );
+  const verificationTasks = task?.filter(
+    (item: any) => item?.taskStatus?.taskStatusName === "Verification"
+  );
+  const TicketsINProgress = Tickets?.filter(
+    (item: any) => item?.ticketStatus?.ticketStatusName === "In Progress"
+  );
+  const TicketsINClosed = Tickets?.filter(
+    (item: any) => item?.ticketStatus?.ticketStatusName === "Closed"
+  );
+  const TicketsINEscalated = Tickets?.filter(
+    (item: any) => item?.ticketStatus?.ticketStatusName === "Escalated"
+  );
+  const TicketsINOpen = Tickets?.filter(
+    (item: any) => item?.ticketStatus?.ticketStatusName === "Open"
+  );
+  const callDuration = cdrs
+    ?.map((item: any) => Number(item?.call_duration))
+    .reduce((a: any, b: any) => a + b, 0);
 
-	useEffect(() => {
-		// We have to show toolbar only for dashboard page
-		document.getElementById('kt_layout_toolbar')?.classList.remove('d-none')
-		return () => {
-			document.getElementById('kt_layout_toolbar')?.classList.add('d-none')
-		}
-	}, [])
-	const companyId = useSelector(
-		(state: any) => state?.auth?.user?.company?.id
-	);
-	//   const token = useSelector((state) => state?.auth?.authToken);
-	const token: any = useSelector<RootStateOrAny>(({ auth }) => auth.authToken, shallowEqual)
-	useEffect(() => {
-		dispatch(getAllTasks(token, companyId));
-		dispatch(getAllLeads(token,companyId));
-		dispatch(getAllContacts(token,companyId));
-		dispatch(getAllBookings());
-		dispatch(getAllDeals(token,companyId));
-		dispatch(getAllCampaigns(token));
-		dispatch(getCdrs(token))
-		dispatch(getAllTickets(token, companyId))
-	}, []);
-	// const task = useSelector((state) => state?.ManageTaskData?.Tasks);
-	const task: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.Tasks, shallowEqual)
-	const leads: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.Leads, shallowEqual)
-	const contacts: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.Contacts, shallowEqual)
-	const bookings: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.booking, shallowEqual)
-	const deals: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.deals, shallowEqual)
-	const campaigns: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.campaigns, shallowEqual)
-	const cdrs: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.CDRS, shallowEqual)
-	const Tickets: any = useSelector<RootStateOrAny>(({ Dashboard }) => Dashboard.Tickets, shallowEqual)
-	console.log(task, "tasks");
-	console.log(leads, "leads");
-	console.log(contacts, "contacts");
-	console.log(bookings, "bookings");
-	console.log(deals, "deals");
-	console.log(campaigns, "campaigns");
-	console.log(Tickets, 'cdrs');
-	const bucketListedTasks = task?.filter(
-		(item: any) => item?.taskStatus?.taskStatusName === "Bucket List"
-	);
-	const toDoTasks = task?.filter(
-		(item: any) => item?.taskStatus?.taskStatusName === "To-Do"
-	);
-	const delegatedTasks = task?.filter(
-		(item: any) => item?.taskStatus?.taskStatusName === "Delegated"
-	);
-	const inProgressTasks = task?.filter(
-		(item: any) => item?.taskStatus?.taskStatusName === "In-Progress"
-	);
-	const doneTasks = task?.filter(
-		(item: any) => item?.taskStatus?.taskStatusName === "Done"
-	);
-	const verificationTasks = task?.filter(
-		(item: any) => item?.taskStatus?.taskStatusName === "Verification"
-	);
-	const TicketsINProgress = Tickets?.filter((item: any) => item?.ticketStatus?.ticketStatusName === "In Progress");
-	const TicketsINClosed = Tickets?.filter((item: any) => item?.ticketStatus?.ticketStatusName === "Closed");
-	const TicketsINEscalated = Tickets?.filter((item: any) => item?.ticketStatus?.ticketStatusName === "Escalated");
-	const TicketsINOpen = Tickets?.filter((item: any) => item?.ticketStatus?.ticketStatusName === "Open");
-	const callDuration = cdrs?.map((item: any) => Number(item?.call_duration)).reduce((a: any, b: any) => a + b, 0)
+  return (
+    <>
+      <PageTitle breadcrumbs={[]} description="#XRS-45670">
+        Dashboard
+      </PageTitle>
+      {/* Row */}
+      <div id="kt_content_container" className="container-xxl">
+        <div className="row g-5 g-xl-10 mb-5 mb-xl-10">
+          <div className="col-xl-3">
+            <div className="row g-5 g-xl-8">
+              <Link to="/leads/list">
+                <div
+                  className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100"
+                  style={{
+                    backgroundColor: "#F1416C",
+                    backgroundImage: `url$('assets/media/svg/shapes/wave-bg-red.svg')`,
+                  }}
+                >
+                  <div className="card-header pt-5 mb-3">
+                    <div
+                      className="d-flex flex-center rounded-circle h-80px w-80px"
+                      style={{
+                        border: "1px dashed rgba(255, 255, 255, 0.4)",
+                        backgroundColor: "#F1416C",
+                      }}
+                    >
+                      <i className="fonticon-incoming-call text-white fs-2qx lh-0"></i>
+                    </div>
+                  </div>
 
-	return (
-		<>
-			<PageTitle breadcrumbs={[]} description='#XRS-45670'>
-				Dashboard
-			</PageTitle>
-			{/* Row */}
-			<div id="kt_content_container" className="container-xxl">
-				<div className="row g-5 g-xl-10 mb-5 mb-xl-10">
+                  <div className="card-body d-flex align-items- mb-3">
+                    <div className="d-flex align-items-center">
+                      <span className="fs-4hx text-white fw-bold me-6">
+                        {leads?.length ? leads?.length : 0}
+                      </span>
+                      <div className="fw-bold fs-6 text-white">
+                        <span className="d-block">Leads</span>
+                        {/* <span className="">Calls</span> */}
+                      </div>
+                    </div>
+                  </div>
 
-					<div className="col-xl-3">
-						<div className='row g-5 g-xl-8'>
-							<Link to='/leads/list'>
-								<div className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100" style={{ backgroundColor: "#F1416C", backgroundImage: `url$('assets/media/svg/shapes/wave-bg-red.svg')` }}>
+                  <div
+                    className="card-footer"
+                    style={{
+                      borderTop: "1px solid rgba(255, 255, 255, 0.3)",
+                      backgroundColor: "rgba(0, 0, 0, 0.15)",
+                    }}
+                  >
+                    <div className="fw-bold text-white py-2">
+                      <span className="fs-1 d-block">
+                        {leads?.length ? leads?.length : 0}
+                      </span>
+                      <span className="opacity-50">Generated Leads</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="col-xl-3">
+            <Link to="/contacts">
+              <div
+                className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100"
+                style={{
+                  backgroundColor: "#7239EA",
+                  backgroundImage: `url$('assets/media/svg/shapes/wave-bg-purple.svg')`,
+                }}
+              >
+                <div className="card-header pt-5 mb-3">
+                  <div
+                    className="d-flex flex-center rounded-circle h-80px w-80px"
+                    style={{
+                      border: "1px dashed rgba(255, 255, 255, 0.4)",
+                      backgroundColor: "#7239EA",
+                    }}
+                  >
+                    <i className="fonticon-outgoing-call text-white fs-2qx lh-0"></i>
+                  </div>
+                </div>
 
-									<div className="card-header pt-5 mb-3">
+                <div className="card-body d-flex align-items- mb-3">
+                  <div className="d-flex align-items-center">
+                    <span className="fs-4hx text-white fw-bold me-6">
+                      {contacts?.length ? contacts?.length : 0}
+                    </span>
+                    <div className="fw-bold fs-6 text-white">
+                      <span className="d-block">Contacts</span>
+                      {/* <span className="">Calls</span> */}
+                    </div>
+                  </div>
+                </div>
 
-										<div className="d-flex flex-center rounded-circle h-80px w-80px" style={{ border: "1px dashed rgba(255, 255, 255, 0.4)", backgroundColor: "#F1416C" }}>
-											<i className="fonticon-incoming-call text-white fs-2qx lh-0"></i>
-										</div>
+                <div
+                  className="card-footer"
+                  style={{
+                    borderTop: "1px solid rgba(255, 255, 255, 0.3)",
+                    backgroundColor: "rgba(0, 0, 0, 0.15)",
+                  }}
+                >
+                  <div className="fw-bold text-white py-2">
+                    <span className="fs-1 d-block">
+                      {contacts?.length ? contacts?.length : 0}
+                    </span>
+                    <span className="opacity-50">Problems Solved</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="col-xl-3">
+            <div className="row g-5 g-xl-8">
+              <Link to="/tasks">
+                <div
+                  className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100"
+                  style={{
+                    backgroundColor: "#F1416C",
+                    backgroundImage: `url$('assets/media/svg/shapes/wave-bg-red.svg')`,
+                  }}
+                >
+                  <div className="card-header pt-5 mb-3">
+                    <div
+                      className="d-flex flex-center rounded-circle h-80px w-80px"
+                      style={{
+                        border: "1px dashed rgba(255, 255, 255, 0.4)",
+                        backgroundColor: "#F1416C",
+                      }}
+                    >
+                      <i className="fonticon-incoming-call text-white fs-2qx lh-0"></i>
+                    </div>
+                  </div>
 
-									</div>
+                  <div className="card-body d-flex align-items- mb-3">
+                    <div className="d-flex align-items-center">
+                      <span className="fs-4hx text-white fw-bold me-6">
+                        {task?.length ? task?.length : 0}
+                      </span>
+                      <div className="fw-bold fs-6 text-white">
+                        <span className="d-block">Tasks</span>
+                        {/* <span className="">Calls</span> */}
+                      </div>
+                    </div>
+                  </div>
 
-									<div className="card-body d-flex align-items- mb-3">
+                  <div
+                    className="card-footer"
+                    style={{
+                      borderTop: "1px solid rgba(255, 255, 255, 0.3)",
+                      backgroundColor: "rgba(0, 0, 0, 0.15)",
+                    }}
+                  >
+                    <div className="fw-bold text-white py-2">
+                      <span className="fs-1 d-block">
+                        {task?.length ? task?.length : 0}
+                      </span>
+                      <span className="opacity-50">Tasks Completed</span>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="col-xl-3">
+            <Link to="/deals">
+              <div
+                className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100"
+                style={{
+                  backgroundColor: "#7239EA",
+                  backgroundImage: `url$('assets/media/svg/shapes/wave-bg-purple.svg')`,
+                }}
+              >
+                <div className="card-header pt-5 mb-3">
+                  <div
+                    className="d-flex flex-center rounded-circle h-80px w-80px"
+                    style={{
+                      border: "1px dashed rgba(255, 255, 255, 0.4)",
+                      backgroundColor: "#7239EA",
+                    }}
+                  >
+                    <i className="fonticon-outgoing-call text-white fs-2qx lh-0"></i>
+                  </div>
+                </div>
 
-										<div className="d-flex align-items-center">
-											<span className="fs-4hx text-white fw-bold me-6">{leads?.length ? leads?.length : 0}</span>
-											<div className="fw-bold fs-6 text-white">
-												<span className="d-block">Leads</span>
-												{/* <span className="">Calls</span> */}
-											</div>
-										</div>
+                <div className="card-body d-flex align-items- mb-3">
+                  <div className="d-flex align-items-center">
+                    <span className="fs-4hx text-white fw-bold me-6">
+                      {deals?.length ? deals?.length : 0}
+                    </span>
+                    <div className="fw-bold fs-6 text-white">
+                      <span className="d-block">Deals</span>
+                      {/* <span className="">Calls</span> */}
+                    </div>
+                  </div>
+                </div>
 
-									</div>
+                <div
+                  className="card-footer"
+                  style={{
+                    borderTop: "1px solid rgba(255, 255, 255, 0.3)",
+                    backgroundColor: "rgba(0, 0, 0, 0.15)",
+                  }}
+                >
+                  <div className="fw-bold text-white py-2">
+                    <span className="fs-1 d-block">
+                      {deals?.length ? deals?.length : 0}
+                    </span>
+                    <span className="opacity-50">Deals Completed</span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+          <div className="col-xl-12">
+            <div className="row g-5 g-xl-10 mb-5 mb-xl-10">
+              {/* <div className="row g-5 g-xl-10 mb-5 mb-xl-10"> */}
+              <div className="col-xl-6">
+                <div className="card card-flush h-lg-100">
+                  <div className="card-header pt-5">
+                    <h3 className="card-title align-items-start flex-column">
+                      <span className="card-label fw-bold text-dark">CDR</span>
+                      <span className="text-gray-400 mt-1 fw-semibold fs-6">
+                        {cdrs?.length} Inbound Calls today
+                      </span>
+                    </h3>
 
-									<div className="card-footer" style={{ borderTop: "1px solid rgba(255, 255, 255, 0.3)", backgroundColor: "rgba(0, 0, 0, 0.15)" }}>
-
-										<div className="fw-bold text-white py-2">
-											<span className="fs-1 d-block">{leads?.length ? leads?.length : 0}</span>
-											<span className="opacity-50">Generated Leads</span>
-										</div>
-
-									</div>
-
-								</div>
-							</Link>
-						</div>
-					</div>
-					<div className="col-xl-3">
-						<Link to='/contacts'>
-							<div className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100" style={{ backgroundColor: "#7239EA", backgroundImage: `url$('assets/media/svg/shapes/wave-bg-purple.svg')` }}>
-
-								<div className="card-header pt-5 mb-3">
-
-									<div className="d-flex flex-center rounded-circle h-80px w-80px" style={{ border: "1px dashed rgba(255, 255, 255, 0.4)", backgroundColor: "#7239EA" }}>
-										<i className="fonticon-outgoing-call text-white fs-2qx lh-0"></i>
-									</div>
-
-								</div>
-
-								<div className="card-body d-flex align-items- mb-3">
-
-									<div className="d-flex align-items-center">
-										<span className="fs-4hx text-white fw-bold me-6">{contacts?.length ? contacts?.length : 0}</span>
-										<div className="fw-bold fs-6 text-white">
-											<span className="d-block">Contacts</span>
-											{/* <span className="">Calls</span> */}
-										</div>
-									</div>
-
-								</div>
-
-								<div className="card-footer" style={{ borderTop: "1px solid rgba(255, 255, 255, 0.3)", backgroundColor: "rgba(0, 0, 0, 0.15)" }}>
-
-									<div className="fw-bold text-white py-2">
-										<span className="fs-1 d-block">{contacts?.length ? contacts?.length : 0}</span>
-										<span className="opacity-50">Problems Solved</span>
-									</div>
-
-								</div>
-
-							</div>
-						</Link>
-					</div>
-					<div className="col-xl-3">
-						<div className='row g-5 g-xl-8'>
-							<Link to='/bookings'>
-								<div className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100" style={{ backgroundColor: "#F1416C", backgroundImage: `url$('assets/media/svg/shapes/wave-bg-red.svg')` }}>
-
-									<div className="card-header pt-5 mb-3">
-
-										<div className="d-flex flex-center rounded-circle h-80px w-80px" style={{ border: "1px dashed rgba(255, 255, 255, 0.4)", backgroundColor: "#F1416C" }}>
-											<i className="fonticon-incoming-call text-white fs-2qx lh-0"></i>
-										</div>
-
-									</div>
-
-									<div className="card-body d-flex align-items- mb-3">
-
-										<div className="d-flex align-items-center">
-											<span className="fs-4hx text-white fw-bold me-6">{task?.length ? task?.length : 0}</span>
-											<div className="fw-bold fs-6 text-white">
-												<span className="d-block">Tasks</span>
-												{/* <span className="">Calls</span> */}
-											</div>
-										</div>
-
-									</div>
-
-									<div className="card-footer" style={{ borderTop: "1px solid rgba(255, 255, 255, 0.3)", backgroundColor: "rgba(0, 0, 0, 0.15)" }}>
-
-										<div className="fw-bold text-white py-2">
-											<span className="fs-1 d-block">{task?.length ? task?.length : 0}</span>
-											<span className="opacity-50">Tasks Completed</span>
-										</div>
-
-									</div>
-
-								</div>
-							</Link>
-						</div>
-					</div>
-					<div className="col-xl-3">
-						<Link to='/deals'>
-							<div className="card card-flush bgi-no-repeat bgi-size-contain bgi-position-x- h-xl-100" style={{ backgroundColor: "#7239EA", backgroundImage: `url$('assets/media/svg/shapes/wave-bg-purple.svg')` }}>
-
-								<div className="card-header pt-5 mb-3">
-
-									<div className="d-flex flex-center rounded-circle h-80px w-80px" style={{ border: "1px dashed rgba(255, 255, 255, 0.4)", backgroundColor: "#7239EA" }}>
-										<i className="fonticon-outgoing-call text-white fs-2qx lh-0"></i>
-									</div>
-
-								</div>
-
-								<div className="card-body d-flex align-items- mb-3">
-
-									<div className="d-flex align-items-center">
-										<span className="fs-4hx text-white fw-bold me-6">{deals?.length ? deals?.length : 0}</span>
-										<div className="fw-bold fs-6 text-white">
-											<span className="d-block">Deals</span>
-											{/* <span className="">Calls</span> */}
-										</div>
-									</div>
-
-								</div>
-
-								<div className="card-footer" style={{ borderTop: "1px solid rgba(255, 255, 255, 0.3)", backgroundColor: "rgba(0, 0, 0, 0.15)" }}>
-
-									<div className="fw-bold text-white py-2">
-										<span className="fs-1 d-block">{deals?.length ? deals?.length : 0}</span>
-										<span className="opacity-50">Deals Completed</span>
-									</div>
-
-								</div>
-
-							</div>
-						</Link>
-					</div>
-					<div className="col-xl-12">
-						<div className="row g-5 g-xl-10 mb-5 mb-xl-10">
-							{/* <div className="row g-5 g-xl-10 mb-5 mb-xl-10"> */}
-							<div className="col-xl-6">
-
-								<div className="card card-flush h-lg-100">
-
-									<div className="card-header pt-5">
-
-										<h3 className="card-title align-items-start flex-column">
-											<span className="card-label fw-bold text-dark">CDR</span>
-											<span className="text-gray-400 mt-1 fw-semibold fs-6">{cdrs?.length} Inbound Calls today</span>
-										</h3>
-
-										{/* <div className="card-toolbar">
+                    {/* <div className="card-toolbar">
 
 											<span className="badge badge-light-danger fs-base mt-n3">
 
@@ -272,18 +369,13 @@ const DashboardPage = () => {
 											</span>
 
 										</div> */}
+                  </div>
 
-									</div>
-
-									<div className="card-body d-flex align-items- pt-6">
-
-										<div className="row align-items-center mx-0 w-100">
-
-											<div className="col-7 px-0">
-
-												<div className="d-flex flex-column content-justify-center">
-
-													{/* <div className="d-flex fs-6 fw-semibold align-items-center">
+                  <div className="card-body d-flex align-items- pt-6">
+                    <div className="row align-items-center mx-0 w-100">
+                      <div className="col-7 px-0">
+                        <div className="d-flex flex-column content-justify-center">
+                          {/* <div className="d-flex fs-6 fw-semibold align-items-center">
 
 														<div className="bullet bg-success me-3" style={{ borderRadius: "3px", width: "12px", height: "12px" }}></div>
 
@@ -293,68 +385,90 @@ const DashboardPage = () => {
 
 													</div> */}
 
-													<div className="d-flex fs-6 fw-semibold align-items-center my-4">
+                          <div className="d-flex fs-6 fw-semibold align-items-center my-4">
+                            <div
+                              className="bullet bg-primary me-3"
+                              style={{
+                                borderRadius: "3px",
+                                width: "12px",
+                                height: "12px",
+                              }}
+                            ></div>
 
-														<div className="bullet bg-primary me-3" style={{ borderRadius: "3px", width: "12px", height: "12px" }}></div>
+                            <div className="fs-5 fw-bold text-gray-600 me-5">
+                              Recurring Calls:
+                            </div>
 
-														<div className="fs-5 fw-bold text-gray-600 me-5">Recurring Calls:</div>
+                            <div className="ms-auto fw-bolder text-gray-700 text-">
+                              {callDuration} Mins
+                            </div>
+                          </div>
 
-														<div className="ms-auto fw-bolder text-gray-700 text-">{callDuration} Mins</div>
+                          <div className="d-flex fs-6 fw-semibold align-items-center">
+                            <div
+                              className="bullet me-3"
+                              style={{
+                                borderRadius: "3px",
+                                backgroundColor: "#E4E6EF",
+                                width: "12px",
+                                height: "12px",
+                              }}
+                            ></div>
 
-													</div>
+                            <div className="fs-5 fw-bold text-gray-600 me-5">
+                              Tickets Raised:
+                            </div>
 
-													<div className="d-flex fs-6 fw-semibold align-items-center">
+                            <div className="ms-auto fw-bolder text-gray-700 text-">
+                              {Tickets?.length}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-														<div className="bullet me-3" style={{ borderRadius: "3px", backgroundColor: "#E4E6EF", width: "12px", height: "12px" }}></div>
+                      <div className="col-5 d-flex justify-content- px-0">
+                        <div
+                          id="kt_card_widget_19_chart"
+                          className="min-h-auto h-150px w-150px"
+                          data-kt-size="150"
+                          data-kt-line="25"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-														<div className="fs-5 fw-bold text-gray-600 me-5">Tickets Raised:</div>
+              <div className="col-xl-6">
+                <div
+                  className="card h-lg-100"
+                  style={{
+                    background:
+                      "linear-gradient(112.14deg, #FF8A00 0%, #E96922 100%)",
+                  }}
+                >
+                  <div className="card-body">
+                    <div className="row align-items-center">
+                      <div className="col-sm-7 pe-0 mb-5 mb-sm-0">
+                        <div className="d-flex justify-content-between h-100 flex-column pt-xl-5 pb-xl-2 ps-xl-7">
+                          <div className="my-6">
+                            <div className="my-6">
+                              {/* <div> */}
+                              <h3 className="fs-2x fw-semibold text-white">
+                                Bookings
+                              </h3>
+                              <span className="fw-semibold text-white opacity-75">
+                                Total Number of Bookings
+                              </span>
+                              {/* </div> */}
+                              {/* <div> */}
+                              <h1 className="fs-2x fw-semibold text-white">
+                                {bookings?.length ? bookings?.length : 0}
+                              </h1>
+                              {/* </div> */}
+                            </div>
 
-														<div className="ms-auto fw-bolder text-gray-700 text-">{Tickets?.length}</div>
-
-													</div>
-
-												</div>
-
-											</div>
-
-											<div className="col-5 d-flex justify-content- px-0">
-
-												<div id="kt_card_widget_19_chart" className="min-h-auto h-150px w-150px" data-kt-size="150" data-kt-line="25"></div>
-
-											</div>
-
-										</div>
-
-									</div>
-
-								</div>
-							</div>
-
-							<div className="col-xl-6">
-
-								<div className="card h-lg-100" style={{ background: "linear-gradient(112.14deg, #FF8A00 0%, #E96922 100%)" }}>
-
-									<div className="card-body">
-
-										<div className="row align-items-center">
-
-											<div className="col-sm-7 pe-0 mb-5 mb-sm-0">
-
-												<div className="d-flex justify-content-between h-100 flex-column pt-xl-5 pb-xl-2 ps-xl-7">
-
-													<div className="my-6">
-
-														<div className="my-6" >
-															{/* <div> */}
-															<h3 className="fs-2x fw-semibold text-white">Bookings</h3>
-															<span className="fw-semibold text-white opacity-75">Total Number of Bookings</span>
-															{/* </div> */}
-															{/* <div> */}
-															<h1 className="fs-2x fw-semibold text-white">{bookings?.length ? bookings?.length : 0}</h1>
-															{/* </div> */}
-														</div>
-
-														{/* <div className="d-flex align-items-center flex-wrap d-grid gap-2">
+                            {/* <div className="d-flex align-items-center flex-wrap d-grid gap-2">
 												
 																<div className="d-flex align-items-center me-5 me-xl-13">
 														
@@ -401,57 +515,50 @@ const DashboardPage = () => {
 																</div>
 														
 															</div> */}
+                          </div>
 
-													</div>
-
-													{/* <div className="m-0">
+                          {/* <div className="m-0">
 															<a href="#" className="btn btn-color-white bg-white bg-opacity-15 bg-hover-opacity-25 fw-semibold" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_plan">Add Booking</a>
 														</div> */}
+                        </div>
+                      </div>
 
-												</div>
+                      <div className="col-sm-5">
+                        <img
+                          src="assets/media/svg/illustrations/easy/7.svg"
+                          className="h-200px h-lg-250px my-n6"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* </div> */}
+        </div>
+      </div>
 
-											</div>
+      <div className="col-xl-12">
+        <div className="row g-5 g-xl-10 mb-5 mb-xl-10">
+          <div className="col-xl-12 col-xxl-4">
+            <div className="row gy-5 g-xl-10">
+              <div className="col-md-6 col-xxl-12">
+                <div
+                  className="card card-flush border-0 h-xl-100"
+                  data-theme="light"
+                  style={{ backgroundColor: "#22232B" }}
+                >
+                  <div className="card-header pt-2">
+                    <h3 className="card-title">
+                      <span className="text-white fs-3 fw-bold me-2">
+                        Tickets
+                      </span>
+                      <span className="badge badge-success">Active</span>
+                    </h3>
 
-											<div className="col-sm-5">
-
-												<img src="assets/media/svg/illustrations/easy/7.svg" className="h-200px h-lg-250px my-n6" alt="" />
-
-											</div>
-
-										</div>
-
-									</div>
-
-								</div>
-
-							</div>
-						</div>
-
-					</div>
-					{/* </div> */}
-
-				</div>
-			</div>
-
-
-			<div className="col-xl-12">
-				<div className="row g-5 g-xl-10 mb-5 mb-xl-10">
-					<div className="col-xl-12 col-xxl-4">
-						<div className="row gy-5 g-xl-10">
-
-							<div className="col-md-6 col-xxl-12">
-
-								<div className="card card-flush border-0 h-xl-100" data-theme="light" style={{ backgroundColor: "#22232B" }}>
-
-									<div className="card-header pt-2">
-
-										<h3 className="card-title">
-											<span className="text-white fs-3 fw-bold me-2">Tickets</span>
-											<span className="badge badge-success">Active</span>
-										</h3>
-
-
-										{/* <div className="card-toolbar">
+                    {/* <div className="card-toolbar">
 
 											<button className="btn btn-icon bg-white bg-opacity-10 btn-color-white btn-active-success w-25px h-25px" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true">
 
@@ -520,82 +627,102 @@ const DashboardPage = () => {
 											</div>
 
 										</div> */}
+                  </div>
 
-									</div>
+                  <div className="card-body d-flex justify-content-between flex-column pt-1 px-0 pb-0">
+                    <div className="d-flex flex-wrap px-9 mb-5">
+                      <div
+                        className="rounded min-w-125px py-3 px-4 my-1 me-6"
+                        style={{
+                          border: "1px dashed rgba(255, 255, 255, 0.15)",
+                        }}
+                      >
+                        <div className="d-flex align-items-center">
+                          <div className="text-white fs-2 fw-bold">
+                            {TicketsINOpen?.length}
+                          </div>
+                        </div>
 
-									<div className="card-body d-flex justify-content-between flex-column pt-1 px-0 pb-0">
+                        <div className="fw-semibold fs-6 text-white opacity-50">
+                          Tickets Open{" "}
+                        </div>
+                      </div>
 
-										<div className="d-flex flex-wrap px-9 mb-5">
+                      <div
+                        className="rounded min-w-125px py-3 px-4 my-1"
+                        style={{
+                          border: "1px dashed rgba(255, 255, 255, 0.15)",
+                        }}
+                      >
+                        <div className="d-flex align-items-center">
+                          <div className="text-white fs-2 fw-bold">
+                            {TicketsINClosed?.length}
+                          </div>
+                        </div>
 
-											<div className="rounded min-w-125px py-3 px-4 my-1 me-6" style={{ border: "1px dashed rgba(255, 255, 255, 0.15)" }}>
+                        <div className="fw-semibold fs-6 text-white opacity-50">
+                          Tickets Closed
+                        </div>
+                      </div>
+                    </div>
+                    <div className="d-flex flex-wrap px-9 ">
+                      <div
+                        className="rounded min-w-125px py-3 px-4 my-1 me-6"
+                        style={{
+                          border: "1px dashed rgba(255, 255, 255, 0.15)",
+                        }}
+                      >
+                        <div className="d-flex align-items-center">
+                          <div className="text-white fs-2 fw-bold">
+                            {TicketsINProgress?.length}
+                          </div>
+                        </div>
 
+                        <div className="fw-semibold fs-6 text-white opacity-50">
+                          Tickets Progress{" "}
+                        </div>
+                      </div>
 
-												<div className="d-flex align-items-center">
-													<div className="text-white fs-2 fw-bold">{TicketsINOpen?.length}</div>
-												</div>
+                      <div
+                        className="rounded min-w-125px py-3 px-4 my-1"
+                        style={{
+                          border: "1px dashed rgba(255, 255, 255, 0.15)",
+                        }}
+                      >
+                        <div className="d-flex align-items-center">
+                          <div className="text-white fs-2 fw-bold">
+                            {TicketsINEscalated?.length}
+                          </div>
+                        </div>
 
+                        <div className="fw-semibold fs-6 text-white opacity-50">
+                          Tickets Escalated
+                        </div>
+                      </div>
+                    </div>
 
-												<div className="fw-semibold fs-6 text-white opacity-50">Tickets Open </div>
+                    <div
+                      id="kt_card_widget_1_chart"
+                      data-kt-chart-color="primary"
+                      style={{ height: "105px" }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
 
-											</div>
+              <div className="col-md-6 col-xxl-12">
+                <div className="card card-flush h-xl-100">
+                  <div className="card-header pt-5">
+                    <h3 className="card-title align-items-start flex-column">
+                      <span className="card-label fw-bold text-dark fs-3">
+                        Task
+                      </span>
+                      <span className="text-gray-400 mt-1 fw-semibold fs-6">
+                        Tasks Updates............
+                      </span>
+                    </h3>
 
-											<div className="rounded min-w-125px py-3 px-4 my-1" style={{ border: "1px dashed rgba(255, 255, 255, 0.15)" }}>
-
-												<div className="d-flex align-items-center">
-													<div className="text-white fs-2 fw-bold">{TicketsINClosed?.length}</div>
-												</div>
-
-												<div className="fw-semibold fs-6 text-white opacity-50">Tickets Closed</div>
-
-											</div>
-
-										</div>
-										<div className="d-flex flex-wrap px-9 ">
-
-											<div className="rounded min-w-125px py-3 px-4 my-1 me-6" style={{ border: "1px dashed rgba(255, 255, 255, 0.15)" }}>
-
-
-												<div className="d-flex align-items-center">
-													<div className="text-white fs-2 fw-bold">{TicketsINProgress?.length}</div>
-												</div>
-
-
-												<div className="fw-semibold fs-6 text-white opacity-50">Tickets Progress </div>
-
-											</div>
-
-											<div className="rounded min-w-125px py-3 px-4 my-1" style={{ border: "1px dashed rgba(255, 255, 255, 0.15)" }}>
-
-												<div className="d-flex align-items-center">
-													<div className="text-white fs-2 fw-bold">{TicketsINEscalated?.length}</div>
-												</div>
-
-												<div className="fw-semibold fs-6 text-white opacity-50">Tickets Escalated</div>
-
-											</div>
-
-										</div>
-
-										<div id="kt_card_widget_1_chart" data-kt-chart-color="primary" style={{ height: "105px" }}></div>
-
-									</div>
-
-								</div>
-
-							</div>
-
-							<div className="col-md-6 col-xxl-12">
-
-								<div className="card card-flush h-xl-100">
-
-									<div className="card-header pt-5">
-
-										<h3 className="card-title align-items-start flex-column">
-											<span className="card-label fw-bold text-dark fs-3">Task</span>
-											<span className="text-gray-400 mt-1 fw-semibold fs-6">Tasks  Updates............</span>
-										</h3>
-
-										{/* <div className="card-toolbar">
+                    {/* <div className="card-toolbar">
 
 											<button className="btn btn-icon btn-color-gray-400 btn-active-color-primary justify-content-end" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end" data-kt-menu-overflow="true">
 
@@ -668,203 +795,296 @@ const DashboardPage = () => {
 
 										</div> */}
 
-										<div className="card-body">
-
-											<div className="d-flex flex-stack">
-
-												<div className="d-flex align-items-center me-3">
-
-													<img src="assets/media/svg/brand-logos/dribbble-icon-1.svg" className="me-3 w-30px" alt="" />
-
-													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">bucket Listed</a>
-														{/* <span className="text-gray-400 fw-semibold d-block fs-6">Community</span> */}
-													</div>
-
-												</div>
-
-												<div className="d-flex align-items-center w-100 mw-125px">
-
-													<div className="progress h-6px w-100 me-2 bg-light-success">
-														<div className="progress-bar bg-success" role="progressbar" style={{ width: (bucketListedTasks?.length / task?.length) * 100 }} aria-valuenow={65} aria-valuemin={0} aria-valuemax={100}></div>
-													</div>
-
-													<span className="text-gray-400 fw-semibold">{(bucketListedTasks?.length / task?.length) * 100}%</span>
-
-												</div>
-
-											</div>
-
-											<div className="separator separator-dashed my-4"></div>
-
-											<div className="d-flex flex-stack">
-
-												<div className="d-flex align-items-center me-3">
-
-													<img src="assets/media/svg/brand-logos/instagram-2-1.svg" className="me-3 w-30px" alt="" />
-
-													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">verification</a>
-														{/* <span className="text-gray-400 fw-semibold d-block fs-6">Social Media</span> */}
-													</div>
-
-												</div>
-
-												<div className="d-flex align-items-center w-100 mw-125px">
-
-													<div className="progress h-6px w-100 me-2 bg-light-warning">
-														<div className="progress-bar bg-warning" role="progressbar" style={{ width: (verificationTasks?.length / task?.length) * 100 }} aria-valuenow={87} aria-valuemin={0} aria-valuemax={100}></div>
-													</div>
-
-													<span className="text-gray-400 fw-semibold">{(verificationTasks?.length / task?.length) * 100}%</span>
-
-												</div>
-
-											</div>
-
-											<div className="separator separator-dashed my-4"></div>
-
-											<div className="d-flex flex-stack">
-
-												<div className="d-flex align-items-center me-3">
-
-													<img src="assets/media/svg/brand-logos/slack-icon.svg" className="me-3 w-30px" alt="" />
-
-													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">Done</a>
-														{/* <span className="text-gray-400 fw-semibold d-block fs-6">Messenger</span> */}
-													</div>
-
-												</div>
-
-												<div className="d-flex align-items-center w-100 mw-125px">
-
-													<div className="progress h-6px w-100 me-2 bg-light-primary">
-														<div className="progress-bar bg-primary" role="progressbar" style={{ width: (doneTasks?.length / task?.length) * 100 }} aria-valuenow={44} aria-valuemin={0} aria-valuemax={100}></div>
-													</div>
-
-													<span className="text-gray-400 fw-semibold">{(doneTasks?.length / task?.length) * 100}%</span>
-
-												</div>
-
-											</div>
-
-											<div className="separator separator-dashed my-4"></div>
-
-											<div className="d-flex flex-stack">
-
-												<div className="d-flex align-items-center me-3">
-
-													<img src="assets/media/svg/brand-logos/google-icon.svg" className="me-3 w-30px" alt="" />
-
-													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">In Progress</a>
-														{/* <span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span> */}
-													</div>
-
-												</div>
-
-												<div className="d-flex align-items-center w-100 mw-125px">
-
-													<div className="progress h-6px w-100 me-2 bg-light-info">
-														<div className="progress-bar bg-info" role="progressbar" style={{ width: (inProgressTasks?.length / task?.length) * 100 }} aria-valuenow={70} aria-valuemin={0} aria-valuemax={100}></div>
-													</div>
-
-													<span className="text-gray-400 fw-semibold">{(inProgressTasks?.length / task?.length) * 100}%</span>
-
-												</div>
-
-											</div>
-
-											<div className="separator separator-dashed my-4"></div>
-
-											<div className="d-flex flex-stack">
-
-												<div className="d-flex align-items-center me-3">
-
-													<img src="assets/media/svg/brand-logos/google-icon.svg" className="me-3 w-30px" alt="" />
-
-													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">delegated </a>
-														{/* <span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span> */}
-													</div>
-
-												</div>
-
-												<div className="d-flex align-items-center w-100 mw-125px">
-
-													<div className="progress h-6px w-100 me-2 bg-light-info">
-														<div className="progress-bar bg-info" role="progressbar" style={{ width: (delegatedTasks?.length / task?.length) * 100 }} aria-valuenow={70} aria-valuemin={0} aria-valuemax={100}></div>
-													</div>
-
-													<span className="text-gray-400 fw-semibold">{(delegatedTasks?.length / task?.length) * 100}%</span>
-
-												</div>
-
-											</div>
-
-											<div className="separator separator-dashed my-4"></div>
-
-											<div className="d-flex flex-stack">
-
-												<div className="d-flex align-items-center me-3">
-
-													<img src="assets/media/svg/brand-logos/google-icon.svg" className="me-3 w-30px" alt="" />
-
-													<div className="flex-grow-1">
-														<a href="#" className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0">To Do </a>
-														{/* <span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span> */}
-													</div>
-
-												</div>
-
-												<div className="d-flex align-items-center w-100 mw-125px">
-
-													<div className="progress h-6px w-100 me-2 bg-light-info">
-														<div className="progress-bar bg-info" role="progressbar" style={{ width: (toDoTasks?.length / task?.length) * 100 }} aria-valuenow={70} aria-valuemin={0} aria-valuemax={100}></div>
-													</div>
-
-													<span className="text-gray-400 fw-semibold">{(toDoTasks?.length / task?.length) * 100}%</span>
-
-												</div>
-
-											</div>
-
-										</div>
-
-									</div>
-
-								</div>
-
-							</div>
-
-						</div>
-					</div>
-					<div className="col-xl-12 col-xxl-8 mb-5 mb-xl-10">
-
-						<div className="card card-flush h-xl-100">
-
-							<div className="card-header py-7">
-
-								<div className="card-title pt-3 mb-0 gap-4 gap-lg-10 gap-xl-15 nav nav-tabs border-bottom-0" data-kt-table-widget-3="tabs_nav">
-
-									<div className="fs-4 fw-bold pb-3 border-bottom border-3 border-primary cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Show All">All Campaigns ({campaigns?.length ? campaigns?.length : 0})</div>
-									{/* 
+                    <div className="card-body">
+                      <div className="d-flex flex-stack">
+                        <div className="d-flex align-items-center me-3">
+                          <img
+                            src="assets/media/svg/brand-logos/dribbble-icon-1.svg"
+                            className="me-3 w-30px"
+                            alt=""
+                          />
+
+                          <div className="flex-grow-1">
+                            <a
+                              href="#"
+                              className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0"
+                            >
+                              bucket Listed
+                            </a>
+                            {/* <span className="text-gray-400 fw-semibold d-block fs-6">Community</span> */}
+                          </div>
+                        </div>
+
+                        <div className="d-flex align-items-center w-100 mw-125px">
+                          <div className="progress h-6px w-100 me-2 bg-light-success">
+                            <div
+                              className="progress-bar bg-success"
+                              role="progressbar"
+                              style={{
+                                width:
+                                  (bucketListedTasks?.length / task?.length) *
+                                  100,
+                              }}
+                              aria-valuenow={65}
+                              aria-valuemin={0}
+                              aria-valuemax={100}
+                            ></div>
+                          </div>
+
+                          <span className="text-gray-400 fw-semibold">
+                            {(bucketListedTasks?.length / task?.length) * 100}%
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="separator separator-dashed my-4"></div>
+
+                      <div className="d-flex flex-stack">
+                        <div className="d-flex align-items-center me-3">
+                          <img
+                            src="assets/media/svg/brand-logos/instagram-2-1.svg"
+                            className="me-3 w-30px"
+                            alt=""
+                          />
+
+                          <div className="flex-grow-1">
+                            <a
+                              href="#"
+                              className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0"
+                            >
+                              verification
+                            </a>
+                            {/* <span className="text-gray-400 fw-semibold d-block fs-6">Social Media</span> */}
+                          </div>
+                        </div>
+
+                        <div className="d-flex align-items-center w-100 mw-125px">
+                          <div className="progress h-6px w-100 me-2 bg-light-warning">
+                            <div
+                              className="progress-bar bg-warning"
+                              role="progressbar"
+                              style={{
+                                width:
+                                  (verificationTasks?.length / task?.length) *
+                                  100,
+                              }}
+                              aria-valuenow={87}
+                              aria-valuemin={0}
+                              aria-valuemax={100}
+                            ></div>
+                          </div>
+
+                          <span className="text-gray-400 fw-semibold">
+                            {(verificationTasks?.length / task?.length) * 100}%
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="separator separator-dashed my-4"></div>
+
+                      <div className="d-flex flex-stack">
+                        <div className="d-flex align-items-center me-3">
+                          <img
+                            src="assets/media/svg/brand-logos/slack-icon.svg"
+                            className="me-3 w-30px"
+                            alt=""
+                          />
+
+                          <div className="flex-grow-1">
+                            <a
+                              href="#"
+                              className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0"
+                            >
+                              Done
+                            </a>
+                            {/* <span className="text-gray-400 fw-semibold d-block fs-6">Messenger</span> */}
+                          </div>
+                        </div>
+
+                        <div className="d-flex align-items-center w-100 mw-125px">
+                          <div className="progress h-6px w-100 me-2 bg-light-primary">
+                            <div
+                              className="progress-bar bg-primary"
+                              role="progressbar"
+                              style={{
+                                width: (doneTasks?.length / task?.length) * 100,
+                              }}
+                              aria-valuenow={44}
+                              aria-valuemin={0}
+                              aria-valuemax={100}
+                            ></div>
+                          </div>
+
+                          <span className="text-gray-400 fw-semibold">
+                            {(doneTasks?.length / task?.length) * 100}%
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="separator separator-dashed my-4"></div>
+
+                      <div className="d-flex flex-stack">
+                        <div className="d-flex align-items-center me-3">
+                          <img
+                            src="assets/media/svg/brand-logos/google-icon.svg"
+                            className="me-3 w-30px"
+                            alt=""
+                          />
+
+                          <div className="flex-grow-1">
+                            <a
+                              href="#"
+                              className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0"
+                            >
+                              In Progress
+                            </a>
+                            {/* <span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span> */}
+                          </div>
+                        </div>
+
+                        <div className="d-flex align-items-center w-100 mw-125px">
+                          <div className="progress h-6px w-100 me-2 bg-light-info">
+                            <div
+                              className="progress-bar bg-info"
+                              role="progressbar"
+                              style={{
+                                width:
+                                  (inProgressTasks?.length / task?.length) *
+                                  100,
+                              }}
+                              aria-valuenow={70}
+                              aria-valuemin={0}
+                              aria-valuemax={100}
+                            ></div>
+                          </div>
+
+                          <span className="text-gray-400 fw-semibold">
+                            {(inProgressTasks?.length / task?.length) * 100}%
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="separator separator-dashed my-4"></div>
+
+                      <div className="d-flex flex-stack">
+                        <div className="d-flex align-items-center me-3">
+                          <img
+                            src="assets/media/svg/brand-logos/google-icon.svg"
+                            className="me-3 w-30px"
+                            alt=""
+                          />
+
+                          <div className="flex-grow-1">
+                            <a
+                              href="#"
+                              className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0"
+                            >
+                              delegated{" "}
+                            </a>
+                            {/* <span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span> */}
+                          </div>
+                        </div>
+
+                        <div className="d-flex align-items-center w-100 mw-125px">
+                          <div className="progress h-6px w-100 me-2 bg-light-info">
+                            <div
+                              className="progress-bar bg-info"
+                              role="progressbar"
+                              style={{
+                                width:
+                                  (delegatedTasks?.length / task?.length) * 100,
+                              }}
+                              aria-valuenow={70}
+                              aria-valuemin={0}
+                              aria-valuemax={100}
+                            ></div>
+                          </div>
+
+                          <span className="text-gray-400 fw-semibold">
+                            {(delegatedTasks?.length / task?.length) * 100}%
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="separator separator-dashed my-4"></div>
+
+                      <div className="d-flex flex-stack">
+                        <div className="d-flex align-items-center me-3">
+                          <img
+                            src="assets/media/svg/brand-logos/google-icon.svg"
+                            className="me-3 w-30px"
+                            alt=""
+                          />
+
+                          <div className="flex-grow-1">
+                            <a
+                              href="#"
+                              className="text-gray-800 text-hover-primary fs-5 fw-bold lh-0"
+                            >
+                              To Do{" "}
+                            </a>
+                            {/* <span className="text-gray-400 fw-semibold d-block fs-6">SEO & PPC</span> */}
+                          </div>
+                        </div>
+
+                        <div className="d-flex align-items-center w-100 mw-125px">
+                          <div className="progress h-6px w-100 me-2 bg-light-info">
+                            <div
+                              className="progress-bar bg-info"
+                              role="progressbar"
+                              style={{
+                                width: (toDoTasks?.length / task?.length) * 100,
+                              }}
+                              aria-valuenow={70}
+                              aria-valuemin={0}
+                              aria-valuemax={100}
+                            ></div>
+                          </div>
+
+                          <span className="text-gray-400 fw-semibold">
+                            {(toDoTasks?.length / task?.length) * 100}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-xl-12 col-xxl-8 mb-5 mb-xl-10">
+            <div className="card card-flush h-xl-100">
+              <div className="card-header py-7">
+                <div
+                  className="card-title pt-3 mb-0 gap-4 gap-lg-10 gap-xl-15 nav nav-tabs border-bottom-0"
+                  data-kt-table-widget-3="tabs_nav"
+                >
+                  <div
+                    className="fs-4 fw-bold pb-3 border-bottom border-3 border-primary cursor-pointer"
+                    data-kt-table-widget-3="tab"
+                    data-kt-table-widget-3-value="Show All"
+                  >
+                    All Campaigns ({campaigns?.length ? campaigns?.length : 0})
+                  </div>
+                  {/* 
 									<div className="fs-4 fw-bold text-muted pb-3 cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Pending">Draft</div>
 
 									<div className="fs-4 fw-bold text-muted pb-3 cursor-pointer" data-kt-table-widget-3="tab" data-kt-table-widget-3-value="Completed">Completed</div> */}
+                </div>
 
-								</div>
+                <div className="card-toolbar">
+                  <Link
+                    to="/campaigns/campaigns/campaignadduser"
+                    type="button"
+                    className="btn btn-primary"
+                  >
+                    Create Campaign
+                  </Link>
+                </div>
+              </div>
 
-								<div className="card-toolbar">
-									<Link to="/campaigns/campaigns/campaignadduser" type="button" className="btn btn-primary">Create Campaign</Link>
-								</div>
-
-							</div>
-
-							<div className="card-body pt-1" >
-
-								{/* <div className="d-flex flex-stack flex-wrap gap-4">
+              <div className="card-body pt-1">
+                {/* <div className="d-flex flex-stack flex-wrap gap-4">
 
 									<div className="d-flex align-items-center flex-wrap gap-3 gap-xl-9">
 
@@ -993,35 +1213,48 @@ const DashboardPage = () => {
 
 								</div> */}
 
-								{/* <div className="separator separator-dashed my-5"></div> */}
-								<div style={{ overflow: 'scroll' }}>
-									<table id="kt_widget_table_3" className="table table-row-dashed align-middle fs-6 gy-4 my-0 pb-3" data-kt-table-widget-3="all" >
-										<thead className="d-none">
-											<tr>
-												<th>Campaign</th>
-												<th>Platforms</th>
-												<th>Status</th>
-												<th>Team</th>
-												<th>Date</th>
-												<th>Progress</th>
-												<th>Action</th>
-											</tr>
-										</thead>
-										<tbody>
-											{campaigns?.map((item: any) => (
-												<tr>
-													<td className="min-w-175px">
-														<div className="position-relative ps-6 pe-3 py-2">
-															<div className="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-info"></div>
-															<a href="#" className="mb-1 text-dark text-hover-primary fw-bold">{item?.campaignName ? item?.campaignName : ' '}</a>
-															<div className="fs-7 text-muted fw-bold">Created on {item?.createdAt ? item?.createdAt?.slice(0, 10) : ' '}</div>
-														</div>
-													</td>
-													<td>
-
-														<div className="mb-1 text-dark text-hover-primary fw-bold">
-															{item?.company ? item?.company?.companyName : ' '}
-															{/* <a href="#">
+                {/* <div className="separator separator-dashed my-5"></div> */}
+                <div style={{ overflow: "scroll" }}>
+                  <table
+                    id="kt_widget_table_3"
+                    className="table table-row-dashed align-middle fs-6 gy-4 my-0 pb-3"
+                    data-kt-table-widget-3="all"
+                  >
+                    <thead className="d-none">
+                      <tr>
+                        <th>Campaign</th>
+                        <th>Platforms</th>
+                        <th>Status</th>
+                        <th>Team</th>
+                        <th>Date</th>
+                        <th>Progress</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {campaigns?.map((item: any) => (
+                        <tr>
+                          <td className="min-w-175px">
+                            <div className="position-relative ps-6 pe-3 py-2">
+                              <div className="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-info"></div>
+                              <a
+                                href="#"
+                                className="mb-1 text-dark text-hover-primary fw-bold"
+                              >
+                                {item?.campaignName ? item?.campaignName : " "}
+                              </a>
+                              <div className="fs-7 text-muted fw-bold">
+                                Created on{" "}
+                                {item?.createdAt
+                                  ? item?.createdAt?.slice(0, 10)
+                                  : " "}
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <div className="mb-1 text-dark text-hover-primary fw-bold">
+                              {item?.company ? item?.company?.companyName : " "}
+                              {/* <a href="#">
 																	<img src="assets/media/svg/brand-logos/facebook-4.svg" className="w-20px" alt="" />
 																</a>
 																<a href="#">
@@ -1033,14 +1266,16 @@ const DashboardPage = () => {
 																<a href="#">
 																	<img src="assets/media/svg/brand-logos/youtube-3.svg" className="w-20px" alt="" />
 																</a> */}
-														</div>
+                            </div>
 
-														{/* <div className="fs-7 text-muted fw-bold">Labor 24 - 35 years</div> */}
-													</td>
-													<td>
-														<span className="badge badge-light-success">{item?.campaignStatus?.campaignStatusName}</span>
-													</td>
-													{/* <td className="min-w-125px">
+                            {/* <div className="fs-7 text-muted fw-bold">Labor 24 - 35 years</div> */}
+                          </td>
+                          <td>
+                            <span className="badge badge-light-success">
+                              {item?.campaignStatus?.campaignStatusName}
+                            </span>
+                          </td>
+                          {/* <td className="min-w-125px">
 											
 															<div className="symbol-group symbol-hover mb-1">
 																
@@ -1075,26 +1310,40 @@ const DashboardPage = () => {
 													
 															<div className="fs-7 fw-bold text-muted">Team Members</div>
 														</td> */}
-													{/* <td className="min-w-150px">
+                          {/* <td className="min-w-150px">
 															<div className="mb-2 fw-bold">24 Dec 21 - 06 Jan 22</div>
 															<div className="fs-7 fw-bold text-muted">Date range</div>
 														</td> */}
-													<td className="d-none">Pending</td>
-													<td className="text-end">
-														<button type="button" className="btn btn-icon btn-sm btn-light btn-active-primary w-25px h-25px">
-
-															<span className="svg-icon">
-																<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-																	<path d="M14.4 11H3C2.4 11 2 11.4 2 12C2 12.6 2.4 13 3 13H14.4V11Z" fill="currentColor" />
-																	<path opacity="0.3" d="M14.4 20V4L21.7 11.3C22.1 11.7 22.1 12.3 21.7 12.7L14.4 20Z" fill="currentColor" />
-																</svg>
-															</span>
-
-														</button>
-													</td>
-												</tr>
-											))}
-											{/* <tr>
+                          <td className="d-none">Pending</td>
+                          <td className="text-end">
+                            <button
+                              type="button"
+                              className="btn btn-icon btn-sm btn-light btn-active-primary w-25px h-25px"
+                            >
+                              <span className="svg-icon">
+                                <svg
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    d="M14.4 11H3C2.4 11 2 11.4 2 12C2 12.6 2.4 13 3 13H14.4V11Z"
+                                    fill="currentColor"
+                                  />
+                                  <path
+                                    opacity="0.3"
+                                    d="M14.4 20V4L21.7 11.3C22.1 11.7 22.1 12.3 21.7 12.7L14.4 20Z"
+                                    fill="currentColor"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                      {/* <tr>
 														<td className="min-w-175px">
 															<div className="position-relative ps-6 pe-3 py-2">
 																<div className="position-absolute start-0 top-0 w-4px h-100 rounded-2 bg-warning"></div>
@@ -1438,31 +1687,28 @@ const DashboardPage = () => {
 															</button>
 														</td>
 													</tr> */}
-										</tbody>
-
-									</table>
-								</div>
-							</div>
-
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-
-		</>
-	)
-}
-export default DashboardPage
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+export default DashboardPage;
 const DashboardWrapper = () => {
-	const intl = useIntl()
-	return (
-		<>
-			<PageTitle breadcrumbs={[]}>{intl.formatMessage({ id: 'MENU.DASHBOARD' })}</PageTitle>
-			<DashboardPage />
-		</>
-	)
-}
+  const intl = useIntl();
+  return (
+    <>
+      <PageTitle breadcrumbs={[]}>
+        {intl.formatMessage({ id: "MENU.DASHBOARD" })}
+      </PageTitle>
+      <DashboardPage />
+    </>
+  );
+};
 
-export { DashboardWrapper }
+export { DashboardWrapper };
