@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 
 function RolePermissions() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [create, setCreate] = useState(true);
   const [read, setRead] = useState(true);
