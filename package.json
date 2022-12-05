@@ -108,6 +108,7 @@
     "styled-components": "^5.3.6",
     "sweetalert": "^2.1.2",
     "underscore": "^1.10.2",
+    "uuidv4": "^6.2.13",
     "victory": "^34.3.12",
     "xlsx": "^0.18.5",
     "xregexp": "^4.3.0",

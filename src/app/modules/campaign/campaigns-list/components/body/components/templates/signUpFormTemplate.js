@@ -3,20 +3,22 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TemplateImg from "../../../../../../../../_metronic/assets/images/background.jpg";
 import "../templates/style.css";
+import { v4 as uuid } from "uuid";
 
 function SignUpFormTemplate() {
-  const navigation = useNavigate()
+  const navigation = useNavigate();
+  const unique_id = "001";
   let heading = "Nature";
   let inputFieldName = "Enter Customized Placeholder";
-  let fontSize = "36px"
+  let fontSize = "36px";
 
   const [state, setState] = useState({
-    templateName:"",
+    templateName: "",
     headName: heading,
     namePlaceHolder: inputFieldName,
     emailPlaceHolder: inputFieldName,
+    fontSize: { fontSize },
     id: "",
-    fontSize: ""
   });
 
   const obj = {};
@@ -26,11 +28,13 @@ function SignUpFormTemplate() {
     obj.fieldUser = state?.namePlaceHolder;
     obj.fieldPassword = state?.emailPlaceHolder;
     obj.fontSize = state?.fontSize;
+    obj.uniqueId = unique_id;
+    obj.nameOfTemplate = state?.templateName;
 
     console.log(obj, "resspp");
 
     axios
-      .post("http://localhost:5377/templates", obj, {
+      .post("http://65.2.10.157:5377/templates", obj, {
         headers: {
           "content-type": "application/json",
           // Authorization: `Bearer ${token}`,
@@ -54,57 +58,66 @@ function SignUpFormTemplate() {
       >
         <div className="" style={{ textAlign: "center", width: "50%" }}>
           <div>
-            <p style={{ color: "#666666", fontSize: 14 }}>Name of the Template</p>
+            <p style={{ color: "#666666", fontSize: 14 }}>
+              Name of the Template
+            </p>
             <input
               type="text"
               className="form-control"
-              onChange={(e) => setState({ ...state, templateName: e.target.value })}
+              onChange={(e) =>
+                setState({ ...state, templateName: e.target.value })
+              }
             />
           </div>
-          <div className="d-flex flex-row mt-5" >
-            <div style={{marginRight:'10px'}}>
-            <p style={{ color: "#666666", fontSize: 12 }}>Heading</p>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) => setState({ ...state, headName: e.target.value })}
-            />
+          <div className="d-flex flex-row mt-5">
+            <div style={{ marginRight: "10px" }}>
+              <p style={{ color: "#666666", fontSize: 12 }}>Heading</p>
+              <input
+                type="text"
+                className="form-control"
+                onChange={(e) =>
+                  setState({ ...state, headName: e.target.value })
+                }
+              />
             </div>
             <div>
-            <p style={{ color: "#666666", fontSize: 12 }}>Font Size (ex: 12px, 14px )</p>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) => setState({ ...state, fontSize: e.target.value })}
-            />
+              <p style={{ color: "#666666", fontSize: 12 }}>
+                Font Size (ex: 12px, 14px )
+              </p>
+              <input
+                type="text"
+                className="form-control"
+                onChange={(e) =>
+                  setState({ ...state, fontSize: e.target.value })
+                }
+              />
             </div>
-           
           </div>
-          <div className="d-flex flex-row mt-5" >
-          <div style={{marginRight:'10px'}}>
-            <p style={{ color: "#666666", fontSize: "12px" }}>
-              Input Field Name
-            </p>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) =>
-                setState({ ...state, namePlaceHolder: e.target.value })
-              }
-            />
-          </div>
-          <div>
-            <p style={{ color: "#666666", fontSize: "12px" }}>
-              Input Field Email
-            </p>
-            <input
-              type="text"
-              className="form-control"
-              onChange={(e) =>
-                setState({ ...state, emailPlaceHolder: e.target.value })
-              }
-            />
-          </div>
+          <div className="d-flex flex-row mt-5">
+            <div style={{ marginRight: "10px" }}>
+              <p style={{ color: "#666666", fontSize: "12px" }}>
+                Input Field Name
+              </p>
+              <input
+                type="text"
+                className="form-control"
+                onChange={(e) =>
+                  setState({ ...state, namePlaceHolder: e.target.value })
+                }
+              />
+            </div>
+            <div>
+              <p style={{ color: "#666666", fontSize: "12px" }}>
+                Input Field Email
+              </p>
+              <input
+                type="text"
+                className="form-control"
+                onChange={(e) =>
+                  setState({ ...state, emailPlaceHolder: e.target.value })
+                }
+              />
+            </div>
           </div>
         </div>
         <div
@@ -123,7 +136,7 @@ function SignUpFormTemplate() {
                 color: "#FFFFFF",
                 textShadow: "2px 2px #666666",
                 fontSize: `${state?.fontSize}`,
-                height:'200px'
+                height: "200px",
               }}
             >
               {state.headName}
@@ -162,7 +175,13 @@ function SignUpFormTemplate() {
             </button>
             <button
               type="submit"
-              onClick={() => navigation("response")}
+              onClick={() =>
+                navigation("response", {
+                  state: {
+                    uniqueId: unique_id,
+                  },
+                })
+              }
               className="btn btn-info"
             >
               View Responses
@@ -170,7 +189,7 @@ function SignUpFormTemplate() {
           </div>
         </div>
       </div>
-      <div className="mt-10" style={{ textAlign: "center" }}>
+      <div className="mt-20" style={{ textAlign: "center" }}>
         {state.id ? (
           <>
             <h2>Generated URL</h2>

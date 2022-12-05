@@ -11,7 +11,7 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import ClearIcon from "@material-ui/icons/Clear";
 
-const options = [
+const options1 = [
   "Short answer",
   "Paragraph",
   "Multiple choice",
@@ -19,6 +19,142 @@ const options = [
   "Drop-down",
   "Date",
   "Time",
+];
+
+const Checkboxes = () => {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div>
+        <p>Short answer-text</p>
+        <hr style={{ marginTop: "-0.7rem", width: "200%" }} />
+      </div>
+    </div>
+  );
+};
+const Shortanswer = () => {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div>
+        <p>Short answer-text</p>
+        <hr style={{ marginTop: "-0.7rem", width: "200%" }} />
+      </div>
+    </div>
+  );
+};
+const Paragraph = () => {
+  return (
+    <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div>
+        <p>Long answer-text</p>
+        <hr style={{ marginTop: "-0.7rem", width: "200%" }} />
+      </div>
+    </div>
+  );
+};
+const MultipleChoice = () => {
+  const [optionFields, setOptionFields] = useState([
+    {
+      id: uuidv4(),
+      option: `Option 1 `,
+    },
+  ]);
+  const handleChangeInput1 = (id, event) => {
+    const newOptionFields = optionFields.map((i) => {
+      if (id === i.id) {
+        i[event.target.name] = event.target.value;
+      }
+      return i;
+    });
+
+    setOptionFields(newOptionFields);
+  };
+  console.log(optionFields,"DEF");
+  const handleAddOptionFields = () => {
+    setOptionFields([
+      ...optionFields,
+      {
+        id: uuidv4(),
+        option: `Option ${optionFields.length + 1} `,
+      },
+    ]);
+  };
+  const handleRemoveOptionFields = (id) => {
+    const values = [...optionFields];
+    values.splice(
+      values.findIndex((value) => value.id === id),
+      1
+    );
+    setOptionFields(values);
+  };
+
+  return (
+    <>
+      {optionFields.map((optionField) => (
+        <div>
+          <div style={{ display: "flex" }}>
+            <RadioButtonUncheckedIcon />
+            <input
+              name="option"
+              type="text"
+              value={optionField.option}
+              onChange={(event) => handleChangeInput1(optionField.id, event)}
+              style={{
+                borderTopStyle: "hidden",
+                borderRightStyle: "hidden",
+                borderLeftStyle: "hidden",
+                borderBottomStyle: "groove",
+                width: "100%",
+                fontSize: "1rem",
+                outline: "none",
+                marginBottom: "1rem",
+              }}
+            />
+            <IconButton
+              disabled={optionFields.length === 1}
+              onClick={() => handleRemoveOptionFields(optionFields.id)}
+            >
+              <ClearIcon />
+            </IconButton>
+          </div>
+        </div>
+      ))}
+      <div onClick={handleAddOptionFields} style={{ display: "flex" }}>
+        <RadioButtonUncheckedIcon />
+        <p>Add Option</p>
+      </div>
+    </>
+  );
+};
+
+const options = [
+  {
+    buttonName: "Short answer",
+    inputType: <Shortanswer />,
+  },
+  {
+    buttonName: "Paragraph",
+    inputType: <Paragraph />,
+  },
+  {
+    buttonName: "Multiple choice",
+    inputType: <MultipleChoice />,
+  },
+  {
+    buttonName: "Checkboxes",
+    inputType: <Checkboxes/>,
+  },
+  {
+    buttonName: "Drop-down",
+    inputType: <h1>Drop-down</h1>,
+  },
+  {
+    buttonName: "Date",
+    inputType: <h1>Date</h1>,
+  },
+  // {
+  //   buttonName: "Time",
+  //   inputType: <h1>Time</h1>,
+  // },
 ];
 
 const ITEM_HEIGHT = 48;
@@ -42,48 +178,43 @@ function FormBuilder() {
     formDescription: "Form description",
   });
   const [flag, setFlag] = useState(false);
-  const [optionFields, setOptionFields] = useState([
-    {
-      id: uuidv4(),
-      option: `Option 1 `,
-    },
-  ]);
+
   const [inputFields, setInputFields] = useState([
     {
       id: uuidv4(),
       question: "Untitled question",
+      buttonName: "Short answer",
+      inputType: <Shortanswer />,
     },
   ]);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [buttonText, setButtonText] = useState(options[0]);
-  // const[index1,setIndex1]=useState(null)
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const [buttontexts, setButtonTexts] = useState([
-    {
-      name: "Short text",
-    },
-  ]);
-  const handleClose = (index) => {
+  const handleClose = (id, index) => {
+    const newButtonName = inputFields.map((i) => {
+      if (id === i.id) {
+        i.buttonName = options[index].buttonName;
+        i.inputType = options[index].inputType;
+      }
+      return i;
+    });
     setAnchorEl(null);
-    setButtonText(options[index]);
-    setButtonTexts([...buttontexts, { name: options[index] }]);
+    setInputFields(newButtonName);
   };
-console.log(buttontexts,"buttontexts");
+
+  console.log(inputFields, "buttontexts");
   const handleSubmit = (e) => {
     e.preventDefault();
     setFlag(true);
     const data = [...inputFields, formDetails];
-    console.log(data, optionFields, "InputFields");
+    console.log(inputFields, "InputFields");
   };
 
   const handleChange = (e) => {
     setFormDetails({ ...formDetails, [e.target.name]: e.target.value });
   };
-  console.log(formDetails, "abc");
   const handleChangeInput = (id, event) => {
     const newInputFields = inputFields.map((i) => {
       if (id === i.id) {
@@ -94,38 +225,17 @@ console.log(buttontexts,"buttontexts");
 
     setInputFields(newInputFields);
   };
-  const handleChangeInput1 = (id, event) => {
-    const newOptionFields = optionFields.map((i) => {
-      if (id === i.id) {
-        i[event.target.name] = event.target.value;
-      }
-      return i;
-    });
 
-    setOptionFields(newOptionFields);
-  };
   const handleAddFields = () => {
-    return setInputFields([
+    setInputFields([
       ...inputFields,
       {
         id: uuidv4(),
         question: "Untitled question",
+        buttonName: "Short answer",
+        inputType: <Shortanswer />,
       },
     ]);
-  };
-
-  const handleAddOptionFields = () => {
-    let optionCount = 2;
-    return (
-      setOptionFields([
-        ...optionFields,
-        {
-          id: uuidv4(),
-          option: `Option ${optionFields.length + 1} `,
-        },
-      ]),
-      (optionCount = optionCount + 1)
-    );
   };
 
   const handleRemoveFields = (id) => {
@@ -136,15 +246,7 @@ console.log(buttontexts,"buttontexts");
     );
     setInputFields(values);
   };
-  const handleRemoveOptionFields = (id) => {
-    const values = [...optionFields];
-    values.splice(
-      values.findIndex((value) => value.id === id),
-      1
-    );
-    setOptionFields(values);
-  };
-  console.log(buttonText, "SAD");
+
   return (
     <>
       <form
@@ -189,7 +291,6 @@ console.log(buttontexts,"buttontexts");
               borderRightStyle: "hidden",
               borderLeftStyle: "hidden",
               borderBottomStyle: "groove",
-
               width: "100%",
               outline: "none",
             }}
@@ -207,7 +308,7 @@ console.log(buttontexts,"buttontexts");
               }}
             >
               <div
-                key={inputField.id}
+                // key={inputField.id}
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
@@ -229,14 +330,16 @@ console.log(buttontexts,"buttontexts");
                     marginBottom: "2rem",
                   }}
                 />
+
                 <Button
                   variant="outlined"
                   endIcon={<ArrowDropDownIcon />}
                   onClick={handleClick}
                   style={{ height: "40px", width: "200px" }}
                 >
-                  {buttonText}
+                  {inputField.buttonName}
                 </Button>
+
                 <div>
                   <div>
                     <Menu
@@ -256,90 +359,20 @@ console.log(buttontexts,"buttontexts");
                       {options.map((option, index) => (
                         <MenuItem
                           style={{ padding: "1rem" }}
-                          key={option}
+                          // key={inputField.id}
                           selected={option === "Pyxis"}
                           onClick={() => {
-                            handleClose(index);
+                            handleClose(inputField.id, index);
                           }}
                         >
-                          {option}
+                          {option.buttonName}
                         </MenuItem>
                       ))}
                     </Menu>
                   </div>
                 </div>
               </div>
-              <div>
-                {buttonText === "Multiple choice" ? (
-                  <>
-                    {optionFields.map((optionField) => (
-                      <div>
-                        <div style={{ display: "flex" }}>
-                          <RadioButtonUncheckedIcon />
-                          <input
-                            name="option"
-                            type="text"
-                            value={optionField.option}
-                            onChange={(event) =>
-                              handleChangeInput1(optionField.id, event)
-                            }
-                            style={{
-                              borderTopStyle: "hidden",
-                              borderRightStyle: "hidden",
-                              borderLeftStyle: "hidden",
-                              borderBottomStyle: "groove",
-                              width: "100%",
-                              fontSize: "1rem",
-                              outline: "none",
-                              marginBottom: "1rem",
-                            }}
-                          />
-                          <IconButton
-                            disabled={optionFields.length === 1}
-                            onClick={() =>
-                              handleRemoveOptionFields(optionFields.id)
-                            }
-                          >
-                            <ClearIcon />
-                          </IconButton>
-                        </div>
-                      </div>
-                    ))}
-                    <div
-                      onClick={handleAddOptionFields}
-                      style={{ display: "flex" }}
-                    >
-                      {/* <RadioButtonUncheckedIcon /> */}
-                      <p>Add Option</p>
-                    </div>
-                  </>
-                ) : null}
-                {buttonText === "Short answer" ? (
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <div>
-                      <p>Short answer-text</p>
-                      <hr style={{ marginTop: "-0.7rem", width: "200%" }} />
-                    </div>
-                  </div>
-                ) : null}
-                {buttonText === "Paragraph" ? (
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <div>
-                      <p>Long answer-text</p>
-                      <hr style={{ marginTop: "-0.7rem", width: "400%" }} />
-                    </div>
-                  </div>
-                ) : null}
-                {buttonText === "Date" ? (
-                  <div>
-                    <input type="date" value="2017-06-01" />
-                  </div>
-                ) : null}
-              </div>
+              <div key={inputField.id}>{inputField.inputType}</div>
               <IconButton
                 disabled={inputFields.length === 1}
                 onClick={() => handleRemoveFields(inputField.id)}

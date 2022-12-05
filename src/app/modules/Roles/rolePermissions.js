@@ -17,11 +17,11 @@ import { useNavigate } from "react-router-dom";
 
 function RolePermissions() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [create, setCreate] = useState(false);
-  const [read, setRead] = useState(false);
-  const [update, setUpdate] = useState(false);
-  const [dlt, setDlt] = useState(false);
+
+  const [create, setCreate] = useState(true);
+  const [read, setRead] = useState(true);
+  const [update, setUpdate] = useState(true);
+  const [dlt, setDlt] = useState(true);
 
   const UserById = useSelector((state) => state?.Roles?.UserById);
   const user = useSelector((state) => state?.auth?.user);
@@ -110,7 +110,7 @@ function RolePermissions() {
   }
 
   return (
-    <div style={{ padding: 30, borderRadius: 8, backgroundColor: "#fff" }}>
+    <div style={{background: "#FFFFFF", padding: "3%", borderRadius:'15px' }}>
       <h1>Role Permissions</h1>
       <div className="d-flex flex-row mt-10">
         <select
@@ -124,6 +124,7 @@ function RolePermissions() {
             marginRight: "20px",
             outline: "none",
             paddingInline: "10px",
+            // background:'#e9ecef'
           }}
         >
           <option value={""} disabled selected>

@@ -18,7 +18,7 @@ function SavedTemplate() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5377/templates/${params?.id}`)
+      .get(`http://65.2.10.157:5377/templates/${params?.id}`)
       .then((res) => {
         setState(res.data);
       })
@@ -31,11 +31,13 @@ function SavedTemplate() {
     (obj.responseField1 = inkokaState.user),
       (obj.responseField2 = inkokaState.email);
       (obj.responserName = inkokaState.name);
+      (obj.template = params?.id)
 
     axios
-      .put(`http://localhost:5377/templates/${params?.id}`, obj)
+      .post(`http://65.2.10.157:5377/template-responses`, obj)
       .then((res) => {
        console.log(res)
+       alert("Submitted successfully")
       })
       .catch((error) => console.log(error));
   }
