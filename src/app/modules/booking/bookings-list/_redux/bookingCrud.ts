@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY3MzMyOTc2MywiZXhwIjoxNjc1OTIxNzYzfQ.tA73R-aSHWjRX-swCMdsJm1uoyG4uS-vqFwWA1bePlA"
 export const healthpackage = "health-packages";
 export const healthscan = "healthscans";
 export const branchwisetest = "branchwisetests";
@@ -18,45 +18,45 @@ export function getAllBooking() {
   });
 }
 //HealthPackageByBranch
-export function getHealthPackageByBranch(id:any) {
-  return axios.get(`http://43.205.49.41:5377/health-packages?branches.id=${id}`,{
+export function getHealthPackageByBranch(id: any) {
+  return axios.get(`http://43.205.49.41:5377/health-packages?branches.id=${id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   }
   );
 }
 //HealthScanByBranch
-export function getHealthScanByBranch(id:any) {
-  return axios.get(`http://43.205.49.41:5377/healthscans?branches.id=${id}`,{
+export function getHealthScanByBranch(id: any) {
+  return axios.get(`http://43.205.49.41:5377/healthscans?branches.id=${id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 //BranchwisetestByBranch
-export function getBranchwisetestByBranch(id:any) {
-  return axios.get(`http://43.205.49.41:5377/branchwisetests?branch=${id}`,{
+export function getBranchwisetestByBranch(id: any) {
+  return axios.get(`http://43.205.49.41:5377/branchwisetests?branch=${id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 //Doctor
 export function getAllDoctor() {
-  return axios.get("http://43.205.49.41:5377/doctors",{
+  return axios.get("http://43.205.49.41:5377/doctors", {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 //city
 export function getAllCity() {
-  return axios.get("http://43.205.49.41:5377/cities",{
+  return axios.get("http://43.205.49.41:5377/cities", {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 //BranchAddressesByCityId
-export function getBranchAddressesByCityId(id:any) {
-  return axios.get(`http://43.205.49.41:5377/branches?city=${id}`,{
+export function getBranchAddressesByCityId(id: any) {
+  return axios.get(`http://43.205.49.41:5377/branches?city=${id}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 //patients
 export function getAllPatient() {
-  return axios.get("http://43.205.49.41:5377/patients",{
+  return axios.get("http://43.205.49.41:5377/patients", {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
