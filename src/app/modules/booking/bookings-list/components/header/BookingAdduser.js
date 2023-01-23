@@ -19,6 +19,7 @@ import {
   Updatebooking,
 } from "../../_redux/bookingAction";
 import axios from "axios";
+import { masterToken } from "../../_redux/bookingCrud";
 // import { any } from "prop-types";
 
 export default function BookingAdduser() {
@@ -56,26 +57,24 @@ export default function BookingAdduser() {
   }
   const newdate = new Date();
   newdate?.setDate(newdate?.getDate() + 9);
-  // const user = useSelector((state: any) => state?.auth?.user);
+  // const user = useSelector((state) => state?.auth?.user);
   // const token = useSelector((state: any) => state?.auth?.authToken);
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzMGYwY2ViYmNhZmFkMTBkNjc2MjU5NiIsImlhdCI6MTY2NTQwMTE1OCwiZXhwIjoxNjY3OTkzMTU4fQ.F2z1tVzyk97WvI2Ee6cfqfyRiV8D4aO9UNoh7W_sVw0";
-  const doctor = useSelector((state: any) => state?.booking?.doctors);
-  const city = useSelector((state: any) => state?.booking?.city);
+  const doctor = useSelector((state) => state?.booking?.doctors);
+  const city = useSelector((state) => state?.booking?.city);
   const branch = useSelector(
-    (state: any) => state?.booking?.BranchAddressesByCityId
+    (state) => state?.booking?.BranchAddressesByCityId
   );
-  const PatientData = useSelector((state: any) => state?.booking?.patient);
+  const PatientData = useSelector((state) => state?.booking?.patient);
   const branchwisetest = useSelector(
-    (state: any) => state?.booking?.branchwisetestsByBranch
+    (state) => state?.booking?.branchwisetestsByBranch
   );
   const healthPackage = useSelector(
-    (state: any) => state?.booking?.packagesByBranch
+    (state) => state?.booking?.packagesByBranch
   );
   const healthScan = useSelector(
-    (state: any) => state?.booking?.healthscanBybranch
+    (state) => state?.booking?.healthscanBybranch
   );
-  const bookingById = useSelector((state: any) => state?.booking?.BookingById);
+  const bookingById = useSelector((state) => state?.booking?.BookingById);
   useEffect(() => {
     console.log("i was called");
 
@@ -86,9 +85,9 @@ export default function BookingAdduser() {
 
   // console.log(PatientData, "healthScan");
   const totalAmount = [
-    ...healthPackages?.map((item: any) => Number(item?.price)),
-    ...healthScans?.map((item: any) => Number(item?.price)),
-    ...branchwisetests?.map((item: any) => Number(item?.price)),
+    ...healthPackages?.map((item) => Number(item?.price)),
+    ...healthScans?.map((item) => Number(item?.price)),
+    ...branchwisetests?.map((item) => Number(item?.price)),
   ]
     .reduce((a, b) => a + b, 0)
     .toString();
@@ -122,31 +121,31 @@ export default function BookingAdduser() {
   const FindPatient =
     PatientData?.length > 0 &&
     PatientData?.filter(
-      (item: any) => item?.mobileNumber === data.mobileNumber
+      (item) => item?.mobileNumber === data.mobileNumber
     );
-  const handleChange = (e: any) => {
+  const handleChange = (e) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
-      branchwisetests: branchwisetests,
-      healthPackages: healthPackages,
-      healthScans: healthScans,
+      branchwisetests: branchwisetests?.length > 0 ? branchwisetests : null,
+      healthPackages: healthPackages?.length > 0 ? healthPackages : null,
+      healthScans: healthScans?.length > 0 ? healthScans : null,
       totalAmount: totalAmount,
-      dateOfAppointment: startDate,
+      dateOfAppointment: startDate.toLocaleString(),
       user: userID[0],
       patient: patient,
     });
   };
   const FindPatientDetails = () => {
-    type Patientdetails = {
-      gender?: string;
-      patientName?: string;
-      user?: string;
-      mobileNumber?: string;
-      city?: string;
-      branch?: string;
-    };
-    const obj: Patientdetails = {};
+    // type Patientdetails = {
+    //   gender?: string;
+    //   patientName?: string;
+    //   user?: string;
+    //   mobileNumber?: string;
+    //   city?: string;
+    //   branch?: string;
+    // };
+    const obj = {};
     obj.gender = data.gender;
     obj.patientName = data.fullName;
     obj.user = userID[0];
@@ -155,18 +154,17 @@ export default function BookingAdduser() {
     obj.branch = data.branch;
 
     if (FindPatient.length === 0 && data.mobileNumber.length === 10) {
-      axios
-        .post("http://43.205.49.41:5377/patients", obj, {
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
+      axios.post("http://43.205.49.41:5377/patients", obj, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${masterToken}`,
+        },
+      })
         .then(({ data }) => {
           console.log(data, "data");
           handleSubmit(data);
         })
-        .catch(() => {});
+        .catch(() => { });
     } else {
       if (data.mobileNumber.length === 10) {
         handleSubmit(FindPatient[0]);
@@ -176,7 +174,7 @@ export default function BookingAdduser() {
 
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getbookingsById(id, token));
+    dispatch(getbookingsById(id, masterToken));
     setBooking(true);
   }, [bookingById?.id]);
   useEffect(() => {
@@ -215,22 +213,22 @@ export default function BookingAdduser() {
     });
     setBooking(false);
   }, [booking]);
-  const handleSubmit = (i: any) => {
+  const handleSubmit = (i) => {
     if (id !== null) {
-      dispatch(Updatebooking(id, data, token));
+      dispatch(Updatebooking(id, data, masterToken));
     } else {
       const AppointData = { ...data, patient: i };
-      axios
-        .post("http://43.205.49.41:5377/appointments", AppointData, {
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        })
+      axios.post("http://43.205.49.41:5377/appointments", AppointData, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${masterToken}`,
+        },
+      })
         .then(({ data }) => {
           console.log(data, "data");
         })
-        .catch(() => {});
+        .catch(() => { });
+      console.log(AppointData, "AppointData");
     }
 
     setData({
@@ -272,7 +270,7 @@ export default function BookingAdduser() {
           },
           headers: {
             "content-type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${masterToken}`,
           },
         })
         .then((response) => {
@@ -286,7 +284,7 @@ export default function BookingAdduser() {
                   {
                     headers: {
                       "content-type": "application/json",
-                      Authorization: `Bearer ${token}`,
+                      Authorization: `Bearer ${masterToken}`,
                     },
                   }
                 )
@@ -301,7 +299,7 @@ export default function BookingAdduser() {
                   console.log("llkkk--------------------", data);
                   setUserID(data);
                 })
-                .catch(() => {});
+                .catch(() => { });
           } else {
             data.mobileNumber.length === 10 &&
               axios
@@ -316,7 +314,7 @@ export default function BookingAdduser() {
                   {
                     headers: {
                       "content-type": "application/json",
-                      Authorization: `Bearer ${token}`,
+                      Authorization: `Bearer ${masterToken}`,
                     },
                   }
                 )
@@ -331,10 +329,10 @@ export default function BookingAdduser() {
                   console.log("llkkk--------------------", data);
                   setUserID(data?.user);
                 })
-                .catch(() => {});
+                .catch(() => { });
           }
         })
-        .catch(() => {});
+        .catch(() => { });
   };
 
   useEffect(() => {
@@ -385,7 +383,7 @@ export default function BookingAdduser() {
                     <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
-                          <h2>Booking Details</h2>
+                          <h2>Patient Details</h2>
                         </div>
                       </div>
 
@@ -458,9 +456,9 @@ export default function BookingAdduser() {
                                 <option value="others">others</option>
                               </select>
                             </div>
-                            
+
                           </div>
-                          
+
                         </div>
                       </div>
                     </div>
@@ -475,9 +473,9 @@ export default function BookingAdduser() {
 
                       <div className="card-body pt-0">
                         <div className="form">
-                          
+
                           <div className="form-group row my-8">
-                            
+
                             <div className="col-lg-5">
                               {/* <label>Type</label> */}
                               <select
@@ -518,7 +516,7 @@ export default function BookingAdduser() {
                                     Select Doctor
                                   </option>
                                   <option></option>
-                                  {doctor?.map((item: any) => (
+                                  {doctor?.map((item) => (
                                     <option value={item?.id}>
                                       {item?.name}
                                     </option>
@@ -542,7 +540,7 @@ export default function BookingAdduser() {
                             )}
                           </div>
                           <div className="form-group row my-8">
-                            
+
                             <div className="col-lg-5">
                               {/* <label>Address:</label> */}
                               <input
@@ -568,7 +566,7 @@ export default function BookingAdduser() {
                                 <option value="" disabled selected>
                                   Select City
                                 </option>
-                                {city?.map((item: any) => (
+                                {city?.map((item) => (
                                   <option value={item?.id}>{item?.name}</option>
                                 ))}
                               </select>
@@ -596,7 +594,7 @@ export default function BookingAdduser() {
                             </div> */}
                           {/* </div> */}
                           <div className="form-group row my-8">
-                            
+
                             <div className="col-lg-5">
                               {/* <label>Branch:</label> */}
                               <select
@@ -611,7 +609,7 @@ export default function BookingAdduser() {
                                 <option disabled selected>
                                   Select Branch
                                 </option>
-                                {branch?.map((item: any) => (
+                                {branch?.map((item) => (
                                   <option value={item?.id}>{item?.name}</option>
                                 ))}
                               </select>
@@ -637,10 +635,10 @@ export default function BookingAdduser() {
                                       multiple
                                       id="controllable-states-demo"
                                       options={branchwisetest}
-                                      getOptionLabel={(option: any) =>
+                                      getOptionLabel={(option) =>
                                         option?.test?.testName
                                       }
-                                      onChange={(_event, newTeam: any) => {
+                                      onChange={(_event, newTeam) => {
                                         setBranchwisetests(newTeam);
                                       }}
                                       value={branchwisetests}
@@ -660,10 +658,10 @@ export default function BookingAdduser() {
                                       multiple
                                       id="controllable-states-demo"
                                       options={healthPackage}
-                                      getOptionLabel={(option: any) =>
+                                      getOptionLabel={(option) =>
                                         option?.title
                                       }
-                                      onChange={(_event, newTeam: any) => {
+                                      onChange={(_event, newTeam) => {
                                         setHealthPackages(newTeam);
                                       }}
                                       value={healthPackages}
@@ -685,10 +683,10 @@ export default function BookingAdduser() {
                                       multiple
                                       id="controllable-states-demo"
                                       options={healthScan}
-                                      getOptionLabel={(option: any) =>
+                                      getOptionLabel={(option) =>
                                         option?.title
                                       }
-                                      onChange={(_event, newTeam: any) => {
+                                      onChange={(_event, newTeam) => {
                                         setHealthScans(newTeam);
                                       }}
                                       value={healthScans}
@@ -707,14 +705,14 @@ export default function BookingAdduser() {
                           )}
 
                           <div className="form-group row my-8">
-                            
+
                             <div className="col-lg-5">
                               {/* <label>Select the date of Appointment</label> */}
                               <div style={{ width: "100%", height: "100%" }}>
                                 <DatePicker
                                   showTimeSelect
                                   selected={startDate}
-                                  onChange={(date: any) => setStartDate(date)}
+                                  onChange={(date) => setStartDate(date)}
                                   minDate={new Date()}
                                   maxDate={newdate}
                                   minTime={
@@ -744,7 +742,7 @@ export default function BookingAdduser() {
                               </div>
                             </div>
                           </div>
-                          
+
                         </div>
                       </div>
                     </div>
@@ -753,13 +751,13 @@ export default function BookingAdduser() {
                     <div className="card card-flush py-4">
                       <div className="card-header">
                         <div className="card-title">
-                          <h2>Booking Details</h2>
+                          <h2>Payment Details</h2>
                         </div>
                       </div>
 
                       <div className="card-body pt-0">
                         <div className="form">
-                          
+
                           <div className="form-group row my-8">
                             <div className="col-lg-5">
                               {/* <label>paymentMode</label> */}
