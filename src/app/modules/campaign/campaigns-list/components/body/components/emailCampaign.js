@@ -39,7 +39,7 @@ function EmailCampaign() {
     message: "",
     from: "",
     to: "",
-    topic: ""
+    topic: "",
   });
 
   const obj = {};
@@ -51,24 +51,23 @@ function EmailCampaign() {
 
     console.log(obj, "obj");
     axios
-      .post("http://65.2.10.157:5377/users-permissions/send", obj, {
+      .post("http://103.195.244.172:4377/users-permissions/send", obj, {
         headers: {
           "content-type": "application/json",
           // Authorization: `Bearer ${token}`,
         },
       })
       .then((response) => {
-        (console.log(response, "responseafterpost"))
-        setEmail({ ...email, subject: "" })
-        setEmail({ ...email, to: "" })
-        setEmail({ ...email, message: "" })
-        setEmail({ ...email, from: "" })
-        setAccord({ ...accord, subject: false })
-        setAccord({ ...accord, sender: false })
-        setAccord({ ...accord, recipient: false })
+        console.log(response, "responseafterpost");
+        setEmail({ ...email, subject: "" });
+        setEmail({ ...email, to: "" });
+        setEmail({ ...email, message: "" });
+        setEmail({ ...email, from: "" });
+        setAccord({ ...accord, subject: false });
+        setAccord({ ...accord, sender: false });
+        setAccord({ ...accord, recipient: false });
       })
-      .catch(() => {
-      })
+      .catch(() => {});
   }
 
   console.log(enteredTitle, "title");

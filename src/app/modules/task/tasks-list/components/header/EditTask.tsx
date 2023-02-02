@@ -2,7 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateTask, gettaskcompanies, gettaskcontact, gettaskStatus, gettasksById, UpdateTask } from "../../_redux/taskAction";
+import {
+  CreateTask,
+  gettaskcompanies,
+  gettaskcontact,
+  gettaskStatus,
+  gettasksById,
+  UpdateTask,
+} from "../../_redux/taskAction";
 // import {
 //   CreateDeal,
 //   getcampaigns,
@@ -15,7 +22,7 @@ export default function EditTask() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const id: any = location?.state
+  const id: any = location?.state;
   console.log(id, "dealid");
 
   const [task, setTask] = useState(false);
@@ -33,7 +40,6 @@ export default function EditTask() {
     dispatch(gettaskcompanies(token));
     dispatch(gettaskStatus(token));
     dispatch(gettaskcontact(token));
-
   }, []);
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
@@ -59,9 +65,9 @@ export default function EditTask() {
 
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(gettasksById(id?.id, token))
+    dispatch(gettasksById(id?.id, token));
     setTask(true);
-  }, [taskById?.id])
+  }, [taskById?.id]);
   useEffect(() => {
     if (!selectedPreviewFile) {
       setPreview(undefined);
@@ -91,14 +97,17 @@ export default function EditTask() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
-        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      .post("http://103.195.244.172:4377/upload/", formdata, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(({ data }) => {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -115,17 +124,15 @@ export default function EditTask() {
       taskOwner: user?.id,
       image: taskById?.image,
       description: taskById?.description,
-    })
+    });
     setTask(false);
-  }, [task])
-
+  }, [task]);
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
     if (id !== null) {
       dispatch(UpdateTask(data, id?.id, token));
-    }
-    else {
+    } else {
       dispatch(CreateTask(data, token));
     }
     setData({
@@ -142,17 +149,13 @@ export default function EditTask() {
       description: "",
       image: [],
     });
-    navigation('/tasks/tasks')
+    navigation("/tasks/tasks");
   };
   return (
     <>
-      <div
-        className="content d-flex flex-column flex-column-fluid"
-      >
+      <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
-          <div
-            className="form d-flex flex-column flex-lg-row"
-          >
+          <div className="form d-flex flex-column flex-lg-row">
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
               <div className="card card-flush py-4">
                 {/*begin::Card header*/}
@@ -170,9 +173,7 @@ export default function EditTask() {
                   {/*begin::Image input placeholder*/}
                   {/* <style>.image-input-placeholder [data-th</style> */}
                   {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                  >
+                  <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
                     {selectedPreviewFile ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
@@ -195,9 +196,8 @@ export default function EditTask() {
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) : (
-
-                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                    ) : data?.image?.length > 0 ? (
+                      <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                           // data-kt-image-input-action="change"
@@ -236,42 +236,40 @@ export default function EditTask() {
                           />
                           {/*end::Inputs*/}
                         </label>
-                      </div>) : (
-                        <>
-                          <div
-                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                          >
-                            <div className="image-input-wrapper w-150px h-150px">
-                              <label
-                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="change"
-                                data-bs-toggle="tooltip"
-                                title="Change avatar"
-                              >
-                                <i className="bi bi-pencil-fill fs-7"></i>
-                                {/*begin::Inputs*/}
-                                <input
-                                  type="file"
-                                  multiple
-                                  // name="avatar"
-                                  accept=".png, .jpg, .jpeg"
-                                  onChange={(event: any) => {
-                                    handleUploadImage(event.currentTarget.files[0]);
-                                  }}
-                                />
-                                {/*end::Inputs*/}
-                              </label>
-                            </div>
-
+                      </div>
+                    ) : (
+                      <>
+                        <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
+                          <div className="image-input-wrapper w-150px h-150px">
+                            <label
+                              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="change"
+                              data-bs-toggle="tooltip"
+                              title="Change avatar"
+                            >
+                              <i className="bi bi-pencil-fill fs-7"></i>
+                              {/*begin::Inputs*/}
+                              <input
+                                type="file"
+                                multiple
+                                // name="avatar"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={(event: any) => {
+                                  handleUploadImage(
+                                    event.currentTarget.files[0]
+                                  );
+                                }}
+                              />
+                              {/*end::Inputs*/}
+                            </label>
                           </div>
-                          <div className="text-muted fs-7">
-                            Set the product thumbnail image. Only *.png, *.jpg and
-                            *.jpeg image files are accepted
-                          </div>
-                        </>
-                      )
-                    )
-                    }
+                        </div>
+                        <div className="text-muted fs-7">
+                          Set the product thumbnail image. Only *.png, *.jpg and
+                          *.jpeg image files are accepted
+                        </div>
+                      </>
+                    )}
                   </div>
                   {/*end::Image input*/}
                 </div>
@@ -365,13 +363,10 @@ export default function EditTask() {
                     />
                   </div>
                 </div>
-
               </div>
-
             </div>
 
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-
               <div className="tab-content">
                 <div className="tab-pane fade show active" role="tab-panel">
                   <div className="d-flex flex-column gap-7 gap-lg-10">
@@ -392,8 +387,8 @@ export default function EditTask() {
                                 value={data.subject}
                                 onChange={handleChange}
                                 name="subject"
-                                className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
-                                placeholder='Subject'
+                                className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                placeholder="Subject"
                               />
                             </div>
                             <div className="col-lg-6">
@@ -403,14 +398,13 @@ export default function EditTask() {
                                 value={data.taskDueDate}
                                 onChange={handleChange}
                                 name="taskDueDate"
-                                className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
-                                placeholder='Task DueDate:'
+                                className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                placeholder="Task DueDate:"
                               />
                             </div>
                           </div>
 
                           <div className="form-group row mb-2">
-
                             <div className="col-lg-6">
                               {/* <label>Task Repeat:</label> */}
                               <select
@@ -422,9 +416,7 @@ export default function EditTask() {
                                 onChange={handleChange}
                                 name="taskRepeat"
                               >
-                                <option >
-                                  --Select Task Repeat:--
-                                </option>
+                                <option>--Select Task Repeat:--</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
                               </select>
@@ -441,9 +433,7 @@ export default function EditTask() {
                                 onChange={handleChange}
                                 name="taskRemainder"
                               >
-                                <option >
-                                  --Select Task Remainder:--
-                                </option>
+                                <option>--Select Task Remainder:--</option>
                                 <option value="true">Yes</option>
                                 <option value="false">No</option>
                               </select>
@@ -462,37 +452,29 @@ export default function EditTask() {
                                 onChange={handleChange}
                                 name="taskPriority"
                               >
-                                <option >
-                                  --Select Task Priority:--
-                                </option>
+                                <option>--Select Task Priority:--</option>
                                 <option value="High">High</option>
                                 <option value="Medium">Medium</option>
                                 <option value="Low">Low</option>
                               </select>
                             </div>
-
                           </div>
                           <div className="form-group row mb-2">
                             <div className="col-lg-12">
                               {/* <label>Task Description:</label> */}
                               <textarea
                                 // type="text"
-                                value={
-                                  data.taskDescription
-                                }
+                                value={data.taskDescription}
                                 onChange={handleChange}
                                 name="taskDescription"
-                                className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
+                                className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                                 placeholder="Enter CompanyName"
                               />
                             </div>
-
                           </div>
-
                         </form>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
@@ -500,7 +482,7 @@ export default function EditTask() {
                 <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation('/tasks/tasks')
+                    navigation("/tasks/tasks");
                   }}
                 >
                   Back

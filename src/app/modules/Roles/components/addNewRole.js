@@ -42,7 +42,7 @@ function AddNewRole() {
 
   useEffect(() => {
     // axios
-    //   .get("http://65.2.10.157:5377/companies", {
+    //   .get("http://103.195.244.172:4377/companies", {
     //     headers: {
     //       "content-type": "application/json",
     //       Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ function AddNewRole() {
     obj.company = companyName;
 
     axios
-      .post("http://65.2.10.157:5377/crmroles", obj, {
+      .post("http://103.195.244.172:4377/crmroles", obj, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -91,11 +91,11 @@ function AddNewRole() {
     navigate(-1);
   }
 
-  console.log(roleName, companyName);
-  console.log(rolePermissions, "rolePermissions", crmRoles, "crmRoles");
-  console.log(UserById, "UserById");
-  console.log(companies, "companies");
-  console.log(user, "user");
+  // console.log(roleName, companyName);
+  // console.log(rolePermissions, "rolePermissions", crmRoles, "crmRoles");
+  // console.log(UserById, "UserById");
+  // console.log(companies, "companies");
+  // console.log(user, "user");
 
   return (
     <div>
@@ -166,7 +166,15 @@ function AddNewRole() {
         <button
           type="submit"
           className="btn btn-primary"
-          onClick={handleSubmit}
+          onClick={() => {
+            if (roleName !== "" && companyName !== "") {
+              handleSubmit();
+            } else if (roleName === "") {
+              alert("Enter a Role Name");
+            } else if (companyName === "") {
+              alert("Select Company");
+            }
+          }}
         >
           Submit
         </button>

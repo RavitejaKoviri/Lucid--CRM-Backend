@@ -4,41 +4,34 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CreateLead, getcampaigns, getcompanies, getLeadsById, getleadStatuses, getsource, Loading, UpdateLead } from "../../_redux/leadAction";
+import {
+  CreateLead,
+  getcampaigns,
+  getcompanies,
+  getLeadsById,
+  getleadStatuses,
+  getsource,
+  Loading,
+  UpdateLead,
+} from "../../_redux/leadAction";
 
 export default function EditLead() {
   const location = useLocation();
   const [lead, setLead] = useState(false);
-  const id = location?.state
+  const id = location?.state;
 
-
-  console.log("location")
+  console.log("location");
   const navigation = useNavigate();
   const dispatch = useDispatch();
-  const token = useSelector(
-    (state: any) => state?.auth?.authToken
-  );
-  const user = useSelector(
-    (state: any) => state?.auth?.user
-  );
-  const source = useSelector(
-    (state: any) => state?.LeadData?.Source
-  );
-  const campaign = useSelector(
-    (state: any) => state?.LeadData?.campaigns
-  );
-  const company = useSelector(
-    (state: any) => state?.LeadData?.Comapnies
-  );
-  const status = useSelector(
-    (state: any) => state?.LeadData?.leadStatus
-  );
-  const leadById = useSelector(
-    (state: any) => state?.LeadData?.LeadsById
-  );
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const user = useSelector((state: any) => state?.auth?.user);
+  const source = useSelector((state: any) => state?.LeadData?.Source);
+  const campaign = useSelector((state: any) => state?.LeadData?.campaigns);
+  const company = useSelector((state: any) => state?.LeadData?.Comapnies);
+  const status = useSelector((state: any) => state?.LeadData?.leadStatus);
+  const leadById = useSelector((state: any) => state?.LeadData?.LeadsById);
   console.log(leadById, "leadById");
   console.log(leadById?.id, "leadById1");
-
 
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
@@ -72,27 +65,30 @@ export default function EditLead() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
-        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      .post("http://103.195.244.172:4377/upload/", formdata, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(({ data }) => {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   useEffect(() => {
-    dispatch(getsource(token))
-    dispatch(getcampaigns(token))
-    dispatch(getcompanies(token))
-    dispatch(getleadStatuses(token))
-  }, [])
+    dispatch(getsource(token));
+    dispatch(getcampaigns(token));
+    dispatch(getcompanies(token));
+    dispatch(getleadStatuses(token));
+  }, []);
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getLeadsById(id, token))
+    dispatch(getLeadsById(id, token));
     setLead(true);
-  }, [leadById?.id])
+  }, [leadById?.id]);
 
   useEffect(() => {
     setData({
@@ -124,47 +120,51 @@ export default function EditLead() {
       leadStatus: leadById?.leadStatus,
       leadOwner: leadById?.leadOwner,
       image: leadById?.image,
-      description: leadById?.description
-    })
+      description: leadById?.description,
+    });
     setLead(false);
-    console.log("hello")
-  }, [lead])
+    console.log("hello");
+  }, [lead]);
 
-  const [data, setData] = useState(
-    {
-      leadFirstName: " ",
-      leadPhonenumber: " ",
-      leadIndustry: " ",
-      leadGender: "",
-      leadAppointmentDate: "",
-      leadAnnualRevenueContribution: " ",
-      leadEmailOptOut: " ",
-      leadStatusName: "",
-      leadCompanyName: " ",
-      leadLastName: " ",
-      leadEmail: " ",
-      leadWebsite: " ",
-      leadStatusId: "",
-      leadLocationName: "",
-      utmSource: "",
-      utmCampaign: "",
-      utmAdgroup: "",
-      utmTerm: "",
-      utmMedium: "",
-      leadId: "",
-      leadSource: " ",
-      leadBusinessUnit: "",
-      campaignSource: " ",
-      leadSpecialityName: "",
-      company: user?.company?.id,
-      leadStatus: " ",
-      leadOwner: user?.id,
-      image: imageUrl,
-      description: "",
-    })
+  const [data, setData] = useState({
+    leadFirstName: " ",
+    leadPhonenumber: " ",
+    leadIndustry: " ",
+    leadGender: "",
+    leadAppointmentDate: "",
+    leadAnnualRevenueContribution: " ",
+    leadEmailOptOut: " ",
+    leadStatusName: "",
+    leadCompanyName: " ",
+    leadLastName: " ",
+    leadEmail: " ",
+    leadWebsite: " ",
+    leadStatusId: "",
+    leadLocationName: "",
+    utmSource: "",
+    utmCampaign: "",
+    utmAdgroup: "",
+    utmTerm: "",
+    utmMedium: "",
+    leadId: "",
+    leadSource: " ",
+    leadBusinessUnit: "",
+    campaignSource: " ",
+    leadSpecialityName: "",
+    company: user?.company?.id,
+    leadStatus: " ",
+    leadOwner: user?.id,
+    image: imageUrl,
+    description: "",
+  });
 
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: user?.company?.id });
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+      image: imageUrl,
+      company: user?.company?.id,
+    });
   };
   console.log(data, "TEST");
 
@@ -202,20 +202,15 @@ export default function EditLead() {
       leadOwner: " ",
       image: [],
       description: "",
-    })
-    navigation('/leads/list')
+    });
+    navigation("/leads/list");
   };
   return (
     <>
-      <div
-        className="content d-flex flex-column flex-column-fluid"
-      >
+      <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
-          <div
-            className="form d-flex flex-column flex-lg-row"
-          >
+          <div className="form d-flex flex-column flex-lg-row">
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-
               {/*begin::Thumbnail settings*/}
               <div className="card card-flush py-4">
                 {/*begin::Card header*/}
@@ -233,9 +228,7 @@ export default function EditLead() {
                   {/*begin::Image input placeholder*/}
                   {/* <style>.image-input-placeholder [data-th</style> */}
                   {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                  >
+                  <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
                     {selectedPreviewFile ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
@@ -258,9 +251,8 @@ export default function EditLead() {
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) : (
-
-                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                    ) : data?.image?.length > 0 ? (
+                      <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                           // data-kt-image-input-action="change"
@@ -299,42 +291,40 @@ export default function EditLead() {
                           />
                           {/*end::Inputs*/}
                         </label>
-                      </div>) : (
-                        <>
-                          <div
-                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                          >
-                            <div className="image-input-wrapper w-150px h-150px">
-                              <label
-                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="change"
-                                data-bs-toggle="tooltip"
-                                title="Change avatar"
-                              >
-                                <i className="bi bi-pencil-fill fs-7"></i>
-                                {/*begin::Inputs*/}
-                                <input
-                                  type="file"
-                                  multiple
-                                  // name="avatar"
-                                  accept=".png, .jpg, .jpeg"
-                                  onChange={(event: any) => {
-                                    handleUploadImage(event.currentTarget.files[0]);
-                                  }}
-                                />
-                                {/*end::Inputs*/}
-                              </label>
-                            </div>
-
+                      </div>
+                    ) : (
+                      <>
+                        <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
+                          <div className="image-input-wrapper w-150px h-150px">
+                            <label
+                              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="change"
+                              data-bs-toggle="tooltip"
+                              title="Change avatar"
+                            >
+                              <i className="bi bi-pencil-fill fs-7"></i>
+                              {/*begin::Inputs*/}
+                              <input
+                                type="file"
+                                multiple
+                                // name="avatar"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={(event: any) => {
+                                  handleUploadImage(
+                                    event.currentTarget.files[0]
+                                  );
+                                }}
+                              />
+                              {/*end::Inputs*/}
+                            </label>
                           </div>
-                          <div className="text-muted fs-7">
-                            Set the product thumbnail image. Only *.png, *.jpg and
-                            *.jpeg image files are accepted
-                          </div>
-                        </>
-                      )
-                    )
-                    }
+                        </div>
+                        <div className="text-muted fs-7">
+                          Set the product thumbnail image. Only *.png, *.jpg and
+                          *.jpeg image files are accepted
+                        </div>
+                      </>
+                    )}
                   </div>
                   {/*end::Image input*/}
                 </div>
@@ -355,9 +345,7 @@ export default function EditLead() {
                     <h2>Status</h2>
                   </div>
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
                 <div className="card-body pt-0">
@@ -371,12 +359,9 @@ export default function EditLead() {
                     name="leadStatus"
                   >
                     <option></option>
-                    {
-                      status?.map((item: any) => (
-                        <option value={item?.id}>{item?.leadStatusName}</option>
-                      ))
-                    }
-
+                    {status?.map((item: any) => (
+                      <option value={item?.id}>{item?.leadStatusName}</option>
+                    ))}
                   </select>
 
                   <div className="d-none mt-10">
@@ -389,22 +374,17 @@ export default function EditLead() {
                       placeholder="Pick date & time"
                     />
                   </div>
-
                 </div>
-
               </div>
 
               <div className="card card-flush py-4">
                 <div className="card-header">
-
                   <div className="card-title">
                     <h2>Campaign</h2>
                   </div>
 
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
 
@@ -419,16 +399,12 @@ export default function EditLead() {
                     name="campaignSource"
                   >
                     <option></option>
-                    {
-                      campaign?.map((item: any) => (
-                        <option value={item?.id}>{item?.campaignName}</option>
-                      ))
-                    }
-
+                    {campaign?.map((item: any) => (
+                      <option value={item?.id}>{item?.campaignName}</option>
+                    ))}
                   </select>
 
                   <div className="d-none mt-10">
-
                     <input
                       className="form-control"
                       id="kt_ecommerce_add_product_status_datepicker"
@@ -445,9 +421,7 @@ export default function EditLead() {
                   </div>
 
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
 
@@ -462,12 +436,9 @@ export default function EditLead() {
                     name="leadSource"
                   >
                     <option></option>
-                    {
-                      source?.map((item: any) => (
-                        <option value={item?.id}>{item?.SourceName}</option>
-                      ))
-                    }
-
+                    {source?.map((item: any) => (
+                      <option value={item?.id}>{item?.SourceName}</option>
+                    ))}
                   </select>
 
                   <div className="d-none mt-10">
@@ -482,16 +453,9 @@ export default function EditLead() {
                   </div>
                 </div>
               </div>
-
-
-
-
             </div>
 
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-
-
-
               <div className="d-flex flex-column gap-7 gap-lg-10">
                 <div className="card card-flush py-4">
                   <div className="card-header">
@@ -785,9 +749,7 @@ export default function EditLead() {
                             placeholder="Enter Website"
                           />
                         </div>
-
                       </div>
-
                     </form>
                   </div>
                 </div>
@@ -796,14 +758,14 @@ export default function EditLead() {
                 <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation('/leads/list')
+                    navigation("/leads/list");
                   }}
                 >
                   Back
                 </button>
                 <button
                   onClick={() => {
-                    handleSubmit()
+                    handleSubmit();
                     // navigation("users");
                   }}
                   className="btn btn-primary"

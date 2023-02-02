@@ -81,7 +81,7 @@ export default function UserAdduser() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
+      .post("http://103.195.244.172:4377/upload/", formdata, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -91,7 +91,7 @@ export default function UserAdduser() {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
   useEffect(() => {
     setData({
@@ -114,7 +114,7 @@ export default function UserAdduser() {
   const handleSubmit = () => {
     console.log(data, "ASDdd");
     dispatch(CreateUser(data, token));
-    dispatch(UsersLoading(true))
+    dispatch(UsersLoading(true));
     setData({
       username: "",
       email: "",
@@ -405,25 +405,23 @@ export default function UserAdduser() {
                             <option value="" disabled selected>
                               Select Role
                             </option>
-                            {
-                              userData?.isSuperAdmin === true
-                                ? Roles?.map((item: any) => (
+                            {userData?.isSuperAdmin === true
+                              ? Roles?.map((item: any) => (
                                   <option value={item?.id}>
                                     {item?.name} ({item?.company?.companyName})
                                   </option>
                                 ))
-                                : RolesByAdmin?.filter(
+                              : RolesByAdmin?.filter(
                                   (item: any) =>
                                     item?.name !== userData?.crmrole?.name
                                 )?.map((item: any) => (
                                   <option value={item?.id}>
                                     {item?.name} ({item?.company?.companyName})
                                   </option>
-                                ))
-                            }
-                          </select >
-                        </div >
-                      </div >
+                                ))}
+                          </select>
+                        </div>
+                      </div>
                       {userData?.isSuperAdmin === true ? (
                         <div className="form-group row mb-2">
                           <div className="d-flex flex-column  col-lg-5">
@@ -448,8 +446,8 @@ export default function UserAdduser() {
                                 </option>
                               ))}
                             </select>
-                          </div >
-                        </div >
+                          </div>
+                        </div>
                       ) : (
                         <div className="form-group row mb-2">
                           <div className="d-flex flex-column  col-lg-5">
@@ -479,14 +477,13 @@ export default function UserAdduser() {
                             </select>
                           </div>
                         </div>
-                      )
-                      }
-                    </form >
-                  </div >
-                </div >
-              </div >
-            </div >
-          </div >
+                      )}
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="d-flex justify-content-end">
             <button
               className="btn btn-dark me-5"
@@ -511,9 +508,9 @@ export default function UserAdduser() {
               </span>
             </button>
           </div>
-        </div >
+        </div>
         {/*end::Form*/}
-      </div >
+      </div>
     </>
   );
 }

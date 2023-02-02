@@ -164,7 +164,7 @@ const DealIndex = () => {
   function handleCardMove(board, card, source, destination) {
     axios
       .get(
-        `http://65.2.10.157:5377/deal-statuses?dealStatusName=${destination?.toColumnId}`,
+        `http://103.195.244.172:4377/deal-statuses?dealStatusName=${destination?.toColumnId}`,
         {
           headers: {
             "content-type": "application/json",

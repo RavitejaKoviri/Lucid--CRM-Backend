@@ -235,7 +235,7 @@ function RolesListCard(props) {
   const userData = useSelector((state) => state?.auth?.user);
   const companyId = userData?.company?.id;
 
-  console.log(userData, "userData");
+  // console.log(userData, "userData");
   const UsersByCompanyId = useSelector(
     (state) => state?.ManageUserData?.UsersByCompanyId
   );
@@ -279,7 +279,7 @@ function RolesListCard(props) {
               onClick={() => {
                 handleClick();
                 navigate("/apps/user-management/roles/view", {
-                  state: id,
+                  state: { id: id, roleName: roleName, company: company },
                 });
               }}
             >
@@ -339,10 +339,7 @@ function RolesListCard(props) {
               Edit Role
             </button>
           </div>
-        )
-
-        }
-
+        )}
       </div>
     </div>
   );
@@ -362,7 +359,7 @@ function RolesList() {
     (state) => state?.Roles?.RolePermissionsById
   );
 
-  console.log(rolePermissionsById, "rolePermissionsById");
+  // console.log(rolePermissionsById, "rolePermissionsById");
   const crmRolesByAdmin = crmRoles?.filter(
     (item) => item?.company?.id === user?.company?.id
   );
@@ -381,7 +378,6 @@ function RolesList() {
   useEffect(() => {
     dispatch(fetchAllModules(token));
   }, [UserById?.id]);
-
 
   const RoleName = ({ roleName }) => {
     return (
@@ -404,15 +400,15 @@ function RolesList() {
             {/*begin::Col */}
             {user?.isSuperAdmin === true
               ? crmRoles?.map((item) => (
-                <RolesListCard
-                  id={item?.id}
-                  roleName={item?.name}
-                  company={item?.company?.companyName}
-                />
-              ))
+                  <RolesListCard
+                    id={item?.id}
+                    roleName={item?.name}
+                    company={item?.company?.companyName}
+                  />
+                ))
               : crmRolesByAdmin?.map((item) => (
-                <RolesListCard id={item?.id} roleName={item?.name} />
-              ))}
+                  <RolesListCard id={item?.id} roleName={item?.name} />
+                ))}
 
             <div class="ol-md-4">
               {/*begin::Card */}
@@ -578,7 +574,6 @@ function RolesList() {
                                 </td>
                               </tr>
                               {rolePermissionsById?.map((item) => (
-
                                 <RolesTable item={item} />
                               ))}
                             </tbody>
@@ -603,7 +598,7 @@ function RolesList() {
                       >
                         <span
                           class="indicator-label"
-                        // onClick={handleSubmit}
+                          // onClick={handleSubmit}
                         >
                           Submit
                         </span>

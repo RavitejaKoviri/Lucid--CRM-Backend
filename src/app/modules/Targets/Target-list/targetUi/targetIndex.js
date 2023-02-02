@@ -121,7 +121,7 @@ const TargetIndex = () => {
   function handleCardMove(board, card, source, destination) {
     axios
       .get(
-        `http://65.2.10.157:5377/target-statuses?targetStatusName=${destination?.toColumnId}`,
+        `http://103.195.244.172:4377/target-statuses?targetStatusName=${destination?.toColumnId}`,
         {
           headers: {
             "content-type": "application/json",

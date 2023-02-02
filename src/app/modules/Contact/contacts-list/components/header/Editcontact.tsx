@@ -4,7 +4,15 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ContactLoading, CreateContact, getcampaigns, getcompanies, getContactById, getsource, UpdateContact } from "../../_redux/contactAction";
+import {
+  ContactLoading,
+  CreateContact,
+  getcampaigns,
+  getcompanies,
+  getContactById,
+  getsource,
+  UpdateContact,
+} from "../../_redux/contactAction";
 // import { FC, useState } from 'react'
 // import * as Yup from 'yup'
 // import { useFormik } from 'formik'
@@ -20,24 +28,14 @@ export default function Editcontact() {
   const navigation = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
-  const id: any = location?.state
+  const id: any = location?.state;
   const [contact, setContact] = useState(false);
 
-  const token = useSelector(
-    (state: any) => state?.auth?.authToken
-  );
-  const source = useSelector(
-    (state: any) => state?.ContactData?.Source
-  );
-  const campaign = useSelector(
-    (state: any) => state?.ContactData?.campaigns
-  );
-  const company = useSelector(
-    (state: any) => state?.ContactData?.Comapnies
-  );
-  const user = useSelector(
-    (state: any) => state?.auth?.user
-  );
+  const token = useSelector((state: any) => state?.auth?.authToken);
+  const source = useSelector((state: any) => state?.ContactData?.Source);
+  const campaign = useSelector((state: any) => state?.ContactData?.campaigns);
+  const company = useSelector((state: any) => state?.ContactData?.Comapnies);
+  const user = useSelector((state: any) => state?.auth?.user);
   console.log(user, "user");
 
   const ContactById = useSelector(
@@ -45,10 +43,10 @@ export default function Editcontact() {
   );
 
   useEffect(() => {
-    dispatch(getsource(token))
-    dispatch(getcampaigns(token))
-    dispatch(getcompanies(token))
-  }, [])
+    dispatch(getsource(token));
+    dispatch(getcampaigns(token));
+    dispatch(getcompanies(token));
+  }, []);
 
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
@@ -88,7 +86,7 @@ export default function Editcontact() {
 
     dispatch(getContactById(id?.id, token));
     setContact(true);
-  }, [ContactById?.id])
+  }, [ContactById?.id]);
   console.log(ContactById, "ContactByIdId");
 
   useEffect(() => {
@@ -120,14 +118,17 @@ export default function Editcontact() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
-        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      .post("http://103.195.244.172:4377/upload/", formdata, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(({ data }) => {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
   useEffect(() => {
     setData({
@@ -156,22 +157,27 @@ export default function Editcontact() {
       campaignSource: ContactById?.campaignSource,
       image: ContactById?.image,
       description: ContactById?.description,
-    })
+    });
 
     console.log(data, "TEST");
 
     setContact(false);
-    console.log("hello")
-  }, [contact])
+    console.log("hello");
+  }, [contact]);
   const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value, image: imageUrl, company: user?.company?.id });
+    setData({
+      ...data,
+      [e.target.name]: e.target.value,
+      image: imageUrl,
+      company: user?.company?.id,
+    });
   };
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
     dispatch(UpdateContact(id, data, token));
     dispatch(ContactLoading(true));
-    console.log(data, "data")
+    console.log(data, "data");
     setData({
       company: "",
       contactCompanyName: "",
@@ -199,9 +205,8 @@ export default function Editcontact() {
       description: "",
       image: [],
     });
-    navigation('/contacts/contacts')
+    navigation("/contacts/contacts");
   };
-
 
   return (
     <>
@@ -232,9 +237,7 @@ export default function Editcontact() {
                   {/*begin::Image input placeholder*/}
                   {/* <style>.image-input-placeholder [data-th</style> */}
                   {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                  >
+                  <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
                     {selectedPreviewFile ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
@@ -257,9 +260,8 @@ export default function Editcontact() {
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) : (
-
-                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                    ) : data?.image?.length > 0 ? (
+                      <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                           // data-kt-image-input-action="change"
@@ -298,42 +300,40 @@ export default function Editcontact() {
                           />
                           {/*end::Inputs*/}
                         </label>
-                      </div>) : (
-                        <>
-                          <div
-                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                          >
-                            <div className="image-input-wrapper w-150px h-150px">
-                              <label
-                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="change"
-                                data-bs-toggle="tooltip"
-                                title="Change avatar"
-                              >
-                                <i className="bi bi-pencil-fill fs-7"></i>
-                                {/*begin::Inputs*/}
-                                <input
-                                  type="file"
-                                  multiple
-                                  // name="avatar"
-                                  accept=".png, .jpg, .jpeg"
-                                  onChange={(event: any) => {
-                                    handleUploadImage(event.currentTarget.files[0]);
-                                  }}
-                                />
-                                {/*end::Inputs*/}
-                              </label>
-                            </div>
-
+                      </div>
+                    ) : (
+                      <>
+                        <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
+                          <div className="image-input-wrapper w-150px h-150px">
+                            <label
+                              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="change"
+                              data-bs-toggle="tooltip"
+                              title="Change avatar"
+                            >
+                              <i className="bi bi-pencil-fill fs-7"></i>
+                              {/*begin::Inputs*/}
+                              <input
+                                type="file"
+                                multiple
+                                // name="avatar"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={(event: any) => {
+                                  handleUploadImage(
+                                    event.currentTarget.files[0]
+                                  );
+                                }}
+                              />
+                              {/*end::Inputs*/}
+                            </label>
                           </div>
-                          <div className="text-muted fs-7">
-                            Set the product thumbnail image. Only *.png, *.jpg and
-                            *.jpeg image files are accepted
-                          </div>
-                        </>
-                      )
-                    )
-                    }
+                        </div>
+                        <div className="text-muted fs-7">
+                          Set the product thumbnail image. Only *.png, *.jpg and
+                          *.jpeg image files are accepted
+                        </div>
+                      </>
+                    )}
                   </div>
                   {/*end::Image input*/}
                 </div>
@@ -355,14 +355,11 @@ export default function Editcontact() {
                   </div>
 
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
 
                 <div className="card-body pt-0">
-
                   <select
                     className="form-select mb-2"
                     data-control="select2"
@@ -373,12 +370,9 @@ export default function Editcontact() {
                     name="campaignSource"
                   >
                     <option></option>
-                    {
-                      campaign?.map((item: any) => (
-                        <option value={item?.id}>{item?.campaignName}</option>
-                      ))
-                    }
-
+                    {campaign?.map((item: any) => (
+                      <option value={item?.id}>{item?.campaignName}</option>
+                    ))}
                   </select>
 
                   <div className="text-muted fs-7"></div>
@@ -401,9 +395,7 @@ export default function Editcontact() {
                     <h2>Source</h2>
                   </div>
                   <div className="card-toolbar">
-                    <div
-                      className="rounded-circle bg-success w-15px h-15px"
-                    ></div>
+                    <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
                 <div className="card-body pt-0">
@@ -417,12 +409,9 @@ export default function Editcontact() {
                     name="contactSource"
                   >
                     <option></option>
-                    {
-                      source?.map((item: any) => (
-                        <option value={item?.id}>{item?.SourceName}</option>
-                      ))
-                    }
-
+                    {source?.map((item: any) => (
+                      <option value={item?.id}>{item?.SourceName}</option>
+                    ))}
                   </select>
                   <div className="text-muted fs-7"></div>
                   <div className="d-none mt-10">
@@ -437,13 +426,9 @@ export default function Editcontact() {
                   </div>
                 </div>
               </div>
-
-
-
             </div>
 
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
-
               <div className="tab-content">
                 <div
                   className="tab-pane fade show active"
@@ -470,7 +455,6 @@ export default function Editcontact() {
                                 name="contactName"
                                 onChange={handleChange}
                                 className="form-control form-control-lg form-control-solid"
-
                               />
                             </div>
                             <div className="col-lg-6">
@@ -480,11 +464,10 @@ export default function Editcontact() {
                                 value={data.contactEmail}
                                 onChange={handleChange}
                                 name="contactEmail"
-                                className='form-control form-control-lg form-control-solid mb-3 mb-lg-0'
+                                className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                                 placeholder="Email"
                               />
                             </div>
-
                           </div>
 
                           <div className="form-group row mb-4">
@@ -569,7 +552,6 @@ export default function Editcontact() {
                                 name="contactCompanyName"
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="CompanyName"
-
                               />
                             </div>
                             <div className="col-lg-6">
@@ -658,7 +640,6 @@ export default function Editcontact() {
                             </div>
                           </div>
                           <div className="form-group row mb-4">
-
                             <div className="col-lg-6">
                               {/* <label>Twitter Handle:</label> */}
                               <input
@@ -716,7 +697,7 @@ export default function Editcontact() {
                 <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation('/contacts/contacts')
+                    navigation("/contacts/contacts");
                   }}
                 >
                   Back
@@ -725,7 +706,7 @@ export default function Editcontact() {
                   type="submit"
                   id="kt_ecommerce_add_product_submit"
                   onClick={() => {
-                    handleSubmit()
+                    handleSubmit();
                   }}
                   className="btn btn-primary"
                 >
@@ -742,5 +723,5 @@ export default function Editcontact() {
         </div>
       </div>
     </>
-  )
+  );
 }

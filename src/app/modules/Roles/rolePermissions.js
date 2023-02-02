@@ -58,11 +58,10 @@ function RolePermissions() {
   );
 
   const filteredRolesForAdmin = allModules.filter(
-    (o1) =>
-      !rolePermissionsById.some((o2) => o1?.id === o2?.allmodule?.id)
+    (o1) => !rolePermissionsById.some((o2) => o1?.id === o2?.allmodule?.id)
   );
-  console.log(allModules, "filteredRolesForAdmin");
-  console.log(filteredRolesForAdmin, "filteredRolesForAdmin");
+  // console.log(allModules, "filteredRolesForAdmin");
+  // console.log(filteredRolesForAdmin, "filteredRolesForAdmin");
   useEffect(() => {
     dispatch(fetchRolePermissions(token));
   }, [UserById?.id]);
@@ -100,7 +99,7 @@ function RolePermissions() {
     obj.company = company;
 
     axios
-      .post("http://65.2.10.157:5377/rolepermissions", obj, {
+      .post("http://103.195.244.172:4377/rolepermissions", obj, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -117,7 +116,7 @@ function RolePermissions() {
   }
 
   return (
-    <div style={{ background: "#FFFFFF", padding: "3%", borderRadius: '15px' }}>
+    <div style={{ background: "#FFFFFF", padding: "3%", borderRadius: "15px" }}>
       <h1>Role Permissions</h1>
       <div className="d-flex flex-row mt-10">
         <select
@@ -139,17 +138,17 @@ function RolePermissions() {
           </option>
           {user?.isSuperAdmin === true
             ? crmRoles?.map((item) => (
-              <option value={item?.id}>
-                {item?.name} ({item?.company?.companyName})
-              </option>
-            ))
-            : crmRolesByAdmin
-              ?.filter((item) => item?.name !== user?.crmrole?.name)
-              .map((item) => (
                 <option value={item?.id}>
                   {item?.name} ({item?.company?.companyName})
                 </option>
-              ))}
+              ))
+            : crmRolesByAdmin
+                ?.filter((item) => item?.name !== user?.crmrole?.name)
+                .map((item) => (
+                  <option value={item?.id}>
+                    {item?.name} ({item?.company?.companyName})
+                  </option>
+                ))}
         </select>
         <select
           onChange={(e) => setModule(e.target.value)}
@@ -169,13 +168,13 @@ function RolePermissions() {
           </option>
           {user?.isSuperAdmin === true
             ? filteredRolesForAdmin?.map((item) => (
-              <option value={item?.id}>{item?.name}</option>
-            ))
+                <option value={item?.id}>{item?.name}</option>
+              ))
             : filteredRoles?.map((item) => (
-              <option value={item?.allmodule?.id}>
-                {item?.allmodule?.name}
-              </option>
-            ))}
+                <option value={item?.allmodule?.id}>
+                  {item?.allmodule?.name}
+                </option>
+              ))}
         </select>
       </div>
       <div className="d-flex flex-row mt-20">

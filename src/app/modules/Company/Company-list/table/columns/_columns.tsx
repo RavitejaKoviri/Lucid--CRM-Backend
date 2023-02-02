@@ -1,18 +1,20 @@
-import { Column } from 'react-table'
-import { CompanyInfoCell } from './CompanyInfoCell'
-import { CompanyLastLoginCell } from './CompanyLastLoginCell'
-import { CompanyTwoStepsCell } from './CompanyTwoStepsCell'
-import { CompanyActionsCell } from './CompanyActionsCell'
-import { CompanySelectionCell } from './CompanySelectionCell'
-import { CompanyCustomHeader } from './CompanyCustomHeader'
-import { CompanySelectionHeader } from './CompanySelectionHeader'
-import { Lead } from '../../core/_models'
+import { Column } from "react-table";
+import { CompanyInfoCell } from "./CompanyInfoCell";
+import { CompanyLastLoginCell } from "./CompanyLastLoginCell";
+import { CompanyTwoStepsCell } from "./CompanyTwoStepsCell";
+import { CompanyActionsCell } from "./CompanyActionsCell";
+import { CompanySelectionCell } from "./CompanySelectionCell";
+import { CompanyCustomHeader } from "./CompanyCustomHeader";
+import { CompanySelectionHeader } from "./CompanySelectionHeader";
+import { Lead } from "../../core/_models";
 
 const CompanyColumns: ReadonlyArray<Column<Lead>> = [
   {
     Header: (props) => <CompanySelectionHeader tableProps={props} />,
-    id: 'selection',
-    Cell: ({ ...props }) => <CompanySelectionCell id={props.data[props.row.index].id} />,
+    id: "selection",
+    Cell: ({ ...props }) => (
+      <CompanySelectionCell id={props.data[props.row.index].id} />
+    ),
   },
   // {
   //   Header: (props) => <LeadCustomHeader tableProps={props} title='leadEmail' className='min-w-125px' />,
@@ -20,20 +22,44 @@ const CompanyColumns: ReadonlyArray<Column<Lead>> = [
   //   Cell: ({ ...props }) => <LeadInfoCell lead={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='companyName' className='min-w-125px' />,
-    accessor: 'companyName',
+    Header: (props) => (
+      <CompanyCustomHeader
+        tableProps={props}
+        title="companyName"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "companyName",
   },
   {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='companyGSTNumber' className='min-w-125px' />,
-    accessor: 'companyGSTNumber',
+    Header: (props) => (
+      <CompanyCustomHeader
+        tableProps={props}
+        title="companyGSTNumber"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "companyGSTNumber",
   },
   {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='companyPANNumber' className='min-w-125px' />,
-    accessor: 'companyPANNumber',
+    Header: (props) => (
+      <CompanyCustomHeader
+        tableProps={props}
+        title="companyPANNumber"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "companyPANNumber",
   },
   {
-    Header: (props) => <CompanyCustomHeader tableProps={props} title='companyTANNumber' className='min-w-125px' />,
-    accessor: 'companyTANNumber',
+    Header: (props) => (
+      <CompanyCustomHeader
+        tableProps={props}
+        title="companyTANNumber"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "companyTANNumber",
   },
   // {
   //   Header: (props) => <CompanyCustomHeader tableProps={props} title='companyWebsocCRMUniqueID' className='min-w-125px' />,
@@ -90,11 +116,17 @@ const CompanyColumns: ReadonlyArray<Column<Lead>> = [
   // },
   {
     Header: (props) => (
-      <CompanyCustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
+      <CompanyCustomHeader
+        tableProps={props}
+        title="Actions"
+        className="text-end min-w-100px"
+      />
     ),
-    id: 'actions',
-    Cell: ({ ...props }) => <CompanyActionsCell id={props.data[props.row.index].id} />,
+    id: "actions",
+    Cell: ({ ...props }) => (
+      <CompanyActionsCell id={props.data[props.row.index].id} />
+    ),
   },
-]
+];
 
-export { CompanyColumns }
+export { CompanyColumns };

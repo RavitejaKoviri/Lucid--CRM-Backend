@@ -6,15 +6,19 @@ import {
   fetchUsersByCompanyId,
 } from "../user-management/users-list/_redux/userAction";
 import accountImage from "../../../_metronic/assets/images/account.png";
-import { fetchAllModules, fetchAllUsers, fetchUserById } from "./redux/rolesAction";
+import {
+  fetchAllModules,
+  fetchAllUsers,
+  fetchUserById,
+} from "./redux/rolesAction";
 
 const UserDetailsComponent = ({ item }) => {
   console.log(item, "item");
   const dispatch = useDispatch();
   const token = useSelector((state) => state?.auth?.authToken);
   const getUsersDataById = () => {
-    dispatch(fetchUserById(token, item?.id))
-  }
+    dispatch(fetchUserById(token, item?.id));
+  };
   const UserById = useSelector((state) => state?.Roles?.UserById);
   return (
     <>
@@ -36,7 +40,11 @@ const UserDetailsComponent = ({ item }) => {
             <a href="../../demo6/dist/apps/user-management/users/view.html">
               <div class="symbol-label">
                 <img
-                  src={item?.image?.url ? `http://65.2.10.157:5377${item?.image?.url}` : accountImage}
+                  src={
+                    item?.image?.url
+                      ? `http://65.2.10.157:5377${item?.image?.url}`
+                      : accountImage
+                  }
                   alt=""
                   class="w-100"
                 />
@@ -191,7 +199,6 @@ const UserDetailsComponent = ({ item }) => {
                       type="text"
                       className="form-control form-control-lg form-control-solid"
                       placeholder="Phone number"
-
                       value={UserById?.username}
                     />
                   </div>
@@ -204,7 +211,6 @@ const UserDetailsComponent = ({ item }) => {
                       type="text"
                       className="form-control form-control-lg form-control-solid"
                       placeholder="Phone number"
-
                       value={UserById?.mobile}
                     />
                   </div>
@@ -220,7 +226,6 @@ const UserDetailsComponent = ({ item }) => {
                       type="text"
                       className="form-control form-control-lg form-control-solid"
                       placeholder="Phone number"
-
                       value={UserById?.firstname}
                     />
                   </div>
@@ -233,7 +238,6 @@ const UserDetailsComponent = ({ item }) => {
                       type="text"
                       className="form-control form-control-lg form-control-solid"
                       placeholder="Phone number"
-
                       value={UserById?.lastname}
                     />
                   </div>
@@ -249,7 +253,6 @@ const UserDetailsComponent = ({ item }) => {
                       type="text"
                       className="form-control form-control-lg form-control-solid"
                       placeholder="Phone number"
-
                       value={UserById?.gender}
                     />
                   </div>
@@ -262,7 +265,6 @@ const UserDetailsComponent = ({ item }) => {
                       type="text"
                       className="form-control form-control-lg form-control-solid"
                       placeholder="Phone number"
-
                       value={UserById?.email}
                     />
                   </div>
@@ -278,7 +280,6 @@ const UserDetailsComponent = ({ item }) => {
                       type="text"
                       className="form-control form-control-lg form-control-solid"
                       placeholder="Phone number"
-
                       value={UserById?.crmrole?.name}
                     />
                   </div>
@@ -291,7 +292,6 @@ const UserDetailsComponent = ({ item }) => {
                       type="text"
                       className="form-control form-control-lg form-control-solid"
                       placeholder="Phone number"
-
                       value={UserById?.company?.companyName}
                     />
                   </div>
@@ -302,13 +302,13 @@ const UserDetailsComponent = ({ item }) => {
         </div>
       </div>
     </>
-
   );
 };
 
 function ViewRoles() {
   const dispatch = useDispatch();
   const query = useLocation();
+  // console.log(query, "query");
   //   const UserById = useSelector((state) => state?.Roles?.UserById);
   const token = useSelector((state) => state?.auth?.authToken);
   const userAdmin = useSelector((state) => state?.auth?.user);
@@ -327,8 +327,8 @@ function ViewRoles() {
     (state) => state?.Roles?.RolePermissionsById
   );
   const companyId = userAdmin?.company?.id;
-
-  console.log(rolePermissionsById, "rolePermissionsById");
+  // console.log(UsersByRole, "UsersByRole");
+  // console.log(rolePermissionsById, "rolePermissionsById");
   useEffect(() => {
     dispatch(fetchUsersByCompanyId(companyId, token));
   }, [dispatch]);
@@ -543,11 +543,15 @@ function ViewRoles() {
                   <div class="card-title">
                     {userAdmin?.isSuperAdmin === true ? (
                       <h2 class="mb-0">
-                        {UsersByRoleSuperAdmin[0]?.crmrole?.name} (
-                        {UsersByRoleSuperAdmin[0]?.company?.companyName})
+                        {UsersByRoleSuperAdmin[0]?.crmrole?.name ||
+                          query?.state?.roleName}{" "}
+                        (
+                        {UsersByRoleSuperAdmin[0]?.company?.companyName ||
+                          query?.state?.company}
+                        )
                       </h2>
                     ) : (
-                      <h2 class="mb-0">{UsersByRole[0]?.crmrole?.name}</h2>
+                      <h2 class="mb-0">{query?.state?.roleName}</h2>
                     )}
                   </div>
                   {/*end::Card title */}
@@ -559,7 +563,8 @@ function ViewRoles() {
                   <div class="d-flex flex-column text-gray-600">
                     {rolePermissionsById?.map((item) => (
                       <div class="d-flex align-items-center py-2">
-                        <span class="bullet bg-primary me-3"></span>{item?.allmodule?.name}
+                        <span class="bullet bg-primary me-3"></span>
+                        {item?.allmodule?.name}
                       </div>
                     ))}
                   </div>
@@ -695,25 +700,25 @@ function ViewRoles() {
                     <tbody class="fw-semibold text-gray-600">
                       {userAdmin?.isSuperAdmin === true
                         ? UsersByRoleSuperAdmin.map((item) => (
-                          <UserDetailsComponent
-                            // id={item?.crmrole?.id}
-                            // img={item?.image?.url}
-                            // userName={item?.username}
-                            // email={item?.email}
-                            // date={item?.createdAt?.slice(0, 10)}
-                            item={item}
-                          />
-                        ))
+                            <UserDetailsComponent
+                              // id={item?.crmrole?.id}
+                              // img={item?.image?.url}
+                              // userName={item?.username}
+                              // email={item?.email}
+                              // date={item?.createdAt?.slice(0, 10)}
+                              item={item}
+                            />
+                          ))
                         : UsersByRole.map((item) => (
-                          <UserDetailsComponent
-                            // id={item?.crmrole?.id}
-                            // img={item?.image?.url}
-                            // userName={item?.username}
-                            // email={item?.email}
-                            // date={item?.createdAt?.slice(0, 10)}
-                            item={item}
-                          />
-                        ))}
+                            <UserDetailsComponent
+                              // id={item?.crmrole?.id}
+                              // img={item?.image?.url}
+                              // userName={item?.username}
+                              // email={item?.email}
+                              // date={item?.createdAt?.slice(0, 10)}
+                              item={item}
+                            />
+                          ))}
                     </tbody>
                   </table>
                 </div>

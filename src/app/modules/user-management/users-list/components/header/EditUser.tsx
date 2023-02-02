@@ -3,17 +3,22 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom"
-import { CreateUser, fetchCompanies, fetchRoles, getUsersById, UpdateUser, UsersLoading } from "../../_redux/userAction";
-
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  CreateUser,
+  fetchCompanies,
+  fetchRoles,
+  getUsersById,
+  UpdateUser,
+  UsersLoading,
+} from "../../_redux/userAction";
 
 export default function EditUser() {
   const location = useLocation();
   const [users, setUsers] = useState(false);
-  const id = location?.state
+  const id = location?.state;
 
-
-  console.log("location")
+  console.log("location");
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state: any) => state?.auth?.authToken);
@@ -27,15 +32,18 @@ export default function EditUser() {
   //   const targetsById = useSelector(
   //     (state: any) => state?.TargetData?.targetById
   //   );
-  const userById = useSelector((state: any) => state?.ManageUserData?.UsersById);
+  const userById = useSelector(
+    (state: any) => state?.ManageUserData?.UsersById
+  );
   const Roless = useSelector((state: any) => state?.ManageUserData?.Roles);
-  const companies = useSelector((state: any) => state?.ManageUserData?.Companies);
+  const companies = useSelector(
+    (state: any) => state?.ManageUserData?.Companies
+  );
 
   console.log(userById, "userById");
   console.log(Roless, "crmroles");
   const companyId = userAdmin?.company?.id;
   console.log(companyId, "ASD");
-
 
   const [imageUrl, setImageUrl] = React.useState<any[]>([]);
   const [selectedPreviewFile, setSelectedPreviewFile] = useState();
@@ -69,28 +77,28 @@ export default function EditUser() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
-        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      .post("http://103.195.244.172:4377/upload/", formdata, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(({ data }) => {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
   useEffect(() => {
-    dispatch(fetchRoles(token))
-    dispatch(fetchCompanies(id, token))
-
-  }, [])
-
-
+    dispatch(fetchRoles(token));
+    dispatch(fetchCompanies(id, token));
+  }, []);
 
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getUsersById(id, token))
+    dispatch(getUsersById(id, token));
     setUsers(true);
-  }, [userById?.id])
+  }, [userById?.id]);
 
   useEffect(() => {
     setData({
@@ -104,26 +112,25 @@ export default function EditUser() {
       image: userById?.image,
       description: userById?.description,
       company: userById?.company?.id,
-      crmrole: userById?.crmrole?.id
-    })
+      crmrole: userById?.crmrole?.id,
+    });
     setUsers(false);
-    console.log("hello")
-  }, [users])
+    console.log("hello");
+  }, [users]);
 
-  const [data, setData] = useState<any>(
-    {
-      username: "",
-      email: "",
-      password: "",
-      mobile: "",
-      firstname: "",
-      lastname: "",
-      gender: "",
-      image: imageUrl,
-      description: "",
-      company: "",
-      crmrole: ""
-    })
+  const [data, setData] = useState<any>({
+    username: "",
+    email: "",
+    password: "",
+    mobile: "",
+    firstname: "",
+    lastname: "",
+    gender: "",
+    image: imageUrl,
+    description: "",
+    company: "",
+    crmrole: "",
+  });
 
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value, image: imageUrl });
@@ -132,7 +139,7 @@ export default function EditUser() {
 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-    dispatch(UsersLoading(true))
+    dispatch(UsersLoading(true));
     dispatch(UpdateUser(id, data, token));
 
     setData({
@@ -146,9 +153,9 @@ export default function EditUser() {
       image: imageUrl,
       description: "",
       company: "",
-      crmrole: ""
-    })
-    navigation('/team-members/team-members')
+      crmrole: "",
+    });
+    navigation("/team-members/team-members");
   };
   return (
     <>
@@ -473,4 +480,3 @@ export default function EditUser() {
     </>
   );
 }
-

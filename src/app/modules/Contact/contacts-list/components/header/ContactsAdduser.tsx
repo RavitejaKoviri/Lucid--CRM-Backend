@@ -118,7 +118,7 @@ export default function ContactsAdduser() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
+      .post("http://103.195.244.172:4377/upload/", formdata, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -128,7 +128,7 @@ export default function ContactsAdduser() {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   const handleChange = (e: any) => {
@@ -468,8 +468,6 @@ export default function ContactsAdduser() {
                                 placeholder="Email"
                               />
                             </div>
-
-
                           </div>
                           <div className="form-group row my-8">
                             <div className="col-lg-6">
@@ -494,7 +492,6 @@ export default function ContactsAdduser() {
                                 placeholder="First Name"
                               />
                             </div>
-
                           </div>
 
                           {/* <div className="form-group row my-8">
@@ -502,7 +499,6 @@ export default function ContactsAdduser() {
                             
                           </div> */}
                           <div className="form-group row my-8">
-
                             <div className="col-lg-6">
                               {/* <label>Last Name:</label> */}
                               <input
@@ -531,8 +527,6 @@ export default function ContactsAdduser() {
                           {/* <div className="form-group row my-8">
                             
                           </div> */}
-
-
                         </form>
                       </div>
                     </div>
@@ -570,10 +564,8 @@ export default function ContactsAdduser() {
                                 placeholder="Job Title"
                               />
                             </div>
-
                           </div>
                           <div className="form-group row my-8">
-
                             <div className="col-lg-6">
                               {/* <label>CompanyName:</label> */}
                               <input
@@ -598,7 +590,6 @@ export default function ContactsAdduser() {
                             </div>
                           </div>
                           <div className="form-group row my-8">
-
                             <div className="col-lg-6">
                               {/* <label>City:</label> */}
                               <input
@@ -623,7 +614,6 @@ export default function ContactsAdduser() {
                             </div>
                           </div>
                           <div className="form-group row my-8">
-
                             <div className="col-lg-6">
                               {/* <label>Country:</label> */}
                               <input

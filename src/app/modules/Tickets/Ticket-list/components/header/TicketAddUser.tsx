@@ -78,7 +78,7 @@ export default function TicketAdduser() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
+      .post("http://103.195.244.172:4377/upload/", formdata, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,

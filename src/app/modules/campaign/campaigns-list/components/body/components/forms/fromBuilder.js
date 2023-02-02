@@ -68,7 +68,7 @@ const MultipleChoice = () => {
 
     setOptionFields(newOptionFields);
   };
-  console.log(optionFields,"DEF");
+  console.log(optionFields, "DEF");
   const handleAddOptionFields = () => {
     setOptionFields([
       ...optionFields,
@@ -141,7 +141,7 @@ const options = [
   },
   {
     buttonName: "Checkboxes",
-    inputType: <Checkboxes/>,
+    inputType: <Checkboxes />,
   },
   {
     buttonName: "Drop-down",

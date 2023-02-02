@@ -60,7 +60,7 @@ export default function EditTicket() {
     console.log(id, "TestId");
     dispatch(getticketsById(id?.id, token));
     setTickets(true);
-  }, [ticketsById?.id])
+  }, [ticketsById?.id]);
   useEffect(() => {
     if (!selectedPreviewFile) {
       setPreview(undefined);
@@ -90,14 +90,17 @@ export default function EditTicket() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
-        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      .post("http://103.195.244.172:4377/upload/", formdata, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(({ data }) => {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -112,7 +115,7 @@ export default function EditTicket() {
       ticketPriority: ticketsById?.ticketPriority,
       image: ticketsById?.image,
       description: ticketsById?.description,
-    })
+    });
     setTickets(false);
   }, [tickets]);
 
@@ -125,14 +128,14 @@ export default function EditTicket() {
       dispatch(CreateTicket(data, token));
     }
     setData({
-      ticketStatus: '',
-      ticketName: '',
-      ticketPriority: '',
-      ticketAssignedTo: '',
-      customer: '',
-      ticketStartDate: '',
-      ticketEndDate: '',
-      company: '',
+      ticketStatus: "",
+      ticketName: "",
+      ticketPriority: "",
+      ticketAssignedTo: "",
+      customer: "",
+      ticketStartDate: "",
+      ticketEndDate: "",
+      company: "",
       description: "",
       image: [],
     });
@@ -164,9 +167,7 @@ export default function EditTicket() {
                   {/*begin::Image input placeholder*/}
                   {/* <style>.image-input-placeholder [data-th</style> */}
                   {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                  >
+                  <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
                     {selectedPreviewFile ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
@@ -189,9 +190,8 @@ export default function EditTicket() {
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) : (
-
-                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                    ) : data?.image?.length > 0 ? (
+                      <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                           // data-kt-image-input-action="change"
@@ -230,42 +230,40 @@ export default function EditTicket() {
                           />
                           {/*end::Inputs*/}
                         </label>
-                      </div>) : (
-                        <>
-                          <div
-                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                          >
-                            <div className="image-input-wrapper w-150px h-150px">
-                              <label
-                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="change"
-                                data-bs-toggle="tooltip"
-                                title="Change avatar"
-                              >
-                                <i className="bi bi-pencil-fill fs-7"></i>
-                                {/*begin::Inputs*/}
-                                <input
-                                  type="file"
-                                  multiple
-                                  // name="avatar"
-                                  accept=".png, .jpg, .jpeg"
-                                  onChange={(event: any) => {
-                                    handleUploadImage(event.currentTarget.files[0]);
-                                  }}
-                                />
-                                {/*end::Inputs*/}
-                              </label>
-                            </div>
-
+                      </div>
+                    ) : (
+                      <>
+                        <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
+                          <div className="image-input-wrapper w-150px h-150px">
+                            <label
+                              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="change"
+                              data-bs-toggle="tooltip"
+                              title="Change avatar"
+                            >
+                              <i className="bi bi-pencil-fill fs-7"></i>
+                              {/*begin::Inputs*/}
+                              <input
+                                type="file"
+                                multiple
+                                // name="avatar"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={(event: any) => {
+                                  handleUploadImage(
+                                    event.currentTarget.files[0]
+                                  );
+                                }}
+                              />
+                              {/*end::Inputs*/}
+                            </label>
                           </div>
-                          <div className="text-muted fs-7">
-                            Set the product thumbnail image. Only *.png, *.jpg and
-                            *.jpeg image files are accepted
-                          </div>
-                        </>
-                      )
-                    )
-                    }
+                        </div>
+                        <div className="text-muted fs-7">
+                          Set the product thumbnail image. Only *.png, *.jpg and
+                          *.jpeg image files are accepted
+                        </div>
+                      </>
+                    )}
                   </div>
                   {/*end::Image input*/}
                 </div>
@@ -283,7 +281,6 @@ export default function EditTicket() {
 
               <div className="card card-flush py-4">
                 <div className="card-header">
-
                   <div className="card-title">
                     <h2>Status</h2>
                   </div>

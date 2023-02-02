@@ -26,8 +26,6 @@ export default function LeadAdduser() {
   console.log(leadById, "leadById");
   console.log(leadById?.id, "leadById1");
 
-
-
   useEffect(() => {
     dispatch(getsource(token));
     dispatch(getcampaigns(token));
@@ -98,7 +96,7 @@ export default function LeadAdduser() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
+      .post("http://103.195.244.172:4377/upload/", formdata, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -108,7 +106,7 @@ export default function LeadAdduser() {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   useEffect(() => {

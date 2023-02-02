@@ -17,7 +17,7 @@ export default function EditDeals() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const id: any = location?.state
+  const id: any = location?.state;
   console.log(id, "dealid");
 
   const [deal, setDeal] = useState(false);
@@ -53,7 +53,7 @@ export default function EditDeals() {
     company: user?.company?.id,
     dealStatus: "",
     dealOwner: user?.id,
-    image:imageUrl,
+    image: imageUrl,
     description: "",
   });
 
@@ -62,9 +62,9 @@ export default function EditDeals() {
   };
   useEffect(() => {
     console.log(id, "TestId");
-    dispatch(getdealsById(id?.id, token))
+    dispatch(getdealsById(id?.id, token));
     setDeal(true);
-  }, [dealById?.id])
+  }, [dealById?.id]);
   useEffect(() => {
     if (!selectedPreviewFile) {
       setPreview(undefined);
@@ -94,14 +94,17 @@ export default function EditDeals() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
-        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      .post("http://103.195.244.172:4377/upload/", formdata, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(({ data }) => {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
   useEffect(() => {
@@ -110,8 +113,10 @@ export default function EditDeals() {
       dealContactPersonName: dealById?.dealContactPersonName,
       dealContactPersonPhoneNumber: dealById?.dealContactPersonPhoneNumber,
       dealContactPersonEmail: dealById?.dealContactPersonEmail,
-      dealContactPersonAlternateEmail: dealById?.dealContactPersonAlternateEmail,
-      dealContactPersonAlternatePhoneNumber: dealById?.dealContactPersonAlternatePhoneNumber,
+      dealContactPersonAlternateEmail:
+        dealById?.dealContactPersonAlternateEmail,
+      dealContactPersonAlternatePhoneNumber:
+        dealById?.dealContactPersonAlternatePhoneNumber,
       dealType: dealById?.dealType,
       dealSource: dealById?.dealSource?.id,
       campaignSource: dealById?.campaignSource?.id,
@@ -120,16 +125,15 @@ export default function EditDeals() {
       dealOwner: user?.id,
       image: dealById?.image,
       description: dealById?.description,
-    })
+    });
     setDeal(false);
-  }, [deal])
+  }, [deal]);
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
 
     if (id !== null) {
       dispatch(UpdateDeal(data, id?.id, token));
-    }
-    else {
+    } else {
       dispatch(CreateDeal(data, token));
     }
     setData({
@@ -148,19 +152,15 @@ export default function EditDeals() {
       description: "",
       image: [],
     });
-    navigation('/deals/deals')
+    navigation("/deals/deals");
   };
   return (
     <>
-      <div
-        className="content d-flex flex-column flex-column-fluid"
-      >
+      <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
-          <div
-            className="form d-flex flex-column flex-lg-row"
-          >
+          <div className="form d-flex flex-column flex-lg-row">
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-            <div className="card card-flush py-4">
+              <div className="card card-flush py-4">
                 {/*begin::Card header*/}
                 <div className="card-header">
                   {/*begin::Card title*/}
@@ -176,9 +176,7 @@ export default function EditDeals() {
                   {/*begin::Image input placeholder*/}
                   {/* <style>.image-input-placeholder [data-th</style> */}
                   {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                  >
+                  <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
                     {selectedPreviewFile ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
@@ -201,9 +199,8 @@ export default function EditDeals() {
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) : (
-
-                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                    ) : data?.image?.length > 0 ? (
+                      <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                           // data-kt-image-input-action="change"
@@ -242,42 +239,40 @@ export default function EditDeals() {
                           />
                           {/*end::Inputs*/}
                         </label>
-                      </div>) : (
-                        <>
-                          <div
-                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                          >
-                            <div className="image-input-wrapper w-150px h-150px">
-                              <label
-                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="change"
-                                data-bs-toggle="tooltip"
-                                title="Change avatar"
-                              >
-                                <i className="bi bi-pencil-fill fs-7"></i>
-                                {/*begin::Inputs*/}
-                                <input
-                                  type="file"
-                                  multiple
-                                  // name="avatar"
-                                  accept=".png, .jpg, .jpeg"
-                                  onChange={(event: any) => {
-                                    handleUploadImage(event.currentTarget.files[0]);
-                                  }}
-                                />
-                                {/*end::Inputs*/}
-                              </label>
-                            </div>
-
+                      </div>
+                    ) : (
+                      <>
+                        <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
+                          <div className="image-input-wrapper w-150px h-150px">
+                            <label
+                              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="change"
+                              data-bs-toggle="tooltip"
+                              title="Change avatar"
+                            >
+                              <i className="bi bi-pencil-fill fs-7"></i>
+                              {/*begin::Inputs*/}
+                              <input
+                                type="file"
+                                multiple
+                                // name="avatar"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={(event: any) => {
+                                  handleUploadImage(
+                                    event.currentTarget.files[0]
+                                  );
+                                }}
+                              />
+                              {/*end::Inputs*/}
+                            </label>
                           </div>
-                          <div className="text-muted fs-7">
-                            Set the product thumbnail image. Only *.png, *.jpg and
-                            *.jpeg image files are accepted
-                          </div>
-                        </>
-                      )
-                    )
-                    }
+                        </div>
+                        <div className="text-muted fs-7">
+                          Set the product thumbnail image. Only *.png, *.jpg and
+                          *.jpeg image files are accepted
+                        </div>
+                      </>
+                    )}
                   </div>
                   {/*end::Image input*/}
                 </div>
@@ -289,21 +284,21 @@ export default function EditDeals() {
                 value={data.description}
                 onChange={handleChange}
                 name="description"
-              className="form-control form-control-lg form-control-solid"
+                className="form-control form-control-lg form-control-solid"
                 placeholder="Enter Image description"
               />
-             
+
               <div className="card card-flush py-4">
                 <div className="card-header">
                   <div className="card-title">
                     <h2>Status</h2>
                   </div>
-               
+
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
-               
+
                 <div className="card-body pt-0">
                   <select
                     className="form-select mb-2"
@@ -319,31 +314,31 @@ export default function EditDeals() {
                       <option value={item?.id}>{item?.dealStatusName}</option>
                     ))}
                   </select>
-                 
+
                   <div className="d-none mt-10">
                     <label className="form-label">
                       Select publishing date and time
                     </label>
                     <input
-                    className="form-control form-control-lg form-control-solid"
+                      className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
                   </div>
                 </div>
               </div>
-              
+
               <div className="card card-flush py-4">
                 <div className="card-header">
                   <div className="card-title">
                     <h2>Campaign</h2>
                   </div>
-                 
+
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
-               
+
                 <div className="card-body pt-0">
                   <select
                     className="form-select mb-2"
@@ -359,8 +354,6 @@ export default function EditDeals() {
                       <option value={item?.id}>{item?.campaignName}</option>
                     ))}
                   </select>
-                  
-                  
                 </div>
               </div>
               <div className="card card-flush py-4">
@@ -368,12 +361,12 @@ export default function EditDeals() {
                   <div className="card-title">
                     <h2>Source</h2>
                   </div>
-                 
+
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
-              
+
                 <div className="card-body pt-0">
                   <select
                     className="form-select mb-2"
@@ -389,11 +382,10 @@ export default function EditDeals() {
                       <option value={item?.id}>{item?.SourceName}</option>
                     ))}
                   </select>
-                 
                 </div>
               </div>
             </div>
-           
+
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
               <div className="d-flex flex-column gap-7 gap-lg-10">
                 <div className="card card-flush py-4">
@@ -402,7 +394,7 @@ export default function EditDeals() {
                       <h2>Deal Detials</h2>
                     </div>
                   </div>
-                 
+
                   <div className="card-body pt-0">
                     <div className="form">
                       <div className="form-group row mb-4">
@@ -413,7 +405,7 @@ export default function EditDeals() {
                             value={data.dealName}
                             onChange={handleChange}
                             name="dealName"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter FirstName"
                           />
                         </div>
@@ -424,7 +416,7 @@ export default function EditDeals() {
                             value={data.dealContactPersonName}
                             onChange={handleChange}
                             name="dealContactPersonName"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter PhoneNumber"
                           />
                         </div>
@@ -438,8 +430,8 @@ export default function EditDeals() {
                             value={data.dealContactPersonAlternateEmail}
                             onChange={handleChange}
                             name="dealContactPersonAlternateEmail"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Email"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Enter Email"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -449,7 +441,7 @@ export default function EditDeals() {
                             value={data.dealContactPersonPhoneNumber}
                             onChange={handleChange}
                             name="dealContactPersonPhoneNumber"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Industry"
                           />
                         </div>
@@ -462,7 +454,7 @@ export default function EditDeals() {
                             value={data.dealContactPersonEmail}
                             onChange={handleChange}
                             name="dealContactPersonEmail"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter AnnualRevenue"
                           />
                         </div>
@@ -470,18 +462,15 @@ export default function EditDeals() {
                           {/* <label>Alternate PhoneNumber:</label> */}
                           <input
                             type="text"
-                            value={
-                              data.dealContactPersonAlternatePhoneNumber
-                            }
+                            value={data.dealContactPersonAlternatePhoneNumber}
                             onChange={handleChange}
                             name="dealContactPersonAlternatePhoneNumber"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter CompanyName"
                           />
                         </div>
                       </div>
                       <div className="form-group row mb-4">
-
                         <div className="col-lg-6">
                           {/* <label>Deal Type:</label> */}
                           <select
@@ -493,10 +482,10 @@ export default function EditDeals() {
                             name="dealType"
                             className="form-control form-control-lg form-control-solid"
                           >
-                            <option>
-                              --Select --
+                            <option>--Select --</option>
+                            <option value="ExistingBusiness">
+                              Existing Business
                             </option>
-                            <option value="ExistingBusiness">Existing Business</option>
                             <option value="NewBusiness">New Business </option>
                           </select>
                         </div>
@@ -506,10 +495,10 @@ export default function EditDeals() {
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-              <button
+                <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation('/deals/deals')
+                    navigation("/deals/deals");
                   }}
                 >
                   Back

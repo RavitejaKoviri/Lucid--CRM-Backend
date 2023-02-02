@@ -90,13 +90,13 @@ export function AsideMenuMain() {
             fontIcon="bi-gear fs-3"
           />
           <AsideMenuItem to="/cdr" title="CDR" fontIcon="bi-gear fs-3" />
-          <AsideMenuItem
+          {/* <AsideMenuItem
             to="/company"
             title="Company"
             fontIcon="bi bi-building"
             // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
             className="py-2"
-          />
+          /> */}
           <AsideMenuItem
             to="/reports"
             title="Reports"

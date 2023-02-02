@@ -34,7 +34,7 @@ function SignUpFormTemplate() {
     console.log(obj, "resspp");
 
     axios
-      .post("http://65.2.10.157:5377/templates", obj, {
+      .post("http://103.195.244.172:4377/templates", obj, {
         headers: {
           "content-type": "application/json",
           // Authorization: `Bearer ${token}`,

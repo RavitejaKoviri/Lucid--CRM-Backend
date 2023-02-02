@@ -85,7 +85,7 @@ export default function TaskAdduser() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
+      .post("http://103.195.244.172:4377/upload/", formdata, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -272,7 +272,9 @@ export default function TaskAdduser() {
                     onChange={handleChange}
                     name="taskStatus"
                   >
-                    <option value={""} disabled selected>Select Status</option>
+                    <option value={""} disabled selected>
+                      Select Status
+                    </option>
                     {status?.map((item: any) => (
                       <option value={item?.id}>{item?.taskStatusName}</option>
                     ))}
@@ -313,7 +315,9 @@ export default function TaskAdduser() {
                     onChange={handleChange}
                     name="contact"
                   >
-                    <option value={""} disabled selected>Select Contact</option>
+                    <option value={""} disabled selected>
+                      Select Contact
+                    </option>
                     {contact?.map((item: any) => (
                       <option value={item?.id}>{item?.contactName}</option>
                     ))}
@@ -364,7 +368,9 @@ export default function TaskAdduser() {
                                 type="text"
                                 value={data.taskDueDate}
                                 onChange={handleChange}
-                                onFocus={(e)=>{e.target.type='date'}}
+                                onFocus={(e) => {
+                                  e.target.type = "date";
+                                }}
                                 name="taskDueDate"
                                 className="form-control form-control-lg form-control-solid mb-lg-0 my-5"
                                 placeholder="Select Task Due Date"

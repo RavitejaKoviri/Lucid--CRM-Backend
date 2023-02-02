@@ -2,21 +2,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   CreateDeal,
   getcampaigns,
   getcompanies,
   getdealStatuses,
   getsource,
-
 } from "../../_redux/dealAction";
 
 export default function DealsAdduser() {
   const navigation = useNavigate();
   const dispatch = useDispatch();
-;
-
   const [deal, setDeal] = useState(false);
   const token = useSelector((state: any) => state?.auth?.authToken);
   const user = useSelector((state: any) => state?.auth?.user);
@@ -50,7 +47,7 @@ export default function DealsAdduser() {
     company: user?.company?.id,
     dealStatus: "",
     dealOwner: user?.id,
-    image:imageUrl,
+    image: imageUrl,
     description: "",
   });
 
@@ -87,20 +84,22 @@ export default function DealsAdduser() {
     //   })
     //   .catch(() => {});
     axios
-      .post("http://65.2.10.157:5377/upload/", formdata, {
-        headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
+      .post("http://103.195.244.172:4377/upload/", formdata, {
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(({ data }) => {
         console.log(data[0].url, "imageupload");
         setImageUrl(data[0].id);
       })
-      .catch(() => { });
+      .catch(() => {});
   };
 
- 
   const handleSubmit = () => {
     console.log(data, "EDIT_PROFILE");
-      dispatch(CreateDeal(data, token));
+    dispatch(CreateDeal(data, token));
     setData({
       dealName: " ",
       dealContactPersonName: " ",
@@ -117,19 +116,15 @@ export default function DealsAdduser() {
       description: "",
       image: [],
     });
-    navigation('/deals/deals')
+    navigation("/deals/deals");
   };
   return (
     <>
-      <div
-        className="content d-flex flex-column flex-column-fluid"
-      >
+      <div className="content d-flex flex-column flex-column-fluid">
         <div id="kt_content_container" className="container-xxl">
-          <div
-            className="form d-flex flex-column flex-lg-row"
-          >
+          <div className="form d-flex flex-column flex-lg-row">
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
-            <div className="card card-flush py-4">
+              <div className="card card-flush py-4">
                 {/*begin::Card header*/}
                 <div className="card-header">
                   {/*begin::Card title*/}
@@ -145,9 +140,7 @@ export default function DealsAdduser() {
                   {/*begin::Image input placeholder*/}
                   {/* <style>.image-input-placeholder [data-th</style> */}
                   {/*end::Image input placeholder*/}
-                  <div
-                    className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                  >
+                  <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
                     {selectedPreviewFile ? (
                       <div className="image-input-wrapper w-150px h-150px">
                         <label
@@ -170,9 +163,8 @@ export default function DealsAdduser() {
                           {/*end::Inputs*/}
                         </label>
                       </div>
-                    ) : (
-
-                      data?.image?.length > 0 ? (<div className="image-input-wrapper w-150px h-150px">
+                    ) : data?.image?.length > 0 ? (
+                      <div className="image-input-wrapper w-150px h-150px">
                         <label
                           // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
                           // data-kt-image-input-action="change"
@@ -211,42 +203,40 @@ export default function DealsAdduser() {
                           />
                           {/*end::Inputs*/}
                         </label>
-                      </div>) : (
-                        <>
-                          <div
-                            className="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
-                          >
-                            <div className="image-input-wrapper w-150px h-150px">
-                              <label
-                                className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                data-kt-image-input-action="change"
-                                data-bs-toggle="tooltip"
-                                title="Change avatar"
-                              >
-                                <i className="bi bi-pencil-fill fs-7"></i>
-                                {/*begin::Inputs*/}
-                                <input
-                                  type="file"
-                                  multiple
-                                  // name="avatar"
-                                  accept=".png, .jpg, .jpeg"
-                                  onChange={(event: any) => {
-                                    handleUploadImage(event.currentTarget.files[0]);
-                                  }}
-                                />
-                                {/*end::Inputs*/}
-                              </label>
-                            </div>
-
+                      </div>
+                    ) : (
+                      <>
+                        <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
+                          <div className="image-input-wrapper w-150px h-150px">
+                            <label
+                              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                              data-kt-image-input-action="change"
+                              data-bs-toggle="tooltip"
+                              title="Change avatar"
+                            >
+                              <i className="bi bi-pencil-fill fs-7"></i>
+                              {/*begin::Inputs*/}
+                              <input
+                                type="file"
+                                multiple
+                                // name="avatar"
+                                accept=".png, .jpg, .jpeg"
+                                onChange={(event: any) => {
+                                  handleUploadImage(
+                                    event.currentTarget.files[0]
+                                  );
+                                }}
+                              />
+                              {/*end::Inputs*/}
+                            </label>
                           </div>
-                          <div className="text-muted fs-7">
-                            Set the product thumbnail image. Only *.png, *.jpg and
-                            *.jpeg image files are accepted
-                          </div>
-                        </>
-                      )
-                    )
-                    }
+                        </div>
+                        <div className="text-muted fs-7">
+                          Set the product thumbnail image. Only *.png, *.jpg and
+                          *.jpeg image files are accepted
+                        </div>
+                      </>
+                    )}
                   </div>
                   {/*end::Image input*/}
                 </div>
@@ -258,21 +248,21 @@ export default function DealsAdduser() {
                 value={data.description}
                 onChange={handleChange}
                 name="description"
-              className="form-control form-control-lg form-control-solid"
+                className="form-control form-control-lg form-control-solid"
                 placeholder="Enter Image description"
               />
-             
+
               <div className="card card-flush py-4">
                 <div className="card-header">
                   <div className="card-title">
                     <h2>Status</h2>
                   </div>
-               
+
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
-               
+
                 <div className="card-body pt-0">
                   <select
                     className="form-select mb-2"
@@ -283,36 +273,38 @@ export default function DealsAdduser() {
                     onChange={handleChange}
                     name="dealStatus"
                   >
-                    <option value={""} disabled selected>Select Status</option>
+                    <option value={""} disabled selected>
+                      Select Status
+                    </option>
                     {status?.map((item: any) => (
                       <option value={item?.id}>{item?.dealStatusName}</option>
                     ))}
                   </select>
-                 
+
                   <div className="d-none mt-10">
                     <label className="form-label">
                       Select publishing date and time
                     </label>
                     <input
-                    className="form-control form-control-lg form-control-solid"
+                      className="form-control form-control-lg form-control-solid"
                       id="kt_ecommerce_add_product_status_datepicker"
                       placeholder="Pick date & time"
                     />
                   </div>
                 </div>
               </div>
-              
+
               <div className="card card-flush py-4">
                 <div className="card-header">
                   <div className="card-title">
                     <h2>Campaign</h2>
                   </div>
-                 
+
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
-               
+
                 <div className="card-body pt-0">
                   <select
                     className="form-select mb-2"
@@ -323,13 +315,13 @@ export default function DealsAdduser() {
                     onChange={handleChange}
                     name="campaignSource"
                   >
-                    <option value={""} disabled selected>Select Campaign</option>
+                    <option value={""} disabled selected>
+                      Select Campaign
+                    </option>
                     {campaign?.map((item: any) => (
                       <option value={item?.id}>{item?.campaignName}</option>
                     ))}
                   </select>
-                  
-                  
                 </div>
               </div>
               <div className="card card-flush py-4">
@@ -337,12 +329,12 @@ export default function DealsAdduser() {
                   <div className="card-title">
                     <h2>Source</h2>
                   </div>
-                 
+
                   <div className="card-toolbar">
                     <div className="rounded-circle bg-success w-15px h-15px"></div>
                   </div>
                 </div>
-              
+
                 <div className="card-body pt-0">
                   <select
                     className="form-select mb-2"
@@ -353,16 +345,17 @@ export default function DealsAdduser() {
                     onChange={handleChange}
                     name="dealSource"
                   >
-                    <option value={""} disabled selected>Select Source</option>
+                    <option value={""} disabled selected>
+                      Select Source
+                    </option>
                     {source?.map((item: any) => (
                       <option value={item?.id}>{item?.SourceName}</option>
                     ))}
                   </select>
-                 
                 </div>
               </div>
             </div>
-           
+
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
               <div className="d-flex flex-column gap-7 gap-lg-10">
                 <div className="card card-flush py-4">
@@ -371,7 +364,7 @@ export default function DealsAdduser() {
                       <h2>Deal Detials</h2>
                     </div>
                   </div>
-                 
+
                   <div className="card-body pt-0">
                     <div className="form">
                       <div className="form-group row mb-4">
@@ -382,7 +375,7 @@ export default function DealsAdduser() {
                             value={data.dealName}
                             onChange={handleChange}
                             name="dealName"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter First Name"
                           />
                         </div>
@@ -393,7 +386,7 @@ export default function DealsAdduser() {
                             value={data.dealContactPersonName}
                             onChange={handleChange}
                             name="dealContactPersonName"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Phone Number"
                           />
                         </div>
@@ -407,8 +400,8 @@ export default function DealsAdduser() {
                             value={data.dealContactPersonAlternateEmail}
                             onChange={handleChange}
                             name="dealContactPersonAlternateEmail"
-                          className="form-control form-control-lg form-control-solid"
-                          placeholder="Enter Email"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Enter Email"
                           />
                         </div>
                         <div className="col-lg-6">
@@ -418,7 +411,7 @@ export default function DealsAdduser() {
                             value={data.dealContactPersonPhoneNumber}
                             onChange={handleChange}
                             name="dealContactPersonPhoneNumber"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Industry"
                           />
                         </div>
@@ -431,7 +424,7 @@ export default function DealsAdduser() {
                             value={data.dealContactPersonEmail}
                             onChange={handleChange}
                             name="dealContactPersonEmail"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Annual Revenue"
                           />
                         </div>
@@ -439,18 +432,15 @@ export default function DealsAdduser() {
                           {/* <label>Alternate PhoneNumber:</label> */}
                           <input
                             type="text"
-                            value={
-                              data.dealContactPersonAlternatePhoneNumber
-                            }
+                            value={data.dealContactPersonAlternatePhoneNumber}
                             onChange={handleChange}
                             name="dealContactPersonAlternatePhoneNumber"
-                          className="form-control form-control-lg form-control-solid"
+                            className="form-control form-control-lg form-control-solid"
                             placeholder="Enter Company Name"
                           />
                         </div>
                       </div>
                       <div className="form-group row mb-4">
-
                         <div className="col-lg-6">
                           {/* <label>Deal Type:</label> */}
                           <select
@@ -462,10 +452,10 @@ export default function DealsAdduser() {
                             name="dealType"
                             className="form-control form-control-lg form-control-solid"
                           >
-                            <option>
-                              Select
+                            <option>Select</option>
+                            <option value="ExistingBusiness">
+                              Existing Business
                             </option>
-                            <option value="ExistingBusiness">Existing Business</option>
                             <option value="NewBusiness">New Business </option>
                           </select>
                         </div>
@@ -475,10 +465,10 @@ export default function DealsAdduser() {
                 </div>
               </div>
               <div className="d-flex justify-content-end">
-              <button
+                <button
                   className="btn btn-dark me-5"
                   onClick={() => {
-                    navigation('/deals/deals')
+                    navigation("/deals/deals");
                   }}
                 >
                   Back

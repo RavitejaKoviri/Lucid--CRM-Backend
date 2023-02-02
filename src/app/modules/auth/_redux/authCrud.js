@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // export const LOGIN_URL = "api/auth/login";
-export const LOGIN_URL = "http://65.2.10.157:5377/auth/local";
+export const LOGIN_URL = "http://103.195.244.172:4377/auth/local";
 export const UPDATE = "/users";
 
 export const REGISTER_URL = "api/auth/register";
@@ -14,12 +14,11 @@ export const USER_ROLES_URL = "users-permissions/roles";
 export const REQUEST_FORGOT_PASSWORD_API = "/local/forgot-password";
 export const RESET_PASSWORD_API = "/local/reset-password";
 
-
 export function login(email, password) {
   const identifier = email;
   axios.defaults.headers = {
-    Authorization: '',
-  }
+    Authorization: "",
+  };
   return axios.post(LOGIN_URL, { identifier, password });
 }
 

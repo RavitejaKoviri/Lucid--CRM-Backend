@@ -8,7 +8,7 @@ function TempResponse() {
   useEffect(() => {
     axios
       .get(
-        `http://65.2.10.157:5377/templates?uniqueId=${location?.state?.uniqueId}`
+        `http://103.195.244.172:4377/templates?uniqueId=${location?.state?.uniqueId}`
       )
       .then((res) => {
         setState(res.data);
