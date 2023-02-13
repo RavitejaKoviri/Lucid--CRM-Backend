@@ -20,7 +20,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./redux/store";
 
-axios.defaults.baseURL = "http://103.195.244.172:4377/";
+axios.defaults.baseURL = "https://crmbackend.luciddiagnostics.com/";
 
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add

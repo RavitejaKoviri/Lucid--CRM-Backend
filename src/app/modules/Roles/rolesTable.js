@@ -46,12 +46,16 @@ const RolesTable = ({ item }) => {
 
   function handleSubmit(id, obj) {
     axios
-      .put(`http://103.195.244.172:4377/rolepermissions/${id}`, obj, {
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      .put(
+        `https://crmbackend.luciddiagnostics.com/rolepermissions/${id}`,
+        obj,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         // console.log(response, "response");
         // alert("Submitted");

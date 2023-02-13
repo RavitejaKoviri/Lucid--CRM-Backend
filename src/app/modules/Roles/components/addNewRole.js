@@ -42,7 +42,7 @@ function AddNewRole() {
 
   useEffect(() => {
     // axios
-    //   .get("http://103.195.244.172:4377/companies", {
+    //   .get("https://crmbackend.luciddiagnostics.com/companies", {
     //     headers: {
     //       "content-type": "application/json",
     //       Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ function AddNewRole() {
     obj.company = companyName;
 
     axios
-      .post("http://103.195.244.172:4377/crmroles", obj, {
+      .post("https://crmbackend.luciddiagnostics.com/crmroles", obj, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,

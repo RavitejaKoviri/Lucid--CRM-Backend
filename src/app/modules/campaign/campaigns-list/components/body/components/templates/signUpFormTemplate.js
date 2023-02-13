@@ -34,7 +34,7 @@ function SignUpFormTemplate() {
     console.log(obj, "resspp");
 
     axios
-      .post("http://103.195.244.172:4377/templates", obj, {
+      .post("https://crmbackend.luciddiagnostics.com/templates", obj, {
         headers: {
           "content-type": "application/json",
           // Authorization: `Bearer ${token}`,

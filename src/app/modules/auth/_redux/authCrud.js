@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // export const LOGIN_URL = "api/auth/login";
-export const LOGIN_URL = "http://103.195.244.172:4377/auth/local";
+export const LOGIN_URL = "https://crmbackend.luciddiagnostics.com/auth/local";
 export const UPDATE = "/users";
 
 export const REGISTER_URL = "api/auth/register";

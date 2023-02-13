@@ -108,9 +108,9 @@ const PrivateRoutes = () => {
 
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path="auth/*" element={<Navigate to="/dashboard" />} />
+        <Route path="websocCRM/auth/*" element={<Navigate to="/websocCRM" />} />
         {/* Pages */}
-        <Route path="dashboard" element={<DashboardWrapper />} />
+        <Route path="websocCRM" element={<DashboardWrapper />} />
         <Route path="builder" element={<BuilderPageWrapper />} />
         <Route path="menu-test" element={<MenuTestPage />} />
         {/* <Route path='targets' element={<TargetsWrapper />} /> */}

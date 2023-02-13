@@ -99,7 +99,7 @@ function RolePermissions() {
     obj.company = company;
 
     axios
-      .post("http://103.195.244.172:4377/rolepermissions", obj, {
+      .post("https://crmbackend.luciddiagnostics.com/rolepermissions", obj, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,

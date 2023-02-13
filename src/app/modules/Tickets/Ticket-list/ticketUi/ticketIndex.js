@@ -124,7 +124,7 @@ const TicketIndex = () => {
   function handleCardMove(board, card, source, destination) {
     axios
       .get(
-        `http://103.195.244.172:4377/ticket-statuses?ticketStatusName=${destination?.toColumnId}`,
+        `https://crmbackend.luciddiagnostics.com/ticket-statuses?ticketStatusName=${destination?.toColumnId}`,
         {
           headers: {
             "content-type": "application/json",

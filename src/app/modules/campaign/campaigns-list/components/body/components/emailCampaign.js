@@ -51,12 +51,16 @@ function EmailCampaign() {
 
     console.log(obj, "obj");
     axios
-      .post("http://103.195.244.172:4377/users-permissions/send", obj, {
-        headers: {
-          "content-type": "application/json",
-          // Authorization: `Bearer ${token}`,
-        },
-      })
+      .post(
+        "https://crmbackend.luciddiagnostics.com/users-permissions/send",
+        obj,
+        {
+          headers: {
+            "content-type": "application/json",
+            // Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         console.log(response, "responseafterpost");
         setEmail({ ...email, subject: "" });

@@ -164,7 +164,7 @@ const DealIndex = () => {
   function handleCardMove(board, card, source, destination) {
     axios
       .get(
-        `http://103.195.244.172:4377/deal-statuses?dealStatusName=${destination?.toColumnId}`,
+        `https://crmbackend.luciddiagnostics.com/deal-statuses?dealStatusName=${destination?.toColumnId}`,
         {
           headers: {
             "content-type": "application/json",

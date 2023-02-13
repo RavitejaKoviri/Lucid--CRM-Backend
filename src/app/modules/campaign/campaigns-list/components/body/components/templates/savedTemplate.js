@@ -18,7 +18,7 @@ function SavedTemplate() {
 
   useEffect(() => {
     axios
-      .get(`http://103.195.244.172:4377/templates/${params?.id}`)
+      .get(`https://crmbackend.luciddiagnostics.com/templates/${params?.id}`)
       .then((res) => {
         setState(res.data);
       })
@@ -34,7 +34,7 @@ function SavedTemplate() {
     obj.template = params?.id;
 
     axios
-      .post(`http://103.195.244.172:4377/template-responses`, obj)
+      .post(`https://crmbackend.luciddiagnostics.com/template-responses`, obj)
       .then((res) => {
         console.log(res);
         alert("Submitted successfully");

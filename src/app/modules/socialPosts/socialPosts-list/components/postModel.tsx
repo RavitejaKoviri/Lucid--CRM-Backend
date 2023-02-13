@@ -60,7 +60,7 @@ function PostModal(props: any) {
     formdata.append("files", selectedFile, selectedFile.name);
     console.log("document", document);
     axios
-      .post("http://103.195.244.172:4377/upload/", formdata, {
+      .post("https://crmbackend.luciddiagnostics.com/upload/", formdata, {
         headers: {
           "content-type": "application/json",
           Authorization: `Bearer ${token}`,

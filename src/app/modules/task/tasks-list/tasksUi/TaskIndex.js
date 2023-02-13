@@ -129,7 +129,7 @@ const TaskIndex = () => {
   function handleCardMove(board, card, source, destination) {
     axios
       .get(
-        `http://103.195.244.172:4377/task-statuses?taskStatusName=${destination?.toColumnId}`,
+        `https://crmbackend.luciddiagnostics.com/task-statuses?taskStatusName=${destination?.toColumnId}`,
         {
           headers: {
             "content-type": "application/json",

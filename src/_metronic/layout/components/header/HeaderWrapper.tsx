@@ -48,7 +48,7 @@ export function HeaderWrapper() {
 
         {/* begin::Mobile logo */}
         <div className="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-          <Link to="/dashboard" className="d-lg-none">
+          <Link to="/websocCRM" className="d-lg-none">
             <img
               alt="Logo"
               src={toAbsoluteUrl("/media/logos/websoc.png")}

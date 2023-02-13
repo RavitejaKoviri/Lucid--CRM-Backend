@@ -24,7 +24,7 @@ const AsideDefault: FC = () => {
     >
       {/* begin::Brand */}
       <div className="aside-logo  py-8" id="kt_aside_logo">
-        <Link to="/dashboard" className="d-flex align-items-center">
+        <Link to="/websocCRM" className="d-flex align-items-center">
           <img
             src={toAbsoluteUrl("/media/logos/websoc.png")}
             alt="logo"
