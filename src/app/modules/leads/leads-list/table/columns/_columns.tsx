@@ -55,6 +55,76 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
     Header: (props) => (
       <LeadCustomHeader
         tableProps={props}
+        title="Date"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadAppointmentDate",
+  },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Test Name"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadSpecialityName",
+  },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Order ID"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadId",
+  },
+  // {
+  //   Header: (props) => (
+  //     <LeadCustomHeader
+  //       tableProps={props}
+  //       title="Bill Number"
+  //       className="min-w-125px"
+  //     />
+  //   ),
+  //   accessor: "leadBillNumber",
+  // },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Location"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadLocationName",
+  },
+  // {
+  //   Header: (props) => (
+  //     <LeadCustomHeader
+  //       tableProps={props}
+  //       title="Time"
+  //       className="min-w-125px"
+  //     />
+  //   ),
+  //   accessor: "leadTime",
+  // },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Customer Status"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadStatusName",
+  },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
         title="Company"
         className="min-w-125px"
       />
@@ -95,7 +165,7 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
     Header: (props) => (
       <LeadCustomHeader
         tableProps={props}
-        title="campaignSource"
+        title="Digital Media Source"
         className="min-w-125px"
       />
     ),

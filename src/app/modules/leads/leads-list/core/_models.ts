@@ -23,6 +23,11 @@ export type Lead = {
   leadIndustry: string
   leadLastName: string
   leadPhonenumber: string
+  leadSpecialityName:string
+  leadAppointmentDate:string
+  leadId:string
+  leadLocationName:string
+  leadStatusName:string
 }
 
 export type LeadsQueryResponse = Response<Array<Lead>>
@@ -42,4 +47,9 @@ export const initialUser: Lead = {
   leadIndustry: '',
   leadLastName: '',
   leadPhonenumber: '',
+  leadSpecialityName:'',
+  leadAppointmentDate:'',
+  leadId:'',
+  leadLocationName:'',
+  leadStatusName:'',
 }
