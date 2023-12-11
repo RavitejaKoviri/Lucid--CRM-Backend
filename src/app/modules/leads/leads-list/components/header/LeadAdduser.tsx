@@ -38,11 +38,11 @@ export default function LeadAdduser() {
   const [preview, setPreview] = useState();
   const [data, setData] = useState({
     leadFirstName: "",
-    leadPhonenumber: "",
+    leadMobileNumber: "",
     leadIndustry: "",
     leadGender: "",
-    leadAppointmentDate: "",
-    leadAnnualRevenueContribution: "",
+    date: "",
+    revenue: "",
     leadEmailOptOut: "",
     leadStatusName: "",
     // leadCompanyName: "",
@@ -50,7 +50,7 @@ export default function LeadAdduser() {
     leadEmail: "",
     leadWebsite: "",
     leadStatusId: "",
-    leadLocationName: "",
+    leadLocation: "",
     utmSource: "",
     utmCampaign: "",
     utmAdgroup: "",
@@ -60,7 +60,7 @@ export default function LeadAdduser() {
     leadSource: "",
     leadBusinessUnit: "",
     campaignSource: "",
-    leadSpecialityName: "",
+    // description: "",
     company: user?.company?.id,
     leadStatus: "",
     leadOwner: user?.id,
@@ -132,12 +132,12 @@ export default function LeadAdduser() {
     dispatch(CreateLead(data, token));
     setData({
       leadFirstName: "",
-      leadPhonenumber: "",
+      leadMobileNumber: "",
       leadIndustry: "",
       leadGender: "",
-      leadAppointmentDate: "",
+      date: "",
       leadStatusName: "",
-      leadLocationName: "",
+      leadLocation: "",
       utmSource: "",
       utmMedium: "",
       utmCampaign: "",
@@ -145,11 +145,11 @@ export default function LeadAdduser() {
       leadBusinessUnit: "",
       utmTerm: "",
       utmAdgroup: "",
-      leadAnnualRevenueContribution: "",
+      revenue: "",
       leadEmailOptOut: "",
       // leadCompanyName: "",
       leadLastName: "",
-      leadSpecialityName: "",
+      // description: "",
       leadEmail: "",
       leadWebsite: "",
       leadSource: "",
@@ -168,12 +168,12 @@ export default function LeadAdduser() {
     console.log(" i was called ");
     setData({
       leadFirstName: "",
-      leadPhonenumber: "",
+      leadMobileNumber: "",
       leadIndustry: "",
       leadGender: "",
-      leadAppointmentDate: "",
+      date: "",
       leadStatusName: "",
-      leadLocationName: "",
+      leadLocation: "",
       utmSource: "",
       utmMedium: "",
       utmCampaign: "",
@@ -181,11 +181,11 @@ export default function LeadAdduser() {
       leadBusinessUnit: "",
       utmTerm: "",
       utmAdgroup: "",
-      leadAnnualRevenueContribution: "",
+      revenue: "",
       leadEmailOptOut: "",
       // leadCompanyName: "",
       leadLastName: "",
-      leadSpecialityName: "",
+      // description: "",
       leadEmail: "",
       leadWebsite: "",
       leadSource: "",
@@ -505,9 +505,9 @@ export default function LeadAdduser() {
                           {/* <label>PhoneNumber:</label> */}
                           <input
                             type="text"
-                            value={data.leadPhonenumber}
+                            value={data.leadMobileNumber}
                             onChange={handleChange}
-                            name="leadPhonenumber"
+                            name="leadMobileNumber"
                             className="form-control form-control-lg form-control-solid"
                             placeholder="Phone Number"
                           />
@@ -558,12 +558,12 @@ export default function LeadAdduser() {
                           {/* <label>AppointmentDate:</label> */}
                           <input
                             type="text"
-                            value={data.leadAppointmentDate}
+                            value={data.date}
                             onChange={handleChange}
                             onFocus={(e) => {
                               e.target.type = "date";
                             }}
-                            name="leadAppointmentDate"
+                            name="date"
                             className="form-control form-control-lg form-control-solid"
                             placeholder="Appointment Date"
                           />
@@ -624,24 +624,24 @@ export default function LeadAdduser() {
                         </div>
                       </div>
                       <div className="form-group row my-8">
-                        <div className="col-lg-6">
+                        {/* <div className="col-lg-6"> */}
                           {/* <label>Speciality Name:</label> */}
-                          <input
+                          {/* <input
                             type="text"
-                            value={data.leadSpecialityName}
+                            value={data.description}
                             onChange={handleChange}
-                            name="leadSpecialityName"
+                            name="description"
                             className="form-control form-control-lg form-control-solid"
                             placeholder="Speciality Name"
                           />
-                        </div>
+                        </div> */}
                         <div className="col-lg-6">
                           {/* <label>Location Name:</label> */}
                           <input
                             type="email"
-                            value={data.leadLocationName}
+                            value={data.leadLocation}
                             onChange={handleChange}
-                            name="leadLocationName"
+                            name="leadLocation"
                             className="form-control form-control-lg form-control-solid"
                             placeholder="Location"
                           />
@@ -748,11 +748,11 @@ export default function LeadAdduser() {
                           {/* <label>AnnualRevenue:</label> */}
                           <input
                             type="text"
-                            value={data.leadAnnualRevenueContribution}
+                            value={data.revenue}
                             onChange={handleChange}
-                            name="leadAnnualRevenueContribution"
+                            name="revenue"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Annual Revenue"
+                            placeholder="Revenue"
                           />
                         </div>
                         {/* <div className="col-lg-6"> */}

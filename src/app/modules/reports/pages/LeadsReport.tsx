@@ -158,7 +158,7 @@ export function LeadsReport() {
                   if (val?.leadFirstName?.toLowerCase()?.includes(search?.toLowerCase())) {
                     return val;
                   }
-                  if (val?.leadPhonenumber?.toLowerCase()?.includes(search?.toLowerCase())) {
+                  if (val?.leadMobileNumber?.toLowerCase()?.includes(search?.toLowerCase())) {
                     return val;
                   }
                 }).filter((val: any) => {
@@ -186,11 +186,11 @@ export function LeadsReport() {
                       <td>{item ? item?.createdAt?.slice(0, 10) + " , " + item?.createdAt?.slice(11, 16) : " "}</td>
                       <td >{item?.leadCompanyName ? item?.leadCompanyName : 'Nill'}</td>
                       <td >{item?.leadIndustry ? item?.leadIndustry : 'Nill'}</td>
-                      <td >{item?.leadPhonenumber ? item?.leadPhonenumber : 'Nill'}</td>
+                      <td >{item?.leadMobileNumber ? item?.leadMobileNumber : 'Nill'}</td>
                       <td >{item?.leadSource?.SourceName ? item?.leadSource?.SourceName : 'Nill'}</td>
                       <td >{item?.campaignSource?.campaignName ? item?.campaignSource?.campaignName : 'Nill'}</td>
                       <td >{item?.leadWebsite ? item?.leadWebsite : 'Nill'}</td>
-                      <td >{item?.leadAnnualRevenueContribution ? item?.leadAnnualRevenueContribution : 'Nill'}</td>
+                      <td >{item?.revenue ? item?.revenue : 'Nill'}</td>
 
                     </tr>
 

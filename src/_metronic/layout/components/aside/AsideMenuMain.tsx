@@ -331,13 +331,13 @@ export function AsideMenuMain() {
               hasBullet={true}
             />
           </AsideMenuItemWithSubMain>
-          <AsideMenuItem
+          {/* <AsideMenuItem
             to="/socialPosts"
             title="Social"
             fontIcon="bi-globe"
             // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
             className="py-2"
-          />
+          /> */}
         </>
       ) : (
         <>
@@ -688,13 +688,13 @@ export function AsideMenuMain() {
               />
             </AsideMenuItemWithSubMain>
           )}
-          <AsideMenuItem
+          {/* <AsideMenuItem
             to="/socialPosts"
             title="Social"
             fontIcon="bi-globe"
             // bsTitle={intl.formatMessage({id: 'MENU.DASHBOARD'})}
             className="py-2"
-          />
+          /> */}
         </>
       )}
     </>

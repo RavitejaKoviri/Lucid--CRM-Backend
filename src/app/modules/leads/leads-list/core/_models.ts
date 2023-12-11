@@ -16,17 +16,17 @@ export type Lead = {
   }
   lead_source: Object
   campaign_source: Object
-  leadAnnualRevenueContribution: string
+  revenue: string
   leadCompanyName: string
   leadEmail: string
   leadFirstName: string
   leadIndustry: string
   leadLastName: string
-  leadPhonenumber: string
-  leadSpecialityName:string
-  leadAppointmentDate:string
+  leadMobileNumber: string
+  description:string
+  date:string
   leadId:string
-  leadLocationName:string
+  leadLocation:string
   leadStatusName:string
 }
 
@@ -40,16 +40,16 @@ export const initialUser: Lead = {
   email: '',
   lead_source: {},
   campaign_source: {},
-  leadAnnualRevenueContribution: '',
+  revenue: '',
   leadCompanyName: '',
   leadEmail: '',
   leadFirstName: '',
   leadIndustry: '',
   leadLastName: '',
-  leadPhonenumber: '',
-  leadSpecialityName:'',
-  leadAppointmentDate:'',
+  leadMobileNumber: '',
+  description:'',
+  date:'',
   leadId:'',
-  leadLocationName:'',
+  leadLocation:'',
   leadStatusName:'',
 }

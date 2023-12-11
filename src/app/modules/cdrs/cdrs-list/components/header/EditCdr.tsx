@@ -48,9 +48,9 @@ export default function EditCdr() {
   useEffect(() => {
     setData({
       leadFirstName: leadById?.leadFirstName,
-      leadPhonenumber: leadById?.leadPhonenumber,
+      leadMobileNumber: leadById?.leadMobileNumber,
       leadIndustry: leadById?.leadIndustry,
-      leadAnnualRevenueContribution: leadById?.leadAnnualRevenueContribution,
+      revenue: leadById?.revenue,
       leadEmailOptOut: leadById?.leadEmailOptOut,
       leadCompanyName: leadById?.leadCompanyName,
       leadLastName: leadById?.leadLastName,
@@ -69,9 +69,9 @@ export default function EditCdr() {
   const [data, setData] = useState(
     {
       leadFirstName: " ",
-      leadPhonenumber: " ",
+      leadMobileNumber: " ",
       leadIndustry: " ",
-      leadAnnualRevenueContribution: " ",
+      revenue: " ",
       leadEmailOptOut: " ",
       leadCompanyName: " ",
       leadLastName: " ",
@@ -98,9 +98,9 @@ export default function EditCdr() {
     }
     setData({
       leadFirstName: " ",
-      leadPhonenumber: " ",
+      leadMobileNumber: " ",
       leadIndustry: " ",
-      leadAnnualRevenueContribution: " ",
+      revenue: " ",
       leadEmailOptOut: " ",
       leadCompanyName: " ",
       leadLastName: " ",
@@ -308,9 +308,9 @@ export default function EditCdr() {
                               <label>PhoneNumber:</label>
                               <input
                                 type="text"
-                                value={data.leadPhonenumber}
+                                value={data.leadMobileNumber}
                                 onChange={handleChange}
-                                name="leadPhonenumber"
+                                name="leadMobileNumber"
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter PhoneNumber"
                               />
@@ -356,9 +356,9 @@ export default function EditCdr() {
                               <label>AnnualRevenue:</label>
                               <input
                                 type="text"
-                                value={data.leadAnnualRevenueContribution}
+                                value={data.revenue}
                                 onChange={handleChange}
-                                name="leadAnnualRevenueContribution"
+                                name="revenue"
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter AnnualRevenue"
                               />

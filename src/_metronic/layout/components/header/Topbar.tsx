@@ -25,17 +25,16 @@ const Topbar: FC = () => {
     <div className='d-flex align-items-stretch flex-shrink-0'>
       {/* Search */}
       <div className={clsx('d-flex align-items-stretch', itemClass)}>
-        <Search />
+        {/* <Search /> */}
       </div>
 
       {/* Activities */}
-      <div className={clsx('d-flex align-items-center', itemClass)}>
-        {/* begin::Drawer toggle */}
+      {/* <div className={clsx('d-flex align-items-center', itemClass)}>
+       
         <div className={btnClass} id='kt_activities_toggle'>
           <i className='bi bi-bell fs-2' />
         </div>
-        {/* end::Drawer toggle */}
-      </div>
+      </div> */}
 
       {/* Quick links */}
       {/* <div className={clsx('d-flex align-items-center', itemClass)}>

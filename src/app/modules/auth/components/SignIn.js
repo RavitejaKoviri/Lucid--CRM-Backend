@@ -243,9 +243,9 @@ function Signin(props) {
           <div className="d-flex flex-center flex-wrap px-5">
             {/*begin::Links*/}
             <div className="d-flex fw-semibold text-primary fs-base">
-              <a href="www.websoc.co.in" className="px-5" target="_blank">Terms</a>
-              <a href="www.websoc.co.in" className="px-5" target="_blank">Plans</a>
-              <a href="www.websoc.co.in" className="px-5" target="_blank">Contact Us</a>
+              <a href="https://www.websoc.ai" className="px-5" target="_blank">Terms</a>
+              <a href="https://www.websoc.ai" className="px-5" target="_blank">Plans</a>
+              <a href="https://www.websoc.ai" className="px-5" target="_blank">Contact Us</a>
             </div>
             {/*end::Links*/}
           </div>

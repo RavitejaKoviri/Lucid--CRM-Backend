@@ -51,7 +51,7 @@ export function HeaderWrapper() {
           <Link to="/websocCRM" className="d-lg-none">
             <img
               alt="Logo"
-              src={toAbsoluteUrl("/media/logos/websoc.png")}
+              src={toAbsoluteUrl("/media/logos/websoc-blacklogo.png")}
               className="h-50px"
             />
           </Link>

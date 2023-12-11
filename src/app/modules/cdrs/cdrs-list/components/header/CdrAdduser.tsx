@@ -50,9 +50,9 @@ export default function CdrAdduser() {
   const [data, setData] = useState(
     {
       leadFirstName: " ",
-      leadPhonenumber: " ",
+      leadMobileNumber: " ",
       leadIndustry: " ",
-      leadAnnualRevenueContribution: " ",
+      revenue: " ",
       leadEmailOptOut: " ",
       leadCompanyName: " ",
       leadLastName: " ",
@@ -76,9 +76,9 @@ export default function CdrAdduser() {
     
     setData({
       leadFirstName: " ",
-      leadPhonenumber: " ",
+      leadMobileNumber: " ",
       leadIndustry: " ",
-      leadAnnualRevenueContribution: " ",
+      revenue: " ",
       leadEmailOptOut: " ",
       leadCompanyName: " ",
       leadLastName: " ",
@@ -286,9 +286,9 @@ export default function CdrAdduser() {
                               <label>PhoneNumber:</label>
                               <input
                                 type="text"
-                                value={data.leadPhonenumber}
+                                value={data.leadMobileNumber}
                                 onChange={handleChange}
-                                name="leadPhonenumber"
+                                name="leadMobileNumber"
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter PhoneNumber"
                               />
@@ -334,9 +334,9 @@ export default function CdrAdduser() {
                               <label>AnnualRevenue:</label>
                               <input
                                 type="text"
-                                value={data.leadAnnualRevenueContribution}
+                                value={data.revenue}
                                 onChange={handleChange}
-                                name="leadAnnualRevenueContribution"
+                                name="revenue"
                                 className="form-control form-control-lg form-control-solid"
                                 placeholder="Enter AnnualRevenue"
                               />

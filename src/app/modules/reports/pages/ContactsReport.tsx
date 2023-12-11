@@ -186,7 +186,7 @@ export function ContactsReport() {
                     <td >{item?.contactSource?.SourceName ? item?.contactSource?.SourceName : 'Nill'}</td>
                     <td >{item?.campaignSource?.campaignName ? item?.campaignSource?.campaignName : 'Nill'}</td>
                     {/* <td >{item ? item?.leadWebsite : ' '}</td>
-                          <td >{item ? item?.leadAnnualRevenueContribution : ' '}</td> */}
+                          <td >{item ? item?.revenue : ' '}</td> */}
 
                   </tr>
 

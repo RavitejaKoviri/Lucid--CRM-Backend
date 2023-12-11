@@ -71,7 +71,7 @@ const CompanyColumns: ReadonlyArray<Column<Lead>> = [
   // },
   // {
   //   Header: (props) => <CompanyCustomHeader tableProps={props} title='Phonenumber' className='min-w-125px' />,
-  //   accessor: 'leadPhonenumber',
+  //   accessor: 'leadMobileNumber',
   // },
   // {
   //   Header: (props) => (

@@ -25,6 +25,47 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
     Header: (props) => (
       <LeadCustomHeader
         tableProps={props}
+        title="Appointment Date"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "date",
+  },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Location"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadLocation",
+  },
+   
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Tests"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "description",
+  },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Mobile Number"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadMobileNumber",
+  },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
         title="FirstName"
         className="min-w-125px"
       />
@@ -51,36 +92,17 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
     ),
     accessor: "leadEmail",
   },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="Date"
-        className="min-w-125px"
-      />
-    ),
-    accessor: "leadAppointmentDate",
-  },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="Test Name"
-        className="min-w-125px"
-      />
-    ),
-    accessor: "leadSpecialityName",
-  },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="Order ID"
-        className="min-w-125px"
-      />
-    ),
-    accessor: "leadId",
-  },
+ 
+  // {
+  //   Header: (props) => (
+  //     <LeadCustomHeader
+  //       tableProps={props}
+  //       title="Order ID"
+  //       className="min-w-125px"
+  //     />
+  //   ),
+  //   accessor: "leadId",
+  // },
   // {
   //   Header: (props) => (
   //     <LeadCustomHeader
@@ -91,16 +113,7 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
   //   ),
   //   accessor: "leadBillNumber",
   // },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="Location"
-        className="min-w-125px"
-      />
-    ),
-    accessor: "leadLocationName",
-  },
+ 
   // {
   //   Header: (props) => (
   //     <LeadCustomHeader
@@ -111,71 +124,62 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
   //   ),
   //   accessor: "leadTime",
   // },
+  // {
+  //   Header: (props) => (
+  //     <LeadCustomHeader
+  //       tableProps={props}
+  //       title="Customer Status"
+  //       className="min-w-125px"
+  //     />
+  //   ),
+  //   accessor: "leadStatusName",
+  // },
+  // {
+  //   Header: (props) => (
+  //     <LeadCustomHeader
+  //       tableProps={props}
+  //       title="Company"
+  //       className="min-w-125px"
+  //     />
+  //   ),
+  //   accessor: "leadCompanyName",
+  // },
   {
     Header: (props) => (
       <LeadCustomHeader
         tableProps={props}
-        title="Customer Status"
+        title="Revenue"
         className="min-w-125px"
       />
     ),
-    accessor: "leadStatusName",
+    accessor: "revenue",
   },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="Company"
-        className="min-w-125px"
-      />
-    ),
-    accessor: "leadCompanyName",
-  },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="AnnualRevenue"
-        className="min-w-125px"
-      />
-    ),
-    accessor: "leadAnnualRevenueContribution",
-  },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="Industry"
-        className="min-w-125px"
-      />
-    ),
-    accessor: "leadIndustry",
-  },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="Phonenumber"
-        className="min-w-125px"
-      />
-    ),
-    accessor: "leadPhonenumber",
-  },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="Digital Media Source"
-        className="min-w-125px"
-      />
-    ),
-    id: "campaignSource",
-    Cell: ({ ...props }) => (
-      <LeadLastLoginCell
-        campaignSource={props.data[props.row.index].campaignName}
-      />
-    ),
-  },
+  // {
+  //   Header: (props) => (
+  //     <LeadCustomHeader
+  //       tableProps={props}
+  //       title="Industry"
+  //       className="min-w-125px"
+  //     />
+  //   ),
+  //   accessor: "leadIndustry",
+  // },
+  
+  // {
+  //   Header: (props) => (
+  //     <LeadCustomHeader
+  //       tableProps={props}
+  //       title="Digital Media Source"
+  //       className="min-w-125px"
+  //     />
+  //   ),
+  //   id: "campaignSource",
+  //   Cell: ({ ...props }) => (
+  //     <LeadLastLoginCell
+  //       campaignSource={props.data[props.row.index].campaignName}
+  //     />
+  //   ),
+  // },
   // {
   //   Header: (props) => (
   //     <LeadCustomHeader tableProps={props} title='Owner' className='min-w-125px' />

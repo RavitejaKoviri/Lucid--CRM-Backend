@@ -100,7 +100,7 @@ const LeadsTable = () => {
                     return val;
                   }
                   if (
-                    val?.original?.leadPhonenumber
+                    val?.original?.leadMobileNumber
                       ?.toLowerCase()
                       ?.includes(searchTerm?.toLowerCase())
                   ) {

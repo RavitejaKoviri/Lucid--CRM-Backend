@@ -18,7 +18,7 @@ const Footer: FC = () => {
         {/*begin::Copyright*/}
         <div className='text-dark order-2 order-md-1'>
           <span className='text-muted fw-bold me-1'>{new Date().getFullYear()}&copy;</span>
-          <a href='websoc.co.in' target='_blank' className='text-gray-800 text-hover-primary'>
+          <a href='https://www.websoc.ai' target='_blank' className='text-gray-800 text-hover-primary'>
             Websoc CRM
           </a>
         </div>
@@ -27,22 +27,22 @@ const Footer: FC = () => {
         {/*begin::Menu*/}
         <ul className='menu menu-gray-600 menu-hover-primary fw-bold order-1'>
           <li className='menu-item'>
-            <a href='https://keenthemes.com/metronic' target='_blank' className='menu-link px-2'>
+            <a href='https://www.websoc.ai' target='_blank' className='menu-link px-2'>
               About
             </a>
           </li>
 
           <li className='menu-item'>
-            <a href='https://keenthemes.com/metronic' target='_blank' className='menu-link px-2'>
+            <a href='https://www.websoc.ai' target='_blank' className='menu-link px-2'>
               Support
             </a>
           </li>
 
-          <li className='menu-item'>
-            <a href='https://keenthemes.com/metronic' target='_blank' className='menu-link px-2'>
+          {/* <li className='menu-item'>
+            <a href='https://www.websoc.ai' target='_blank' className='menu-link px-2'>
               Purchase
             </a>
-          </li>
+          </li> */}
         </ul>
         {/*end::Menu*/}
       </div>
