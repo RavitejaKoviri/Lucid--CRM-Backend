@@ -66,22 +66,22 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
     Header: (props) => (
       <LeadCustomHeader
         tableProps={props}
-        title="FirstName"
+        title="Full Name"
         className="min-w-125px"
       />
     ),
     accessor: "leadFirstName",
   },
-  {
-    Header: (props) => (
-      <LeadCustomHeader
-        tableProps={props}
-        title="LastName"
-        className="min-w-125px"
-      />
-    ),
-    accessor: "leadLastName",
-  },
+  // {
+  //   Header: (props) => (
+  //     <LeadCustomHeader
+  //       tableProps={props}
+  //       title="LastName"
+  //       className="min-w-125px"
+  //     />
+  //   ),
+  //   accessor: "leadLastName",
+  // },
   {
     Header: (props) => (
       <LeadCustomHeader
@@ -93,16 +93,16 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
     accessor: "leadEmail",
   },
  
-  // {
-  //   Header: (props) => (
-  //     <LeadCustomHeader
-  //       tableProps={props}
-  //       title="Order ID"
-  //       className="min-w-125px"
-  //     />
-  //   ),
-  //   accessor: "leadId",
-  // },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Lead Source"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadDigitalMediaSource",
+  },
   // {
   //   Header: (props) => (
   //     <LeadCustomHeader

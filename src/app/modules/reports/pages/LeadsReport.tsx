@@ -135,17 +135,22 @@ export function LeadsReport() {
               <thead>
 
                 <tr className="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                <th className=" min-w-100px">Appointment Date</th>
+                <th className="min-w-100px">Location</th>
                   <th className="min-w-150px">Customer Name</th>
                   <th className="min-w-100px">Email</th>
-                  <th className="min-w-100px">Status</th>
-                  <th className="min-w-150px">Date Joined</th>
-                  <th className=" min-w-150px">Lead Company</th>
-                  <th className="min-w-100px">Industry</th>
-                  <th className=" min-w-100px">Contact</th>
+                  <th className=" min-w-100px">Mobile</th>
+                  <th className="min-w-150px">Revenue</th>
                   <th className=" min-w-100px">Source</th>
-                  <th className=" min-w-100px">Campaign</th>
+                  <th className="min-w-100px">Status</th>
+                  {/*
+                  <th className=" min-w-150px">Lead Company</th> */}
+                  
+                  
+                  
+                  {/* <th className=" min-w-100px">Campaign</th>
                   <th className=" min-w-100px">Website</th>
-                  <th className=" min-w-100px">Revenue</th>
+                  <th className=" min-w-100px">Revenue</th> */}
                 </tr>
 
               </thead>
@@ -173,24 +178,28 @@ export function LeadsReport() {
                   <tbody className="fw-semibold text-gray-600">
 
                     <tr>
+                    <td >{item?.date ? item?.date : 'Nill'}</td>
+                    <td >{item?.leadLocation ? item?.leadLocation : 'Nill'}</td>
 
                       <td>
-                        <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.leadFirstName || item?.leadLastName ? item?.leadFirstName + item?.leadLastName : "Nill"}</a>
+                        <a href="../../demo6/dist/apps/ecommerce/customers/details.html" className="text-dark text-hover-primary">{item?.leadFirstName ? item?.leadFirstName : "Nill"}</a>
                       </td>
                       <td>
                         <a href="#" className="text-dark text-hover-primary">{item?.leadEmail ? item?.leadEmail : "Nill"}</a>
                       </td>
+                      <td >{item?.leadMobileNumber ? item?.leadMobileNumber : 'Nill'}</td>
+                      <td >{item?.revenue ? item?.revenue : 'Nill'}</td>
+                      <td >{item?.leadDigitalMediaSource? item?.leadDigitalMediaSource : 'Nill'}</td>
+                      
+
                       <td>
                         <div className="badge badge-light-success">{item?.leadStatus?.leadStatusName ? item?.leadStatus?.leadStatusName : "Nill"}</div>
                       </td>
-                      <td>{item ? item?.createdAt?.slice(0, 10) + " , " + item?.createdAt?.slice(11, 16) : " "}</td>
-                      <td >{item?.leadCompanyName ? item?.leadCompanyName : 'Nill'}</td>
-                      <td >{item?.leadIndustry ? item?.leadIndustry : 'Nill'}</td>
-                      <td >{item?.leadMobileNumber ? item?.leadMobileNumber : 'Nill'}</td>
-                      <td >{item?.leadSource?.SourceName ? item?.leadSource?.SourceName : 'Nill'}</td>
-                      <td >{item?.campaignSource?.campaignName ? item?.campaignSource?.campaignName : 'Nill'}</td>
-                      <td >{item?.leadWebsite ? item?.leadWebsite : 'Nill'}</td>
-                      <td >{item?.revenue ? item?.revenue : 'Nill'}</td>
+                      {/* <td>{item ? item?.createdAt?.slice(0, 10) + " , " + item?.createdAt?.slice(11, 16) : " "}</td> */}
+                      {/* <td >{item?.leadCompanyName ? item?.leadCompanyName : 'Nill'}</td> */}
+                      {/* <td >{item?.leadIndustry ? item?.leadIndustry : 'Nill'}</td> */}
+                      {/* <td >{item?.leadSource?.SourceName ? item?.leadSource?.SourceName : 'Nill'}</td> */}
+                      {/* <td >{item?.leadWebsite ? item?.leadWebsite : 'Nill'}</td> */}
 
                     </tr>
 

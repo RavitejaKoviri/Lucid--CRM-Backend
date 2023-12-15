@@ -14,7 +14,7 @@ export type Lead = {
     label: string
     state: string
   }
-  lead_source: Object
+  leadDigitalMediaSource: Object
   campaign_source: Object
   revenue: string
   leadCompanyName: string
@@ -38,7 +38,7 @@ export const initialUser: Lead = {
   role: 'Administrator',
   name: '',
   email: '',
-  lead_source: {},
+  leadDigitalMediaSource: '',
   campaign_source: {},
   revenue: '',
   leadCompanyName: '',
