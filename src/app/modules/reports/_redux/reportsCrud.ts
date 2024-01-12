@@ -30,14 +30,14 @@ export function fetchAllTasks(token: any, companyId: any) {
 
 export function fetchAllLeads(token: any, companyId: any) {
 
-  return axios.get(`${LEADS}?company=${companyId}&_sort=date:DESC`, {
+  return axios.get(`${LEADS}?company=${companyId}&_limit=2000&_start=0&_sort=date:DESC`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }
 
 export function fetchAllContacts(token: any, companyId: any) {
 
-  return axios.get(`${CONTACT}?company=${companyId}`, {
+  return axios.get(`${CONTACT}?_limit=2000&_start=0&company=${companyId}`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

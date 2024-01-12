@@ -34,6 +34,7 @@ const LeadsTable = () => {
     setPerPage(leads.slice(0, 10));
   }, [leads]);
   const pageHandler = (pageNumber: any) => {
+    console.log("dddd-------")
     setPerPage(lead.slice(pageNumber * 10 - 10, pageNumber * 10));
   };
   const pageNumbers = [];

@@ -9,7 +9,7 @@ export const sources = "sources";
 
 export function getAllLeads(token: any, companyId: any) {
 
-  return axios.get(`${LEADS}?company=${companyId}&_sort=date:DESC`, {
+  return axios.get(`${LEADS}?_limit=2000&_start=0&company=${companyId}&_sort=date:DESC`, {
     headers: { "content-type": "application/json", Authorization: `Bearer ${token}` },
   });
 }

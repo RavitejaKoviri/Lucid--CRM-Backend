@@ -38,7 +38,7 @@ export function fetchAllTasks(token: any, companyId: any) {
 }
 
 export function fetchAllLeads(token: any, companyId: any) {
-  return axios.get(`${LEADS}?company=${companyId}`, {
+  return axios.get(`${LEADS}?_limit=2000&_start=0&company=${companyId}`, {
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,
