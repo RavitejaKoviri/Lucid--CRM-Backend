@@ -31,7 +31,7 @@ const LeadsListToolbar = () => {
     Industry: item?.leadIndustry,
     LastName: item?.leadLastName,
     Phonenumber: item?.leadMobileNumber,
-    Source: item?.leadSource?.SourceName,
+    Source: item?.leadDigitalMediaSource,
     Status: item?.leadStatus?.leadStatusName,
     Website: item?.leadWebsite,
     TestName: item?.description,
