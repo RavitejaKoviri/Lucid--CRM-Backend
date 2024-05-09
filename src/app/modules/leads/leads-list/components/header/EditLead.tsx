@@ -296,7 +296,7 @@ export default function EditLead() {
                     onChange={handleChange}
                     name="leadCallType"
                   >
-                    <option value={""} disabled selected>
+                    <option value={data.leadCallType} disabled selected>
                       Select Lead/Call Type
                     </option>
                     
@@ -337,7 +337,7 @@ export default function EditLead() {
                     onChange={handleChange}
                     name="leadDigitalMediaSource"
                   >
-                    <option value={""} disabled selected>
+                    <option value={data?.leadDigitalMediaSource?data?.leadDigitalMediaSource : ""} disabled selected>
                       Select Source
                     </option>
                       <option value="Digital">Digital</option>
