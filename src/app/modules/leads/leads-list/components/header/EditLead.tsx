@@ -121,6 +121,11 @@ export default function EditLead() {
       leadOwner: leadById?.leadOwner,
       image: leadById?.image,
       description: leadById?.description,
+      leadDigitalMediaSource:leadById.leadDigitalMediaSource,
+      leadAddress:leadById.leadAddress,
+      leadAge: leadById.leadAge,
+      leadRemarks: leadById.leadRemarks,
+      leadCallType:leadById.leadCallType,
     });
     setLead(false);
     console.log("hello");
@@ -156,6 +161,11 @@ export default function EditLead() {
     leadOwner: user?.id,
     image: imageUrl,
     description: "",
+    leadDigitalMediaSource:"",
+      leadAddress:"",
+      leadAge: "",
+      leadRemarks: "",
+      leadCallType:"",
   });
 
   const handleChange = (e: any) => {
@@ -202,6 +212,11 @@ export default function EditLead() {
       leadOwner: " ",
       image: [],
       description: "",
+      leadDigitalMediaSource:"",
+      leadAddress:"",
+      leadAge: "",
+      leadRemarks: "",
+      leadCallType:"",
     });
     navigation("/leads/list");
   };
@@ -212,133 +227,16 @@ export default function EditLead() {
           <div className="form d-flex flex-column flex-lg-row">
             <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
               {/*begin::Thumbnail settings*/}
-              <div className="card card-flush py-4">
-                {/*begin::Card header*/}
-                <div className="card-header">
-                  {/*begin::Card title*/}
-                  <div className="card-title">
-                    <h2>Image</h2>
-                  </div>
-                  {/*end::Card title*/}
-                </div>
-                {/*end::Card header*/}
-                {/*begin::Card body*/}
-                <div className="card-body text-center pt-0">
-                  {/*begin::Image input*/}
-                  {/*begin::Image input placeholder*/}
-                  {/* <style>.image-input-placeholder [data-th</style> */}
-                  {/*end::Image input placeholder*/}
-                  <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
-                    {selectedPreviewFile ? (
-                      <div className="image-input-wrapper w-150px h-150px">
-                        <label
-                          // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                          // data-kt-image-input-action="change"
-                          data-bs-toggle="tooltip"
-                          title="Remove avatar"
-                        >
-                          <i className="bi bi-x fs-2"></i>
-                          {/*begin::Inputs*/}
-                          <img
-                            src={preview}
-                            alt="no image is selected"
-                            style={{
-                              height: "150px",
-                              width: "150px",
-                              // marginTop: "20px",
-                            }}
-                          />
-                          {/*end::Inputs*/}
-                        </label>
-                      </div>
-                    ) : data?.image?.length > 0 ? (
-                      <div className="image-input-wrapper w-150px h-150px">
-                        <label
-                          // className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                          // data-kt-image-input-action="change"
-                          data-bs-toggle="tooltip"
-                          title="Remove avatar"
-                        >
-                          {/* <i className="bi bi-x fs-7"></i> */}
-                          {/*begin::Inputs*/}
-                          <img
-                            src={`http://65.2.10.157:5377${data?.image[0]?.url}`}
-                            alt="no image to preview"
-                            style={{
-                              height: "150px",
-                              width: "150px",
-                              // marginTop: "20px",
-                            }}
-                          />
-                          {/*end::Inputs*/}
-                        </label>
-                        <label
-                          className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                          data-kt-image-input-action="change"
-                          data-bs-toggle="tooltip"
-                          title="Change avatar"
-                        >
-                          <i className="bi bi-pencil-fill fs-7"></i>
-                          {/*begin::Inputs*/}
-                          <input
-                            type="file"
-                            multiple
-                            // name="avatar"
-                            accept=".png, .jpg, .jpeg"
-                            onChange={(event: any) => {
-                              handleUploadImage(event.currentTarget.files[0]);
-                            }}
-                          />
-                          {/*end::Inputs*/}
-                        </label>
-                      </div>
-                    ) : (
-                      <>
-                        <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3">
-                          <div className="image-input-wrapper w-150px h-150px">
-                            <label
-                              className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                              data-kt-image-input-action="change"
-                              data-bs-toggle="tooltip"
-                              title="Change avatar"
-                            >
-                              <i className="bi bi-pencil-fill fs-7"></i>
-                              {/*begin::Inputs*/}
-                              <input
-                                type="file"
-                                multiple
-                                // name="avatar"
-                                accept=".png, .jpg, .jpeg"
-                                onChange={(event: any) => {
-                                  handleUploadImage(
-                                    event.currentTarget.files[0]
-                                  );
-                                }}
-                              />
-                              {/*end::Inputs*/}
-                            </label>
-                          </div>
-                        </div>
-                        <div className="text-muted fs-7">
-                          Set the product thumbnail image. Only *.png, *.jpg and
-                          *.jpeg image files are accepted
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  {/*end::Image input*/}
-                </div>
-                {/*end::Card body*/}
-              </div>
+              
               {/*end::Thumbnail settings*/}
-              <input
+              {/* <input
                 type="text"
                 value={data.description}
                 onChange={handleChange}
                 name="description"
                 className="form-control"
                 placeholder="Enter Image description"
-              />
+              /> */}
               <div className="card card-flush py-4">
                 <div className="card-header">
                   <div className="card-title">
@@ -380,7 +278,7 @@ export default function EditLead() {
               <div className="card card-flush py-4">
                 <div className="card-header">
                   <div className="card-title">
-                    <h2>Campaign</h2>
+                    <h2>Lead/Call Type</h2>
                   </div>
 
                   <div className="card-toolbar">
@@ -389,19 +287,23 @@ export default function EditLead() {
                 </div>
 
                 <div className="card-body pt-0">
-                  <select
+                <select
                     className="form-select mb-2"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
-                    value={data.campaignSource}
+                    value={data.leadCallType}
                     onChange={handleChange}
-                    name="campaignSource"
+                    name="leadCallType"
                   >
-                    <option></option>
-                    {campaign?.map((item: any) => (
-                      <option value={item?.id}>{item?.campaignName}</option>
-                    ))}
+                    <option value={""} disabled selected>
+                      Select Lead/Call Type
+                    </option>
+                    
+                      <option value="home visit enquiry">Home Visit</option>
+                      <option value="Report Enquiry">Report Enquiry</option>
+                      <option value="Test /Pkg Enquiry">Test /Pkg Enquiry</option>
+                      <option value="Location/Branch Enquiry">Location/Branch Enquiry</option>
                   </select>
 
                   <div className="d-none mt-10">
@@ -426,20 +328,24 @@ export default function EditLead() {
                 </div>
 
                 <div className="card-body pt-0">
-                  <select
+                <select
                     className="form-select mb-2"
                     data-control="select2"
                     data-hide-search="true"
                     data-placeholder="Select an option"
-                    value={data.leadSource}
+                    value={data.leadDigitalMediaSource}
                     onChange={handleChange}
-                    name="leadSource"
+                    name="leadDigitalMediaSource"
                   >
-                    <option></option>
-                    {source?.map((item: any) => (
-                      <option value={item?.id}>{item?.SourceName}</option>
-                    ))}
+                    <option value={""} disabled selected>
+                      Select Source
+                    </option>
+                      <option value="Digital">Digital</option>
+                      <option value="Walk-In">Walk-In</option>
+                      <option value="Reference">Reference</option>
+                    
                   </select>
+
 
                   <div className="d-none mt-10">
                     <label className="form-label">
@@ -455,7 +361,146 @@ export default function EditLead() {
               </div>
             </div>
 
+            
             <div className="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
+              <div className="d-flex flex-column gap-7 gap-lg-10">
+                <div className="card card-flush py-4">
+                  <div className="card-header">
+                    <div className="card-title">
+                      <h2>Lead Personal Details</h2>
+                    </div>
+                  </div>
+
+                  <div className="card-body pt-0">
+                    <form className="form">
+                      {/* <div className="form-group row mb-2">
+                            <div className="col-lg-6">
+                              <input
+                                type="text"
+                                value={data.leadId}
+                                onChange={handleChange}
+                                name="leadId"
+                                className="form-control"
+                                placeholder="Enter LeadId"
+                              />
+                            </div>
+                          </div> */}
+                      <div className="form-group row my-8">
+                      <div className="col-lg-4">
+                          {/* <label>PhoneNumber:</label> */}
+                          <input
+                            type="text"
+                            value={data.leadMobileNumber}
+                            onChange={handleChange}
+                            name="leadMobileNumber"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Mobile Number"
+                          />
+                        </div>
+                        <div className="col-lg-4">
+                          {/* <label>Lead FirstName:</label> */}
+                          
+                          <input
+                            type="text"
+                            value={data.leadFirstName}
+                            onChange={handleChange}
+                            name="leadFirstName"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="First Name"
+                          />
+                        </div>
+                        <div className="col-lg-4">
+                          <input
+                            type="text"
+                            value={data.leadLastName}
+                            onChange={handleChange}
+                            name="leadLastName"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Last Name"
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group row my-8">
+                      <div className="col-lg-4">
+                          {/* <label> Email:</label> */}
+                          <input
+                            type="number"
+                            value={data.leadAge}
+                            onChange={handleChange}
+                            name="leadAge"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Age"
+                          />
+                        </div>
+                        <div className="col-lg-4">
+                        <select
+                            className="form-select form-select-solid form-select-lg"
+                            // data-control="select2"
+                            // data-hide-search="true"
+                            name="leadGender"
+                            value={data?.leadGender}
+                            onChange={handleChange}
+                          >
+                            <option value="" disabled selected>
+                              Select Gender
+                            </option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="others">others</option>
+                          </select>
+                        </div>
+                       
+                        <div className="col-lg-4">
+                          {/* <label> Email:</label> */}
+                          <input
+                            type="email"
+                            value={data.leadEmail}
+                            onChange={handleChange}
+                            name="leadEmail"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Email"
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group row my-8">
+                        {/* <div className="col-lg-6">
+                              <label>Gender:</label>
+                              <input
+                                type="text"
+                                value={data.leadGender}
+                                onChange={handleChange}
+                                name="leadGender"
+                                className="form-control"
+                                placeholder="Enter Gender"
+                              />
+                            </div> */}
+                        
+                          {/* <label>Lead Gender</label> */}
+                         
+                        
+                        <div className="col-lg-6">
+                          {/* <label>AppointmentDate:</label> */}
+                          <input
+                            type="text"
+                            value={data.date}
+                            onChange={handleChange}
+                            onFocus={(e) => {
+                              e.target.type = "date";
+                            }}
+                            name="date"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Appointment Date"
+                          />
+                        </div>
+                      </div>
+
+                      {/* <div className="form-group row my-8">
+                        
+                      </div> */}
+                    </form>
+                  </div>
+                </div>
+              </div>
               <div className="d-flex flex-column gap-7 gap-lg-10">
                 <div className="card card-flush py-4">
                   <div className="card-header">
@@ -478,278 +523,226 @@ export default function EditLead() {
                               />
                             </div>
                           </div> */}
-                      <div className="form-group row mb-2">
-                        <div className="col-lg-6">
-                          <label>Lead FirstName:</label>
+                          <div className="form-group row my-8">
+                        <div className="col-lg-12">
+                          {/* <label>Speciality Name:</label> */}
                           <input
                             type="text"
-                            value={data.leadFirstName}
+                            value={data.leadRemarks}
                             onChange={handleChange}
-                            name="leadFirstName"
+                            name="Remarks"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter FirstName"
+                            placeholder="Remarks"
                           />
                         </div>
-                        <div className="col-lg-6">
-                          <label>Lead LastName:</label>
-                          <input
-                            type="text"
-                            value={data.leadLastName}
-                            onChange={handleChange}
-                            name="leadLastName"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter LastNamer"
-                          />
                         </div>
-                      </div>
-                      <div className="form-group row mb-2">
-                        <div className="col-lg-6">
-                          <label>PhoneNumber:</label>
-                          <input
-                            type="text"
-                            value={data.leadMobileNumber}
-                            onChange={handleChange}
-                            name="leadMobileNumber"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter PhoneNumber"
-                          />
-                        </div>
-                        <div className="col-lg-6">
-                          <label> Email:</label>
-                          <input
-                            type="email"
-                            value={data.leadEmail}
-                            onChange={handleChange}
-                            name="leadEmail"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Email"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row mb-2">
-                        {/* <div className="col-lg-6">
-                              <label>Gender:</label>
-                              <input
-                                type="text"
-                                value={data.leadGender}
-                                onChange={handleChange}
-                                name="leadGender"
-                                className="form-control"
-                                placeholder="Enter Gender"
-                              />
-                            </div> */}
-                        <div className="col-lg-6">
-                          <label>Lead Gender</label>
-                          <select
-                            className="form-select mb-2"
-                            data-control="select2"
-                            data-hide-search="true"
-                            data-placeholder="Select an option"
-                            name="gender"
-                            value={data?.leadGender}
-                            onChange={handleChange}
-                          >
-                            <option value="" disabled selected>
-                              --Select Gender--
-                            </option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="others">others</option>
-                          </select>
-                        </div>
-                        <div className="col-lg-6">
-                          <label>AppointmentDate:</label>
-                          <input
-                            type="date"
-                            value={data.date}
-                            onChange={handleChange}
-                            name="date"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter AppointmentDate"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row mb-2">
-                        <div className="col-lg-6">
-                          <label>StatusName:</label>
-                          <input
-                            type="text"
-                            value={data.leadStatusName}
-                            onChange={handleChange}
-                            name="leadStatusName"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter StatusName"
-                          />
-                        </div>
-                        <div className="col-lg-6">
-                          <label>StatusID:</label>
-                          <input
-                            type="text"
-                            value={data.leadStatusId}
-                            onChange={handleChange}
-                            name="leadStatusId"
-                            className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter StatusID"
-                          />
-                        </div>
-                      </div>
-                      <div className="form-group row mb-2">
-                        {/* <div className="col-lg-6">
-                          <label>Speciality Name:</label>
-                          <input
+                        <div className="form-group row my-8">
+                        {/* <div className="col-lg-6"> */}
+                          {/* <label>Speciality Name:</label> */}
+                          {/* <input
                             type="text"
                             value={data.description}
                             onChange={handleChange}
                             name="description"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter SpecialityName"
+                            placeholder="Speciality Name"
                           />
                         </div> */}
-                        <div className="col-lg-6">
-                          <label>Location Name:</label>
+                        <div className="col-lg-12">
+                          {/* <label>Location Name:</label> */}
+                          <input
+                            type="email"
+                            value={data.leadAddress}
+                            onChange={handleChange}
+                            name="leadAddress"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Address"
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group row my-8">
+                        {/* <div className="col-lg-6"> */}
+                          {/* <label>Speciality Name:</label> */}
+                          {/* <input
+                            type="text"
+                            value={data.description}
+                            onChange={handleChange}
+                            name="description"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Speciality Name"
+                          />
+                        </div> */}
+                        <div className="col-lg-12">
+                          {/* <label>Location Name:</label> */}
                           <input
                             type="email"
                             value={data.leadLocation}
                             onChange={handleChange}
                             name="leadLocation"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Location"
+                            placeholder="Location"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
-                          <label>utmSource:</label>
+                          {/* <label>StatusName:</label> */}
+                          <input
+                            type="text"
+                            value={data.leadStatusName}
+                            onChange={handleChange}
+                            name="leadStatusName"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Status Name"
+                          />
+                        </div>
+                        <div className="col-lg-6">
+                          {/* <label>StatusID:</label> */}
+                          <input
+                            type="text"
+                            value={data.leadStatusId}
+                            onChange={handleChange}
+                            name="leadStatusId"
+                            className="form-control form-control-lg form-control-solid"
+                            placeholder="Status ID"
+                          />
+                        </div>
+                      </div>
+                      <div className="form-group row my-8">
+                        <div className="col-lg-6">
+                          {/* <label>utmSource:</label> */}
                           <input
                             type="text"
                             value={data.utmSource}
                             onChange={handleChange}
                             name="utmSource"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmSource"
+                            placeholder="Utm Source"
                           />
                         </div>
                         <div className="col-lg-6">
-                          <label>utmMedium:</label>
+                          {/* <label>utmMedium:</label> */}
                           <input
                             type="email"
                             value={data.utmMedium}
                             onChange={handleChange}
                             name="utmMedium"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmMedium"
+                            placeholder="Utm Medium"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
-                          <label>utmCampaign:</label>
+                          {/* <label>utmCampaign:</label> */}
                           <input
                             type="text"
                             value={data.utmCampaign}
                             onChange={handleChange}
                             name="utmCampaign"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmCampaign"
+                            placeholder="Utm Campaign"
                           />
                         </div>
                         <div className="col-lg-6">
-                          <label>leadBusinessUnit:</label>
+                          {/* <label>leadBusinessUnit:</label> */}
                           <input
                             type="text"
                             value={data.leadBusinessUnit}
                             onChange={handleChange}
                             name="leadBusinessUnit"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter leadBusinessUnit"
+                            placeholder="Lead Business Unit"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
-                          <label>utmTerm:</label>
+                          {/* <label>utmTerm:</label> */}
                           <input
                             type="text"
                             value={data.utmTerm}
                             onChange={handleChange}
                             name="utmTerm"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmTerm"
+                            placeholder="Utm Term"
                           />
                         </div>
                         <div className="col-lg-6">
-                          <label>utmAdgroup:</label>
+                          {/* <label>utmAdgroup:</label> */}
                           <input
                             type="text"
                             value={data.utmAdgroup}
                             onChange={handleChange}
                             name="utmAdgroup"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter utmAdgroup"
+                            placeholder="Utm Adgroup"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
-                          <label>EmailOptOut:</label>
+                          {/* <label>EmailOptOut:</label> */}
                           <input
                             type="email"
                             value={data.leadEmailOptOut}
                             onChange={handleChange}
                             name="leadEmailOptOut"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter EmailOptOut"
+                            placeholder="Email Opt Out"
                           />
                         </div>
                         <div className="col-lg-6">
-                          <label>Industry:</label>
+                          {/* <label>Industry:</label> */}
                           <input
                             type="text"
                             value={data.leadIndustry}
                             onChange={handleChange}
                             name="leadIndustry"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Industry"
+                            placeholder="Industry"
                           />
                         </div>
                       </div>
-                      <div className="form-group row mb-2">
+                      <div className="form-group row my-8">
                         <div className="col-lg-6">
-                          <label>Revenue:</label>
+                          {/* <label>AnnualRevenue:</label> */}
                           <input
                             type="text"
                             value={data.revenue}
                             onChange={handleChange}
                             name="revenue"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Revenue"
+                            placeholder="Revenue"
                           />
                         </div>
-                        <div className="col-lg-6">
-                          <label>CompanyName:</label>
-                          <input
+                        {/* <div className="col-lg-6"> */}
+                        {/* <label>CompanyName:</label> */}
+                        {/* <input
                             type="text"
                             value={data.leadCompanyName}
                             onChange={handleChange}
                             name="leadCompanyName"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter CompanyName"
+                            placeholder="Enter Company Name"
                           />
-                        </div>
-                      </div>
-                      <div className="form-group row mb-2">
+                        </div> */}
                         <div className="col-lg-6">
-                          <label>Website:</label>
+                          {/* <label>Website:</label> */}
                           <input
                             type="text"
                             value={data.leadWebsite}
                             onChange={handleChange}
                             name="leadWebsite"
                             className="form-control form-control-lg form-control-solid"
-                            placeholder="Enter Website"
+                            placeholder="Website"
                           />
                         </div>
                       </div>
+                      {/* <div className="form-group row my-8">
+                        
+                      </div> */}
                     </form>
                   </div>
                 </div>

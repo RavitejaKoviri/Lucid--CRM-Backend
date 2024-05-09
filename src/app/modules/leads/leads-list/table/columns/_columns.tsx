@@ -92,7 +92,36 @@ const LeadsColumns: ReadonlyArray<Column<Lead>> = [
     ),
     accessor: "leadEmail",
   },
- 
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Age"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadAge",
+  },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Address"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadAddress",
+  },
+  {
+    Header: (props) => (
+      <LeadCustomHeader
+        tableProps={props}
+        title="Remarks"
+        className="min-w-125px"
+      />
+    ),
+    accessor: "leadRemarks",
+  },
   {
     Header: (props) => (
       <LeadCustomHeader

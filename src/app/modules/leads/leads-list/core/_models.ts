@@ -27,6 +27,9 @@ export type Lead = {
   date:string
   leadId:string
   leadLocation:string
+  leadAge: number
+  leadAddress:string
+  leadRemarks:string
   leadStatusName:string
 }
 
@@ -50,6 +53,9 @@ export const initialUser: Lead = {
   description:'',
   date:'',
   leadId:'',
+  leadAge:0,
+  leadAddress:'',
+  leadRemarks:'',
   leadLocation:'',
   leadStatusName:'',
 }
