@@ -57,12 +57,12 @@ export default function LeadAdduser() {
     utmTerm: "",
     utmMedium: "",
     // leadId: "",
-    leadSource: "",
+    // leadSource: 0,
     leadAge: "",
     leadRemarks: "",
     leadCallType:"",
     leadBusinessUnit: "",
-    campaignSource: "",
+    // campaignSource: "",
     leadDigitalMediaSource:"",
       leadAddress:"",
     // description: "",
@@ -158,14 +158,14 @@ export default function LeadAdduser() {
       // description: "",
       leadEmail: "",
       leadWebsite: "",
-      leadSource: "",
+      // leadSource: 0,
       leadCallType:"",
       leadAge: "",
       leadRemarks: "",
       leadDigitalMediaSource:"",
       leadAddress:"",
       leadStatusId: "",
-      campaignSource: "",
+      // campaignSource: "",
       company: "",
       leadStatus: "",
       leadOwner: "",
@@ -199,14 +199,14 @@ export default function LeadAdduser() {
       // description: "",
       leadEmail: "",
       leadWebsite: "",
-      leadSource: "",
+      // leadSource: 0,
       leadDigitalMediaSource:"",
       leadAddress:"",
       leadAge: "",
       leadRemarks: "",
       leadCallType:"",
       leadStatusId: "",
-      campaignSource: "",
+      // campaignSource: "",
       company: "",
       leadStatus: "",
       leadOwner: "",
@@ -524,10 +524,11 @@ export default function LeadAdduser() {
                             type="text"
                             value={data.leadRemarks}
                             onChange={handleChange}
-                            name="Remarks"
+                            name="leadRemarks"
                             className="form-control form-control-lg form-control-solid"
                             placeholder="Remarks"
                           />
+                          
                         </div>
                         </div>
                         <div className="form-group row my-8">

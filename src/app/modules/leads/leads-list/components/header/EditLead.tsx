@@ -115,7 +115,7 @@ export default function EditLead() {
       utmTerm: leadById?.utmTerm,
       leadId: leadById?.leadId,
       leadBusinessUnit: leadById?.leadBusinessUnit,
-      campaignSource: leadById?.campaignSource,
+      // campaignSource: leadById?.campaignSource,
       company: leadById?.company,
       leadStatus: leadById?.leadStatus,
       leadOwner: leadById?.leadOwner,
@@ -154,7 +154,7 @@ export default function EditLead() {
     leadId: "",
     leadSource: " ",
     leadBusinessUnit: "",
-    campaignSource: " ",
+    // campaignSource: " ",
     // description: "",
     company: user?.company?.id,
     leadStatus: " ",
@@ -206,7 +206,7 @@ export default function EditLead() {
       leadWebsite: " ",
       leadSource: " ",
       leadStatusId: "",
-      campaignSource: " ",
+      // campaignSource: " ",
       company: " ",
       leadStatus: " ",
       leadOwner: " ",
@@ -530,7 +530,7 @@ export default function EditLead() {
                             type="text"
                             value={data.leadRemarks}
                             onChange={handleChange}
-                            name="Remarks"
+                            name="leadRemarks"
                             className="form-control form-control-lg form-control-solid"
                             placeholder="Remarks"
                           />
