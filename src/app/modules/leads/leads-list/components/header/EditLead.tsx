@@ -117,15 +117,15 @@ export default function EditLead() {
       leadBusinessUnit: leadById?.leadBusinessUnit,
       // campaignSource: leadById?.campaignSource,
       company: leadById?.company,
-      leadStatus: leadById?.leadStatus,
+      leadStatus: leadById?.leadStatus?.id,
       leadOwner: leadById?.leadOwner,
       image: leadById?.image,
       description: leadById?.description,
-      leadDigitalMediaSource:leadById.leadDigitalMediaSource,
-      leadAddress:leadById.leadAddress,
-      leadAge: leadById.leadAge,
-      leadRemarks: leadById.leadRemarks,
-      leadCallType:leadById.leadCallType,
+      leadDigitalMediaSource:leadById?.leadDigitalMediaSource,
+      leadAddress:leadById?.leadAddress,
+      leadAge: leadById?.leadAge,
+      leadRemarks: leadById?.leadRemarks,
+      leadCallType:leadById?.leadCallType,
     });
     setLead(false);
     console.log("hello");
@@ -175,6 +175,7 @@ export default function EditLead() {
       image: imageUrl,
       company: user?.company?.id,
     });
+    console.log(data, "best");
   };
   console.log(data, "TEST");
 
@@ -296,8 +297,8 @@ export default function EditLead() {
                     onChange={handleChange}
                     name="leadCallType"
                   >
-                    <option value={data.leadCallType} disabled selected>
-                      Select Lead/Call Type
+                    <option value={data?.leadCallType} disabled selected>
+                      {data?.leadCallType}
                     </option>
                     
                       <option value="home visit enquiry">Home Visit</option>
@@ -337,12 +338,20 @@ export default function EditLead() {
                     onChange={handleChange}
                     name="leadDigitalMediaSource"
                   >
-                    <option value={data?.leadDigitalMediaSource?data?.leadDigitalMediaSource : ""} disabled selected>
-                      Select Source
+                    <option value={data?.leadDigitalMediaSource} disabled selected>
+                     {data?.leadDigitalMediaSource}     
                     </option>
                       <option value="Digital">Digital</option>
                       <option value="Walk-In">Walk-In</option>
                       <option value="Reference">Reference</option>
+                      <option value="Sample - Direct">Sample - Direct</option>
+                      <option value="Scan - Google PPC">Scan - Google PPC</option>
+                      <option value="Sample - Google">Sample - Google</option>
+                      <option value="Test - Direct">Test - Direct</option>
+                      <option value="Test - Google">Test - Google</option>
+                      
+
+                      
                     
                   </select>
 
